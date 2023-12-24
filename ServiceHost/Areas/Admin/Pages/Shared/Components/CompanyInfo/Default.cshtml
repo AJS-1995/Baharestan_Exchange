@@ -1,0 +1,44 @@
+﻿@model _01_QueryManagement.SidebarModel
+
+<a asp-page="/Index" class="logo">
+
+    @if (Model.CompaneisQueryModel != null)
+    {
+        @if (Model.CompaneisQueryModel.Logo != null && Model.CompaneisQueryModel.Logo != "")
+        {
+            <div class="logo-mini">
+                <span class="light-logo img-light-logo"><b><img src="~/Uploader/@Model.CompaneisQueryModel.Logo" alt="company"></b></span>
+                <span class="dark-logo img-dark-logo"><b><img src="~/Uploader/@Model.CompaneisQueryModel.Logo" alt="company"></b></span>
+            </div>
+        }
+        else
+        {
+            <div class="logo-mini">
+                <span class="light-logo"><b><img src="~/favicon.ico" alt="company"></b></span>
+                <span class="dark-logo"><b><img src="~/favicon.ico" alt="company"></b></span>
+            </div>
+        }
+        <span>
+            @if (Model.CompaneisQueryModel.Name == "")
+            {
+                <div class="logo-lg ml-15">
+                    <span class="light-logo"> <b> صرافی بهارستان </b> </span>
+                    <span class="dark-logo"> <b> صرافی بهارستان </b> </span>
+                </div>
+            }
+            else
+            {
+                <div class="logo-lg ml-15">
+                    <span class="light-logo"> <b> @Model.CompaneisQueryModel.Name </b> </span>
+                    <span class="dark-logo"> <b> @Model.CompaneisQueryModel.Name </b> </span>
+                </div>
+            }
+        </span>
+    }
+    else
+    {
+        <script>
+            window.location.href = "/Index";
+        </script>
+    }
+</a>

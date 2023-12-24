@@ -1,0 +1,42 @@
+﻿@model Contracts.SafeBoxContracts.SafeBoxCreate
+@{
+    ViewData["title"] = "ثبت صندق جدید";
+}
+<div class="modal-header">
+    <a class="btn btn-sm btn-icon btn-outline-warning" asp-page="./Index"><i class="fa-solid fa-close fa-lg"></i></a>
+    <h4 class="modal-title">ثبت صندق جدید</h4>
+</div>
+
+<form class="needs-validation" novalidate asp-page="./Index" asp-page-handler="Create" method="post"
+      data-ajax="true"
+      data-callback=""
+      data-action="Refresh">
+    <div class="modal-body">
+        <div class="row">
+            <div class="col-sm-12">
+                <div class="form-group">
+                    <label class="form-label" asp-for="Name">نام</label>
+                    <input type="text" class="form-control" required asp-for="Name" id="Name">
+                    <div class="invalid-feedback">اطلاعات باید وارد شود !</div>
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-sm-6">
+                <div class="form-group">
+                    <label class="form-label" for="Treasurer">مسئول</label>
+                    <input id="Treasurer" type="text" class="form-control" asp-for="Treasurer">
+                </div>
+            </div>
+            <div class="col-sm-6">
+                <div class="form-group">
+                    <label class="form-label" for="Mobiles">شماره تماس</label>
+                    <input id="Mobiles" dir="ltr" type="text" class="form-control" asp-for="Mobile">
+                </div>
+            </div>
+        </div>
+        <div class="modal-footer">
+            <button type="submit" class="btn btn-sm btn-icon btn-outline-success"><i class="fa-solid fa-save fa-lg"></i></button>
+        </div>
+    </div>
+</form>

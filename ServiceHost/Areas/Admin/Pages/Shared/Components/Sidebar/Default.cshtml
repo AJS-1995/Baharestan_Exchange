@@ -1,0 +1,80 @@
+﻿@model _01_QueryManagement.SidebarModel
+
+<aside class="main-sidebar">
+    <section class="sidebar">
+        <ul class="sidebar-menu" data-widget="tree">
+
+            <li class="user-profile treeview">
+                <a asp-page="/Users/Index">
+                    @if (Model.UsersQueryModel != null)
+                    {
+                        @if (Model.UsersQueryModel.ProfilePhoto != null && Model.UsersQueryModel.ProfilePhoto != "")
+                        {
+                            <img src="~/Uploader/@Model.UsersQueryModel.ProfilePhoto" alt="user">
+                        }
+                        else
+                        {
+                            <img src="~/nouser.svg" alt="user">
+                        }
+                        <span>
+                            @if (Model.UsersQueryModel.FullName == "Administrator")
+                            {
+                                <span class="d-block font-weight-600 font-size-16">مدیر کُل</span>
+                            }
+                            else
+                            {
+                                <span class="d-block font-weight-600 font-size-16">@Model.UsersQueryModel.FullName</span>
+                            }
+                            <span class="email-id text-center">@Model.UsersQueryModel.RolePersian</span>
+                        </span>
+                    }
+                    else
+                    {
+                        <script>
+                            window.location.href = "/Index";
+                        </script>
+                    }
+                </a>
+            </li>
+            <li><a asp-page="/Journal"><i class="fa-solid fa-book"></i><span>روزنامچه</span></a></li>
+            <li class="treeview">
+                <a href="#">
+                    <i class="fa-solid fa-people-group fa-2xl"></i>
+                    <span>مدیریت اشخاص</span>
+                    <span class="pull-right-container">
+                        <i class="fa fa-angle-right pull-right"></i>
+                    </span>
+                </a>
+                <ul class="treeview-menu">
+                    <li><a asp-page="/Personnel/Index"><i class="fa-solid fa-person-dots-from-line fa-xl margin_left"></i>کارمندان</a></li>
+                    <li><a asp-page="/Persons/Index"><i class="fa-solid fa-people-robbery fa-xl margin_left"></i>افراد</a></li>
+                </ul>
+            </li>
+            <li class="treeview">
+                <a href="#">
+                    <i class="fa-solid fa-vault fa-2xl"></i>
+                    <span>مدیریت صندق ها</span>
+                    <span class="pull-right-container">
+                        <i class="fa fa-angle-right pull-right"></i>
+                    </span>
+                </a>
+                <ul class="treeview-menu">                   
+                    <li><a asp-page="/Moneys/Index"><i class="fa-solid fa-money-bills fa-xl margin_left"></i>پول ها</a></li>
+                    <li><a asp-page="/SafeBoxs/Index"><i class="fa-solid fa-piggy-bank fa-xl margin_left"></i>صندق ها</a></li>
+                </ul>
+            </li>
+            <li class="treeview">
+                <a href="#">
+                    <i class="fa-solid fa-flask fa-2xl"></i>
+                    <span>مدیریت مصارف</span>
+                    <span class="pull-right-container">
+                        <i class="fa fa-angle-right pull-right"></i>
+                    </span>
+                </a>
+                <ul class="treeview-menu">
+                    <li><a asp-page="/Expenses/Index"><i class="fa-solid fa-flask-vial fa-xl margin_left"></i>مصارف</a></li>
+                </ul>
+            </li>
+        </ul>
+    </section>
+</aside>

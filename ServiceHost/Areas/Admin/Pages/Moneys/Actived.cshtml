@@ -1,0 +1,38 @@
+﻿@model Contracts.MoneyContracts.MoneyRemoved
+@{
+    ViewData["title"] = "لیست پول ها غیرفعال شده";
+}
+<div class="modal-header">
+    <a class="btn btn-sm btn-icon btn-outline-warning" asp-page="./Index"><i class="fa-solid fa-close fa-lg"></i></a>
+    <h4 class="modal-title">لیست پول ها غیرفعال شده</h4>
+</div>
+
+<div class="modal-body">
+    <div class="table-responsive">
+        <table class="table table-bordered table-hover display nowrap margin-top-10 w-p100 js-serial">
+            <thead class="table-Primary">
+                <tr>
+                    <th class="text-center">#</th>
+                    <th class="text-center">نام</th>
+                    <th class="text-center">کشور</th>
+                    <th class="text-center">سمبول</th>
+                    <th class="text-center">عملیات</th>
+                </tr>
+            </thead>
+            <tbody id="tbodyv">
+                @foreach (var item in Model.MoneyRemoveds)
+                {
+                    <tr>
+                        <td class="text-center"></td>
+                        <td class="text-center">@item.Name</td>
+                        <td class="text-center">@item.Country</td>
+                        <td class="text-center">@item.Symbol</td>
+                        <td class="text-center">
+                            <a class="btn btn-sm btn-icon btn-outline-danger" title="فعال کردن" onclick="Active(@item.Id)"><i class="fa-solid fa-check fa-lg"></i></a>
+                        </td>
+                    </tr>
+                }
+            </tbody>
+        </table>
+    </div>
+</div>

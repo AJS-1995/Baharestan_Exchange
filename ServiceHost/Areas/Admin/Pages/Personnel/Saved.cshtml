@@ -1,0 +1,27 @@
+﻿@model Contracts.PersonnelContracts.PersonnelViewModel
+@{
+    ViewData["title"] = "ثبت کننده کارمند";
+}
+<div class="modal-header">
+    <a class="btn btn-sm btn-icon btn-outline-warning" asp-page="./Index"><i class="fa-solid fa-close fa-lg"></i></a>
+    <h4 class="modal-title">ثبت کننده کارمند  - @Model.FullName</h4>
+</div>
+
+<form class="needs-validation">
+    <div class="modal-body">
+        <div class="row">
+            <div class="col-sm-6">
+                <div class="form-group">
+                    <label class="form-label" for="User_Name">نام ثبت کننده</label>
+                    <input id="User_Name" readonly type="text" class="form-control" required asp-for="User_Name">
+                </div>
+            </div>
+            <div class="col-sm-6">
+                <div class="form-group">
+                    <label class="form-label" for="SaveDate">تاریخ ثبت</label>
+                    <input id="SaveDate" readonly type="text" class="form-control" required asp-for="SaveDate">
+                </div>
+            </div>
+        </div>
+    </div>
+</form>

@@ -1,0 +1,73 @@
+﻿@page
+@model ServiceHost.Areas.Admin.Pages.SettingsModel
+@using Configuration.Permissions.General;
+@{
+    Layout = "Shared/_AdminLayout";
+    ViewData["title"] = "تنظیمات";
+}
+<section class="content">
+    <div class="row">
+        <div class="col-sm-12">
+            <div class="card">
+                <div class="card-header d-flex justify-content-between bb-1 border-info">
+                    <div class="header-title">
+                        <span class="card-title mx-2">تنظیمات</span>
+                        <a class="btn btn-sm btn-icon btn-outline-info mx-2" title="برگشت" asp-page="./Index"><i class="fa-solid fa-left-long fa-lg"></i></a>
+                    </div>
+                </div>
+                <div class="card-body">
+                    <form class="needs-validation" novalidate method="post"
+                          data-ajax="true"
+                          data-callback=""
+                          data-action="Refresh">
+                        <div class="modal-body">
+                            <div class="row">
+                                <div class="col-md-6">
+                                    <div class="form-group">
+                                        <label class="form-label" for="Name">نام کمپنی</label>
+                                        <input id="Name" type="text" required class="form-control" asp-for="@Model.command.Name">
+                                        <div class="invalid-feedback">اطلاعات باید وارد شود !</div>
+                                    </div>
+                                </div>
+                                <div class="col-md-6">
+                                    <div class="form-group">
+                                        <label class="form-label" for="Address">آدرس کمپنی</label>
+                                        <input id="Address" type="text" required class="form-control" asp-for="@Model.command.Address">
+                                        <div class="invalid-feedback">اطلاعات باید وارد شود !</div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-md-6">
+                                    <div class="form-group">
+                                        <label class="form-label" for="Responsible">مسئول کمپنی</label>
+                                        <input id="Responsible" type="text" required class="form-control" asp-for="@Model.command.Responsible">
+                                        <div class="invalid-feedback">اطلاعات باید وارد شود !</div>
+                                    </div>
+                                </div>
+                                <div class="col-md-6">
+                                    <div class="form-group">
+                                        <label class="form-label" for="phone">موبایل کمپنی</label>
+                                        <input id="phone" type="text" dir="ltr" required class="form-control" asp-for="@Model.command.Mobile">
+                                        <div class="invalid-feedback">اطلاعات باید وارد شود !</div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="modal-footer">
+                                <button type="submit" class="btn btn-sm btn-icon btn-outline-success"><i class="fa-solid fa-save fa-lg"></i></button>
+                            </div>
+                        </div>
+                        <input type="hidden" id="Sales_Id" asp-for="@Model.command.Id" />
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+@section Scripts 
+{
+    <script src="~/Theme/assets/formatter/formatter.js"></script>
+    <script src="~/Theme/assets/formatter/jquery.formatter.js"></script>
+    <script src="~/Theme/material-rtl/js/formatter.js"></script>
+}

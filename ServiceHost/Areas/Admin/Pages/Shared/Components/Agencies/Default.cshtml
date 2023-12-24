@@ -1,0 +1,22 @@
+﻿@model _01_QueryManagement.SidebarModel
+
+<a asp-page="/Index" class="logo">
+
+    @if (Model.AgenciessQueryModel != null)
+    {
+        @if (Model.AgenciessQueryModel.Name == "")
+        {
+            <span class="card-title mx-2">مرکزی</span>
+        }
+        else
+        {
+            <span class="card-title mx-2">@Model.AgenciessQueryModel.Name - @Model.AgenciessQueryModel.Address</span>
+        }
+    }
+    else
+    {
+        <script>
+            window.location.href = "/Index";
+        </script>
+    }
+</a>
