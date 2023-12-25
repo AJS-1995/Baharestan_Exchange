@@ -11,7 +11,7 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace Infrastructure.Migrations
 {
     [DbContext(typeof(BE_Context))]
-    [Migration("20231222221536_a")]
+    [Migration("20231225030111_a")]
     partial class a
     {
         /// <inheritdoc />
@@ -102,6 +102,47 @@ namespace Infrastructure.Migrations
                     b.HasKey("Id");
 
                     b.ToTable("Tbl_Companies", (string)null);
+                });
+
+            modelBuilder.Entity("Domin.ExchangeRateDomin.ExchangeRate", b =>
+                {
+                    b.Property<long>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("bigint");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<long>("Id"));
+
+                    b.Property<int>("AgenciesId")
+                        .HasColumnType("int");
+
+                    b.Property<decimal>("Amount")
+                        .HasColumnType("decimal(18,2)");
+
+                    b.Property<bool>("Deleted")
+                        .HasColumnType("bit");
+
+                    b.Property<int>("MainMoneyId")
+                        .HasColumnType("int");
+
+                    b.Property<decimal>("Price")
+                        .HasColumnType("decimal(18,2)");
+
+                    b.Property<string>("SaveDate")
+                        .HasMaxLength(25)
+                        .HasColumnType("nvarchar(25)");
+
+                    b.Property<int>("SecondaryMoneyId")
+                        .HasColumnType("int");
+
+                    b.Property<bool>("Status")
+                        .HasColumnType("bit");
+
+                    b.Property<int>("UserId")
+                        .HasColumnType("int");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("Tbl_ExchangeRates", (string)null);
                 });
 
             modelBuilder.Entity("Domin.ExpenseDomin.Collection", b =>
@@ -245,6 +286,128 @@ namespace Infrastructure.Migrations
                     b.HasKey("Id");
 
                     b.ToTable("Tbl_Moneys", (string)null);
+
+                    b.HasData(
+                        new
+                        {
+                            Id = 1,
+                            AgenciesId = 0,
+                            Country = "افغانستان",
+                            Deleted = false,
+                            Name = "افغانی",
+                            SaveDate = "1402/10/04 07:31:10",
+                            Status = true,
+                            Symbol = "؋",
+                            UserId = 1
+                        },
+                        new
+                        {
+                            Id = 2,
+                            AgenciesId = 0,
+                            Country = "ایالات متحده امریکا",
+                            Deleted = false,
+                            Name = "دلار",
+                            SaveDate = "1402/10/04 07:31:10",
+                            Status = true,
+                            Symbol = "$",
+                            UserId = 1
+                        },
+                        new
+                        {
+                            Id = 3,
+                            AgenciesId = 0,
+                            Country = "ایران",
+                            Deleted = false,
+                            Name = "تومان",
+                            SaveDate = "1402/10/04 07:31:10",
+                            Status = true,
+                            Symbol = "IRR",
+                            UserId = 1
+                        },
+                        new
+                        {
+                            Id = 4,
+                            AgenciesId = 0,
+                            Country = "پاکستان",
+                            Deleted = false,
+                            Name = "روپیه",
+                            SaveDate = "1402/10/04 07:31:10",
+                            Status = true,
+                            Symbol = "₨",
+                            UserId = 1
+                        },
+                        new
+                        {
+                            Id = 5,
+                            AgenciesId = 0,
+                            Country = "هندوستان",
+                            Deleted = false,
+                            Name = "روپیه",
+                            SaveDate = "1402/10/04 07:31:10",
+                            Status = true,
+                            Symbol = "₹",
+                            UserId = 1
+                        },
+                        new
+                        {
+                            Id = 6,
+                            AgenciesId = 0,
+                            Country = "اروپا",
+                            Deleted = false,
+                            Name = "یورو",
+                            SaveDate = "1402/10/04 07:31:10",
+                            Status = true,
+                            Symbol = "€",
+                            UserId = 1
+                        },
+                        new
+                        {
+                            Id = 7,
+                            AgenciesId = 0,
+                            Country = "بریتانیا",
+                            Deleted = false,
+                            Name = "پوند",
+                            SaveDate = "1402/10/04 07:31:10",
+                            Status = true,
+                            Symbol = "£",
+                            UserId = 1
+                        },
+                        new
+                        {
+                            Id = 8,
+                            AgenciesId = 0,
+                            Country = "چین",
+                            Deleted = false,
+                            Name = "یوآن",
+                            SaveDate = "1402/10/04 07:31:10",
+                            Status = true,
+                            Symbol = "¥",
+                            UserId = 1
+                        },
+                        new
+                        {
+                            Id = 9,
+                            AgenciesId = 0,
+                            Country = "ترکیه",
+                            Deleted = false,
+                            Name = "لیره",
+                            SaveDate = "1402/10/04 07:31:10",
+                            Status = true,
+                            Symbol = "₺",
+                            UserId = 1
+                        },
+                        new
+                        {
+                            Id = 10,
+                            AgenciesId = 0,
+                            Country = "روسیه",
+                            Deleted = false,
+                            Name = "روبل",
+                            SaveDate = "1402/10/04 07:31:10",
+                            Status = true,
+                            Symbol = "₽",
+                            UserId = 1
+                        });
                 });
 
             modelBuilder.Entity("Domin.PersonnelDomin.Personnel", b =>
@@ -446,7 +609,7 @@ namespace Infrastructure.Migrations
                             Deleted = false,
                             Name = "Admin",
                             NamePersian = "مدیر سیستم",
-                            SaveDate = "1402/10/02 02:45:33",
+                            SaveDate = "1402/10/04 07:31:10",
                             Status = true,
                             UserId = 1
                         },
@@ -458,7 +621,7 @@ namespace Infrastructure.Migrations
                             Deleted = false,
                             Name = "Accountant",
                             NamePersian = "حسابدار",
-                            SaveDate = "1402/10/02 02:45:33",
+                            SaveDate = "1402/10/04 07:31:10",
                             Status = true,
                             UserId = 1
                         },
@@ -470,7 +633,7 @@ namespace Infrastructure.Migrations
                             Deleted = false,
                             Name = "Viewer",
                             NamePersian = "بیننده",
-                            SaveDate = "1402/10/02 02:45:33",
+                            SaveDate = "1402/10/04 07:31:10",
                             Status = true,
                             UserId = 1
                         });
