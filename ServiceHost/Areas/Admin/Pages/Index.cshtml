@@ -5,35 +5,33 @@
 }
 
 
-
-<section class="content">
-	<div class="box">
-		<div class="box-body tickers-block">
-			<div class="tickercontainer" style="height: auto; overflow: hidden;">
-				<div class="mask">
-					<ul id="webticker-1" style="position: relative; overflow: hidden; float: left; font: bold 10px Verdana; list-style-type: none; margin: 0px; padding: 0px; width: 1766.39px; transition-timing-function: linear; transition-duration: 3.40218s; left: -170.109px;">
-						<li style="white-space: nowrap; float: left; padding: 0px 7px;"><i class="cc GAME"></i> GAME <span class="text-yellow"> $11.039232</span></li>
-						<li style="white-space: nowrap; float: left; padding: 0px 7px;"><i class="cc LBC"></i> LBC <span class="text-yellow"> $0.588418</span></li>
-						<li style="white-space: nowrap; float: left; padding: 0px 7px;"><i class="cc NEO"></i> NEO <span class="text-yellow"> $161.511</span></li>
-						<li style="white-space: nowrap; float: left; padding: 0px 7px;"><i class="cc STEEM"></i> STE <span class="text-yellow"> $0.551955</span></li>
-						<li style="white-space: nowrap; float: left; padding: 0px 7px;"><i class="cc LTC"></i> LIT <span class="text-yellow"> $177.80</span></li>
-						<li style="white-space: nowrap; float: left; padding: 0px 7px;"><i class="cc NOTE"></i> NOTE <span class="text-yellow"> $13.399</span></li>
-						<li style="white-space: nowrap; float: left; padding: 0px 7px;"><i class="cc MINT"></i> MINT <span class="text-yellow"> $0.880694</span></li>
-						<li style="white-space: nowrap; float: left; padding: 0px 7px;"><i class="cc IOTA"></i> IOT <span class="text-yellow"> $2.555</span></li>
-						<li style="white-space: nowrap; float: left; padding: 0px 7px;" class="last"><i class="cc DASH"></i> DAS <span class="text-yellow"> $769.22</span></li>
-						<li style="white-space: nowrap; float: left; padding: 0px 7px;"><i class="cc BTC"></i> BTC <span class="text-yellow"> $11.039232</span></li>
-						<li style="white-space: nowrap; float: left; padding: 0px 7px;"><i class="cc ETH"></i> ETH <span class="text-yellow"> $1.2792</span></li>
-					</ul><span class="tickeroverlay-left" style="display: none;">&nbsp;</span><span class="tickeroverlay-right" style="display: none;">&nbsp;</span>
-				</div>
-			</div>
-		</div>
-	</div>
+<section class="px-15 pt-15">
+    <div class="row">
+        <div class="box-money">
+            <div class="box-money-title">
+                <p>دالر</p>
+                <span> تبدیل به </span>
+                <p>افغانی</p>
+            </div>
+            <div class="box-money-sell">
+                <label class="form-label" >فروش</label>
+                <input id="Amount" type="text" class="form-control input-mask text-start" data-inputmask="'alias': 'numeric'" >
+                <input id="Amount" type="text" class="form-control input-mask text-start" data-inputmask="'alias': 'numeric'" >
+            </div>
+            <div class="box-money-bey">
+                <label class="form-label" >خرید</label>
+                <input id="Amount" type="text" class="form-control input-mask text-start" data-inputmask="'alias': 'numeric'" >
+                <input id="Amount" type="text" class="form-control input-mask text-start" data-inputmask="'alias': 'numeric'" >
+            </div>
+            <div class="box-money-footer">
+                <span>۱۴۰۲-۱۰-۱۲  ۰۸:۳۵:۳۴</span>
+                <a href="#" class="btn btn-sm btn-icon btn-outline-success">آپدیت</a>
+            </div>
+        </div>
 </section>
 
 
 @section Scripts {
-	<script src="~/Theme/material-rtl/js/dashboard3.js"></script>
-	<script src="~/Theme/assets/Web-Ticker-master/jquery.webticker.min.js"></script>
     <script src="~/Theme/assets/formatter/formatter.js"></script>
     <script src="~/Theme/assets/formatter/jquery.formatter.js"></script>
     <script src="~/Theme/material-rtl/js/formatter.js"></script>
