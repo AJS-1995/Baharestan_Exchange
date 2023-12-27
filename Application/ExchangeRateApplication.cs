@@ -31,7 +31,9 @@ namespace Application
             var userid = _authHelper.CurrentUserId();
             var agenciesId = _authHelper.CurrentAgenciesId();
 
-            var result = new ExchangeRate(command.Amount, command.MainMoneyId, command.Price, command.SecondaryMoneyId, userid, agenciesId);
+            var detaday = DateTime.Now.ToFarsiFull();
+
+            var result = new ExchangeRate(command.Amount, command.MainMoneyId, command.PriceBey, command.PriceSell, command.SecondaryMoneyId, detaday, userid, agenciesId);
             _exchangeRateRepository.Create(result);
             _exchangeRateRepository.SaveChanges();
             return operation.Succedded();
@@ -57,7 +59,9 @@ namespace Application
             var userid = _authHelper.CurrentUserId();
             var agenciesId = _authHelper.CurrentAgenciesId();
 
-            result.Edit(command.Amount, command.MainMoneyId, command.Price, command.SecondaryMoneyId, userid, agenciesId);
+            var detaday = DateTime.Now.ToFarsiFull();
+
+            result.Edit(command.Amount, command.MainMoneyId, command.PriceBey, command.PriceSell, command.SecondaryMoneyId, detaday, userid, agenciesId);
             _exchangeRateRepository.SaveChanges();
             return operation.Succedded();
         }

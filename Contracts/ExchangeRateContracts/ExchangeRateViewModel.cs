@@ -6,9 +6,13 @@
         public decimal Amount { get; set; }
         public int MainMoneyId { get; set; }
         public string? MainMoneyName { get; set; }
-        public decimal Price { get; set; }
+        public string? MainMoneySymbol { get; set; }
+        public decimal PriceBey { get; set; }
+        public decimal PriceSell { get; set; }
         public int SecondaryMoneyId { get; set; }
         public string? SecondaryMoneyName { get; set; }
+        public string? SecondaryMoneySymbol { get; set; }
+        public string? DateDay { get; set; }
         public string? SaveDate { get; set; }
         public int UserId { get; set; }
         public string? UserName { get; set; }

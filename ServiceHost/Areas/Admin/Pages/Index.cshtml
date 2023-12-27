@@ -4,34 +4,39 @@
     ViewData["Title"] = "صفحه اصلی";
 }
 
-
 <section class="content">
     <div class="row">
         <div class="col-sm-12">
-      <div class="box-money">
-        <div class="box-money-title">
-          <p>دالر</p>
-          <span> تبدیل به </span>
-          <p>افغانی</p>
-        </div>
-        <div class="input-group mb-3">
-          <span class="input-group-text" id="basic-addon1">#</span>
-          <input type="text" class="form-control" placeholder="Username" aria-label="Username" aria-describedby="basic-addon1">
-        </div>
-        <div class="input-group mb-3">
-          <span class="input-group-text" id="basic-addon1">#</span>
-          <input type="text" class="form-control" placeholder="Username" aria-label="Username" aria-describedby="basic-addon1">
-          <input type="text" class="form-control" placeholder="Username" aria-label="Username" aria-describedby="basic-addon1">
-        </div>
-        <div class="box-money-footer">
-          <span>۱۴۰۲-۱۰-۱۲  ۰۸:۳۵:۳۴</span>
-          <a href="#" class="btn btn-sm btn-icon btn-outline-success">آپدیت</a>
-        </div>
-      </div>
+            <div class="card">
+                <div class="card-body">
+                    @foreach (var exchange in Model.exchangeRate)
+                    {
+                        <div class="box-money">
+                            <div class="box-money-title">
+                                <p>@exchange.MainMoneyName</p>
+                                <span> به </span>
+                                <p>@exchange.SecondaryMoneyName</p>
+                            </div>
+                            <div class="input-group mb-3">
+                                <span class="input-group-text" id="basic-addon1">@exchange.MainMoneySymbol</span>
+                                <input type="number" class="form-control" placeholder="Username" aria-describedby="basic-addon1" name="Amount" value="@exchange.Amount">
+                            </div>
+                            <div class="input-group mb-3">
+                                <span class="input-group-text" id="basic-addon1">@exchange.SecondaryMoneySymbol</span>
+                                <input type="number" class="form-control" placeholder="Username" aria-label="Username" name="PriceBey" value="@exchange.PriceBey">
+                                <input type="number" class="form-control" placeholder="Username" aria-label="Username" name="PriceSell" value="@exchange.PriceSell">
+                            </div>
+                            <div class="box-money-footer">
+                                <span>@exchange.DateDay</span>
+                                <a href="#" class="btn btn-sm btn-icon btn-outline-success">آپدیت</a>
+                            </div>
+                        </div>
+                    }
+                </div>
+            </div>
         </div>
     </div>
 </section>
-
 
 @section Scripts {
     <script src="~/Theme/assets/formatter/formatter.js"></script>

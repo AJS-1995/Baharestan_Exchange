@@ -12,9 +12,13 @@ namespace Contracts.ExchangeRateContracts
         public int MainMoneyId { get; set; }
 
         [Required(ErrorMessage = ValidationMessages.IsRequired)]
-        public decimal Price { get; set; }
+        public decimal PriceBey { get; set; }
+
+        [Required(ErrorMessage = ValidationMessages.IsRequired)]
+        public decimal PriceSell { get; set; }
 
         [Required(ErrorMessage = ValidationMessages.IsRequired)]
         public int SecondaryMoneyId { get; set; }
+        public string? DateDay { get; set; }
     }
 }

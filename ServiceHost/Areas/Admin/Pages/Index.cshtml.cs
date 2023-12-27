@@ -1,6 +1,7 @@
 using _01_QueryManagement.Contracts.Permissions.User;
 using Configuration.Permissions.Users;
 using Contracts.CompanyContracts;
+using Contracts.ExchangeRateContracts;
 using Contracts.UsersContracts.UsersContracts;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
@@ -9,18 +10,23 @@ namespace ServiceHost.Areas.Admin.Pages
 {
     public class IndexModel : PageModel
     {
+        public List<ExchangeRateViewModel>? exchangeRate;
+
         public UserPermissionQueryModel? permissionQueryModels;
         private readonly IUserPermissionQueryModel? _permissionQueryModel;
         private readonly ICompanyApplication? _companyApplication;
         private readonly IUserApplication _userApplication;
-        public IndexModel(ICompanyApplication? companyApplication, IUserPermissionQueryModel? permissionQueryModel, IUserApplication userApplication)
+        private readonly IExchangeRateApplication? _exchangeRateApplication;
+        public IndexModel(ICompanyApplication? companyApplication, IUserPermissionQueryModel? permissionQueryModel, IUserApplication userApplication, IExchangeRateApplication? exchangeRateApplication)
         {
             _companyApplication = companyApplication;
             _permissionQueryModel = permissionQueryModel;
             _userApplication = userApplication;
+            _exchangeRateApplication = exchangeRateApplication;
         }
         public void OnGet()
         {
+            exchangeRate = _exchangeRateApplication?.GetViewModel();
 
         }
         public IActionResult OnGetCompanyEdit()

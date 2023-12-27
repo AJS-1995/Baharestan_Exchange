@@ -1,5 +1,4 @@
 ﻿using _0_Framework.Domain;
-using Domin.MoneyDomin;
 
 namespace Domin.ExchangeRateDomin
 {
@@ -7,24 +6,30 @@ namespace Domin.ExchangeRateDomin
     {
         public decimal Amount { get; private set; }
         public int MainMoneyId { get; private set; }
-        public decimal Price { get; private set; }
+        public decimal PriceBey { get; private set; }
+        public decimal PriceSell{ get; private set; }
         public int SecondaryMoneyId { get; private set; }
+        public string? DateDay { get; private set; }
         public ExchangeRate() { }
-        public ExchangeRate(decimal amount, int mainMoneyId, decimal price, int secondaryMoneyId, int userId, int agenciesId)
+        public ExchangeRate(decimal amount, int mainMoneyId, decimal priceBey, decimal priceSell, int secondaryMoneyId, string? dateDay, int userId, int agenciesId)
         {
             Amount = amount;
             MainMoneyId = mainMoneyId;
-            Price = price;
+            PriceBey = priceBey;
+            PriceSell = priceSell;
             SecondaryMoneyId = secondaryMoneyId;
+            DateDay = dateDay;
             UserId = userId;
             AgenciesId = agenciesId;
         }
-        public void Edit(decimal amount, int mainMoneyId, decimal price, int secondaryMoneyId, int userId, int agenciesId)
+        public void Edit(decimal amount, int mainMoneyId, decimal priceBey, decimal priceSell, int secondaryMoneyId, string? dateDay, int userId, int agenciesId)
         {
             Amount = amount;
             MainMoneyId = mainMoneyId;
-            Price = price;
+            PriceBey = priceBey;
+            PriceSell = priceSell;
             SecondaryMoneyId = secondaryMoneyId;
+            DateDay = dateDay;
             UserId = userId;
             AgenciesId = agenciesId;
         }

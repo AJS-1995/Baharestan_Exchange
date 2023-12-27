@@ -13,8 +13,10 @@ namespace Infrastructure.Mappings
 
             builder.Property(x => x.Amount).IsRequired();
             builder.Property(x => x.MainMoneyId).IsRequired();
-            builder.Property(x => x.Price).IsRequired();
+            builder.Property(x => x.PriceBey).IsRequired();
+            builder.Property(x => x.PriceSell).IsRequired();
             builder.Property(x => x.SecondaryMoneyId).IsRequired();
+            builder.Property(x => x.DateDay).HasMaxLength(25);
             builder.Property(x => x.SaveDate).HasMaxLength(25);
             builder.Property(x => x.Status);
             builder.Property(x => x.Deleted);
