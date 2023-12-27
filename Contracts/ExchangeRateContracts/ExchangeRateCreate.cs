@@ -1,4 +1,5 @@
 ﻿using _0_Framework.Application;
+using Contracts.MoneyContracts;
 using System.ComponentModel.DataAnnotations;
 
 namespace Contracts.ExchangeRateContracts
@@ -20,5 +21,6 @@ namespace Contracts.ExchangeRateContracts
         [Required(ErrorMessage = ValidationMessages.IsRequired)]
         public int SecondaryMoneyId { get; set; }
         public string? DateDay { get; set; }
+        public List<MoneyViewModel>? Moneys { get; set; }
     }
 }

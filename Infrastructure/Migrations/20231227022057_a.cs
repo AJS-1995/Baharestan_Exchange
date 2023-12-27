@@ -77,8 +77,10 @@ namespace Infrastructure.Migrations
                         .Annotation("SqlServer:Identity", "1, 1"),
                     Amount = table.Column<decimal>(type: "decimal(18,2)", nullable: false),
                     MainMoneyId = table.Column<int>(type: "int", nullable: false),
-                    Price = table.Column<decimal>(type: "decimal(18,2)", nullable: false),
+                    PriceBey = table.Column<decimal>(type: "decimal(18,2)", nullable: false),
+                    PriceSell = table.Column<decimal>(type: "decimal(18,2)", nullable: false),
                     SecondaryMoneyId = table.Column<int>(type: "int", nullable: false),
+                    DateDay = table.Column<string>(type: "nvarchar(25)", maxLength: 25, nullable: true),
                     SaveDate = table.Column<string>(type: "nvarchar(25)", maxLength: 25, nullable: true),
                     Status = table.Column<bool>(type: "bit", nullable: false),
                     Deleted = table.Column<bool>(type: "bit", nullable: false),
@@ -283,16 +285,16 @@ namespace Infrastructure.Migrations
                 columns: new[] { "Id", "AgenciesId", "Country", "Deleted", "Name", "SaveDate", "Status", "Symbol", "UserId" },
                 values: new object[,]
                 {
-                    { 1, 0, "افغانستان", false, "افغانی", "1402/10/05 21:02:30", true, "؋", 1 },
-                    { 2, 0, "ایالات متحده امریکا", false, "دلار", "1402/10/05 21:02:30", true, "$", 1 },
-                    { 3, 0, "ایران", false, "تومان", "1402/10/05 21:02:30", true, "IRR", 1 },
-                    { 4, 0, "پاکستان", false, "روپیه", "1402/10/05 21:02:30", true, "₨", 1 },
-                    { 5, 0, "هندوستان", false, "روپیه", "1402/10/05 21:02:30", true, "₹", 1 },
-                    { 6, 0, "اروپا", false, "یورو", "1402/10/05 21:02:30", true, "€", 1 },
-                    { 7, 0, "بریتانیا", false, "پوند", "1402/10/05 21:02:30", true, "£", 1 },
-                    { 8, 0, "چین", false, "یوآن", "1402/10/05 21:02:30", true, "¥", 1 },
-                    { 9, 0, "ترکیه", false, "لیره", "1402/10/05 21:02:30", true, "₺", 1 },
-                    { 10, 0, "روسیه", false, "روبل", "1402/10/05 21:02:30", true, "₽", 1 }
+                    { 1, 0, "افغانستان", false, "افغانی", "1402/10/06 06:50:55", true, "؋", 1 },
+                    { 2, 0, "ایالات متحده امریکا", false, "دلار", "1402/10/06 06:50:55", true, "$", 1 },
+                    { 3, 0, "ایران", false, "تومان", "1402/10/06 06:50:55", true, "IRR", 1 },
+                    { 4, 0, "پاکستان", false, "روپیه", "1402/10/06 06:50:55", true, "₨", 1 },
+                    { 5, 0, "هندوستان", false, "روپیه", "1402/10/06 06:50:55", true, "₹", 1 },
+                    { 6, 0, "اروپا", false, "یورو", "1402/10/06 06:50:55", true, "€", 1 },
+                    { 7, 0, "بریتانیا", false, "پوند", "1402/10/06 06:50:55", true, "£", 1 },
+                    { 8, 0, "چین", false, "یوآن", "1402/10/06 06:50:55", true, "¥", 1 },
+                    { 9, 0, "ترکیه", false, "لیره", "1402/10/06 06:50:55", true, "₺", 1 },
+                    { 10, 0, "روسیه", false, "روبل", "1402/10/06 06:50:55", true, "₽", 1 }
                 });
 
             migrationBuilder.InsertData(
@@ -300,9 +302,9 @@ namespace Infrastructure.Migrations
                 columns: new[] { "Id", "AgenciesId", "Cod", "Deleted", "Name", "NamePersian", "SaveDate", "Status", "UserId" },
                 values: new object[,]
                 {
-                    { 1, 0, 1, false, "Admin", "مدیر سیستم", "1402/10/05 21:02:30", true, 1 },
-                    { 2, 0, 1, false, "Accountant", "حسابدار", "1402/10/05 21:02:30", true, 1 },
-                    { 3, 0, 1, false, "Viewer", "بیننده", "1402/10/05 21:02:30", true, 1 }
+                    { 1, 0, 1, false, "Admin", "مدیر سیستم", "1402/10/06 06:50:55", true, 1 },
+                    { 2, 0, 1, false, "Accountant", "حسابدار", "1402/10/06 06:50:55", true, 1 },
+                    { 3, 0, 1, false, "Viewer", "بیننده", "1402/10/06 06:50:55", true, 1 }
                 });
 
             migrationBuilder.CreateIndex(

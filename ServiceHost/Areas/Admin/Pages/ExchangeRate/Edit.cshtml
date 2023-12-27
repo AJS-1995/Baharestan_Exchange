@@ -1,0 +1,73 @@
+﻿@model Contracts.ExchangeRateContracts.ExchangeRateEdit
+@{
+    ViewData["title"] = "ویرایش تبدیل اسعار";
+}
+<div class="modal-header">
+    <a class="btn btn-sm btn-icon btn-outline-warning" asp-page="./Index"><i class="fa-solid fa-close fa-lg"></i></a>
+    <h4 class="modal-title">ویرایش تبدیل اسعار - @Model.DateDay</h4>
+</div>
+
+<form class="needs-validation" novalidate asp-page="./Index" asp-page-handler="Edit" method="post"
+      data-ajax="true"
+      data-callback=""
+      data-action="Refresh">
+    <div class="modal-body">
+        <div class="row">
+            <div class="col-sm-6">
+                <div class="form-group">
+                    <label class="form-label" asp-for="DateDay">تاریخ</label>
+                    <input id="Date" dir="ltr" type="text" required class="form-control" asp-for="DateDay" placeholder="yyyy/mm/dd" maxlength="10">
+                    <div class="invalid-feedback">اطلاعات باید وارد شود !</div>
+                </div>
+            </div>
+            <div class="col-sm-6">
+                <div class="form-group">
+                    <label class="form-label" asp-for="Amount">مقدار</label>
+                    <input id="Amount" type="text" class="form-control input-mask text-start" data-inputmask="'alias': 'numeric'" asp-for="Amount">
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-sm-12">
+                <div class="form-group">
+                    <label class="form-label" asp-for="MainMoneyId">پول</label>
+                    <select class="form-control" required asp-for="MainMoneyId" id="MainMoneyId"
+                            asp-items='new SelectList(Model.Moneys, "Id", "Name")'>
+                        <option disabled value="" selected="">پول ...</option>
+                    </select>
+                    <div class="invalid-feedback">اطلاعات باید وارد شود !</div>
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-sm-6">
+                <div class="form-group">
+                    <label class="form-label" asp-for="Amount">خرید</label>
+                    <input id="Amount" type="text" class="form-control input-mask text-start" data-inputmask="'alias': 'numeric'" asp-for="PriceSell">
+                </div>
+            </div>
+            <div class="col-sm-6">
+                <div class="form-group">
+                    <label class="form-label" asp-for="Amount">فروش</label>
+                    <input id="Amount" type="text" class="form-control input-mask text-start" data-inputmask="'alias': 'numeric'" asp-for="PriceBey">
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-sm-12">
+                <div class="form-group">
+                    <label class="form-label" asp-for="MainMoneyId">پول</label>
+                    <select class="form-control" required asp-for="MainMoneyId" id="MainMoneyId"
+                            asp-items='new SelectList(Model.Moneys, "Id", "Name")'>
+                        <option disabled value="" selected="">پول ...</option>
+                    </select>
+                    <div class="invalid-feedback">اطلاعات باید وارد شود !</div>
+                </div>
+            </div>
+        </div>
+        <input type="hidden" asp-for="Id" value="@Model.Id" />
+        <div class="modal-footer">
+            <button type="submit" class="btn btn-sm btn-icon btn-outline-success"><i class="fa-solid fa-save fa-lg"></i></button>
+        </div>
+    </div>
+</form>
