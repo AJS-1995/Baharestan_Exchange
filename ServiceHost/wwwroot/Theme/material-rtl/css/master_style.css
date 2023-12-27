@@ -16726,6 +16726,8 @@ tfoot input {
 
 
 .box-money {
+    max-height: max-content;
+    max-width: max-content;
     display: flex;
     flex-direction: column;
     align-items: center;
