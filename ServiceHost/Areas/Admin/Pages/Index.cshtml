@@ -9,29 +9,31 @@
         <div class="col-sm-12">
             <div class="card">
                 <div class="card-body">
-                    @foreach (var exchange in Model.exchangeRate)
-                    {
-                        <div class="box-money">
-                            <div class="box-money-title">
-                                <p>@exchange.MainMoneyName</p>
-                                <span> به </span>
-                                <p>@exchange.SecondaryMoneyName</p>
+                    <div class="money-Day-Price">
+                        @foreach (var exchange in Model.exchangeRate)
+                        {
+                            <div class="box-money">
+                                <div class="box-money-title">
+                                    <p>@exchange.MainMoneyName</p>
+                                    <span> به </span>
+                                    <p>@exchange.SecondaryMoneyName</p>
+                                </div>
+                                <div class="input-group mb-3">
+                                    <span class="input-group-text" id="basic-addon1">@exchange.MainMoneySymbol</span>
+                                    <input type="number" class="form-control" placeholder="Username" aria-describedby="basic-addon1" name="Amount" value="@exchange.Amount">
+                                </div>
+                                <div class="input-group mb-3">
+                                    <span class="input-group-text" id="basic-addon1">@exchange.SecondaryMoneySymbol</span>
+                                    <input type="number" class="form-control" placeholder="Username" aria-label="Username" name="PriceBey" value="@exchange.PriceBey">
+                                    <input type="number" class="form-control" placeholder="Username" aria-label="Username" name="PriceSell" value="@exchange.PriceSell">
+                                </div>
+                                <div class="box-money-footer">
+                                    <span>@exchange.DateDay</span>
+                                    <a href="#" class="btn btn-sm btn-icon btn-outline-success">آپدیت</a>
+                                </div>
                             </div>
-                            <div class="input-group mb-3">
-                                <span class="input-group-text" id="basic-addon1">@exchange.MainMoneySymbol</span>
-                                <input type="number" class="form-control" placeholder="Username" aria-describedby="basic-addon1" name="Amount" value="@exchange.Amount">
-                            </div>
-                            <div class="input-group mb-3">
-                                <span class="input-group-text" id="basic-addon1">@exchange.SecondaryMoneySymbol</span>
-                                <input type="number" class="form-control" placeholder="Username" aria-label="Username" name="PriceBey" value="@exchange.PriceBey">
-                                <input type="number" class="form-control" placeholder="Username" aria-label="Username" name="PriceSell" value="@exchange.PriceSell">
-                            </div>
-                            <div class="box-money-footer">
-                                <span>@exchange.DateDay</span>
-                                <a href="#" class="btn btn-sm btn-icon btn-outline-success">آپدیت</a>
-                            </div>
-                        </div>
-                    }
+                        }
+                    </div>
                 </div>
             </div>
         </div>

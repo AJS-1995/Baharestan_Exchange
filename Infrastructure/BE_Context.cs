@@ -90,7 +90,7 @@ namespace Infrastructure
             modelBuilder.Entity<Money>().HasData(new Money
             {
                 Id = 4,
-                Name = "روپیه",
+                Name = "روپیه پاکستان",
                 Country = "پاکستان",
                 Symbol = "₨",
                 UserId = 1,
@@ -98,7 +98,7 @@ namespace Infrastructure
             modelBuilder.Entity<Money>().HasData(new Money
             {
                 Id = 5,
-                Name = "روپیه",
+                Name = "روپیه هندی",
                 Country = "هندوستان",
                 Symbol = "₹",
                 UserId = 1,

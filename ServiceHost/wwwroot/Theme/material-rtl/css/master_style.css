@@ -16724,9 +16724,32 @@ tfoot input {
     width: 55px !important;
 }
 
+.money-Day-Price {
+    display: flex;
+    flex-direction: row;
+    overflow-x: auto;
+}
+
+    .money-Day-Price::-webkit-scrollbar {
+        height: 5px;
+    }
+
+    .money-Day-Price::-webkit-scrollbar-track {
+        background: transparent;
+    }
+
+    .money-Day-Price::-webkit-scrollbar-thumb {
+        background: #001a35;
+        border-radius: 5px;
+    }
+
+        .money-Day-Price::-webkit-scrollbar-thumb:hover {
+            background: #022445;
+            cursor: pointer !important;
+        }
 
 .box-money {
-    width: 200px;
+    min-width: 250px;
     display: flex;
     flex-direction: column;
     align-items: center;
@@ -16753,4 +16776,14 @@ tfoot input {
     justify-content: space-between;
     gap: 5px;
     margin-top: 5px;
+}
+
+input::-webkit-outer-spin-button,
+input::-webkit-inner-spin-button {
+    -webkit-appearance: none;
+    margin: 0;
+}
+
+input[type=number] {
+    -moz-appearance: textfield;
 }
