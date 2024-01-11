@@ -1,5 +1,6 @@
 ﻿using Domin.AgenciesDomin;
 using Domin.CompanyDomin;
+using Domin.DailyRateDomin;
 using Domin.ExchangeRateDomin;
 using Domin.ExpenseDomin;
 using Domin.MoneyDomin;
@@ -25,6 +26,7 @@ namespace Infrastructure
         public DbSet<SafeBox> SafeBoxs { get; set; }
         public DbSet<Personnel> Personnels { get; set; }
         public DbSet<ExchangeRate> ExchangeRates { get; set; }
+        public DbSet<DailyRate> DailyRates { get; set; }
 
         public BE_Context(DbContextOptions<BE_Context> options) : base(options)
         {

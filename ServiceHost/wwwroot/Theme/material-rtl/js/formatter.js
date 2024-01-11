@@ -23,7 +23,7 @@ $(function () {
 	
 	//Date time dd/mm/yyyy hh:mm
 	$('#date-time').formatter({
-	  'pattern': '{{99}}/{{99}}/{{9999}} {{99}}:{{99}}',
+		'pattern': '{{99}}/{{99}}/{{9999}} - {{99}}:{{99}}:{{99}}',
 	  'persistent': true
 	});
 	

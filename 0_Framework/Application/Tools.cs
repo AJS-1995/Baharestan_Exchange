@@ -70,7 +70,7 @@ namespace _0_Framework.Application
         {
             var pc = new PersianCalendar();
             return
-                $"{pc.GetYear(date)}/{pc.GetMonth(date):00}/{pc.GetDayOfMonth(date):00} {date.Hour:00}:{date.Minute:00}:{date.Second:00}";
+                $"{pc.GetYear(date)}/{pc.GetMonth(date):00}/{pc.GetDayOfMonth(date):00} - {date.Hour:00}:{date.Minute:00}:{date.Second:00}";
         }
         private static readonly string[] Pn = { "۰", "۱", "۲", "۳", "۴", "۵", "۶", "۷", "۸", "۹" };
         private static readonly string[] En = { "0", "1", "2", "3", "4", "5", "6", "7", "8", "9" };

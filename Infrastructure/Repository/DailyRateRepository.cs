@@ -1,19 +1,19 @@
 ﻿using _0_Framework.Infrastructure;
-using Contracts.ExchangeRateContracts;
-using Domin.ExchangeRateDomin;
+using Contracts.DailyRateContracts;
+using Domin.DailyRateDomin;
 
 namespace Infrastructure.Repository
 {
-    public class ExchangeRateRepository : RepositoryBase<long, ExchangeRate>, IExchangeRateRepository
+    public class DailyRateRepository : RepositoryBase<int, DailyRate>, IDailyRateRepository
     {
         private readonly BE_Context _context;
-        public ExchangeRateRepository(BE_Context context) : base(context)
+        public DailyRateRepository(BE_Context context) : base(context)
         {
             _context = context;
         }
-        public ExchangeRateEdit GetDetails(long id)
+        public DailyRateEdit GetDetails(int id)
         {
-            var result = _context.ExchangeRates.Select(x => new ExchangeRateEdit
+            var result = _context.DailyRates.Select(x => new DailyRateEdit
             {
                 Id = x.Id,
                 Amount = x.Amount,
@@ -25,11 +25,11 @@ namespace Infrastructure.Repository
             }).FirstOrDefault(x => x.Id == id);
             return result;
         }
-        public List<ExchangeRateViewModel> GetInActive()
+        public List<DailyRateViewModel> GetInActive()
         {
             var users = _context.Users.Select(x => new { x.Id, x.FullName, x.UserName }).ToList();
             var moneys = _context.Moneies.Select(x => new { x.Id, x.Name, x.Symbol }).ToList();
-            var query = _context.ExchangeRates.Where(x => x.Status == false).Select(x => new ExchangeRateViewModel
+            var query = _context.DailyRates.Where(x => x.Status == false).Select(x => new DailyRateViewModel
             {
                 Id = x.Id,
                 Amount = x.Amount,
@@ -51,11 +51,11 @@ namespace Infrastructure.Repository
             result.ForEach(item => item.SecondaryMoneySymbol = moneys.FirstOrDefault(x => x.Id == item.SecondaryMoneyId)?.Symbol);
             return result;
         }
-        public List<ExchangeRateViewModel> GetRemove()
+        public List<DailyRateViewModel> GetRemove()
         {
             var users = _context.Users.Select(x => new { x.Id, x.FullName, x.UserName }).ToList();
             var moneys = _context.Moneies.Select(x => new { x.Id, x.Name, x.Symbol }).ToList();
-            var query = _context.ExchangeRates.Where(x => x.Deleted == true).Select(x => new ExchangeRateViewModel
+            var query = _context.DailyRates.Where(x => x.Deleted == true).Select(x => new DailyRateViewModel
             {
                 Id = x.Id,
                 Amount = x.Amount,
@@ -77,11 +77,11 @@ namespace Infrastructure.Repository
             result.ForEach(item => item.SecondaryMoneySymbol = moneys.FirstOrDefault(x => x.Id == item.SecondaryMoneyId)?.Symbol);
             return result;
         }
-        public List<ExchangeRateViewModel> GetViewModel()
+        public List<DailyRateViewModel> GetViewModel()
         {
             var users = _context.Users.Select(x => new { x.Id, x.FullName, x.UserName }).ToList();
             var moneys = _context.Moneies.Select(x => new { x.Id, x.Name, x.Symbol }).ToList();
-            var query = _context.ExchangeRates.Where(x => x.Status == true && x.Deleted == false).Select(x => new ExchangeRateViewModel
+            var query = _context.DailyRates.Where(x => x.Status == true && x.Deleted == false).Select(x => new DailyRateViewModel
             {
                 Id = x.Id,
                 Amount = x.Amount,

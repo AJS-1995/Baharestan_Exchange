@@ -9,12 +9,10 @@ namespace Application
     {
         private readonly IExchangeRateRepository _exchangeRateRepository;
         private readonly IAuthHelper _authHelper;
-        private readonly IFileUploader _fileUploader;
-        public ExchangeRateApplication(IExchangeRateRepository exchangeRateRepository, IAuthHelper authHelper, IFileUploader fileUploader)
+        public ExchangeRateApplication(IExchangeRateRepository exchangeRateRepository, IAuthHelper authHelper)
         {
             _exchangeRateRepository = exchangeRateRepository;
             _authHelper = authHelper;
-            _fileUploader = fileUploader;
         }
         public OperationResult Active(long id)
         {

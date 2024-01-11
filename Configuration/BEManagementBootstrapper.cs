@@ -5,6 +5,7 @@ using Configuration.Permissions.General;
 using Configuration.Permissions.Users;
 using Contracts.AgenciesContracts;
 using Contracts.CompanyContracts;
+using Contracts.DailyRateContracts;
 using Contracts.ExchangeRateContracts;
 using Contracts.ExpenseContracts;
 using Contracts.MoneyContracts;
@@ -15,6 +16,7 @@ using Contracts.UsersContracts.RoleContracts;
 using Contracts.UsersContracts.UsersContracts;
 using Domin.AgenciesDomin;
 using Domin.CompanyDomin;
+using Domin.DailyRateDomin;
 using Domin.ExchangeRateDomin;
 using Domin.ExpenseDomin;
 using Domin.MoneyDomin;
@@ -66,6 +68,9 @@ namespace Configuration
 
             services.AddTransient<IExchangeRateApplication, ExchangeRateApplication>();
             services.AddTransient<IExchangeRateRepository, ExchangeRateRepository>();
+
+            services.AddTransient<IDailyRateApplication, DailyRateApplication>();
+            services.AddTransient<IDailyRateRepository, DailyRateRepository>();
 
             services.AddTransient<IPermissionExposer, UserPermissionExposer>();
             services.AddTransient<IPermissionExposer, GeneralPermissionExposer>();

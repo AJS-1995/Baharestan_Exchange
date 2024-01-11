@@ -1,6 +1,11 @@
 ﻿@page
 @model ServiceHost.Areas.Admin.Pages.IndexModel
+@using Configuration.Permissions.General;
+@using _0_Framework.Application;
+@inject _0_Framework.Application.Auth.IAuthHelper AuthHelper;
 @{
+    Layout = "Shared/_AdminLayout";
+    var currentAccout = AuthHelper.CurrentUserInfo();
     ViewData["Title"] = "صفحه اصلی";
 }
 
@@ -10,7 +15,7 @@
             <div class="card">
                 <div class="card-body">
                     <div class="money-Day-Price">
-                        @foreach (var exchange in Model.exchangeRate)
+                        @foreach (var exchange in Model.dailyRate)
                         {
                             <div class="box-money">
                                 <div class="box-money-title">
@@ -19,17 +24,20 @@
                                     <p>@exchange.SecondaryMoneyName</p>
                                 </div>
                                 <div class="input-group mb-3">
-                                    <span class="input-group-text" id="basic-addon1">@exchange.MainMoneySymbol</span>
-                                    <input type="number" class="form-control" placeholder="Username" aria-describedby="basic-addon1" name="Amount" value="@exchange.Amount">
+                                    <span class="input-group-text">@exchange.MainMoneySymbol</span>
+                                    <input type="number" class="form-control" name="Amount" value="@exchange.Amount" readonly>
                                 </div>
                                 <div class="input-group mb-3">
-                                    <span class="input-group-text" id="basic-addon1">@exchange.SecondaryMoneySymbol</span>
-                                    <input type="number" class="form-control" placeholder="Username" aria-label="Username" name="PriceBey" value="@exchange.PriceBey">
-                                    <input type="number" class="form-control" placeholder="Username" aria-label="Username" name="PriceSell" value="@exchange.PriceSell">
+                                    <span class="input-group-text">@exchange.SecondaryMoneySymbol</span>
+                                    <input type="text" class="form-control" name="PriceSell" value="خ - @exchange.PriceSell" readonly>
+                                    <input type="text" class="form-control" name="PriceBey" value="ف - @exchange.PriceBey" readonly>
                                 </div>
                                 <div class="box-money-footer">
-                                    <span>@exchange.DateDay</span>
-                                    <a href="#" class="btn btn-sm btn-icon btn-outline-success">آپدیت</a>
+                                    <span dir="ltr">@exchange.DateDay</span>
+                                    @if (Model?.generalpermissionQueryModels?.EditGeneral == GeneralPermissions.EditGeneral || Model?.generalpermissionQueryModels?.AdminGeneral == GeneralPermissions.AdminGeneral)
+                                    {
+                                        <a class="btn btn-sm btn-icon btn-outline-warning" title="ویرایش" href="#showmodal=@Url.Page("/DailyRate/Index", "Edit", new { id = exchange.Id })"><i class="fa-solid fa-edit (alias) fa-lg"></i></a>
+                                    }
                                 </div>
                             </div>
                         }

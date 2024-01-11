@@ -1,33 +1,49 @@
+using _01_QueryManagement.Contracts.Permissions.General;
 using _01_QueryManagement.Contracts.Permissions.User;
+using Configuration.Permissions.General;
 using Configuration.Permissions.Users;
 using Contracts.CompanyContracts;
-using Contracts.ExchangeRateContracts;
+using Contracts.DailyRateContracts;
 using Contracts.UsersContracts.UsersContracts;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
+using System.Linq;
 
 namespace ServiceHost.Areas.Admin.Pages
 {
     public class IndexModel : PageModel
     {
-        public List<ExchangeRateViewModel>? exchangeRate;
+        public List<DailyRateViewModel>? dailyRate;
+
+        public GeneralPermissionQueryModel? generalpermissionQueryModels;
+        private readonly IGeneralPermissionQueryModel? _generalpermissionQueryModel;
 
         public UserPermissionQueryModel? permissionQueryModels;
         private readonly IUserPermissionQueryModel? _permissionQueryModel;
         private readonly ICompanyApplication? _companyApplication;
         private readonly IUserApplication _userApplication;
-        private readonly IExchangeRateApplication? _exchangeRateApplication;
-        public IndexModel(ICompanyApplication? companyApplication, IUserPermissionQueryModel? permissionQueryModel, IUserApplication userApplication, IExchangeRateApplication? exchangeRateApplication)
+        private readonly IDailyRateApplication? _dailyRateApplication;
+        public IndexModel(ICompanyApplication? companyApplication, IUserPermissionQueryModel? permissionQueryModel, IUserApplication userApplication, IDailyRateApplication? DailyRateApplication, IGeneralPermissionQueryModel? generalpermissionQueryModel)
         {
             _companyApplication = companyApplication;
             _permissionQueryModel = permissionQueryModel;
             _userApplication = userApplication;
-            _exchangeRateApplication = exchangeRateApplication;
+            _dailyRateApplication = DailyRateApplication;
+            _generalpermissionQueryModel = generalpermissionQueryModel;
         }
-        public void OnGet()
+        public IActionResult OnGet()
         {
-            exchangeRate = _exchangeRateApplication?.GetViewModel();
-
+            generalpermissionQueryModels = _generalpermissionQueryModel?.GetGeneral();
+            if (generalpermissionQueryModels?.ListGeneral == GeneralPermissions.ListGeneral || generalpermissionQueryModels?.AdminGeneral == GeneralPermissions.AdminGeneral)
+            {
+                dailyRate = _dailyRateApplication?.GetViewModel().OrderBy(x => x.Id).ToList();
+                generalpermissionQueryModels = _generalpermissionQueryModel?.GetGeneral();
+                return Page();
+            }
+            else
+            {
+                return Redirect("/Index");
+            }
         }
         public IActionResult OnGetCompanyEdit()
         {
