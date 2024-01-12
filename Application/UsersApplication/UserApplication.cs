@@ -59,6 +59,10 @@ namespace Application.UsersApplication
             var password = _passwordHasher.Hash(command.Password);
             var userid = _authHelper.CurrentUserId();
             var agenciesId = _authHelper.CurrentAgenciesId();
+            if (agenciesId == 0)
+            {
+                agenciesId = command.AgenciesId;
+            }
 
             string? slug = command.FullName.Slugify();
 
@@ -109,6 +113,10 @@ namespace Application.UsersApplication
 
             var userid = _authHelper.CurrentUserId();
             var agenciesId = _authHelper.CurrentAgenciesId();
+            if (agenciesId == 0)
+            {
+                agenciesId = command.AgenciesId;
+            }
 
             account.Edit(command.FullName, command.UserName, command.Mobile, command.RoleId, picturePath, userid, agenciesId);
             _userRepository.SaveChanges();

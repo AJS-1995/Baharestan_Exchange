@@ -1,27 +1,32 @@
 using _0_Framework.Application.Auth;
 using _01_QueryManagement.Contracts.Permissions.User;
 using Configuration.Permissions.Users;
+using Contracts.AgenciesContracts;
 using Contracts.UsersContracts.RoleContracts;
 using Contracts.UsersContracts.UsersContracts;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
+using Microsoft.Extensions.Configuration.UserSecrets;
 
 namespace ServiceHost.Areas.Admin.Pages.Users
 {
     public class IndexModel : PageModel
     {
+        public int AgenciesId = 0;
         public List<UserViewModel>? users;
         public UserPermissionQueryModel? permissionQueryModels;
         private readonly IUserPermissionQueryModel? _permissionQueryModel;
         private readonly IRoleApplication? _roleApplication;
         private readonly IUserApplication? _userApplication;
         private readonly IAuthHelper? _AuthHelper;
-        public IndexModel(IUserApplication accountApplication, IRoleApplication roleApplication, IUserPermissionQueryModel permissionQueryModel, IAuthHelper authHelper)
+        private readonly IAgenciesApplication? _agenciesApplication;
+        public IndexModel(IUserApplication accountApplication, IRoleApplication roleApplication, IUserPermissionQueryModel permissionQueryModel, IAuthHelper authHelper, IAgenciesApplication? agenciesApplication)
         {
             _roleApplication = roleApplication;
             _userApplication = accountApplication;
             _permissionQueryModel = permissionQueryModel;
             _AuthHelper = authHelper;
+            _agenciesApplication = agenciesApplication;
         }
         public IActionResult OnGet()
         {
@@ -41,9 +46,15 @@ namespace ServiceHost.Areas.Admin.Pages.Users
             permissionQueryModels = _permissionQueryModel?.GetUsers();
             if (permissionQueryModels?.AddUsers == UserPermissions.AddUsers || permissionQueryModels?.AdminUsers == UserPermissions.AdminUsers)
             {
+                var agenciesId = _AuthHelper.CurrentAgenciesId();
+                if (agenciesId != 0)
+                {
+                    AgenciesId = agenciesId;
+                }
                 var command = new UserCreate
                 {
-                    Roles = _roleApplication?.GetViewModel()
+                    Roles = _roleApplication?.GetViewModel(),
+                    Agencies = _agenciesApplication?.GetViewModel(),
                 };
                 return Partial("./Create", command);
             }
@@ -96,8 +107,14 @@ namespace ServiceHost.Areas.Admin.Pages.Users
             var currentAccout = _AuthHelper?.CurrentUserInfo();
             if (currentAccout?.Id == currentAccout?.Id || permissionQueryModels?.EditUser == UserPermissions.EditUser || permissionQueryModels?.AdminUsers == UserPermissions.AdminUsers)
             {
+                var agenciesId = _AuthHelper.CurrentAgenciesId();
+                if (agenciesId != 0)
+                {
+                    AgenciesId = agenciesId;
+                }
                 var account = _userApplication?.GetDetails(id);
                 account.Roles = _roleApplication?.GetViewModel();
+                account.Agencies = _agenciesApplication?.GetViewModel();
                 return Partial("Edit", account);
             }
             else

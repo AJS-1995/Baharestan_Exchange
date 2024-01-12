@@ -106,6 +106,26 @@ namespace ServiceHost.Areas.Admin.Pages.DailyRate
             var result = _dailyRateApplication?.Edit(command);
             return new JsonResult(result);
         }
+        public IActionResult OnGetUpdate(int id)
+        {
+            permissionQueryModels = _permissionQueryModel?.GetGeneral();
+            if (permissionQueryModels?.EditGeneral == GeneralPermissions.EditGeneral || permissionQueryModels?.AdminGeneral == GeneralPermissions.AdminGeneral)
+            {
+                var result = _dailyRateApplication?.GetDetails(id);
+                result.Moneys = _moneyApplication?.GetViewModel();
+                result.DateDay = DateTime.Now.ToFarsiFull();
+                return Partial("Update", result);
+            }
+            else
+            {
+                return Redirect("/Index");
+            }
+        }
+        public JsonResult OnPostUpdate(DailyRateEdit command)
+        {
+            var result = _dailyRateApplication?.Edit(command);
+            return new JsonResult(result);
+        }
         public JsonResult OnGetInActive(int id)
         {
             var result = _dailyRateApplication?.InActive(id);

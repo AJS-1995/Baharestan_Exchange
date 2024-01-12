@@ -36,7 +36,7 @@
                                     <span dir="ltr">@exchange.DateDay</span>
                                     @if (Model?.generalpermissionQueryModels?.EditGeneral == GeneralPermissions.EditGeneral || Model?.generalpermissionQueryModels?.AdminGeneral == GeneralPermissions.AdminGeneral)
                                     {
-                                        <a class="btn btn-sm btn-icon btn-outline-warning" title="ویرایش" href="#showmodal=@Url.Page("/DailyRate/Index", "Edit", new { id = exchange.Id })"><i class="fa-solid fa-edit (alias) fa-lg"></i></a>
+                                        <a class="btn btn-sm btn-icon btn-outline-warning" title="آپدیت" href="#showmodal=@Url.Page("/DailyRate/Index", "Update", new { id = exchange.Id })"><i class="fa-solid fa-pen-nib fa-lg"></i></a>
                                     }
                                 </div>
                             </div>
