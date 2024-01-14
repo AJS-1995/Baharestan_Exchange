@@ -28,6 +28,10 @@ namespace Application
 
             var userid = _authHelper.CurrentUserId();
             var agenciesId = _authHelper.CurrentAgenciesId();
+            if (agenciesId == 0)
+            {
+                agenciesId = command.AgenciesId;
+            }
 
             var result = new ExchangeRate(command.Amount, command.MainMoneyId, command.PriceBey, command.PriceSell, command.SecondaryMoneyId, command.DateDay, userid, agenciesId);
             _exchangeRateRepository.Create(result);
@@ -54,6 +58,10 @@ namespace Application
 
             var userid = _authHelper.CurrentUserId();
             var agenciesId = _authHelper.CurrentAgenciesId();
+            if (agenciesId == 0)
+            {
+                agenciesId = command.AgenciesId;
+            }
 
             result.Edit(command.Amount, command.MainMoneyId, command.PriceBey, command.PriceSell, command.SecondaryMoneyId, command.DateDay, userid, agenciesId);
             _exchangeRateRepository.SaveChanges();

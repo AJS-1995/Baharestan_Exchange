@@ -1,4 +1,5 @@
-﻿using _01_QueryManagement;
+﻿using _0_Framework.Application.Auth;
+using _01_QueryManagement;
 using _01_QueryManagement.Contracts.AgenciesInfo;
 using Microsoft.AspNetCore.Mvc;
 
@@ -7,17 +8,31 @@ namespace ServiceHost.Areas.Admin.ViewComponents
     public class AgenciesViewComponent : ViewComponent
     {
         private readonly IAgenciesQueryModel _agenciesQueryModel;
-        public AgenciesViewComponent(IAgenciesQueryModel agenciesQueryModel)
+        private readonly IAuthHelper _authHelper;
+        public AgenciesViewComponent(IAgenciesQueryModel agenciesQueryModel, IAuthHelper authHelper)
         {
             _agenciesQueryModel = agenciesQueryModel;
+            _authHelper = authHelper;
         }
         public IViewComponentResult Invoke()
         {
-            var result = new SidebarModel
+            var agenciesId = _authHelper.CurrentAgenciesId();
+            if (agenciesId == 0)
             {
-                AgenciessQueryModel = _agenciesQueryModel.GetAgenciess(),
-            };
-            return View(result);
+                var result = new SidebarModel
+                {
+                    AgenciessQueryModel = _agenciesQueryModel.GetAgenciess(),
+                };
+                return View(result);
+            }
+            else
+            {
+                var result = new SidebarModel
+                {
+                    AgenciessQueryModel = _agenciesQueryModel.GetAgenciess(agenciesId),
+                };
+                return View(result);
+            }
         }
     }
 }

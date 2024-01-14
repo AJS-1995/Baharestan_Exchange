@@ -3,5 +3,6 @@
     public interface IAgenciesQueryModel
     {
         AgenciesQueryModel GetAgenciess();
+        AgenciesQueryModel GetAgenciess(int id);
     }
 }

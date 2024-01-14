@@ -20,6 +20,10 @@
                     <th class="text-center">خرید</th>
                     <th class="text-center">فروش</th>
                     <th class="text-center">پول</th>
+                    @if (Model.idAgencies == 0)
+                    {
+                        <th class="text-center">نماینده گی</th>
+                    }
                     <th class="text-center">عملیات</th>
                 </tr>
             </thead>
@@ -34,6 +38,17 @@
                         <td class="text-center">@item.PriceSell</td>
                         <td class="text-center">@item.PriceBey</td>
                         <td class="text-center">@item.SecondaryMoneyName</td>
+                        @if (Model.idAgencies == 0)
+                        {
+                            if (item.AgenciesId == 0)
+                            {
+                                <td class="text-center">مرکزی</td>
+                            }
+                            else
+                            {
+                                <td class="text-center">@item.NameAgencies</td>
+                            }
+                        }
                         <td class="text-center">
                             <a class="btn btn-sm btn-icon btn-outline-primary" title="بازیابی" onclick="Reset(@item.Id)"><i class="fa-solid fa-check-to-slot fa-lg"></i></a>
                             <a class="btn btn-sm btn-icon btn-outline-danger" title="حذف کامل" onclick="Delete(@item.Id)"><i class="fa-solid fa-eraser fa-lg"></i></a>

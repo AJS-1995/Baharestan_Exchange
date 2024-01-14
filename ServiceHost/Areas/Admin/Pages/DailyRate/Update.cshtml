@@ -7,7 +7,7 @@
     <h4 class="modal-title">آپدیت تبدیل اسعار روزانه - @Model.DateDay</h4>
 </div>
 
-<form class="needs-validation" novalidate asp-page="./Index" asp-page-handler="Edit" method="post"
+<form class="needs-validation" novalidate asp-page="./Index" asp-page-handler="Update" method="post"
       data-ajax="true"
       data-callback=""
       data-action="Refresh">
@@ -54,16 +54,42 @@
             </div>
         </div>
         <div class="row">
-            <div class="col-sm-12">
-                <div class="form-group">
-                    <label class="form-label" asp-for="SecondaryMoneyId">پول</label>
-                    <select class="form-control" required asp-for="SecondaryMoneyId" id="SecondaryMoneyId"
-                            asp-items='new SelectList(Model.Moneys, "Id", "Name")'>
-                        <option disabled value="" selected="">پول ...</option>
-                    </select>
-                    <div class="invalid-feedback">اطلاعات باید وارد شود !</div>
+            @if (Model.IdAgencies != 0)
+            {
+                <div class="col-sm-12">
+                    <div class="form-group">
+                        <label class="form-label" asp-for="SecondaryMoneyId">پول</label>
+                        <select class="form-control" required asp-for="SecondaryMoneyId" id="SecondaryMoneyId"
+                                asp-items='new SelectList(Model.Moneys, "Id", "Name")'>
+                            <option disabled value="" selected="">پول ...</option>
+                        </select>
+                        <div class="invalid-feedback">اطلاعات باید وارد شود !</div>
+                    </div>
                 </div>
-            </div>
+            }
+            else
+            {
+                <div class="col-sm-6">
+                    <div class="form-group">
+                        <label class="form-label" asp-for="SecondaryMoneyId">پول</label>
+                        <select class="form-control" required asp-for="SecondaryMoneyId" id="SecondaryMoneyId"
+                                asp-items='new SelectList(Model.Moneys, "Id", "Name")'>
+                            <option disabled value="" selected="">پول ...</option>
+                        </select>
+                        <div class="invalid-feedback">اطلاعات باید وارد شود !</div>
+                    </div>
+                </div>
+                <div class="col-sm-6">
+                    <div class="form-group">
+                        <label class="form-label" for="AgenciesId">نماینده گی</label>
+                        <select id="AgenciesId" class="form-control" required name="AgenciesId"
+                                asp-items='new SelectList(Model.Agencies, "Id", "Name")'>
+                            <option disabled value="" selected="">تماینده گی ها ...</option>
+                        </select>
+                        <div class="invalid-feedback">اطلاعات باید وارد شود !</div>
+                    </div>
+                </div>
+            }
         </div>
         <input type="hidden" asp-for="Id" value="@Model.Id" />
         <div class="modal-footer">

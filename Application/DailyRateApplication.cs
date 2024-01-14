@@ -2,7 +2,6 @@
 using _0_Framework.Application;
 using Contracts.DailyRateContracts;
 using Domin.DailyRateDomin;
-using Domin.CompanyDomin;
 
 namespace Application
 {
@@ -26,12 +25,15 @@ namespace Application
         public OperationResult Create(DailyRateCreate command)
         {
             var operation = new OperationResult();
-
-            if (_dailyRateRepository.Exists(x => x.MainMoneyId == command.MainMoneyId && x.SecondaryMoneyId == command.SecondaryMoneyId))
-                return operation.Failed(ApplicationMessages.DuplicatedRecord);
-
             var userid = _authHelper.CurrentUserId();
             var agenciesId = _authHelper.CurrentAgenciesId();
+            if (agenciesId == 0)
+            {
+                agenciesId = command.AgenciesId;
+            }
+
+            if (_dailyRateRepository.Exists(x => x.MainMoneyId == command.MainMoneyId && x.SecondaryMoneyId == command.SecondaryMoneyId && x.AgenciesId == agenciesId))
+                return operation.Failed(ApplicationMessages.DuplicatedRecord);
 
             var result = new DailyRate(command.Amount, command.MainMoneyId, command.PriceBey, command.PriceSell, command.SecondaryMoneyId, command.DateDay, userid, agenciesId);
             _dailyRateRepository.Create(result);
@@ -49,15 +51,19 @@ namespace Application
         public OperationResult Edit(DailyRateEdit command)
         {
             var operation = new OperationResult();
+            var userid = _authHelper.CurrentUserId();
+            var agenciesId = _authHelper.CurrentAgenciesId();
+            if (agenciesId == 0)
+            {
+                agenciesId = command.AgenciesId;
+            }
+
             var result = _dailyRateRepository.Get(command.Id);
             if (result == null)
                 return operation.Failed(ApplicationMessages.RecordNotFound);
 
-            if (_dailyRateRepository.Exists(x => x.MainMoneyId == command.MainMoneyId && x.SecondaryMoneyId == command.SecondaryMoneyId && x.Id != command.Id))
+            if (_dailyRateRepository.Exists(x => x.MainMoneyId == command.MainMoneyId && x.SecondaryMoneyId == command.SecondaryMoneyId && x.AgenciesId == agenciesId && x.Id != command.Id))
                 return operation.Failed(ApplicationMessages.DuplicatedRecord);
-
-            var userid = _authHelper.CurrentUserId();
-            var agenciesId = _authHelper.CurrentAgenciesId();
 
             result.Edit(command.Amount, command.MainMoneyId, command.PriceBey, command.PriceSell, command.SecondaryMoneyId, command.DateDay, userid, agenciesId);
             _dailyRateRepository.SaveChanges();
@@ -71,13 +77,25 @@ namespace Application
         {
             return _dailyRateRepository.GetInActive();
         }
+        public List<DailyRateViewModel> GetInActive(int agenciesId)
+        {
+            return _dailyRateRepository.GetInActive(agenciesId);
+        }
         public List<DailyRateViewModel> GetRemove()
         {
             return _dailyRateRepository.GetRemove();
         }
+        public List<DailyRateViewModel> GetRemove(int agenciesId)
+        {
+            return _dailyRateRepository.GetRemove(agenciesId);
+        }
         public List<DailyRateViewModel> GetViewModel()
         {
             return _dailyRateRepository.GetViewModel();
+        }
+        public List<DailyRateViewModel> GetViewModel(int agenciesId)
+        {
+            return _dailyRateRepository.GetViewModel(agenciesId);
         }
         public OperationResult InActive(int id)
         {

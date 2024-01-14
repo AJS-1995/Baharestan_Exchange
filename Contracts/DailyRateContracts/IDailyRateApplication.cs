@@ -8,8 +8,11 @@ namespace Contracts.DailyRateContracts
         OperationResult Edit(DailyRateEdit command);
         DailyRateEdit GetDetails(int id);
         List<DailyRateViewModel> GetViewModel();
+        List<DailyRateViewModel> GetViewModel(int agenciesId);
         List<DailyRateViewModel> GetInActive();
+        List<DailyRateViewModel> GetInActive(int agenciesId);
         List<DailyRateViewModel> GetRemove();
+        List<DailyRateViewModel> GetRemove(int agenciesId);
         OperationResult InActive(int id);
         OperationResult Active(int id);
         OperationResult Remove(int id);

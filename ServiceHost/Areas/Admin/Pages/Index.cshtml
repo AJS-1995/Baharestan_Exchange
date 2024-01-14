@@ -14,34 +14,76 @@
         <div class="col-12">
             <div class="card">
                 <div class="card-body">
-                    <div class="money-Day-Price">
-                        @foreach (var exchange in Model.dailyRate)
-                        {
-                            <div class="box-money">
-                                <div class="box-money-title">
-                                    <p>@exchange.MainMoneyName</p>
-                                    <span> به </span>
-                                    <p>@exchange.SecondaryMoneyName</p>
+                    @if (Model.idAgencies != 0)
+                    {
+                        <div class="money-Day-Price">
+                            @foreach (var exchange in Model.DailyRate)
+                            {
+                                <div class="box-money">
+                                    <div class="box-money-title">
+                                        <p>@exchange.MainMoneyName</p>
+                                        <span> به </span>
+                                        <p>@exchange.SecondaryMoneyName</p>
+                                    </div>
+                                    <div class="input-group mb-3">
+                                        <span class="input-group-text">@exchange.MainMoneySymbol</span>
+                                        <input type="number" class="form-control" name="Amount" value="@exchange.Amount" readonly>
+                                    </div>
+                                    <div class="input-group mb-3">
+                                        <span class="input-group-text">@exchange.SecondaryMoneySymbol</span>
+                                        <input type="text" class="form-control" name="PriceSell" value="خ - @exchange.PriceSell" readonly>
+                                        <input type="text" class="form-control" name="PriceBey" value="ف - @exchange.PriceBey" readonly>
+                                    </div>
+                                    <div class="box-money-footer">
+                                        <span dir="ltr">@exchange.DateDay</span>
+                                        @if (Model?.generalpermissionQueryModels?.EditGeneral == GeneralPermissions.EditGeneral || Model?.generalpermissionQueryModels?.AdminGeneral == GeneralPermissions.AdminGeneral)
+                                        {
+                                            <a class="btn btn-sm btn-icon btn-outline-warning" title="آپدیت" href="#showmodal=@Url.Page("/DailyRate/Index", "Update", new { id = exchange.Id })"><i class="fa-solid fa-pen-nib fa-lg"></i></a>
+                                        }
+                                    </div>
                                 </div>
-                                <div class="input-group mb-3">
-                                    <span class="input-group-text">@exchange.MainMoneySymbol</span>
-                                    <input type="number" class="form-control" name="Amount" value="@exchange.Amount" readonly>
-                                </div>
-                                <div class="input-group mb-3">
-                                    <span class="input-group-text">@exchange.SecondaryMoneySymbol</span>
-                                    <input type="text" class="form-control" name="PriceSell" value="خ - @exchange.PriceSell" readonly>
-                                    <input type="text" class="form-control" name="PriceBey" value="ف - @exchange.PriceBey" readonly>
-                                </div>
-                                <div class="box-money-footer">
-                                    <span dir="ltr">@exchange.DateDay</span>
-                                    @if (Model?.generalpermissionQueryModels?.EditGeneral == GeneralPermissions.EditGeneral || Model?.generalpermissionQueryModels?.AdminGeneral == GeneralPermissions.AdminGeneral)
+                            }
+                        </div>
+                    }
+                    else
+                    {
+                        <div class="table-responsive">
+                            <table id="example" class="table table-bordered table-hover display nowrap margin-top-10 w-p100 js-serial">
+                                <thead class="table-Primary">
+                                    <tr>
+                                        <th class="text-center">تاریخ</th>
+                                        <th class="text-center">مقدار</th>
+                                        <th class="text-center">پول</th>
+                                        <th class="text-center">خرید</th>
+                                        <th class="text-center">فروش</th>
+                                        <th class="text-center">پول</th>
+                                        <th class="text-center">نماینده گی</th>
+                                    </tr>
+                                </thead>
+                                <tbody id="tbody">
+                                    @foreach (var item in Model.DailyRate)
                                     {
-                                        <a class="btn btn-sm btn-icon btn-outline-warning" title="آپدیت" href="#showmodal=@Url.Page("/DailyRate/Index", "Update", new { id = exchange.Id })"><i class="fa-solid fa-pen-nib fa-lg"></i></a>
+                                        <tr>
+                                            <td class="text-center" dir="ltr">@item.DateDay</td>
+                                            <td class="text-center">@item.Amount</td>
+                                            <td class="text-center">@item.MainMoneyName</td>
+                                            <td class="text-center">@item.PriceSell</td>
+                                            <td class="text-center">@item.PriceBey</td>
+                                            <td class="text-center">@item.SecondaryMoneyName</td>
+                                            @if (item.AgenciesId == 0)
+                                            {
+                                                <td class="text-center">مرکزی</td>
+                                            }
+                                            else
+                                            {
+                                                <td class="text-center">@item.NameAgencies</td>
+                                            }
+                                        </tr>
                                     }
-                                </div>
-                            </div>
-                        }
-                    </div>
+                                </tbody>
+                            </table>
+                        </div>
+                    }
                 </div>
             </div>
         </div>
@@ -52,4 +94,20 @@
     <script src="~/Theme/assets/formatter/formatter.js"></script>
     <script src="~/Theme/assets/formatter/jquery.formatter.js"></script>
     <script src="~/Theme/material-rtl/js/formatter.js"></script>
+    <script src="~/Theme/assets/datatable/datatables.js"></script>
+    <script src="~/Theme/material-rtl/js/data-table.js"></script>
+    <script>
+        function addRowCount(tableAttr) {
+            $(tableAttr).each(function () {
+                $('th:first-child, thead td:first-child', this).each(function () {
+                    var tag = $(this).prop('tagName');
+                    $(this).before('<' + tag + ' class="text-center" >#</' + tag + '>');
+                });
+                $('td:first-child', this).each(function (i) {
+                    $(this).before('<td class="text-center">' + (i + 1) + '</td>');
+                });
+            });
+        }
+        addRowCount('.js-serial');
+    </script>
 }

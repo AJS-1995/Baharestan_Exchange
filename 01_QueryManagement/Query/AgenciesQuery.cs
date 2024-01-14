@@ -10,9 +10,9 @@ namespace _01_QueryManagement.Query
         {
             _context = context;
         }
-        public AgenciesQueryModel GetAgenciess()
+        public AgenciesQueryModel GetAgenciess(int id)
         {
-            var Agencies = _context.Agenciess.Select(x => new AgenciesQueryModel
+            return _context.Agenciess.Where(x=> x.Id == id).Select(x => new AgenciesQueryModel
             {
                 Id = x.Id,
                 Name = x.Name,
@@ -20,7 +20,17 @@ namespace _01_QueryManagement.Query
                 Mobile = x.Mobile,
                 Responsible = x.Responsible
             }).FirstOrDefault();
-            return Agencies;
+        }
+        public AgenciesQueryModel GetAgenciess()
+        {
+            return _context.Agenciess.Select(x => new AgenciesQueryModel
+            {
+                Id = x.Id,
+                Name = x.Name,
+                Address = x.Address,
+                Mobile = x.Mobile,
+                Responsible = x.Responsible
+            }).FirstOrDefault();
         }
     }
 }

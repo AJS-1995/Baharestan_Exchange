@@ -1,10 +1,13 @@
+using _0_Framework.Application.Auth;
 using _01_QueryManagement.Contracts.Permissions.General;
 using _01_QueryManagement.Contracts.Permissions.User;
 using Configuration.Permissions.General;
 using Configuration.Permissions.Users;
+using Contracts.AgenciesContracts;
 using Contracts.CompanyContracts;
 using Contracts.DailyRateContracts;
 using Contracts.UsersContracts.UsersContracts;
+using Domin.AgenciesDomin;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using System.Linq;
@@ -13,31 +16,41 @@ namespace ServiceHost.Areas.Admin.Pages
 {
     public class IndexModel : PageModel
     {
-        public List<DailyRateViewModel>? dailyRate;
-
+        public int idAgencies;
+        public List<DailyRateViewModel>? DailyRate;
         public GeneralPermissionQueryModel? generalpermissionQueryModels;
         private readonly IGeneralPermissionQueryModel? _generalpermissionQueryModel;
-
         public UserPermissionQueryModel? permissionQueryModels;
         private readonly IUserPermissionQueryModel? _permissionQueryModel;
         private readonly ICompanyApplication? _companyApplication;
         private readonly IUserApplication _userApplication;
         private readonly IDailyRateApplication? _dailyRateApplication;
-        public IndexModel(ICompanyApplication? companyApplication, IUserPermissionQueryModel? permissionQueryModel, IUserApplication userApplication, IDailyRateApplication? DailyRateApplication, IGeneralPermissionQueryModel? generalpermissionQueryModel)
+        private readonly IAuthHelper? _authHelper;
+        public IndexModel(ICompanyApplication? companyApplication, IUserPermissionQueryModel? permissionQueryModel, IUserApplication userApplication, IDailyRateApplication? DailyRateApplication, IGeneralPermissionQueryModel? generalpermissionQueryModel, IAuthHelper? authHelper)
         {
             _companyApplication = companyApplication;
             _permissionQueryModel = permissionQueryModel;
             _userApplication = userApplication;
             _dailyRateApplication = DailyRateApplication;
             _generalpermissionQueryModel = generalpermissionQueryModel;
+            _authHelper = authHelper;
         }
         public IActionResult OnGet()
         {
             generalpermissionQueryModels = _generalpermissionQueryModel?.GetGeneral();
             if (generalpermissionQueryModels?.ListGeneral == GeneralPermissions.ListGeneral || generalpermissionQueryModels?.AdminGeneral == GeneralPermissions.AdminGeneral)
             {
-                dailyRate = _dailyRateApplication?.GetViewModel().OrderBy(x => x.Id).ToList();
                 generalpermissionQueryModels = _generalpermissionQueryModel?.GetGeneral();
+                var agenciesId = _authHelper.CurrentAgenciesId();
+                idAgencies = agenciesId;
+                if (idAgencies != 0)
+                {
+                    DailyRate = _dailyRateApplication?.GetViewModel(idAgencies);
+                }
+                else
+                {
+                    DailyRate = _dailyRateApplication?.GetViewModel().OrderBy(x => x.Id).ToList();
+                }
                 return Page();
             }
             else

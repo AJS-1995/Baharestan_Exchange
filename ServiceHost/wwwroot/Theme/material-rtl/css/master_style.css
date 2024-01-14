@@ -12428,12 +12428,19 @@ button.btn.dropdown-toggle::after, .wysihtml5-toolbar .btn.dropdown-toggle::afte
 }
 .dataTables_filter {
     float: right;
-	padding-top: 5px;
+	padding: 5px 0px;
 }
-.dataTables_filter input {
-    border: 1px solid #d9d9d9;
-    margin-left: 5px;
-}
+    .dataTables_filter label {
+        display: grid;
+        grid-template-columns: 1fr 3fr;
+        gap: 2px;
+        align-items: center;
+    }
+    .dataTables_filter input {
+        border: 1px solid #d9d9d9;
+        margin-left: 5px;
+        margin-top: 5px;
+    }
 table.dataTable thead .sorting, table.dataTable thead .sorting_asc, table.dataTable thead .sorting_asc_disabled, table.dataTable thead .sorting_desc, table.dataTable thead .sorting_desc_disabled {
     background: 0 0;
 }

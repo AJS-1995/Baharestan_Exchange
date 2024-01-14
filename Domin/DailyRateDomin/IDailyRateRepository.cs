@@ -7,7 +7,10 @@ namespace Domin.DailyRateDomin
     {
         DailyRateEdit GetDetails(int id);
         List<DailyRateViewModel> GetViewModel();
+        List<DailyRateViewModel> GetViewModel(int agenciesId);
         List<DailyRateViewModel> GetRemove();
+        List<DailyRateViewModel> GetRemove(int agenciesId);
         List<DailyRateViewModel> GetInActive();
+        List<DailyRateViewModel> GetInActive(int agenciesId);
     }
 }
