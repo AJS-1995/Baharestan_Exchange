@@ -3,6 +3,7 @@ using _0_Framework.Infrastructure.Permission;
 using Contracts.UsersContracts.UsersContracts;
 using Domin.UsersDomin;
 using Microsoft.EntityFrameworkCore;
+using static Microsoft.EntityFrameworkCore.DbLoggerCategory;
 
 namespace Infrastructure.Repository.UsersRepository
 {
@@ -42,7 +43,8 @@ namespace Infrastructure.Repository.UsersRepository
         }
         public List<UserViewModel> GetViewModel()
         {
-            return _context.Users.Where(x => x.Status == true && x.Deleted == false).Select(x => new UserViewModel
+            var agencies = _context.Agenciess.Select(x => new { x.Id, x.Name }).ToList();
+            var query = _context.Users.Where(x => x.Status == true && x.Deleted == false).Select(x => new UserViewModel
             {
                 Id = x.Id,
                 FullName = x.FullName,
@@ -58,7 +60,11 @@ namespace Infrastructure.Repository.UsersRepository
                 Status = x.Status,
                 User_Id = x.UserId,
                 User_Name = x.UserName,
-            }).OrderBy(x => x.Id).ToList();
+                IdAgencies = x.AgenciesId
+            });
+            var result = query.OrderByDescending(x => x.Id).ToList();
+            result.ForEach(item => item.NameAgencies = agencies.FirstOrDefault(x => x.Id == item.IdAgencies)?.Name);
+            return result;
         }
         public UserPermissionsCreate GetDetailsPer(int id)
         {
@@ -74,7 +80,8 @@ namespace Infrastructure.Repository.UsersRepository
 
         public List<UserViewModel> GetRemove()
         {
-            return _context.Users.Where(x => x.Deleted == true).Select(x => new UserViewModel
+            var agencies = _context.Agenciess.Select(x => new { x.Id, x.Name }).ToList();
+            var query = _context.Users.Where(x => x.Deleted == true).Select(x => new UserViewModel
             {
                 Id = x.Id,
                 FullName = x.FullName,
@@ -90,12 +97,17 @@ namespace Infrastructure.Repository.UsersRepository
                 Status = x.Status,
                 User_Id = x.UserId,
                 User_Name = x.UserName,
-            }).OrderBy(x => x.Id).ToList();
+                IdAgencies = x.AgenciesId
+            });
+            var result = query.OrderByDescending(x => x.Id).ToList();
+            result.ForEach(item => item.NameAgencies = agencies.FirstOrDefault(x => x.Id == item.IdAgencies)?.Name);
+            return result;
         }
 
         public List<UserViewModel> GetInActive()
         {
-            return _context.Users.Where(x => x.Status == false).Select(x => new UserViewModel
+            var agencies = _context.Agenciess.Select(x => new { x.Id, x.Name }).ToList();
+            var query = _context.Users.Where(x => x.Status == false).Select(x => new UserViewModel
             {
                 Id = x.Id,
                 FullName = x.FullName,
@@ -111,7 +123,11 @@ namespace Infrastructure.Repository.UsersRepository
                 Status = x.Status,
                 User_Id = x.UserId,
                 User_Name = x.UserName,
-            }).OrderBy(x => x.Id).ToList();
+                IdAgencies = x.AgenciesId
+            });
+            var result = query.OrderByDescending(x => x.Id).ToList();
+            result.ForEach(item => item.NameAgencies = agencies.FirstOrDefault(x => x.Id == item.IdAgencies)?.Name);
+            return result;
         }
     }
 }

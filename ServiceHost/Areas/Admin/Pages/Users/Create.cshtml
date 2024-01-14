@@ -63,7 +63,16 @@
             </div>
         </div>
         <div class="row">
-            @if (Model.AgenciesId == 0)
+            @if (Model.IdAgencies != 0)
+            {
+                <div class="col-sm-12">
+                    <div class="form-group">
+                        <label for="ProfilePhoto" class="form-label">عکس</label>
+                        <input type="file" class="form-control" name="ProfilePhoto" accept="image/*">
+                    </div>
+                </div>
+            }
+            else
             {
                 <div class="col-sm-4">
                     <div class="form-group">
@@ -76,15 +85,6 @@
                     </div>
                 </div>
                 <div class="col-sm-8">
-                    <div class="form-group">
-                        <label for="ProfilePhoto" class="form-label">عکس</label>
-                        <input type="file" class="form-control" name="ProfilePhoto" accept="image/*">
-                    </div>
-                </div>
-            }
-            else
-            {
-                <div class="col-sm-12">
                     <div class="form-group">
                         <label for="ProfilePhoto" class="form-label">عکس</label>
                         <input type="file" class="form-control" name="ProfilePhoto" accept="image/*">

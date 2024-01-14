@@ -49,19 +49,9 @@
             </div>
         </div>
         <div class="row">
-            @if (Model.AgenciesId == 0)
+            @if (Model.IdAgencies != 0)
             {
-                <div class="col-sm-4">
-                    <div class="form-group">
-                        <label class="form-label" for="AgenciesId">نماینده گی</label>
-                        <select id="AgenciesId" class="form-control" required asp-for="AgenciesId"
-                                asp-items='new SelectList(Model.Agencies, "Id", "Name")'>
-                            <option disabled value="" selected="">تماینده گی ها ...</option>
-                        </select>
-                        <div class="invalid-feedback">اطلاعات باید وارد شود !</div>
-                    </div>
-                </div>
-                <div class="col-sm-8">
+                <div class="col-sm-12">
                     <div class="form-group">
                         <label for="ProfilePhoto" class="form-label">عکس</label>
                         <input type="file" class="form-control" name="ProfilePhoto" accept="image/*">
@@ -70,7 +60,17 @@
             }
             else
             {
-                <div class="col-sm-12">
+                <div class="col-sm-4">
+                    <div class="form-group">
+                        <label class="form-label" for="AgenciesId">نماینده گی</label>
+                        <select id="AgenciesId" class="form-control" required name="AgenciesId"
+                                asp-items='new SelectList(Model.Agencies, "Id", "Name")'>
+                            <option disabled value="" selected="">تماینده گی ها ...</option>
+                        </select>
+                        <div class="invalid-feedback">اطلاعات باید وارد شود !</div>
+                    </div>
+                </div>
+                <div class="col-sm-8">
                     <div class="form-group">
                         <label for="ProfilePhoto" class="form-label">عکس</label>
                         <input type="file" class="form-control" name="ProfilePhoto" accept="image/*">

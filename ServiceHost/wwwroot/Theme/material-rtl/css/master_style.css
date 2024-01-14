@@ -16828,3 +16828,10 @@ input::-webkit-inner-spin-button {
 input[type=number] {
     -moz-appearance: textfield;
 }
+
+.tab-class{
+    display: flex !important;
+    align-items: start;
+    flex-direction: row;
+    gap: 20px;
+}

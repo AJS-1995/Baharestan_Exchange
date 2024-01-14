@@ -12,7 +12,7 @@ namespace ServiceHost.Areas.Admin.Pages.Users
 {
     public class IndexModel : PageModel
     {
-        public int AgenciesId = 0;
+        public int idAgencies;
         public List<UserViewModel>? users;
         public UserPermissionQueryModel? permissionQueryModels;
         private readonly IUserPermissionQueryModel? _permissionQueryModel;
@@ -33,6 +33,8 @@ namespace ServiceHost.Areas.Admin.Pages.Users
             permissionQueryModels = _permissionQueryModel?.GetUsers();
             if (permissionQueryModels?.ListUsers == UserPermissions.ListUsers || permissionQueryModels?.AdminUsers == UserPermissions.AdminUsers)
             {
+                var agenciesId = _AuthHelper.CurrentAgenciesId();
+                idAgencies = agenciesId;
                 users = _userApplication?.GetViewModel();
                 return Page();
             }
@@ -47,12 +49,10 @@ namespace ServiceHost.Areas.Admin.Pages.Users
             if (permissionQueryModels?.AddUsers == UserPermissions.AddUsers || permissionQueryModels?.AdminUsers == UserPermissions.AdminUsers)
             {
                 var agenciesId = _AuthHelper.CurrentAgenciesId();
-                if (agenciesId != 0)
-                {
-                    AgenciesId = agenciesId;
-                }
                 var command = new UserCreate
                 {
+                    
+                    IdAgencies = agenciesId,
                     Roles = _roleApplication?.GetViewModel(),
                     Agencies = _agenciesApplication?.GetViewModel(),
                 };
@@ -108,11 +108,8 @@ namespace ServiceHost.Areas.Admin.Pages.Users
             if (currentAccout?.Id == currentAccout?.Id || permissionQueryModels?.EditUser == UserPermissions.EditUser || permissionQueryModels?.AdminUsers == UserPermissions.AdminUsers)
             {
                 var agenciesId = _AuthHelper.CurrentAgenciesId();
-                if (agenciesId != 0)
-                {
-                    AgenciesId = agenciesId;
-                }
                 var account = _userApplication?.GetDetails(id);
+                account.IdAgencies = agenciesId;
                 account.Roles = _roleApplication?.GetViewModel();
                 account.Agencies = _agenciesApplication?.GetViewModel();
                 return Partial("Edit", account);

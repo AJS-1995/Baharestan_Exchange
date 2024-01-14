@@ -23,6 +23,7 @@ namespace Contracts.UsersContracts.UsersContracts
         [Required(ErrorMessage = ValidationMessages.IsRequired)]
         public string? SecurityCod { get; set; }
         public int AgenciesId { get; set; }
+        public int IdAgencies { get; set; }
         public int RoleId { get; set; }
         public IFormFile? ProfilePhoto { get; set; }
         public List<RoleViewModel>? Roles { get; set; }
