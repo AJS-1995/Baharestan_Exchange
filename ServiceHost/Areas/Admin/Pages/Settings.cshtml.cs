@@ -4,6 +4,7 @@ using _01_QueryManagement.Contracts.Permissions.General;
 using Configuration.Permissions.General;
 using Contracts.AgenciesContracts;
 using Contracts.CompanyContracts;
+using Contracts.UsersContracts.UsersContracts;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 
@@ -11,6 +12,8 @@ namespace ServiceHost.Areas.Admin.Pages
 {
     public class SettingsModel : PageModel
     {
+        public int idAgencies;
+        public List<AgenciesViewModel>? agencies;
         public GeneralPermissionQueryModel? permissionQueryModels;
         private readonly IGeneralPermissionQueryModel? _permissionQueryModel;
         private readonly ICompanyApplication _companyApplication;
@@ -36,6 +39,8 @@ namespace ServiceHost.Areas.Admin.Pages
 
                 var agenciesId = _authHelper.CurrentAgenciesId();
                 commandAgencies = _agenciesApplication.GetDetails(agenciesId);
+                idAgencies = agenciesId;
+                agencies = _agenciesApplication.GetViewModel();
                 return Page();
             }
             else

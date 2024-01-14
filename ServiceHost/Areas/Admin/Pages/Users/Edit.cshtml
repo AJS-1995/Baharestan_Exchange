@@ -36,30 +36,21 @@
                 </div>
             </div>
         </div>
-        <div class="row">
-            <div class="col-sm-4">
-                <div class="form-group">
-                    <label class="form-label" for="RoleId">وظیفه</label>
-                    <select id="RoleId" class="form-control" required asp-for="RoleId"
-                            asp-items='new SelectList(Model.Roles, "Id", "NamePersian")'>
-                        <option disabled value="" selected="">وظیفه ها ...</option>
-                    </select>
-                    <div class="invalid-feedback">اطلاعات باید وارد شود !</div>
-                </div>
-            </div>
-        </div>
-        <div class="row">
-            @if (Model.IdAgencies != 0)
-            {
+        @if (Model.IdAgencies == 0)
+        {
+            <div class="row">
                 <div class="col-sm-12">
                     <div class="form-group">
-                        <label for="ProfilePhoto" class="form-label">عکس</label>
-                        <input type="file" class="form-control" name="ProfilePhoto" accept="image/*">
+                        <label class="form-label" for="RoleId">وظیفه</label>
+                        <select id="RoleId" class="form-control" required asp-for="RoleId"
+                                asp-items='new SelectList(Model.Roles, "Id", "NamePersian")'>
+                            <option disabled value="" selected="">وظیفه ها ...</option>
+                        </select>
+                        <div class="invalid-feedback">اطلاعات باید وارد شود !</div>
                     </div>
                 </div>
-            }
-            else
-            {
+            </div>
+            <div class="row">
                 <div class="col-sm-4">
                     <div class="form-group">
                         <label class="form-label" for="AgenciesId">نماینده گی</label>
@@ -76,8 +67,29 @@
                         <input type="file" class="form-control" name="ProfilePhoto" accept="image/*">
                     </div>
                 </div>
-            }
-        </div>
+            </div>
+        }
+        else
+        {
+            <div class="row">
+                <div class="col-sm-4">
+                    <div class="form-group">
+                        <label class="form-label" for="RoleId">وظیفه</label>
+                        <select id="RoleId" class="form-control" required asp-for="RoleId"
+                                asp-items='new SelectList(Model.Roles, "Id", "NamePersian")'>
+                            <option disabled value="" selected="">وظیفه ها ...</option>
+                        </select>
+                        <div class="invalid-feedback">اطلاعات باید وارد شود !</div>
+                    </div>
+                </div>
+                <div class="col-sm-8">
+                    <div class="form-group">
+                        <label for="ProfilePhoto" class="form-label">عکس</label>
+                        <input type="file" class="form-control" name="ProfilePhoto" accept="image/*">
+                    </div>
+                </div>
+            </div>
+        }
         <input type="hidden" asp-for="Id" value="@Model.Id" />
         <div class="modal-footer">
             <button type="submit" class="btn btn-sm btn-icon btn-outline-success"><i class="fa fa-save"></i></button>

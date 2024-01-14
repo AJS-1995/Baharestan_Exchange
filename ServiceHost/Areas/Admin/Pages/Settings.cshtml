@@ -1,9 +1,11 @@
 ﻿@page
 @model ServiceHost.Areas.Admin.Pages.SettingsModel
 @using Configuration.Permissions.General;
+@inject _0_Framework.Application.Auth.IAuthHelper AuthHelper;
 @{
     Layout = "Shared/_AdminLayout";
     ViewData["title"] = "تنظیمات";
+    var currentAccout = AuthHelper.CurrentUserInfo();
 }
 <section class="content">
     <div class="row">
@@ -28,61 +30,89 @@
                                       data-callback=""
                                       data-action="Refresh"
                                       enctype="multipart/form-data">
-                                        <div class="row">
-                                            <div class="col-12">
-                                                <div class="form-group">
-                                                    <label class="form-label" for="Name">نام کمپنی</label>
-                                                    <input id="Name" type="text" required class="form-control" asp-for="@Model.commandCompany.Name">
-                                                    <div class="invalid-feedback">اطلاعات باید وارد شود !</div>
-                                                </div>
+                                    <div class="row">
+                                        <div class="col-12">
+                                            <div class="form-group">
+                                                <label class="form-label" for="Name">نام کمپنی</label>
+                                                <input id="Name" type="text" required class="form-control" asp-for="@Model.commandCompany.Name">
+                                                <div class="invalid-feedback">اطلاعات باید وارد شود !</div>
                                             </div>
                                         </div>
-                                        <div class="row">
-                                            <div class="col-12">
-                                                <div class="form-group">
-                                                    <label class="form-label" for="Address">آدرس کمپنی</label>
-                                                    <input id="Address" type="text" required class="form-control" asp-for="@Model.commandCompany.Address">
-                                                    <div class="invalid-feedback">اطلاعات باید وارد شود !</div>
-                                                </div>
+                                    </div>
+                                    <div class="row">
+                                        <div class="col-12">
+                                            <div class="form-group">
+                                                <label class="form-label" for="Address">آدرس کمپنی</label>
+                                                <input id="Address" type="text" required class="form-control" asp-for="@Model.commandCompany.Address">
+                                                <div class="invalid-feedback">اطلاعات باید وارد شود !</div>
                                             </div>
                                         </div>
-                                        <div class="row">
-                                            <div class="col-12">
-                                                <div class="form-group">
-                                                    <label class="form-label" for="Responsible">مسئول کمپنی</label>
-                                                    <input id="Responsible" type="text" required class="form-control" asp-for="@Model.commandCompany.Responsible">
-                                                    <div class="invalid-feedback">اطلاعات باید وارد شود !</div>
-                                                </div>
+                                    </div>
+                                    <div class="row">
+                                        <div class="col-12">
+                                            <div class="form-group">
+                                                <label class="form-label" for="Responsible">مسئول کمپنی</label>
+                                                <input id="Responsible" type="text" required class="form-control" asp-for="@Model.commandCompany.Responsible">
+                                                <div class="invalid-feedback">اطلاعات باید وارد شود !</div>
                                             </div>
                                         </div>
-                                        <div class="row">
-                                            <div class="col-12">
-                                                <div class="form-group">
-                                                    <label class="form-label" for="phone">موبایل کمپنی</label>
-                                                    <input id="phone" type="text" dir="ltr" required class="form-control" asp-for="@Model.commandCompany.Mobile">
-                                                    <div class="invalid-feedback">اطلاعات باید وارد شود !</div>
-                                                </div>
+                                    </div>
+                                    <div class="row">
+                                        <div class="col-12">
+                                            <div class="form-group">
+                                                <label class="form-label" for="phone">موبایل کمپنی</label>
+                                                <input id="phone" type="text" dir="ltr" required class="form-control" asp-for="@Model.commandCompany.Mobile">
+                                                <div class="invalid-feedback">اطلاعات باید وارد شود !</div>
                                             </div>
                                         </div>
-                                        <div class="row">
-                                            <div class="col-12">
-                                                <div class="form-group">
-                                                    <label class="form-label" for="Logo">لوگو کمپنی</label>
-                                                    <input type="file" id="Logo" class="form-control" name="Logo" accept="image/*">
-                                                </div>
+                                    </div>
+                                    <div class="row">
+                                        <div class="col-12">
+                                            <div class="form-group">
+                                                <label class="form-label" for="Logo">لوگو کمپنی</label>
+                                                <input type="file" id="Logo" class="form-control" name="Logo" accept="image/*">
                                             </div>
                                         </div>
-                                        <div class="modal-footer">
-                                            <button type="submit" class="btn btn-sm btn-icon btn-outline-success"><i class="fa-solid fa-save fa-lg"></i></button>
-                                        </div>
+                                    </div>
+                                    <div class="modal-footer">
+                                        <button type="submit" class="btn btn-sm btn-icon btn-outline-success"><i class="fa-solid fa-save fa-lg"></i></button>
+                                    </div>
                                     <input type="hidden" id="CompanyId" asp-for="@Model.commandCompany.Id" />
                                 </form>
                             </div>
                             <div class="tab-pane fade" id="v-pills-profile" role="tabpanel" aria-labelledby="v-pills-profile-tab" tabindex="0">
-                                <form class="needs-validation" novalidate asp-page="./Settings" asp-page-handler="AgenciesEdit" method="post"
-                                      data-ajax="true"
-                                      data-callback=""
-                                      data-action="Refresh">
+                                @if (Model.idAgencies == 0)
+                                {
+                                    <div class="table-responsive">
+                                        <table id="example" class="table table-bordered table-hover display nowrap margin-top-10 w-p100 js-serial">
+                                            <thead class="table-Primary">
+                                                <tr>
+                                                    <th class="text-center">نام</th>
+                                                    <th class="text-center">آدرس</th>
+                                                    <th class="text-center">مسئول</th>
+                                                    <th class="text-center">موبایل</th>
+                                                </tr>
+                                            </thead>
+                                            <tbody id="tbody">
+                                                @foreach (var item in Model.agencies)
+                                                {
+                                                    <tr>
+                                                        <td class="text-center"><a asp-page="/Agencies/Index">@item.Name</a></td>
+                                                        <td class="text-center"><a asp-page="/Agencies/Index">@item.Address</a></td>
+                                                        <td class="text-center"><a asp-page="/Agencies/Index">@item.Responsible</a></td>
+                                                        <td class="text-center" dir="ltr"><a asp-page="/Agencies/Index">@item.Mobile</a></td>
+                                                    </tr>
+                                                }
+                                            </tbody>
+                                        </table>
+                                    </div>
+                                }
+                                else
+                                {
+                                    <form class="needs-validation" novalidate asp-page="./Settings" asp-page-handler="AgenciesEdit" method="post"
+                                          data-ajax="true"
+                                          data-callback=""
+                                          data-action="Refresh">
                                         <div class="row">
                                             <div class="col-12">
                                                 <div class="form-group">
@@ -122,8 +152,9 @@
                                         <div class="modal-footer">
                                             <button type="submit" class="btn btn-sm btn-icon btn-outline-success"><i class="fa-solid fa-save fa-lg"></i></button>
                                         </div>
-                                    <input type="hidden" id="AgenciesId" asp-for="@Model.commandAgencies.Id" />
-                                </form>
+                                        <input type="hidden" id="AgenciesId" asp-for="@Model.commandAgencies.Id" />
+                                    </form>
+                                }
                             </div>
                         </div>
                     </div>
@@ -133,7 +164,7 @@
     </div>
 </section>
 
-@section Scripts 
+@section Scripts
 {
     <script src="~/Theme/assets/formatter/formatter.js"></script>
     <script src="~/Theme/assets/formatter/jquery.formatter.js"></script>
