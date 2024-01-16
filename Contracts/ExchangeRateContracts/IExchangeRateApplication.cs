@@ -8,8 +8,11 @@ namespace Contracts.ExchangeRateContracts
         OperationResult Edit(ExchangeRateEdit command);
         ExchangeRateEdit GetDetails(long id);
         List<ExchangeRateViewModel> GetViewModel();
+        List<ExchangeRateViewModel> GetViewModel(int agenciesId);
         List<ExchangeRateViewModel> GetInActive();
+        List<ExchangeRateViewModel> GetInActive(int agenciesId);
         List<ExchangeRateViewModel> GetRemove();
+        List<ExchangeRateViewModel> GetRemove(int agenciesId);
         OperationResult InActive(long id);
         OperationResult Active(long id);
         OperationResult Remove(long id);

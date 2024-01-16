@@ -7,7 +7,10 @@ namespace Domin.ExchangeRateDomin
     {
         ExchangeRateEdit GetDetails(long id);
         List<ExchangeRateViewModel> GetViewModel();
+        List<ExchangeRateViewModel> GetViewModel(int agenciesId);
         List<ExchangeRateViewModel> GetRemove();
+        List<ExchangeRateViewModel> GetRemove(int agenciesId);
         List<ExchangeRateViewModel> GetInActive();
+        List<ExchangeRateViewModel> GetInActive(int agenciesId);
     }
 }

@@ -163,7 +163,6 @@ namespace ServiceHost.Areas.Admin.Pages.DailyRate
                 result.Moneys = _moneyApplication?.GetViewModel();
                 result.Agencies = _agenciesApplication?.GetViewModel();
                 result.IdAgencies = agenciesId;
-                result.AgenciesId = agenciesId;
                 return Partial("Edit", result);
             }
             else
@@ -198,7 +197,6 @@ namespace ServiceHost.Areas.Admin.Pages.DailyRate
                 result.Moneys = _moneyApplication?.GetViewModel();
                 result.DateDay = DateTime.Now.ToFarsiFull();
                 result.IdAgencies = agenciesId;
-                result.AgenciesId = agenciesId;
                 return Partial("Update", result);
             }
             else

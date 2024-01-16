@@ -2,6 +2,7 @@
 using _0_Framework.Application;
 using Contracts.ExchangeRateContracts;
 using Domin.ExchangeRateDomin;
+using Domin.AgenciesDomin;
 
 namespace Application
 {
@@ -53,9 +54,6 @@ namespace Application
             if (result == null)
                 return operation.Failed(ApplicationMessages.RecordNotFound);
 
-            if (_exchangeRateRepository.Exists(x => x.Id != command.Id))
-                return operation.Failed(ApplicationMessages.DuplicatedRecord);
-
             var userid = _authHelper.CurrentUserId();
             var agenciesId = _authHelper.CurrentAgenciesId();
             if (agenciesId == 0)
@@ -75,13 +73,25 @@ namespace Application
         {
             return _exchangeRateRepository.GetInActive();
         }
+        public List<ExchangeRateViewModel> GetInActive(int agenciesId)
+        {
+            return _exchangeRateRepository.GetInActive(agenciesId);
+        }
         public List<ExchangeRateViewModel> GetRemove()
         {
             return _exchangeRateRepository.GetRemove();
         }
+        public List<ExchangeRateViewModel> GetRemove(int agenciesId)
+        {
+            return _exchangeRateRepository.GetRemove(agenciesId);
+        }
         public List<ExchangeRateViewModel> GetViewModel()
         {
             return _exchangeRateRepository.GetViewModel();
+        }
+        public List<ExchangeRateViewModel> GetViewModel(int agenciesId)
+        {
+            return _exchangeRateRepository.GetViewModel(agenciesId);
         }
         public OperationResult InActive(long id)
         {

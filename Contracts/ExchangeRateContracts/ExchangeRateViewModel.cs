@@ -14,6 +14,9 @@
         public string? SecondaryMoneySymbol { get; set; }
         public string? DateDay { get; set; }
         public string? SaveDate { get; set; }
+        public int AgenciesId { get; set; }
+        public int IdAgencies { get; set; }
+        public string? NameAgencies { get; set; }
         public int UserId { get; set; }
         public string? UserName { get; set; }
         public bool Status { get; set; }

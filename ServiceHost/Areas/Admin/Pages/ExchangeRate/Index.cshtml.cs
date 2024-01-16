@@ -1,8 +1,12 @@
 using _0_Framework.Application;
+using _0_Framework.Application.Auth;
 using _01_QueryManagement.Contracts.Permissions.General;
 using Configuration.Permissions.General;
+using Contracts.AgenciesContracts;
+using Contracts.DailyRateContracts;
 using Contracts.ExchangeRateContracts;
 using Contracts.MoneyContracts;
+using Domin.AgenciesDomin;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 
@@ -10,24 +14,38 @@ namespace ServiceHost.Areas.Admin.Pages.ExchangeRate
 {
     public class IndexModel : PageModel
     {
+        public int idAgencies;
         public GeneralPermissionQueryModel? permissionQueryModels;
         private readonly IGeneralPermissionQueryModel? _permissionQueryModel;
         public List<ExchangeRateViewModel>? ExchangeRate;
         private readonly IExchangeRateApplication? _exchangeRateApplication;
         private readonly IMoneyApplication? _moneyApplication;
-        public IndexModel(IGeneralPermissionQueryModel? permissionQueryModel, IExchangeRateApplication? ExchangeRateApplication, IMoneyApplication? moneyApplication)
+        private readonly IAuthHelper? _authHelper;
+        private readonly IAgenciesApplication? _agenciesApplication;
+        public IndexModel(IGeneralPermissionQueryModel? permissionQueryModel, IExchangeRateApplication? ExchangeRateApplication, IMoneyApplication? moneyApplication, IAuthHelper? authHelper, IAgenciesApplication? agenciesApplication)
         {
             _permissionQueryModel = permissionQueryModel;
             _exchangeRateApplication = ExchangeRateApplication;
             _moneyApplication = moneyApplication;
+            _authHelper = authHelper;
+            _agenciesApplication = agenciesApplication;
         }
         public IActionResult OnGet()
         {
             permissionQueryModels = _permissionQueryModel?.GetGeneral();
             if (permissionQueryModels?.ListGeneral == GeneralPermissions.ListGeneral || permissionQueryModels?.AdminGeneral == GeneralPermissions.AdminGeneral)
             {
-                ExchangeRate = _exchangeRateApplication?.GetViewModel();
                 permissionQueryModels = _permissionQueryModel?.GetGeneral();
+                var agenciesId = _authHelper.CurrentAgenciesId();
+                idAgencies = agenciesId;
+                if (idAgencies != 0)
+                {
+                    ExchangeRate = _exchangeRateApplication?.GetViewModel(idAgencies);
+                }
+                else
+                {
+                    ExchangeRate = _exchangeRateApplication?.GetViewModel();
+                }
                 return Page();
             }
             else
@@ -40,9 +58,14 @@ namespace ServiceHost.Areas.Admin.Pages.ExchangeRate
             permissionQueryModels = _permissionQueryModel?.GetGeneral();
             if (permissionQueryModels?.AddGeneral == GeneralPermissions.AddGeneral || permissionQueryModels?.AdminGeneral == GeneralPermissions.AdminGeneral)
             {
-                var command = new ExchangeRateCreate();
-                command.DateDay = DateTime.Now.ToFarsiFull();
-                command.Moneys = _moneyApplication?.GetViewModel();
+                var agenciesId = _authHelper.CurrentAgenciesId();
+                var command = new ExchangeRateCreate()
+                {
+                    IdAgencies = agenciesId,
+                    DateDay = DateTime.Now.ToFarsiFull(),
+                    Moneys = _moneyApplication?.GetViewModel(),
+                    Agencies = _agenciesApplication?.GetViewModel()
+                };
                 return Partial("./Create", command);
             }
             else
@@ -60,11 +83,25 @@ namespace ServiceHost.Areas.Admin.Pages.ExchangeRate
             permissionQueryModels = _permissionQueryModel?.GetGeneral();
             if (permissionQueryModels?.RemovedGeneral == GeneralPermissions.RemovedGeneral || permissionQueryModels?.AdminGeneral == GeneralPermissions.AdminGeneral)
             {
-                var commnd = new ExchangeRateRemoved()
+                var agenciesId = _authHelper.CurrentAgenciesId();
+                idAgencies = agenciesId;
+                if (idAgencies != 0)
                 {
-                    ExchangeRateRemoveds = _exchangeRateApplication?.GetRemove()
-                };
-                return Partial("./Removed", commnd);
+                    var commnd = new ExchangeRateRemoved()
+                    {
+                        idAgencies = idAgencies,
+                        ExchangeRateRemoveds = _exchangeRateApplication?.GetRemove(idAgencies)
+                    };
+                    return Partial("./Removed", commnd);
+                }
+                else
+                {
+                    var commnd = new ExchangeRateRemoved()
+                    {
+                        ExchangeRateRemoveds = _exchangeRateApplication?.GetRemove()
+                    };
+                    return Partial("./Removed", commnd);
+                }
             }
             else
             {
@@ -76,11 +113,25 @@ namespace ServiceHost.Areas.Admin.Pages.ExchangeRate
             permissionQueryModels = _permissionQueryModel?.GetGeneral();
             if (permissionQueryModels?.ActivedGeneral == GeneralPermissions.ActivedGeneral || permissionQueryModels?.AdminGeneral == GeneralPermissions.AdminGeneral)
             {
-                var commnd = new ExchangeRateRemoved()
+                var agenciesId = _authHelper.CurrentAgenciesId();
+                idAgencies = agenciesId;
+                if (idAgencies != 0)
                 {
-                    ExchangeRateRemoveds = _exchangeRateApplication?.GetInActive()
-                };
-                return Partial("./Actived", commnd);
+                    var commnd = new ExchangeRateRemoved()
+                    {
+                        idAgencies = idAgencies,
+                        ExchangeRateRemoveds = _exchangeRateApplication?.GetInActive(idAgencies)
+                    };
+                    return Partial("./Actived", commnd);
+                }
+                else
+                {
+                    var commnd = new ExchangeRateRemoved()
+                    {
+                        ExchangeRateRemoveds = _exchangeRateApplication?.GetInActive()
+                    };
+                    return Partial("./Actived", commnd);
+                }
             }
             else
             {
@@ -92,8 +143,11 @@ namespace ServiceHost.Areas.Admin.Pages.ExchangeRate
             permissionQueryModels = _permissionQueryModel?.GetGeneral();
             if (permissionQueryModels?.EditGeneral == GeneralPermissions.EditGeneral || permissionQueryModels?.AdminGeneral == GeneralPermissions.AdminGeneral)
             {
+                var agenciesId = _authHelper.CurrentAgenciesId();
                 var result = _exchangeRateApplication?.GetDetails(id);
                 result.Moneys = _moneyApplication?.GetViewModel();
+                result.Agencies = _agenciesApplication?.GetViewModel();
+                result.IdAgencies = agenciesId;
                 return Partial("Edit", result);
             }
             else
