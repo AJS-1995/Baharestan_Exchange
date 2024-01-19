@@ -30,6 +30,10 @@ namespace Application
 
             var userid = _authHelper.CurrentUserId();
             var agenciesId = _authHelper.CurrentAgenciesId();
+            if (agenciesId == 0)
+            {
+                agenciesId = command.AgenciesId;
+            }
 
             var result = new SafeBox(command.Name, command.Treasurer, command.Mobile, userid, agenciesId);
             _SafeBoxRepository.Create(result);
@@ -56,6 +60,10 @@ namespace Application
 
             var userid = _authHelper.CurrentUserId();
             var agenciesId = _authHelper.CurrentAgenciesId();
+            if (agenciesId == 0)
+            {
+                agenciesId = command.AgenciesId;
+            }
 
             result.Edit(command.Name, command.Treasurer, command.Mobile, userid, agenciesId);
             _SafeBoxRepository.SaveChanges();
@@ -69,13 +77,25 @@ namespace Application
         {
             return _SafeBoxRepository.GetInActive();
         }
+        public List<SafeBoxViewModel> GetInActive(int agenciesId)
+        {
+            return _SafeBoxRepository.GetInActive(agenciesId);
+        }
         public List<SafeBoxViewModel> GetRemove()
         {
             return _SafeBoxRepository.GetRemove();
         }
+        public List<SafeBoxViewModel> GetRemove(int agenciesId)
+        {
+            return _SafeBoxRepository.GetRemove(agenciesId);
+        }
         public List<SafeBoxViewModel> GetViewModel()
         {
             return _SafeBoxRepository.GetViewModel();
+        }
+        public List<SafeBoxViewModel> GetViewModel(int agenciesId)
+        {
+            return _SafeBoxRepository.GetViewModel(agenciesId);
         }
         public OperationResult InActive(int id)
         {
@@ -102,5 +122,4 @@ namespace Application
             return operation.Succedded();
         }
     }
-
 }

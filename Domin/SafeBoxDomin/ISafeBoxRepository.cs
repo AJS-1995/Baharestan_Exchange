@@ -7,7 +7,10 @@ namespace Domin.SafeBoxDomin
     {
         SafeBoxEdit GetDetails(int id);
         List<SafeBoxViewModel> GetViewModel();
+        List<SafeBoxViewModel> GetViewModel(int agenciesId);
         List<SafeBoxViewModel> GetRemove();
+        List<SafeBoxViewModel> GetRemove(int agenciesId);
         List<SafeBoxViewModel> GetInActive();
+        List<SafeBoxViewModel> GetInActive(int agenciesId);
     }
 }

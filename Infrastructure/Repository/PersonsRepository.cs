@@ -1,6 +1,5 @@
 ﻿using _0_Framework.Infrastructure;
 using Contracts.PersonsContracts;
-using Domin.AgenciesDomin;
 using Domin.PersonsDomin;
 
 namespace Infrastructure.Repository

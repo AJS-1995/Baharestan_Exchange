@@ -1,5 +1,7 @@
+using _0_Framework.Application.Auth;
 using _01_QueryManagement.Contracts.Permissions.General;
 using Configuration.Permissions.General;
+using Contracts.AgenciesContracts;
 using Contracts.SafeBoxContracts;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
@@ -8,22 +10,36 @@ namespace ServiceHost.Areas.Admin.Pages.SafeBoxs
 {
     public class IndexModel : PageModel
     {
+        public int idAgencies;
         public GeneralPermissionQueryModel? permissionQueryModels;
         private readonly IGeneralPermissionQueryModel? _permissionQueryModel;
         public List<SafeBoxViewModel>? SafeBox;
         private readonly ISafeBoxApplication? _safeBoxApplication;
-        public IndexModel(IGeneralPermissionQueryModel? permissionQueryModel, ISafeBoxApplication? safeBoxApplication)
+        private readonly IAuthHelper? _authHelper;
+        private readonly IAgenciesApplication? _agenciesApplication;
+        public IndexModel(IGeneralPermissionQueryModel? permissionQueryModel, ISafeBoxApplication? safeBoxApplication, IAuthHelper? authHelper, IAgenciesApplication? agenciesApplication)
         {
             _permissionQueryModel = permissionQueryModel;
             _safeBoxApplication = safeBoxApplication;
+            _authHelper = authHelper;
+            _agenciesApplication = agenciesApplication;
         }
         public IActionResult OnGet()
         {
             permissionQueryModels = _permissionQueryModel?.GetGeneral();
             if (permissionQueryModels?.ListGeneral == GeneralPermissions.ListGeneral || permissionQueryModels?.AdminGeneral == GeneralPermissions.AdminGeneral)
             {
-                SafeBox = _safeBoxApplication?.GetViewModel();
                 permissionQueryModels = _permissionQueryModel?.GetGeneral();
+                var agenciesId = _authHelper.CurrentAgenciesId();
+                idAgencies = agenciesId;
+                if (idAgencies != 0)
+                {
+                    SafeBox = _safeBoxApplication?.GetViewModel(idAgencies);
+                }
+                else
+                {
+                    SafeBox = _safeBoxApplication?.GetViewModel();
+                }
                 return Page();
             }
             else
@@ -36,7 +52,13 @@ namespace ServiceHost.Areas.Admin.Pages.SafeBoxs
             permissionQueryModels = _permissionQueryModel?.GetGeneral();
             if (permissionQueryModels?.AddGeneral == GeneralPermissions.AddGeneral || permissionQueryModels?.AdminGeneral == GeneralPermissions.AdminGeneral)
             {
-                return Partial("./Create");
+                var agenciesId = _authHelper.CurrentAgenciesId();
+                var command = new SafeBoxCreate()
+                {
+                    IdAgencies = agenciesId,
+                    Agencies = _agenciesApplication?.GetViewModel(),
+                };
+                return Partial("./Create", command);
             }
             else
             {
@@ -53,11 +75,26 @@ namespace ServiceHost.Areas.Admin.Pages.SafeBoxs
             permissionQueryModels = _permissionQueryModel?.GetGeneral();
             if (permissionQueryModels?.RemovedGeneral == GeneralPermissions.RemovedGeneral || permissionQueryModels?.AdminGeneral == GeneralPermissions.AdminGeneral)
             {
-                var commnd = new SafeBoxRemoved()
+                var agenciesId = _authHelper.CurrentAgenciesId();
+                idAgencies = agenciesId;
+                if (idAgencies != 0)
                 {
-                    SafeBoxRemoveds = _safeBoxApplication?.GetRemove()
-                };
-                return Partial("./Removed", commnd);
+                    var commnd = new SafeBoxRemoved()
+                    {
+                        idAgencies = idAgencies,
+                        SafeBoxRemoveds = _safeBoxApplication?.GetRemove(idAgencies)
+                    };
+                    return Partial("./Removed", commnd);
+                }
+                else
+                {
+                    var commnd = new SafeBoxRemoved()
+                    {
+                        idAgencies = idAgencies,
+                        SafeBoxRemoveds = _safeBoxApplication?.GetRemove()
+                    };
+                    return Partial("./Removed", commnd);
+                }
             }
             else
             {
@@ -69,11 +106,26 @@ namespace ServiceHost.Areas.Admin.Pages.SafeBoxs
             permissionQueryModels = _permissionQueryModel?.GetGeneral();
             if (permissionQueryModels?.ActivedGeneral == GeneralPermissions.ActivedGeneral || permissionQueryModels?.AdminGeneral == GeneralPermissions.AdminGeneral)
             {
-                var commnd = new SafeBoxRemoved()
+                var agenciesId = _authHelper.CurrentAgenciesId();
+                idAgencies = agenciesId;
+                if (idAgencies != 0)
                 {
-                    SafeBoxRemoveds = _safeBoxApplication?.GetInActive()
-                };
-                return Partial("./Actived", commnd);
+                    var commnd = new SafeBoxRemoved()
+                    {
+                        idAgencies = idAgencies,
+                        SafeBoxRemoveds = _safeBoxApplication?.GetInActive(idAgencies)
+                    };
+                    return Partial("./Actived", commnd);
+                }
+                else
+                {
+                    var commnd = new SafeBoxRemoved()
+                    {
+                        idAgencies = idAgencies,
+                        SafeBoxRemoveds = _safeBoxApplication?.GetInActive()
+                    };
+                    return Partial("./Actived", commnd);
+                }
             }
             else
             {
@@ -85,7 +137,10 @@ namespace ServiceHost.Areas.Admin.Pages.SafeBoxs
             permissionQueryModels = _permissionQueryModel?.GetGeneral();
             if (permissionQueryModels?.EditGeneral == GeneralPermissions.EditGeneral || permissionQueryModels?.AdminGeneral == GeneralPermissions.AdminGeneral)
             {
+                var agenciesId = _authHelper.CurrentAgenciesId();
                 var result = _safeBoxApplication?.GetDetails(id);
+                result.Agencies = _agenciesApplication?.GetViewModel();
+                result.IdAgencies = agenciesId;
                 return Partial("Edit", result);
             }
             else

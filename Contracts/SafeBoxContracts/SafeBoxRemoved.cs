@@ -3,5 +3,6 @@
     public class SafeBoxRemoved
     {
         public List<SafeBoxViewModel>? SafeBoxRemoveds { get; set; }
+        public int idAgencies { get; set; }
     }
 }
