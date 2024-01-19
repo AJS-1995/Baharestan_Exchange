@@ -1,7 +1,7 @@
+using _0_Framework.Application.Auth;
 using _01_QueryManagement.Contracts.Permissions.General;
 using Configuration.Permissions.General;
-using Contracts.ExchangeRateContracts;
-using Contracts.MoneyContracts;
+using Contracts.AgenciesContracts;
 using Contracts.PersonsContracts;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
@@ -10,24 +10,36 @@ namespace ServiceHost.Areas.Admin.Pages.Persons
 {
     public class IndexModel : PageModel
     {
+        public int idAgencies;
         public GeneralPermissionQueryModel? permissionQueryModels;
         private readonly IGeneralPermissionQueryModel? _permissionQueryModel;
         public List<PersonsViewModel>? Persons;
         private readonly IPersonsApplication? _personsApplication;
-        private readonly IMoneyApplication? _moneyApplication;
-        public IndexModel(IGeneralPermissionQueryModel? permissionQueryModel, IPersonsApplication? personsApplication, IMoneyApplication? moneyApplication)
+        private readonly IAuthHelper? _authHelper;
+        private readonly IAgenciesApplication? _agenciesApplication;
+        public IndexModel(IGeneralPermissionQueryModel? permissionQueryModel, IPersonsApplication? personsApplication, IAuthHelper? authHelper, IAgenciesApplication? agenciesApplication)
         {
             _permissionQueryModel = permissionQueryModel;
             _personsApplication = personsApplication;
-            _moneyApplication = moneyApplication;
+            _authHelper = authHelper;
+            _agenciesApplication = agenciesApplication;
         }
         public IActionResult OnGet()
         {
             permissionQueryModels = _permissionQueryModel?.GetGeneral();
             if (permissionQueryModels?.ListGeneral == GeneralPermissions.ListGeneral || permissionQueryModels?.AdminGeneral == GeneralPermissions.AdminGeneral)
             {
-                Persons = _personsApplication?.GetViewModel();
                 permissionQueryModels = _permissionQueryModel?.GetGeneral();
+                var agenciesId = _authHelper.CurrentAgenciesId();
+                idAgencies = agenciesId;
+                if (idAgencies != 0)
+                {
+                    Persons = _personsApplication?.GetViewModel(idAgencies);
+                }
+                else
+                {
+                    Persons = _personsApplication?.GetViewModel();
+                }
                 return Page();
             }
             else
@@ -40,7 +52,13 @@ namespace ServiceHost.Areas.Admin.Pages.Persons
             permissionQueryModels = _permissionQueryModel?.GetGeneral();
             if (permissionQueryModels?.AddGeneral == GeneralPermissions.AddGeneral || permissionQueryModels?.AdminGeneral == GeneralPermissions.AdminGeneral)
             {
-                return Partial("./Create");
+                var agenciesId = _authHelper.CurrentAgenciesId();
+                var command = new PersonsCreate()
+                {
+                    IdAgencies = agenciesId,
+                    Agencies = _agenciesApplication?.GetViewModel(),
+                };
+                return Partial("./Create", command);
             }
             else
             {
@@ -57,11 +75,26 @@ namespace ServiceHost.Areas.Admin.Pages.Persons
             permissionQueryModels = _permissionQueryModel?.GetGeneral();
             if (permissionQueryModels?.RemovedGeneral == GeneralPermissions.RemovedGeneral || permissionQueryModels?.AdminGeneral == GeneralPermissions.AdminGeneral)
             {
-                var commnd = new PersonsRemoved()
+                var agenciesId = _authHelper.CurrentAgenciesId();
+                idAgencies = agenciesId;
+                if (idAgencies != 0)
                 {
-                    PersonsRemoveds = _personsApplication?.GetRemove()
-                };
-                return Partial("./Removed", commnd);
+                    var commnd = new PersonsRemoved()
+                    {
+                        idAgencies = idAgencies,
+                        PersonsRemoveds = _personsApplication?.GetRemove(idAgencies)
+                    };
+                    return Partial("./Removed", commnd);
+                }
+                else
+                {
+                    var commnd = new PersonsRemoved()
+                    {
+                        idAgencies = idAgencies,
+                        PersonsRemoveds = _personsApplication?.GetRemove()
+                    };
+                    return Partial("./Removed", commnd);
+                }
             }
             else
             {
@@ -73,11 +106,26 @@ namespace ServiceHost.Areas.Admin.Pages.Persons
             permissionQueryModels = _permissionQueryModel?.GetGeneral();
             if (permissionQueryModels?.ActivedGeneral == GeneralPermissions.ActivedGeneral || permissionQueryModels?.AdminGeneral == GeneralPermissions.AdminGeneral)
             {
-                var commnd = new PersonsRemoved()
+                var agenciesId = _authHelper.CurrentAgenciesId();
+                idAgencies = agenciesId;
+                if (idAgencies != 0)
                 {
-                    PersonsRemoveds = _personsApplication?.GetInActive()
-                };
-                return Partial("./Actived", commnd);
+                    var commnd = new PersonsRemoved()
+                    {
+                        idAgencies = idAgencies,
+                        PersonsRemoveds = _personsApplication?.GetInActive(idAgencies)
+                    };
+                    return Partial("./Actived", commnd);
+                }
+                else
+                {
+                    var commnd = new PersonsRemoved()
+                    {
+                        idAgencies = idAgencies,
+                        PersonsRemoveds = _personsApplication?.GetInActive()
+                    };
+                    return Partial("./Actived", commnd);
+                }
             }
             else
             {
@@ -89,7 +137,10 @@ namespace ServiceHost.Areas.Admin.Pages.Persons
             permissionQueryModels = _permissionQueryModel?.GetGeneral();
             if (permissionQueryModels?.EditGeneral == GeneralPermissions.EditGeneral || permissionQueryModels?.AdminGeneral == GeneralPermissions.AdminGeneral)
             {
+                var agenciesId = _authHelper.CurrentAgenciesId();
                 var result = _personsApplication?.GetDetails(id);
+                result.Agencies = _agenciesApplication?.GetViewModel();
+                result.IdAgencies = agenciesId;
                 return Partial("Edit", result);
             }
             else

@@ -3,14 +3,11 @@ using _01_QueryManagement.Contracts.Permissions.General;
 using _01_QueryManagement.Contracts.Permissions.User;
 using Configuration.Permissions.General;
 using Configuration.Permissions.Users;
-using Contracts.AgenciesContracts;
 using Contracts.CompanyContracts;
 using Contracts.DailyRateContracts;
 using Contracts.UsersContracts.UsersContracts;
-using Domin.AgenciesDomin;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
-using System.Linq;
 
 namespace ServiceHost.Areas.Admin.Pages
 {

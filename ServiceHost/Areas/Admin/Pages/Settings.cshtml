@@ -22,6 +22,7 @@
                         <div class="col-11 col-sm-3 nav flex-column nav-pills m-3" id="v-pills-tab" role="tablist" aria-orientation="vertical">
                             <button class="nav-link active mb-3" id="v-pills-home-tab" data-bs-toggle="pill" data-bs-target="#v-pills-home" type="button" role="tab" aria-controls="v-pills-home" aria-selected="true">کمپنی</button>
                             <button class="nav-link mb-3" id="v-pills-profile-tab" data-bs-toggle="pill" data-bs-target="#v-pills-profile" type="button" role="tab" aria-controls="v-pills-profile" aria-selected="false">نماینده گی</button>
+                            <button class="nav-link mb-3" id="v-pills-money-tab" data-bs-toggle="pill" data-bs-target="#v-pills-money" type="button" role="tab" aria-controls="v-pills-money" aria-selected="false">اسعار</button>
                         </div>
                         <div class="col-12 col-sm-8 tab-content" id="v-pills-tabContent">
                             <div class="tab-pane fade show active" id="v-pills-home" role="tabpanel" aria-labelledby="v-pills-home-tab" tabindex="0">
@@ -156,6 +157,29 @@
                                     </form>
                                 }
                             </div>
+                            <div class="tab-pane fade" id="v-pills-money" role="tabpanel" aria-labelledby="v-pills-money-tab" tabindex="1">
+                                <div class="table-responsive">
+                                    <table id="exampleex" class="table table-bordered table-hover display nowrap margin-top-10 w-p100 js-serial">
+                                        <thead class="table-Primary">
+                                            <tr>
+                                                <th class="text-center">نام</th>
+                                                <th class="text-center">کشور</th>
+                                                <th class="text-center">سمبول</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody id="tbody">
+                                            @foreach (var item in Model.Money)
+                                            {
+                                                <tr>
+                                                    <td class="text-center"><a asp-page="/Moneys/Index">@item.Name</a></td>
+                                                    <td class="text-center"><a asp-page="/Moneys/Index">@item.Country</a></td>
+                                                    <td class="text-center"><a asp-page="/Moneys/Index">@item.Symbol</a></td>
+                                                </tr>
+                                            }
+                                        </tbody>
+                                    </table>
+                                </div>
+                            </div>
                         </div>
                     </div>
                 </div>
@@ -169,4 +193,6 @@
     <script src="~/Theme/assets/formatter/formatter.js"></script>
     <script src="~/Theme/assets/formatter/jquery.formatter.js"></script>
     <script src="~/Theme/material-rtl/js/formatter.js"></script>
+    <script src="~/Theme/assets/datatable/datatables.js"></script>
+    <script src="~/Theme/material-rtl/js/data-table.js"></script>
 }

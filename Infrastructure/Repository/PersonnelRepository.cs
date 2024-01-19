@@ -14,6 +14,7 @@ namespace Infrastructure.Repository
         public List<PersonnelViewModel> GetAll()
         {
             var users = _context.Users.Select(x => new { x.Id, x.FullName, x.UserName }).ToList();
+            var agencies = _context.Agenciess.Select(x => new { x.Id, x.Name }).ToList();
             var query = _context.Personnels.Where(x => x.Deleted == false).Select(x => new PersonnelViewModel
             {
                 Id = x.Id,
@@ -27,9 +28,11 @@ namespace Infrastructure.Repository
                 Deleted = x.Deleted,
                 Status = x.Status,
                 User_Id = x.UserId,
+                AgenciesId = x.AgenciesId,
             });
             var result = query.OrderByDescending(x => x.Id).ToList();
             result.ForEach(item => item.User_Name = ((users.FirstOrDefault(x => x.Id == item.User_Id)?.FullName) + " - " + users.FirstOrDefault(x => x.Id == item.User_Id)?.UserName));
+            result.ForEach(item => item.NameAgencies = agencies.FirstOrDefault(x => x.Id == item.AgenciesId)?.Name);
             return result;
         }
         public PersonnelEdit GetDetails(int id)
@@ -42,12 +45,14 @@ namespace Infrastructure.Repository
                 Cart_Id = x.Cart_Id,
                 Address = x.Address,
                 Mobile = x.Mobile,
+                AgenciesId = x.AgenciesId,
             }).FirstOrDefault(x => x.Id == id);
             return Personnel;
         }
         public List<PersonnelViewModel> GetInActive()
         {
-            return _context.Personnels.Where(x => x.Status == false).Select(x => new PersonnelViewModel
+            var agencies = _context.Agenciess.Select(x => new { x.Id, x.Name }).ToList();
+            var query = _context.Personnels.Where(x => x.Status == false).Select(x => new PersonnelViewModel
             {
                 Id = x.Id,
                 FullName = x.FullName,
@@ -60,11 +65,38 @@ namespace Infrastructure.Repository
                 Deleted = x.Deleted,
                 Status = x.Status,
                 User_Id = x.UserId,
-            }).OrderBy(x => x.Id).ToList();
+                AgenciesId = x.AgenciesId,
+            });
+            var result = query.OrderByDescending(x => x.Id).ToList();
+            result.ForEach(item => item.NameAgencies = agencies.FirstOrDefault(x => x.Id == item.AgenciesId)?.Name);
+            return result;
+        }
+        public List<PersonnelViewModel> GetInActive(int agenciesId)
+        {
+            var agencies = _context.Agenciess.Select(x => new { x.Id, x.Name }).ToList();
+            var query = _context.Personnels.Where(x => x.Status == false && x.AgenciesId == agenciesId).Select(x => new PersonnelViewModel
+            {
+                Id = x.Id,
+                FullName = x.FullName,
+                Fathers_Name = x.Fathers_Name,
+                Cart_Id = x.Cart_Id,
+                Address = x.Address,
+                Mobile = x.Mobile,
+                Photo = x.Photo,
+                SaveDate = x.SaveDate,
+                Deleted = x.Deleted,
+                Status = x.Status,
+                User_Id = x.UserId,
+                AgenciesId = x.AgenciesId,
+            });
+            var result = query.OrderByDescending(x => x.Id).ToList();
+            result.ForEach(item => item.NameAgencies = agencies.FirstOrDefault(x => x.Id == item.AgenciesId)?.Name);
+            return result;
         }
         public List<PersonnelViewModel> GetRemove()
         {
-            return _context.Personnels.Where(x => x.Deleted == true).Select(x => new PersonnelViewModel
+            var agencies = _context.Agenciess.Select(x => new { x.Id, x.Name }).ToList();
+            var query = _context.Personnels.Where(x => x.Deleted == true).Select(x => new PersonnelViewModel
             {
                 Id = x.Id,
                 FullName = x.FullName,
@@ -77,11 +109,38 @@ namespace Infrastructure.Repository
                 Deleted = x.Deleted,
                 Status = x.Status,
                 User_Id = x.UserId,
-            }).OrderBy(x => x.Id).ToList();
+                AgenciesId = x.AgenciesId,
+            });
+            var result = query.OrderByDescending(x => x.Id).ToList();
+            result.ForEach(item => item.NameAgencies = agencies.FirstOrDefault(x => x.Id == item.AgenciesId)?.Name);
+            return result;
+        }
+        public List<PersonnelViewModel> GetRemove(int agenciesId)
+        {
+            var agencies = _context.Agenciess.Select(x => new { x.Id, x.Name }).ToList();
+            var query = _context.Personnels.Where(x => x.Deleted == true && x.AgenciesId == agenciesId).Select(x => new PersonnelViewModel
+            {
+                Id = x.Id,
+                FullName = x.FullName,
+                Fathers_Name = x.Fathers_Name,
+                Cart_Id = x.Cart_Id,
+                Address = x.Address,
+                Mobile = x.Mobile,
+                Photo = x.Photo,
+                SaveDate = x.SaveDate,
+                Deleted = x.Deleted,
+                Status = x.Status,
+                User_Id = x.UserId,
+                AgenciesId = x.AgenciesId,
+            });
+            var result = query.OrderByDescending(x => x.Id).ToList();
+            result.ForEach(item => item.NameAgencies = agencies.FirstOrDefault(x => x.Id == item.AgenciesId)?.Name);
+            return result;
         }
         public List<PersonnelViewModel> GetViewModel()
         {
             var users = _context.Users.Select(x => new { x.Id, x.FullName, x.UserName }).ToList();
+            var agencies = _context.Agenciess.Select(x => new { x.Id, x.Name }).ToList();
             var query = _context.Personnels.Where(x => x.Status == true && x.Deleted == false).Select(x => new PersonnelViewModel
             {
                 Id = x.Id,
@@ -95,11 +154,36 @@ namespace Infrastructure.Repository
                 Deleted = x.Deleted,
                 Status = x.Status,
                 User_Id = x.UserId,
+                AgenciesId = x.AgenciesId,
             });
             var result = query.OrderByDescending(x => x.Id).ToList();
             result.ForEach(item => item.User_Name = ((users.FirstOrDefault(x => x.Id == item.User_Id)?.FullName) + " - " + users.FirstOrDefault(x => x.Id == item.User_Id)?.UserName));
+            result.ForEach(item => item.NameAgencies = agencies.FirstOrDefault(x => x.Id == item.AgenciesId)?.Name);
+            return result;
+        }
+        public List<PersonnelViewModel> GetViewModel(int agenciesId)
+        {
+            var users = _context.Users.Select(x => new { x.Id, x.FullName, x.UserName }).ToList();
+            var agencies = _context.Agenciess.Select(x => new { x.Id, x.Name }).ToList();
+            var query = _context.Personnels.Where(x => x.Status == true && x.Deleted == false && x.AgenciesId == agenciesId).Select(x => new PersonnelViewModel
+            {
+                Id = x.Id,
+                FullName = x.FullName,
+                Fathers_Name = x.Fathers_Name,
+                Cart_Id = x.Cart_Id,
+                Address = x.Address,
+                Mobile = x.Mobile,
+                Photo = x.Photo,
+                SaveDate = x.SaveDate,
+                Deleted = x.Deleted,
+                Status = x.Status,
+                User_Id = x.UserId,
+                AgenciesId = x.AgenciesId,
+            });
+            var result = query.OrderByDescending(x => x.Id).ToList();
+            result.ForEach(item => item.User_Name = ((users.FirstOrDefault(x => x.Id == item.User_Id)?.FullName) + " - " + users.FirstOrDefault(x => x.Id == item.User_Id)?.UserName));
+            result.ForEach(item => item.NameAgencies = agencies.FirstOrDefault(x => x.Id == item.AgenciesId)?.Name);
             return result;
         }
     }
-
 }

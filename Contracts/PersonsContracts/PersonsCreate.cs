@@ -1,4 +1,5 @@
 ﻿using _0_Framework.Application;
+using Contracts.AgenciesContracts;
 using Microsoft.AspNetCore.Http;
 using System.ComponentModel.DataAnnotations;
 
@@ -13,5 +14,8 @@ namespace Contracts.PersonsContracts
         public string? Company { get; set; }
         public string? Guarantor { get; set; }
         public IFormFile? GuarantorPhoto { get; set; }
+        public int AgenciesId { get; set; }
+        public int IdAgencies { get; set; }
+        public List<AgenciesViewModel>? Agencies { get; set; }
     }
 }

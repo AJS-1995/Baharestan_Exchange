@@ -4,7 +4,7 @@
 @using Configuration.Permissions.General;
 @{
     Layout = "Shared/_AdminLayout";
-    ViewData["title"] = "مدیریت پول ها";
+    ViewData["title"] = "مدیریت اسعار";
     var currentAccout = AuthHelper.CurrentUserInfo();
 }
 <section class="px-15 pt-15">
@@ -39,7 +39,7 @@
                 <div class="card">
                     <div class="card-header d-flex justify-content-between bb-1 border-info">
                         <div class="header-title">
-                            <span class="card-title mx-2">لیست پول ها</span>
+                            <span class="card-title mx-2">لیست اسعار</span>
                         </div>
                     </div>
                     <div class="card-body">
@@ -113,7 +113,7 @@
     <script>
         function InActive(id) {
             Swal.fire({
-                title: 'آیا میخواهید پول غیر فعال شود ؟',
+                title: 'آیا میخواهید اسعار غیر فعال شود ؟',
                 text: "پس میتوانید فعال کنید !",
                 icon: 'warning',
                 showCancelButton: true,
@@ -161,7 +161,7 @@
 
         function Active(id) {
             Swal.fire({
-                title: 'آیا میخواهید پول فعال شود ؟',
+                title: 'آیا میخواهید اسعار فعال شود ؟',
                 text: "پس میتوانید غیر فعال کنید !",
                 icon: 'warning',
                 showCancelButton: true,
@@ -209,7 +209,7 @@
 
         function Remove(id) {
             Swal.fire({
-                title: 'آیا میخواهید پول حذف شود ؟',
+                title: 'آیا میخواهید اسعار حذف شود ؟',
                 text: "پس میتوانید بازیابی کنید !",
                 icon: 'warning',
                 showCancelButton: true,
@@ -257,7 +257,7 @@
 
         function Reset(id) {
             Swal.fire({
-                title: 'آیا میخواهید پول بازیابی شود ؟',
+                title: 'آیا میخواهید اسعار بازیابی شود ؟',
                 text: "پس میتوانید حذف کنید !",
                 icon: 'warning',
                 showCancelButton: true,
@@ -305,7 +305,7 @@
 
         function Delete(id) {
             Swal.fire({
-                title: 'آیا میخواهید پول کامل شود ؟',
+                title: 'آیا میخواهید اسعار کامل شود ؟',
                 text: "پس نمیتوانید بازیابی کنید !",
                 icon: 'warning',
                 showCancelButton: true,

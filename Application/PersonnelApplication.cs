@@ -32,6 +32,10 @@ namespace Application
 
             var userid = _authHelper.CurrentUserId();
             var agenciesId = _authHelper.CurrentAgenciesId();
+            if (agenciesId == 0)
+            {
+                agenciesId = command.AgenciesId;
+            }
 
             string? slugp = command.FullName?.Slugify();
             var logoPathp = "Personnel";
@@ -70,6 +74,10 @@ namespace Application
 
             var userid = _authHelper.CurrentUserId();
             var agenciesId = _authHelper.CurrentAgenciesId();
+            if (agenciesId == 0)
+            {
+                agenciesId = command.AgenciesId;
+            }
 
             if (command.Photo != null && result.Photo != "")
             {
@@ -96,13 +104,25 @@ namespace Application
         {
             return _personnelRepository.GetInActive();
         }
+        public List<PersonnelViewModel> GetInActive(int agenciesId)
+        {
+            return _personnelRepository.GetInActive(agenciesId);
+        }
         public List<PersonnelViewModel> GetRemove()
         {
             return _personnelRepository.GetRemove();
         }
+        public List<PersonnelViewModel> GetRemove(int agenciesId)
+        {
+            return _personnelRepository.GetRemove(agenciesId);
+        }
         public List<PersonnelViewModel> GetViewModel()
         {
             return _personnelRepository.GetViewModel();
+        }
+        public List<PersonnelViewModel> GetViewModel(int agenciesId)
+        {
+            return _personnelRepository.GetViewModel(agenciesId);
         }
         public OperationResult InActive(int id)
         {

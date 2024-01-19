@@ -7,8 +7,11 @@ namespace Domin.PersonnelDomin
     {
         PersonnelEdit GetDetails(int id);
         List<PersonnelViewModel> GetViewModel();
+        List<PersonnelViewModel> GetViewModel(int agenciesId);
         List<PersonnelViewModel> GetRemove();
+        List<PersonnelViewModel> GetRemove(int agenciesId);
         List<PersonnelViewModel> GetInActive();
+        List<PersonnelViewModel> GetInActive(int agenciesId);
         List<PersonnelViewModel> GetAll();
     }
 }

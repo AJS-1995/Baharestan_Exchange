@@ -18,6 +18,10 @@
                     <th class="text-center">نمبرتذکره</th>
                     <th class="text-center">آدرس</th>
                     <th class="text-center">عکس</th>
+                    @if (Model.idAgencies == 0)
+                    {
+                        <th class="text-center">نماینده گی</th>
+                    }
                     <th class="text-center">عملیات</th>
                 </tr>
             </thead>
@@ -30,6 +34,17 @@
                         <td class="text-center" dir="ltr">@item.Mobile</td>
                         <td class="text-center">@item.Cart_Id</td>
                         <td class="text-center">@item.Address</td>
+                        @if (Model.idAgencies == 0)
+                        {
+                            if (item.AgenciesId == 0)
+                            {
+                                <td class="text-center">مرکزی</td>
+                            }
+                            else
+                            {
+                                <td class="text-center">@item.NameAgencies</td>
+                            }
+                        }
                         <td class="text-center">
                             <a href="#">
                                 @if (item.Photo != null && item.Photo != "")

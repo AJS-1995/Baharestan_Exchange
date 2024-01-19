@@ -32,6 +32,10 @@ namespace Application
 
             var userid = _authHelper.CurrentUserId();
             var agenciesId = _authHelper.CurrentAgenciesId();
+            if (agenciesId == 0)
+            {
+                agenciesId = command.AgenciesId;
+            }
 
             string? slug = command.Name.Slugify();
 
@@ -71,6 +75,10 @@ namespace Application
 
             var userid = _authHelper.CurrentUserId();
             var agenciesId = _authHelper.CurrentAgenciesId();
+            if (agenciesId == 0)
+            {
+                agenciesId = command.AgenciesId;
+            }
 
             if (command.GuarantorPhoto != null && result.GuarantorPhoto != "")
             {
@@ -98,13 +106,25 @@ namespace Application
         {
             return _personsRepository.GetInActive();
         }
+        public List<PersonsViewModel> GetInActive(int agenciesId)
+        {
+            return _personsRepository.GetInActive(agenciesId);
+        }
         public List<PersonsViewModel> GetRemove()
         {
             return _personsRepository.GetRemove();
         }
+        public List<PersonsViewModel> GetRemove(int agenciesId)
+        {
+            return _personsRepository.GetRemove(agenciesId);
+        }
         public List<PersonsViewModel> GetViewModel()
         {
             return _personsRepository.GetViewModel();
+        }
+        public List<PersonsViewModel> GetViewModel(int agenciesId)
+        {
+            return _personsRepository.GetViewModel(agenciesId);
         }
         public OperationResult InActive(int id)
         {

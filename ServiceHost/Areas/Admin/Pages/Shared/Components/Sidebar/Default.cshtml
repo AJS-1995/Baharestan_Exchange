@@ -40,6 +40,18 @@
             <li><a asp-page="/DailyRate/Index"><i class="fa-solid fa-money-bill-transfer"></i><span>تبدیل اسعار روزانه</span></a></li>
             <li class="treeview">
                 <a href="#">
+                    <i class="fa-solid fa-comment-dollar fa-2xl"></i>
+                    <span>مدیریت اسعار</span>
+                    <span class="pull-right-container">
+                        <i class="fa fa-angle-right pull-right"></i>
+                    </span>
+                </a>
+                <ul class="treeview-menu">
+                    <li><a asp-page="/ExchangeRate/Index"><i class="fa-solid fa-comments-dollar fa-xl margin_left"></i>تبدیل اسعار</a></li>
+                </ul>
+            </li>
+            <li class="treeview">
+                <a href="#">
                     <i class="fa-solid fa-people-group fa-2xl"></i>
                     <span>مدیریت اشخاص</span>
                     <span class="pull-right-container">
@@ -60,7 +72,6 @@
                     </span>
                 </a>
                 <ul class="treeview-menu">                   
-                    <li><a asp-page="/Moneys/Index"><i class="fa-solid fa-money-bills fa-xl margin_left"></i>پول ها</a></li>
                     <li><a asp-page="/SafeBoxs/Index"><i class="fa-solid fa-piggy-bank fa-xl margin_left"></i>صندق ها</a></li>
                 </ul>
             </li>
@@ -74,18 +85,6 @@
                 </a>
                 <ul class="treeview-menu">
                     <li><a asp-page="/Expenses/Index"><i class="fa-solid fa-flask-vial fa-xl margin_left"></i>مصارف</a></li>
-                </ul>
-            </li>
-            <li class="treeview">
-                <a href="#">
-                    <i class="fa-solid fa-comment-dollar fa-2xl"></i>
-                    <span>مدیریت اسعار</span>
-                    <span class="pull-right-container">
-                        <i class="fa fa-angle-right pull-right"></i>
-                    </span>
-                </a>
-                <ul class="treeview-menu">
-                    <li><a asp-page="/ExchangeRate/Index"><i class="fa-solid fa-comments-dollar fa-xl margin_left"></i>تبدیل اسعار</a></li>
                 </ul>
             </li>
         </ul>

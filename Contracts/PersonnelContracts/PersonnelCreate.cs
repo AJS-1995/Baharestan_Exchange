@@ -1,4 +1,5 @@
 ﻿using _0_Framework.Application;
+using Contracts.AgenciesContracts;
 using Microsoft.AspNetCore.Http;
 using System.ComponentModel.DataAnnotations;
 
@@ -13,5 +14,8 @@ namespace Contracts.PersonnelContracts
         public string? Address { get; set; }
         public string? Cart_Id { get; set; }
         public IFormFile? Photo { get; set; }
+        public int AgenciesId { get; set; }
+        public int IdAgencies { get; set; }
+        public List<AgenciesViewModel>? Agencies { get; set; }
     }
 }

@@ -55,6 +55,21 @@
                 </div>
             </div>
         </div>
+        @if (Model.IdAgencies == 0)
+        {
+            <div class="row">
+                <div class="col-sm-12">
+                    <div class="form-group">
+                        <label class="form-label" asp-for="AgenciesId">نماینده گی</label>
+                        <select id="AgenciesId" class="form-control" required asp-for="AgenciesId"
+                                asp-items='new SelectList(Model.Agencies, "Id", "Name")'>
+                            <option disabled value="" selected="">تماینده گی ها ...</option>
+                        </select>
+                        <div class="invalid-feedback">اطلاعات باید وارد شود !</div>
+                    </div>
+                </div>
+            </div>
+        }
         <input type="hidden" asp-for="Id" value="@Model.Id" />
         <div class="modal-footer">
             <button type="submit" class="btn btn-sm btn-icon btn-outline-success"><i class="fa-solid fa-save fa-lg"></i></button>
