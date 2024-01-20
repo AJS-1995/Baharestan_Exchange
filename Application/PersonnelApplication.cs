@@ -27,8 +27,6 @@ namespace Application
         public OperationResult Create(PersonnelCreate command)
         {
             var operation = new OperationResult();
-            if (_personnelRepository.Exists(x => x.FullName == command.FullName && x.Fathers_Name == command.Fathers_Name))
-                return operation.Failed(ApplicationMessages.DuplicatedRecord);
 
             var userid = _authHelper.CurrentUserId();
             var agenciesId = _authHelper.CurrentAgenciesId();
@@ -36,6 +34,9 @@ namespace Application
             {
                 agenciesId = command.AgenciesId;
             }
+
+            if (_personnelRepository.Exists(x => x.FullName == command.FullName && x.Fathers_Name == command.Fathers_Name && x.AgenciesId == agenciesId))
+                return operation.Failed(ApplicationMessages.DuplicatedRecord);
 
             string? slugp = command.FullName?.Slugify();
             var logoPathp = "Personnel";
@@ -65,12 +66,6 @@ namespace Application
         public OperationResult Edit(PersonnelEdit command)
         {
             var operation = new OperationResult();
-            var result = _personnelRepository.Get(command.Id);
-            if (result == null)
-                return operation.Failed(ApplicationMessages.RecordNotFound);
-
-            if (_personnelRepository.Exists(x => x.FullName == command.FullName && x.Fathers_Name == command.Fathers_Name && x.Id != command.Id))
-                return operation.Failed(ApplicationMessages.DuplicatedRecord);
 
             var userid = _authHelper.CurrentUserId();
             var agenciesId = _authHelper.CurrentAgenciesId();
@@ -78,6 +73,13 @@ namespace Application
             {
                 agenciesId = command.AgenciesId;
             }
+
+            var result = _personnelRepository.Get(command.Id);
+            if (result == null)
+                return operation.Failed(ApplicationMessages.RecordNotFound);
+
+            if (_personnelRepository.Exists(x => x.FullName == command.FullName && x.Fathers_Name == command.Fathers_Name && x.AgenciesId == agenciesId && x.Id != command.Id))
+                return operation.Failed(ApplicationMessages.DuplicatedRecord);
 
             if (command.Photo != null && result.Photo != "")
             {

@@ -25,8 +25,6 @@ namespace Application
         public OperationResult Create(SafeBoxCreate command)
         {
             var operation = new OperationResult();
-            if (_SafeBoxRepository.Exists(x => x.Name == command.Name))
-                return operation.Failed(ApplicationMessages.DuplicatedRecord);
 
             var userid = _authHelper.CurrentUserId();
             var agenciesId = _authHelper.CurrentAgenciesId();
@@ -34,6 +32,9 @@ namespace Application
             {
                 agenciesId = command.AgenciesId;
             }
+
+            if (_SafeBoxRepository.Exists(x => x.Name == command.Name && x.AgenciesId == agenciesId))
+                return operation.Failed(ApplicationMessages.DuplicatedRecord);
 
             var result = new SafeBox(command.Name, command.Treasurer, command.Mobile, userid, agenciesId);
             _SafeBoxRepository.Create(result);
@@ -51,12 +52,6 @@ namespace Application
         public OperationResult Edit(SafeBoxEdit command)
         {
             var operation = new OperationResult();
-            var result = _SafeBoxRepository.Get(command.Id);
-            if (result == null)
-                return operation.Failed(ApplicationMessages.RecordNotFound);
-
-            if (_SafeBoxRepository.Exists(x => (x.Name == command.Name) && x.Id != command.Id))
-                return operation.Failed(ApplicationMessages.DuplicatedRecord);
 
             var userid = _authHelper.CurrentUserId();
             var agenciesId = _authHelper.CurrentAgenciesId();
@@ -64,6 +59,13 @@ namespace Application
             {
                 agenciesId = command.AgenciesId;
             }
+
+            var result = _SafeBoxRepository.Get(command.Id);
+            if (result == null)
+                return operation.Failed(ApplicationMessages.RecordNotFound);
+
+            if (_SafeBoxRepository.Exists(x => (x.Name == command.Name && x.AgenciesId == agenciesId) && x.Id != command.Id))
+                return operation.Failed(ApplicationMessages.DuplicatedRecord);
 
             result.Edit(command.Name, command.Treasurer, command.Mobile, userid, agenciesId);
             _SafeBoxRepository.SaveChanges();
