@@ -58,6 +58,10 @@
                                         <th class="text-center">خزانه</th>
                                         <th class="text-center">مبلغ</th>
                                         <th class="text-center">اسکن</th>
+                                        @if (Model.idAgencies == 0)
+                                        {
+                                            <th class="text-center">نماینده گی</th>
+                                        }
                                         <th class="text-center">عملیات</th>
                                     </tr>
                                 </thead>
@@ -84,6 +88,17 @@
                                                     }
                                                 </a>
                                             </td>
+                                            @if (Model.idAgencies == 0)
+                                            {
+                                                if (item.AgenciesId == 0)
+                                                {
+                                                    <td class="text-center">مرکزی</td>
+                                                }
+                                                else
+                                                {
+                                                    <td class="text-center">@item.NameAgencies</td>
+                                                }
+                                            }
                                             <td class="text-center">
                                                 @if (Model.permissionQueryModels.EditGeneral == GeneralPermissions.EditGeneral || Model.permissionQueryModels.AdminGeneral == GeneralPermissions.AdminGeneral)
                                                 {
@@ -114,7 +129,7 @@
     </section>
 }
 @section Scripts
-    {
+{
     <script src="~/Theme/assets/formatter/formatter.js"></script>
     <script src="~/Theme/assets/formatter/jquery.formatter.js"></script>
     <script src="~/Theme/material-rtl/js/formatter.js"></script>
@@ -133,6 +148,51 @@
             });
         }
         addRowCount('.js-serial');
+    </script>
+    <script>
+        function agencies(agenciesid) {
+            if (agenciesid != "") {
+                var postData = {
+                    'agenciesid': agenciesid,
+                };
+                $.ajax({
+                    ccontentType: 'application/x-www-form-urlencoded',
+                    dataType: 'json',
+                    type: "GET",
+                    url: "@Url.Page("./Index", "Personne")",
+                    data: postData,
+                    success: function (date) {
+                        if (date.length > 0) {
+                            $('#PersonnelId').empty();
+                            var option = '';
+                            option += '<option value="">توسط ...</option>';
+                            for (var i = 0; i < date.length; i++) {
+                                option += '<option value="' + date[i].id + '">' + date[i].fullName + '</option>';
+                            }
+                            $('#PersonnelId').append(option);
+                        }
+                    },
+                });
+                $.ajax({
+                    ccontentType: 'application/x-www-form-urlencoded',
+                    dataType: 'json',
+                    type: "GET",
+                    url: "@Url.Page("./Index", "SafeBox")",
+                    data: postData,
+                    success: function (date) {
+                        if (date.length > 0) {
+                            $('#SafeBoxId').empty();
+                            var option = '';
+                            option += '<option value="">خزانه ...</option>';
+                            for (var i = 0; i < date.length; i++) {
+                                option += '<option value="' + date[i].id + '">' + date[i].name + '</option>';
+                            }
+                            $('#SafeBoxId').append(option);
+                        }
+                    },
+                });
+            }
+        }
     </script>
     <script>
         function InActive(id) {

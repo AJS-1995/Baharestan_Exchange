@@ -1,11 +1,13 @@
 using _0_Framework.Application;
+using _0_Framework.Application.Auth;
 using _01_QueryManagement.Contracts.Permissions.General;
 using Configuration.Permissions.General;
-using Contracts.ExchangeRateContracts;
+using Contracts.AgenciesContracts;
 using Contracts.ExpenseContracts;
 using Contracts.MoneyContracts;
 using Contracts.PersonnelContracts;
 using Contracts.SafeBoxContracts;
+using Domin.AgenciesDomin;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 
@@ -13,6 +15,7 @@ namespace ServiceHost.Areas.Admin.Pages.Expenses
 {
     public class IndexModel : PageModel
     {
+        public int idAgencies;
         public GeneralPermissionQueryModel? permissionQueryModels;
         private readonly IGeneralPermissionQueryModel? _permissionQueryModel;
         public List<ExpenseViewModel>? Expense;
@@ -21,7 +24,9 @@ namespace ServiceHost.Areas.Admin.Pages.Expenses
         private readonly IPersonnelApplication? _personnelApplication;
         private readonly ISafeBoxApplication? _safeBoxApplication;
         private readonly IMoneyApplication? _moneyApplication;
-        public IndexModel(IGeneralPermissionQueryModel? permissionQueryModel, IExpenseApplication? ExpenseApplication, ICollectionApplication? CollectionApplication, IPersonnelApplication? personnelApplication, ISafeBoxApplication? safeBoxApplication, IMoneyApplication? moneyApplication)
+        private readonly IAuthHelper? _authHelper;
+        private readonly IAgenciesApplication? _agenciesApplication;
+        public IndexModel(IGeneralPermissionQueryModel? permissionQueryModel, IExpenseApplication? ExpenseApplication, ICollectionApplication? CollectionApplication, IPersonnelApplication? personnelApplication, ISafeBoxApplication? safeBoxApplication, IMoneyApplication? moneyApplication, IAuthHelper? authHelper, IAgenciesApplication? agenciesApplication)
         {
             _permissionQueryModel = permissionQueryModel;
             _ExpenseApplication = ExpenseApplication;
@@ -29,14 +34,25 @@ namespace ServiceHost.Areas.Admin.Pages.Expenses
             _personnelApplication = personnelApplication;
             _safeBoxApplication = safeBoxApplication;
             _moneyApplication = moneyApplication;
+            _authHelper = authHelper;
+            _agenciesApplication = agenciesApplication;
         }
         public IActionResult OnGet()
         {
             permissionQueryModels = _permissionQueryModel?.GetGeneral();
             if (permissionQueryModels?.ListGeneral == GeneralPermissions.ListGeneral || permissionQueryModels?.AdminGeneral == GeneralPermissions.AdminGeneral)
             {
-                Expense = _ExpenseApplication?.GetViewModel();
                 permissionQueryModels = _permissionQueryModel?.GetGeneral();
+                var agenciesId = _authHelper.CurrentAgenciesId();
+                idAgencies = agenciesId;
+                if (idAgencies != 0)
+                {
+                    Expense = _ExpenseApplication?.GetViewModel(idAgencies);
+                }
+                else
+                {
+                    Expense = _ExpenseApplication?.GetViewModel();
+                }
                 return Page();
             }
             else
@@ -49,12 +65,24 @@ namespace ServiceHost.Areas.Admin.Pages.Expenses
             permissionQueryModels = _permissionQueryModel?.GetGeneral();
             if (permissionQueryModels?.AddGeneral == GeneralPermissions.AddGeneral || permissionQueryModels?.AdminGeneral == GeneralPermissions.AdminGeneral)
             {
-                var command = new ExpenseCreate();
-                command.Collections = _CollectionApplication?.GetViewModel();
-                command.Date = DateTime.Now.ToFarsi();
-                command.Personnels = _personnelApplication?.GetViewModel();
-                command.SafeBoxs = _safeBoxApplication?.GetViewModel();
-                command.Moneys = _moneyApplication?.GetViewModel();
+                var agenciesId = _authHelper.CurrentAgenciesId();
+                var Personnel = _personnelApplication?.GetViewModel();
+                var SafeBox = _safeBoxApplication?.GetViewModel();
+                if (agenciesId != 0)
+                {
+                    Personnel = _personnelApplication?.GetViewModel(agenciesId);
+                    SafeBox = _safeBoxApplication?.GetViewModel(agenciesId);
+                }
+                var command = new ExpenseCreate()
+                {
+                    IdAgencies = agenciesId,
+                    Agencies = _agenciesApplication?.GetViewModel(),
+                    Collections = _CollectionApplication?.GetViewModel(),
+                    Date = DateTime.Now.ToFarsi(),
+                    Personnels = Personnel,
+                    SafeBoxs = SafeBox,
+                    Moneys = _moneyApplication?.GetViewModel()
+                };
                 return Partial("./Create", command);
             }
             else
@@ -72,11 +100,26 @@ namespace ServiceHost.Areas.Admin.Pages.Expenses
             permissionQueryModels = _permissionQueryModel?.GetGeneral();
             if (permissionQueryModels?.RemovedGeneral == GeneralPermissions.RemovedGeneral || permissionQueryModels?.AdminGeneral == GeneralPermissions.AdminGeneral)
             {
-                var commnd = new ExpenseRemoved()
+                var agenciesId = _authHelper.CurrentAgenciesId();
+                idAgencies = agenciesId;
+                if (idAgencies != 0)
                 {
-                    ExpenseRemoveds = _ExpenseApplication?.GetRemove()
-                };
-                return Partial("./Removed", commnd);
+                    var commnd = new ExpenseRemoved()
+                    {
+                        idAgencies = idAgencies,
+                        ExpenseRemoveds = _ExpenseApplication?.GetRemove(idAgencies)
+                    };
+                    return Partial("./Removed", commnd);
+                }
+                else
+                {
+                    var commnd = new ExpenseRemoved()
+                    {
+                        idAgencies = idAgencies,
+                        ExpenseRemoveds = _ExpenseApplication?.GetRemove()
+                    };
+                    return Partial("./Removed", commnd);
+                }
             }
             else
             {
@@ -88,11 +131,26 @@ namespace ServiceHost.Areas.Admin.Pages.Expenses
             permissionQueryModels = _permissionQueryModel?.GetGeneral();
             if (permissionQueryModels?.ActivedGeneral == GeneralPermissions.ActivedGeneral || permissionQueryModels?.AdminGeneral == GeneralPermissions.AdminGeneral)
             {
-                var commnd = new ExpenseRemoved()
+                var agenciesId = _authHelper.CurrentAgenciesId();
+                idAgencies = agenciesId;
+                if (idAgencies != 0)
                 {
-                    ExpenseRemoveds = _ExpenseApplication?.GetInActive()
-                };
-                return Partial("./Actived", commnd);
+                    var commnd = new ExpenseRemoved()
+                    {
+                        idAgencies = idAgencies,
+                        ExpenseRemoveds = _ExpenseApplication?.GetInActive(idAgencies)
+                    };
+                    return Partial("./Actived", commnd);
+                }
+                else
+                {
+                    var commnd = new ExpenseRemoved()
+                    {
+                        idAgencies = idAgencies,
+                        ExpenseRemoveds = _ExpenseApplication?.GetInActive()
+                    };
+                    return Partial("./Actived", commnd);
+                }
             }
             else
             {
@@ -104,13 +162,23 @@ namespace ServiceHost.Areas.Admin.Pages.Expenses
             permissionQueryModels = _permissionQueryModel?.GetGeneral();
             if (permissionQueryModels?.EditGeneral == GeneralPermissions.EditGeneral || permissionQueryModels?.AdminGeneral == GeneralPermissions.AdminGeneral)
             {
+                var agenciesId = _authHelper.CurrentAgenciesId();
                 var result = _ExpenseApplication?.GetDetails(id);
-
                 int Collectionid = _CollectionApplication.GetDetails(result.Collection_Id).Id;
+                result.Agencies = _agenciesApplication?.GetViewModel();
+                result.IdAgencies = agenciesId;
                 result.Collection_Id = Collectionid;
                 result.Collections = _CollectionApplication?.GetViewModel();
-                result.Personnels = _personnelApplication?.GetViewModel();
-                result.SafeBoxs = _safeBoxApplication?.GetViewModel();
+                if (agenciesId != 0)
+                {
+                    result.Personnels = _personnelApplication?.GetViewModel(agenciesId);
+                    result.SafeBoxs = _safeBoxApplication?.GetViewModel(agenciesId);
+                }
+                else
+                {
+                    result.Personnels = _personnelApplication?.GetViewModel();
+                    result.SafeBoxs = _safeBoxApplication?.GetViewModel();
+                }
                 result.Moneys = _moneyApplication?.GetViewModel();
                 return Partial("Edit", result);
             }
@@ -295,6 +363,15 @@ namespace ServiceHost.Areas.Admin.Pages.Expenses
                 return Redirect("/Index");
             }
         }
+        public IActionResult OnGetPersonne(int agenciesid)
+        {
+            var result = _personnelApplication?.GetViewModel(agenciesid);
+            return new JsonResult(result);
+        }
+        public IActionResult OnGetSafeBox(int agenciesid)
+        {
+            var result = _safeBoxApplication?.GetViewModel(agenciesid);
+            return new JsonResult(result);
+        }
     }
-
 }

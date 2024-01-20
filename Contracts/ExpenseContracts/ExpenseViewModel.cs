@@ -16,6 +16,9 @@
         public string? SafeBoxName { get; set; }
         public int MoneyId { get; set; }
         public string? MoneyName { get; set; }
+        public int AgenciesId { get; set; }
+        public int IdAgencies { get; set; }
+        public string? NameAgencies { get; set; }
         public string? SaveDate { get; set; }
         public int UserId { get; set; }
         public string? UserName { get; set; }

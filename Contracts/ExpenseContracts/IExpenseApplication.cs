@@ -8,8 +8,11 @@ namespace Contracts.ExpenseContracts
         OperationResult Edit(ExpenseEdit command);
         ExpenseEdit GetDetails(long id);
         List<ExpenseViewModel> GetViewModel();
+        List<ExpenseViewModel> GetViewModel(int agenciesId);
         List<ExpenseViewModel> GetInActive();
+        List<ExpenseViewModel> GetInActive(int agenciesId);
         List<ExpenseViewModel> GetRemove();
+        List<ExpenseViewModel> GetRemove(int agenciesId);
         OperationResult InActive(long id);
         OperationResult Active(long id);
         OperationResult Remove(long id);

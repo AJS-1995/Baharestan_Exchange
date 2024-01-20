@@ -22,6 +22,10 @@
                     <th class="text-center">خزانه</th>
                     <th class="text-center">مبلغ</th>
                     <th class="text-center">اسکن</th>
+                    @if (Model.idAgencies == 0)
+                    {
+                        <th class="text-center">نماینده گی</th>
+                    }
                     <th class="text-center">عملیات</th>
                 </tr>
             </thead>
@@ -49,6 +53,17 @@
                                 }
                             </a>
                         </td>
+                        @if (Model.idAgencies == 0)
+                        {
+                            if (item.AgenciesId == 0)
+                            {
+                                <td class="text-center">مرکزی</td>
+                            }
+                            else
+                            {
+                                <td class="text-center">@item.NameAgencies</td>
+                            }
+                        }
                         <td class="text-center">
                             <a class="btn btn-sm btn-icon btn-outline-danger" title="فعال کردن" onclick="Active(@item.Id)"><i class="fa-solid fa-check fa-lg"></i></a>
                         </td>

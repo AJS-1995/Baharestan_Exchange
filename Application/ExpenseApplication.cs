@@ -27,11 +27,16 @@ namespace Application
         public OperationResult Create(ExpenseCreate command)
         {
             var operation = new OperationResult();
-            if (_ExpenseRepository.Exists(x => x.Description == command.Description && x.Date == command.Date))
-                return operation.Failed(ApplicationMessages.DuplicatedRecord);
 
             var userid = _authHelper.CurrentUserId();
             var agenciesId = _authHelper.CurrentAgenciesId();
+            if (agenciesId == 0)
+            {
+                agenciesId = command.AgenciesId;
+            }
+
+            if (_ExpenseRepository.Exists(x => x.Description == command.Description && x.Date == command.Date && x.AgenciesId == agenciesId))
+                return operation.Failed(ApplicationMessages.DuplicatedRecord);
 
             string? slug = command?.Description?.Slugify();
             var logoPath = "Expenses";
@@ -56,15 +61,20 @@ namespace Application
         public OperationResult Edit(ExpenseEdit command)
         {
             var operation = new OperationResult();
+
+            var userid = _authHelper.CurrentUserId();
+            var agenciesId = _authHelper.CurrentAgenciesId();
+            if (agenciesId == 0)
+            {
+                agenciesId = command.AgenciesId;
+            }
+
             var result = _ExpenseRepository.Get(command.Id);
             if (result == null)
                 return operation.Failed(ApplicationMessages.RecordNotFound);
 
-            if (_ExpenseRepository.Exists(x => x.Description == command.Description && x.Date == command.Date && x.Id != command.Id))
+            if (_ExpenseRepository.Exists(x => x.Description == command.Description && x.Date == command.Date && x.AgenciesId == agenciesId && x.Id != command.Id))
                 return operation.Failed(ApplicationMessages.DuplicatedRecord);
-
-            var userid = _authHelper.CurrentUserId();
-            var agenciesId = _authHelper.CurrentAgenciesId();
 
             if (command.Ph_Invoice != null && result.Ph_Invoice != "")
             {
@@ -90,13 +100,25 @@ namespace Application
         {
             return _ExpenseRepository.GetInActive();
         }
+        public List<ExpenseViewModel> GetInActive(int agenciesId)
+        {
+            return _ExpenseRepository.GetInActive(agenciesId);
+        }
         public List<ExpenseViewModel> GetRemove()
         {
             return _ExpenseRepository.GetRemove();
         }
+        public List<ExpenseViewModel> GetRemove(int agenciesId)
+        {
+            return _ExpenseRepository.GetRemove(agenciesId);
+        }
         public List<ExpenseViewModel> GetViewModel()
         {
             return _ExpenseRepository.GetViewModel();
+        }
+        public List<ExpenseViewModel> GetViewModel(int agenciesId)
+        {
+            return _ExpenseRepository.GetViewModel(agenciesId);
         }
         public OperationResult InActive(long id)
         {
