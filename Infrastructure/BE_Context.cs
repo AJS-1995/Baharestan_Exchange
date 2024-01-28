@@ -6,6 +6,7 @@ using Domin.ExpenseDomin;
 using Domin.MoneyDomin;
 using Domin.PersonnelDomin;
 using Domin.PersonsDomin;
+using Domin.PersonsReceiptDomin;
 using Domin.SafeBoxDomin;
 using Domin.UsersDomin;
 using Infrastructure.Mappings.UsersMapping;
@@ -27,7 +28,7 @@ namespace Infrastructure
         public DbSet<Personnel> Personnels { get; set; }
         public DbSet<ExchangeRate> ExchangeRates { get; set; }
         public DbSet<DailyRate> DailyRates { get; set; }
-
+        public DbSet<PersonsReceipt> PersonsReceipt { get; set; }
         public BE_Context(DbContextOptions<BE_Context> options) : base(options)
         {
         }

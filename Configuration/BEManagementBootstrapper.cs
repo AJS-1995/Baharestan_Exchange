@@ -11,6 +11,7 @@ using Contracts.ExpenseContracts;
 using Contracts.MoneyContracts;
 using Contracts.PersonnelContracts;
 using Contracts.PersonsContracts;
+using Contracts.PersonsReceiptContracts;
 using Contracts.SafeBoxContracts;
 using Contracts.UsersContracts.RoleContracts;
 using Contracts.UsersContracts.UsersContracts;
@@ -22,6 +23,7 @@ using Domin.ExpenseDomin;
 using Domin.MoneyDomin;
 using Domin.PersonnelDomin;
 using Domin.PersonsDomin;
+using Domin.PersonsReceiptDomin;
 using Domin.SafeBoxDomin;
 using Domin.UsersDomin;
 using Infrastructure;
@@ -71,6 +73,9 @@ namespace Configuration
 
             services.AddTransient<IDailyRateApplication, DailyRateApplication>();
             services.AddTransient<IDailyRateRepository, DailyRateRepository>();
+
+            services.AddTransient<IPersonsReceiptApplication, PersonsReceiptApplication>();
+            services.AddTransient<IPersonsReceiptRepository, PersonsReceiptRepository>();
 
             services.AddTransient<IPermissionExposer, UserPermissionExposer>();
             services.AddTransient<IPermissionExposer, GeneralPermissionExposer>();
