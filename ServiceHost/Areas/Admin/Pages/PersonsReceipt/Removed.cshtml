@@ -1,11 +1,11 @@
 ﻿@model Contracts.PersonsReceiptContracts.PersonsReceiptRemoved
 @using _0_Framework.Application;
 @{
-    ViewData["title"] = "لیست تبدیل اسعار حذف شده";
+    ViewData["title"] = "لیست رسید و برد افراد حذف شده";
 }
 <div class="modal-header">
     <a class="btn btn-sm btn-icon btn-outline-warning" asp-page="./Index"><i class="fa-solid fa-close fa-lg"></i></a>
-    <h4 class="modal-title">لیست تبدیل اسعار حذف شده</h4>
+    <h4 class="modal-title">لیست رسید و برد افراد حذف شده</h4>
 </div>
 
 <div class="modal-body">
@@ -15,14 +15,14 @@
                 <tr>
                     <th class="text-center">#</th>
                     <th class="text-center">تاریخ</th>
+                    <th class="text-center">فرد</th>
                     <th class="text-center">توضیحات</th>
                     <th class="text-center">توسط</th>
                     <th class="text-center">شماره فاکتور</th>
                     <th class="text-center">نوع</th>
                     <th class="text-center">مقدار</th>
-                    <th class="text-center">خزانه</th>
                     <th class="text-center">پول</th>
-                    <th class="text-center">فرد</th>
+                    <th class="text-center">خزانه</th>
                     @if (Model.idAgencies == 0)
                     {
                         <th class="text-center">نماینده گی</th>
@@ -36,6 +36,7 @@
                     <tr>
                         <td class="text-center"></td>
                         <td class="text-center">@item.Date</td>
+                        <td class="text-center">@item.PersonName</td>
                         <td class="text-center">@item.Description</td>
                         <td class="text-center">@item.By</td>
                         <td class="text-center">@item.ReceiptNumber</td>
@@ -48,9 +49,8 @@
                             <td class="text-center">رسید</td>
                         }
                         <td class="text-center">@item.Amount</td>
-                        <td class="text-center">@item.SafeBoxName</td>
                         <td class="text-center">@item.MoneyName</td>
-                        <td class="text-center">@item.PersonName</td>
+                        <td class="text-center">@item.SafeBoxName</td>
                         @if (Model.idAgencies == 0)
                         {
                             if (item.AgenciesId == 0)

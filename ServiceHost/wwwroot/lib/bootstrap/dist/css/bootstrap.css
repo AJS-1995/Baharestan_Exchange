@@ -5492,6 +5492,7 @@ textarea.form-control-lg {
 .modal-header {
   display: flex;
   flex-shrink: 0;
+  flex-direction: row-reverse;
   align-items: center;
   justify-content: space-between;
   padding: 1rem 1rem;

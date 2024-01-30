@@ -17,7 +17,7 @@ namespace ServiceHost.Areas.Admin.Pages.PersonsReceipt
         public int idAgencies;
         public GeneralPermissionQueryModel? permissionQueryModels;
         private readonly IGeneralPermissionQueryModel? _permissionQueryModel;
-        public List<PersonsReceiptViewModel>? PersonsReceipt;
+        public List<PersonsViewModel>? Persons;
         private readonly IPersonsReceiptApplication? _personsReceiptApplication;
         private readonly IMoneyApplication? _moneyApplication;
         private readonly IAuthHelper? _authHelper;
@@ -44,11 +44,11 @@ namespace ServiceHost.Areas.Admin.Pages.PersonsReceipt
                 idAgencies = agenciesId;
                 if (idAgencies != 0)
                 {
-                    PersonsReceipt = _personsReceiptApplication?.GetViewModel(idAgencies);
+                    Persons = _personsApplication?.GetViewModel(idAgencies);
                 }
                 else
                 {
-                    PersonsReceipt = _personsReceiptApplication?.GetViewModel();
+                    Persons = _personsApplication?.GetViewModel();
                 }
                 return Page();
             }
@@ -57,34 +57,6 @@ namespace ServiceHost.Areas.Admin.Pages.PersonsReceipt
                 return Redirect("/Index");
             }
         }
-
-
-
-
-
-        //public IActionResult OnGet()
-        //{
-        //    permissionQueryModels = _permissionQueryModel?.GetGeneral();
-        //    if (permissionQueryModels?.ListGeneral == GeneralPermissions.ListGeneral || permissionQueryModels?.AdminGeneral == GeneralPermissions.AdminGeneral)
-        //    {
-        //        permissionQueryModels = _permissionQueryModel?.GetGeneral();
-        //        var agenciesId = _authHelper.CurrentAgenciesId();
-        //        idAgencies = agenciesId;
-        //        if (idAgencies != 0)
-        //        {
-        //            PersonsReceipt = _personsReceiptApplication?.GetViewModel(idAgencies);
-        //        }
-        //        else
-        //        {
-        //            PersonsReceipt = _personsReceiptApplication?.GetViewModel();
-        //        }
-        //        return Page();
-        //    }
-        //    else
-        //    {
-        //        return Redirect("/Index");
-        //    }
-        //}
         public IActionResult OnGetCreate()
         {
             permissionQueryModels = _permissionQueryModel?.GetGeneral();

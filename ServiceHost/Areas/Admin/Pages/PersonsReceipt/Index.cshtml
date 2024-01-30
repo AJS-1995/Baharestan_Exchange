@@ -49,15 +49,10 @@
                             <table id="example" class="table table-bordered table-hover display nowrap margin-top-10 w-p100 js-serial">
                                 <thead class="table-Primary">
                                     <tr>
-                                        <th class="text-center">تاریخ</th>
-                                        <th class="text-center">توضیحات</th>
-                                        <th class="text-center">توسط</th>
-                                        <th class="text-center">شماره فاکتور</th>
-                                        <th class="text-center">نوع</th>
-                                        <th class="text-center">مقدار</th>
-                                        <th class="text-center">خزانه</th>
-                                        <th class="text-center">پول</th>
-                                        <th class="text-center">فرد</th>
+                                        <th class="text-center">نام</th>
+                                        <th class="text-center">شماره تماس</th>
+                                        <th class="text-center">آدرس</th>
+                                        <th class="text-center">کمپنی</th>
                                         @if (Model.idAgencies == 0)
                                         {
                                             <th class="text-center">نماینده گی</th>
@@ -66,25 +61,13 @@
                                     </tr>
                                 </thead>
                                 <tbody id="tbody">
-                                    @foreach (var item in Model.PersonsReceipt)
+                                    @foreach (var item in Model.Persons)
                                     {
                                         <tr>
-                                            <td class="text-center">@item.Date</td>
-                                            <td class="text-center">@item.Description</td>
-                                            <td class="text-center">@item.By</td>
-                                            <td class="text-center">@item.ReceiptNumber</td>
-                                            @if (item.Type == false)
-                                            {
-                                                <td class="text-center">برد</td>
-                                            }
-                                            else
-                                            {
-                                                <td class="text-center">رسید</td>
-                                            }
-                                            <td class="text-center">@item.Amount</td>
-                                            <td class="text-center">@item.SafeBoxName</td>
-                                            <td class="text-center">@item.MoneyName</td>
-                                            <td class="text-center">@item.PersonName</td>
+                                            <td class="text-center">@item.Name</td>
+                                            <td class="text-center" dir="ltr">@item.Mobile</td>
+                                            <td class="text-center">@item.Address</td>
+                                            <td class="text-center">@item.Company</td>
                                             @if (Model.idAgencies == 0)
                                             {
                                                 if (item.AgenciesId == 0)
@@ -97,22 +80,7 @@
                                                 }
                                             }
                                             <td class="text-center">
-                                                @if (Model.permissionQueryModels.EditGeneral == GeneralPermissions.EditGeneral || Model.permissionQueryModels.AdminGeneral == GeneralPermissions.AdminGeneral)
-                                                {
-                                                    <a class="btn btn-sm btn-icon btn-outline-warning" title="ویرایش" href="#showmodal=@Url.Page("./Index", "Edit", new { id = item.Id })"><i class="fa-solid fa-edit (alias) fa-lg"></i></a>
-                                                }
-                                                @if (Model.permissionQueryModels.RemoveGeneral == GeneralPermissions.RemoveGeneral || Model.permissionQueryModels.AdminGeneral == GeneralPermissions.AdminGeneral)
-                                                {
-                                                    <a class="btn btn-sm btn-icon btn-outline-danger" title="حذف" onclick="Remove(@item.Id)"><i class="fa-solid fa-minus fa-lg"></i></a>
-                                                }
-                                                @if (Model.permissionQueryModels.ActiveGeneral == GeneralPermissions.ActiveGeneral || Model.permissionQueryModels.AdminGeneral == GeneralPermissions.AdminGeneral)
-                                                {
-                                                    <a class="btn btn-sm btn-icon btn-outline-success" title="غیر فعال" onclick="InActive(@item.Id)"><i class="fa-solid fa-toggle-off fa-lg"></i></a>
-                                                }
-                                                @if (Model.permissionQueryModels.SavedGeneral == GeneralPermissions.SavedGeneral || Model.permissionQueryModels.AdminGeneral == GeneralPermissions.AdminGeneral)
-                                                {
-                                                    <a class="btn btn-sm btn-icon btn-outline-info" title="ثبت کننده" href="#showmodal=@Url.Page("./Index", "Saved", new { id = item.Id })"><i class="fa-solid fa-swatchbook fa-lg"></i></a>
-                                                }
+                                                <a class="btn btn-sm btn-icon btn-outline-primary" title="حسابات" asp-page="./Details" asp-route-persons_id="@item.Id"><i class="fa-solid fa-search fa-lg"></i></a>
                                             </td>
                                         </tr>
                                     }

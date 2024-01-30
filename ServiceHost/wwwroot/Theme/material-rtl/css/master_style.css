@@ -13,6 +13,25 @@
     overflow-y: auto;
 }
 
+::-webkit-scrollbar {
+    width: 5px;
+    height: 3px;
+    cursor:pointer;
+}
+
+::-webkit-scrollbar-track {
+    background: #033ad0;
+}
+
+::-webkit-scrollbar-thumb {
+    background: #ffffff;
+    border-radius: 5px;
+}
+
+    ::-webkit-scrollbar-thumb:hover {
+        background: #0ef8cf;
+    }
+
 .wrapper {
     background-color: #f2f3f8;
 }
@@ -6430,7 +6449,7 @@ ul.flexbox {
     justify-content: space-between;
     -webkit-box-align: center;
     align-items: center;
-    padding-top: 1.5rem;
+    padding-top: 0.5rem;
     background-color: transparent;
     border-bottom: 1px solid rgba(97, 106, 120, 0.07);
 }
@@ -12352,8 +12371,9 @@ button.btn.dropdown-toggle::after, .wysihtml5-toolbar .btn.dropdown-toggle::afte
 }
 .table>tbody>tr>td, .table>tbody>tr>th, .table>tfoot>tr>td, .table>tfoot>tr>th, .table>thead>tr>td, .table>thead>tr>th {
     border-top: 1px solid #f4f4f4;
-    padding: 1rem;
+    padding: 5px 10px;
 	vertical-align: middle;
+    white-space:nowrap;
 }
 .table>thead>tr>th {
     border-bottom: 2px solid #f4f4f4;
@@ -12759,7 +12779,7 @@ tfoot input {
     background: rgba(0, 0, 0, .3);
 }
 .modal-content {
-    border-radius: 0;
+    border-radius: 5px;
     -webkit-box-shadow: 0 2px 3px rgba(0, 0, 0, .125);
     box-shadow: 0 2px 3px rgba(0, 0, 0, .125);
     border: 0;
@@ -16841,4 +16861,7 @@ input[type=number] {
     align-items: start;
     flex-direction: row;
     gap: 20px;
+}
+#MainModal{
+    padding: 10px 0;
 }

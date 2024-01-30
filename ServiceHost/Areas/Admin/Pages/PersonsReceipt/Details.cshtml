@@ -1,10 +1,11 @@
-﻿@page
-@model ServiceHost.Areas.Admin.Pages.Persons.IndexModel
+﻿@page "{persons_id}"
+@model ServiceHost.Areas.Admin.Pages.PersonsReceipt.DetailsModel
 @using Configuration.Permissions.General;
+@using _0_Framework.Application;
 @inject _0_Framework.Application.Auth.IAuthHelper AuthHelper;
 @{
     Layout = "Shared/_AdminLayout";
-    ViewData["title"] = "مدیریت افراد";
+    ViewData["title"] = "مدیریت رسید و برد افراد";
     var currentAccout = AuthHelper.CurrentUserInfo();
 }
 <section class="px-15 pt-15">
@@ -12,21 +13,7 @@
         <div class="col-sm-12">
             <div class="card">
                 <div class="card-header d-flex justify-content-between bb-1 border-info">
-                    <div class="header-title">
-                        @if (Model?.permissionQueryModels?.AddGeneral == GeneralPermissions.AddGeneral || Model?.permissionQueryModels?.AdminGeneral == GeneralPermissions.AdminGeneral)
-                        {
-                            <a class="btn btn-sm btn-icon btn-outline-success mx-2" title="ثبت جدید" href="#showmodal=@Url.Page("./Index", "Create")"><i class="fa-solid fa-plus fa-lg"></i></a>
-                        }
-                        @if (Model?.permissionQueryModels?.RemovedGeneral == GeneralPermissions.RemovedGeneral || Model?.permissionQueryModels?.AdminGeneral == GeneralPermissions.AdminGeneral)
-                        {
-                            <a class="btn btn-sm btn-icon btn-outline-danger mx-2" title="حذف شده ها" href="#showmodal=@Url.Page("./Index", "Removed")"><i class="fa-solid fa-trash-can fa-lg"></i></a>
-                        }
-                        @if (Model?.permissionQueryModels?.ActivedGeneral == GeneralPermissions.ActivedGeneral || Model?.permissionQueryModels?.AdminGeneral == GeneralPermissions.AdminGeneral)
-                        {
-                            <a class="btn btn-sm btn-icon btn-outline-warning mx-2" title="غیرفعال ها" href="#showmodal=@Url.Page("./Index", "Actived")"><i class="fa-solid fa-toggle-off fa-lg"></i></a>
-                        }
-                        <a class="btn btn-sm btn-icon btn-outline-info mx-2" title="لیست" asp-page="/Index"><i class="fa-solid fa-left-long fa-lg"></i></a>
-                    </div>
+
                 </div>
             </div>
         </div>
@@ -40,20 +27,35 @@
                 <div class="card">
                     <div class="card-header d-flex justify-content-between bb-1 border-info">
                         <div class="header-title">
-                            <span class="card-title mx-2">لیست افراد</span>
+                            @if (Model?.permissionQueryModels?.AddGeneral == GeneralPermissions.AddGeneral || Model?.permissionQueryModels?.AdminGeneral == GeneralPermissions.AdminGeneral)
+                            {
+                                <a class="btn btn-sm btn-icon btn-outline-success mx-2" title="ثبت جدید" href="#showmodal=@Url.Page("./Details", "CreateDetails", new { id = Model.Persons_Id })"><i class="fa-solid fa-plus fa-lg"></i></a>
+                            }
+                            @if (Model?.permissionQueryModels?.RemovedGeneral == GeneralPermissions.RemovedGeneral || Model?.permissionQueryModels?.AdminGeneral == GeneralPermissions.AdminGeneral)
+                            {
+                                <a class="btn btn-sm btn-icon btn-outline-danger mx-2" title="حذف شده ها" href="#showmodal=@Url.Page("./Details", "Removed", new { id = Model.Persons_Id })"><i class="fa-solid fa-trash-can fa-lg"></i></a>
+                            }
+                            @if (Model?.permissionQueryModels?.ActivedGeneral == GeneralPermissions.ActivedGeneral || Model?.permissionQueryModels?.AdminGeneral == GeneralPermissions.AdminGeneral)
+                            {
+                                <a class="btn btn-sm btn-icon btn-outline-warning mx-2" title="غیرفعال ها" href="#showmodal=@Url.Page("./Details", "Actived", new { id = Model.Persons_Id })"><i class="fa-solid fa-toggle-off fa-lg"></i></a>
+                            }
+                            <a class="btn btn-sm btn-icon btn-outline-info mx-2" title="برگشت" asp-page="./Index"><i class="fa-solid fa-left-long fa-lg"></i></a>
+                            <span class="card-title mx-2">لیست رسید و برد _ @Model.Persons_Name</span>
                         </div>
                     </div>
                     <div class="card-body">
                         <div class="table-responsive">
-                            <table id="example" class="table table-bordered table-hover display nowrap margin-top-10 w-p100 js-serial">
+                            <table id="example" class="table table-bordered table-hover display nowrap margin-top-10 w-p100 js-serial caption-top">
                                 <thead class="table-Primary">
                                     <tr>
-                                        <th class="text-center">نام</th>
-                                        <th class="text-center">شماره تماس</th>
-                                        <th class="text-center">آدرس</th>
-                                        <th class="text-center">کمپنی</th>
-                                        <th class="text-center">ضامن</th>
-                                        <th class="text-center">ضمانت خط</th>
+                                        <th class="text-center">تاریخ</th>
+                                        <th class="text-center">توضیحات</th>
+                                        <th class="text-center">توسط</th>
+                                        <th class="text-center">شماره فاکتور</th>
+                                        <th class="text-center">نوع</th>
+                                        <th class="text-center">مقدار</th>
+                                        <th class="text-center">پول</th>
+                                        <th class="text-center">خزانه</th>
                                         @if (Model.idAgencies == 0)
                                         {
                                             <th class="text-center">نماینده گی</th>
@@ -62,26 +64,24 @@
                                     </tr>
                                 </thead>
                                 <tbody id="tbody">
-                                    @foreach (var item in Model.Persons)
+                                    @foreach (var item in Model.PersonsReceipt)
                                     {
                                         <tr>
-                                            <td class="text-center">@item.Name</td>
-                                            <td class="text-center" dir="ltr">@item.Mobile</td>
-                                            <td class="text-center">@item.Address</td>
-                                            <td class="text-center">@item.Company</td>
-                                            <td class="text-center">@item.Guarantor</td>
-                                            <td class="text-center">
-                                                <a href="#">
-                                                    @if (item.GuarantorPhoto != null && item.GuarantorPhoto != "")
-                                                    {
-                                                        <img class="GuarantorPhoto" src="~/Uploader/@item.GuarantorPhoto" alt="GuarantorPhoto">
-                                                    }
-                                                    else
-                                                    {
-                                                        <img class="GuarantorPhoto" src="~/notify.svg" alt="GuarantorPhoto">
-                                                    }
-                                                </a>
-                                            </td>
+                                            <td class="text-center">@item.Date</td>
+                                            <td class="text-center">@item.Description</td>
+                                            <td class="text-center">@item.By</td>
+                                            <td class="text-center">@item.ReceiptNumber</td>
+                                            @if (item.Type == false)
+                                            {
+                                                <td class="text-center">برد</td>
+                                            }
+                                            else
+                                            {
+                                                <td class="text-center">رسید</td>
+                                            }
+                                            <td class="text-center">@item.Amount</td>
+                                            <td class="text-center">@item.MoneyName</td>
+                                            <td class="text-center">@item.SafeBoxName</td>
                                             @if (Model.idAgencies == 0)
                                             {
                                                 if (item.AgenciesId == 0)
@@ -96,7 +96,7 @@
                                             <td class="text-center">
                                                 @if (Model.permissionQueryModels.EditGeneral == GeneralPermissions.EditGeneral || Model.permissionQueryModels.AdminGeneral == GeneralPermissions.AdminGeneral)
                                                 {
-                                                    <a class="btn btn-sm btn-icon btn-outline-warning" title="ویرایش" href="#showmodal=@Url.Page("./Index", "Edit", new { id = item.Id })"><i class="fa-solid fa-edit (alias) fa-lg"></i></a>
+                                                    <a class="btn btn-sm btn-icon btn-outline-warning" title="ویرایش" href="#showmodal=@Url.Page("./Details", "EditDetails", new { id = item.Id })"><i class="fa-solid fa-edit (alias) fa-lg"></i></a>
                                                 }
                                                 @if (Model.permissionQueryModels.RemoveGeneral == GeneralPermissions.RemoveGeneral || Model.permissionQueryModels.AdminGeneral == GeneralPermissions.AdminGeneral)
                                                 {
@@ -123,7 +123,7 @@
     </section>
 }
 @section Scripts
-    {
+{
     <script src="~/Theme/assets/formatter/formatter.js"></script>
     <script src="~/Theme/assets/formatter/jquery.formatter.js"></script>
     <script src="~/Theme/material-rtl/js/formatter.js"></script>
@@ -144,9 +144,54 @@
         addRowCount('.js-serial');
     </script>
     <script>
+        function agencies(agenciesid) {
+            if (agenciesid != "") {
+                var postData = {
+                    'agenciesid': agenciesid,
+                };
+                $.ajax({
+                    ccontentType: 'application/x-www-form-urlencoded',
+                    dataType: 'json',
+                    type: "GET",
+                    url: "@Url.Page("./Index", "Person")",
+                    data: postData,
+                    success: function (date) {
+                        if (date.length > 0) {
+                            $('#PersonId').empty();
+                            var option = '';
+                            option += '<option value="">افراد ...</option>';
+                            for (var i = 0; i < date.length; i++) {
+                                option += '<option value="' + date[i].id + '">' + date[i].name + '</option>';
+                            }
+                            $('#PersonId').append(option);
+                        }
+                    },
+                });
+                $.ajax({
+                    ccontentType: 'application/x-www-form-urlencoded',
+                    dataType: 'json',
+                    type: "GET",
+                    url: "@Url.Page("./Index", "SafeBox")",
+                    data: postData,
+                    success: function (date) {
+                        if (date.length > 0) {
+                            $('#SafeBoxId').empty();
+                            var option = '';
+                            option += '<option value="">خزانه ...</option>';
+                            for (var i = 0; i < date.length; i++) {
+                                option += '<option value="' + date[i].id + '">' + date[i].name + '</option>';
+                            }
+                            $('#SafeBoxId').append(option);
+                        }
+                    },
+                });
+            }
+        }
+    </script>
+    <script>
         function InActive(id) {
             Swal.fire({
-                title: 'آیا میخواهید فرد غیر فعال شود ؟',
+                title: 'آیا میخواهید رسید و برد افراد غیر فعال شود ؟',
                 text: "پس میتوانید فعال کنید !",
                 icon: 'warning',
                 showCancelButton: true,
@@ -194,7 +239,7 @@
 
         function Active(id) {
             Swal.fire({
-                title: 'آیا میخواهید فرد فعال شود ؟',
+                title: 'آیا میخواهید رسید و برد افراد فعال شود ؟',
                 text: "پس میتوانید غیر فعال کنید !",
                 icon: 'warning',
                 showCancelButton: true,
@@ -242,7 +287,7 @@
 
         function Remove(id) {
             Swal.fire({
-                title: 'آیا میخواهید فرد حذف شود ؟',
+                title: 'آیا میخواهید رسید و برد افراد حذف شود ؟',
                 text: "پس میتوانید بازیابی کنید !",
                 icon: 'warning',
                 showCancelButton: true,
@@ -290,7 +335,7 @@
 
         function Reset(id) {
             Swal.fire({
-                title: 'آیا میخواهید فرد بازیابی شود ؟',
+                title: 'آیا میخواهید رسید و برد افراد بازیابی شود ؟',
                 text: "پس میتوانید حذف کنید !",
                 icon: 'warning',
                 showCancelButton: true,
@@ -338,7 +383,7 @@
 
         function Delete(id) {
             Swal.fire({
-                title: 'آیا میخواهید فرد کامل شود ؟',
+                title: 'آیا میخواهید رسید و برد افراد کامل حذف شود ؟',
                 text: "پس نمیتوانید بازیابی کنید !",
                 icon: 'warning',
                 showCancelButton: true,
