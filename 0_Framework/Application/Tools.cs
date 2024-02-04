@@ -126,16 +126,19 @@ namespace _0_Framework.Application
         }
         public static string ToMoney(this decimal myMoney)
         {
-            return myMoney.ToString("N0", CultureInfo.CreateSpecificCulture("fa-ir"));
+            CultureInfo.DefaultThreadCurrentCulture = new CultureInfo("en-US");
+            return ($"{myMoney:N}");
         }
         public static string ToMoneyi(this int myMoney)
         {
-            return myMoney.ToString("N0", CultureInfo.CreateSpecificCulture("fa-ir"));
+            CultureInfo.DefaultThreadCurrentCulture = new CultureInfo("en-US");
+            return ($"{myMoney:N}");
         }
         public static string ToMoneys(this string myMoney)
         {
             int Money = int.Parse(myMoney);
-            return Money.ToString("N0", CultureInfo.CreateSpecificCulture("fa-ir"));
+            CultureInfo.DefaultThreadCurrentCulture = new CultureInfo("en-US");
+            return ($"{myMoney:N}");
         }
         public static string ToFileName(this DateTime date)
         {

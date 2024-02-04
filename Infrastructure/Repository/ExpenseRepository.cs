@@ -60,7 +60,7 @@ namespace Infrastructure.Repository
             result.ForEach(item => item.PersonnelName = personnel.FirstOrDefault(x => x.Id == item.PersonnelId)?.FullName);
             result.ForEach(item => item.MoneyName = moneys.FirstOrDefault(x => x.Id == item.MoneyId)?.Symbol);
             result.ForEach(item => item.SafeBoxName = safeBox.FirstOrDefault(x => x.Id == item.SafeBoxId)?.Name);
-            result.ForEach(item => item.NameAgencies = agencies.FirstOrDefault(x => x.Id == item.AgenciesId)?.Name);
+            result.ForEach(item => item.AgenciesName = agencies.FirstOrDefault(x => x.Id == item.AgenciesId)?.Name);
             return result;
         }
         public List<ExpenseViewModel> GetInActive(int agenciesId)
@@ -94,7 +94,7 @@ namespace Infrastructure.Repository
             result.ForEach(item => item.PersonnelName = personnel.FirstOrDefault(x => x.Id == item.PersonnelId)?.FullName);
             result.ForEach(item => item.MoneyName = moneys.FirstOrDefault(x => x.Id == item.MoneyId)?.Symbol);
             result.ForEach(item => item.SafeBoxName = safeBox.FirstOrDefault(x => x.Id == item.SafeBoxId)?.Name);
-            result.ForEach(item => item.NameAgencies = agencies.FirstOrDefault(x => x.Id == item.AgenciesId)?.Name);
+            result.ForEach(item => item.AgenciesName = agencies.FirstOrDefault(x => x.Id == item.AgenciesId)?.Name);
             return result;
         }
         public List<ExpenseViewModel> GetRemove()
@@ -128,7 +128,7 @@ namespace Infrastructure.Repository
             result.ForEach(item => item.PersonnelName = personnel.FirstOrDefault(x => x.Id == item.PersonnelId)?.FullName);
             result.ForEach(item => item.MoneyName = moneys.FirstOrDefault(x => x.Id == item.MoneyId)?.Symbol);
             result.ForEach(item => item.SafeBoxName = safeBox.FirstOrDefault(x => x.Id == item.SafeBoxId)?.Name);
-            result.ForEach(item => item.NameAgencies = agencies.FirstOrDefault(x => x.Id == item.AgenciesId)?.Name);
+            result.ForEach(item => item.AgenciesName = agencies.FirstOrDefault(x => x.Id == item.AgenciesId)?.Name);
             return result;
         }
         public List<ExpenseViewModel> GetRemove(int agenciesId)
@@ -162,7 +162,7 @@ namespace Infrastructure.Repository
             result.ForEach(item => item.PersonnelName = personnel.FirstOrDefault(x => x.Id == item.PersonnelId)?.FullName);
             result.ForEach(item => item.MoneyName = moneys.FirstOrDefault(x => x.Id == item.MoneyId)?.Symbol);
             result.ForEach(item => item.SafeBoxName = safeBox.FirstOrDefault(x => x.Id == item.SafeBoxId)?.Name);
-            result.ForEach(item => item.NameAgencies = agencies.FirstOrDefault(x => x.Id == item.AgenciesId)?.Name);
+            result.ForEach(item => item.AgenciesName = agencies.FirstOrDefault(x => x.Id == item.AgenciesId)?.Name);
             return result;
         }
         public List<ExpenseViewModel> GetViewModel()
@@ -196,7 +196,7 @@ namespace Infrastructure.Repository
             result.ForEach(item => item.PersonnelName = personnel.FirstOrDefault(x => x.Id == item.PersonnelId)?.FullName);
             result.ForEach(item => item.MoneyName = moneys.FirstOrDefault(x => x.Id == item.MoneyId)?.Symbol);
             result.ForEach(item => item.SafeBoxName = safeBox.FirstOrDefault(x => x.Id == item.SafeBoxId)?.Name);
-            result.ForEach(item => item.NameAgencies = agencies.FirstOrDefault(x => x.Id == item.AgenciesId)?.Name);
+            result.ForEach(item => item.AgenciesName = agencies.FirstOrDefault(x => x.Id == item.AgenciesId)?.Name);
             return result;
         }
         public List<ExpenseViewModel> GetViewModel(int agenciesId)
@@ -230,7 +230,7 @@ namespace Infrastructure.Repository
             result.ForEach(item => item.PersonnelName = personnel.FirstOrDefault(x => x.Id == item.PersonnelId)?.FullName);
             result.ForEach(item => item.MoneyName = moneys.FirstOrDefault(x => x.Id == item.MoneyId)?.Symbol);
             result.ForEach(item => item.SafeBoxName = safeBox.FirstOrDefault(x => x.Id == item.SafeBoxId)?.Name);
-            result.ForEach(item => item.NameAgencies = agencies.FirstOrDefault(x => x.Id == item.AgenciesId)?.Name);
+            result.ForEach(item => item.AgenciesName = agencies.FirstOrDefault(x => x.Id == item.AgenciesId)?.Name);
             return result;
         }
     }

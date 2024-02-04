@@ -11,7 +11,7 @@
         public string? Role { get; set; }
         public string? RolePersian { get; set; }
         public int IdAgencies { get; set; }
-        public string? NameAgencies { get; set; }
+        public string? AgenciesName { get; set; }
         public string? ProfilePhoto { get; set; }
         public string? SaveDate { get; set; }
         public int User_Id { get; set; }

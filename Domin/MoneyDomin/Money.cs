@@ -1,5 +1,5 @@
 ﻿using _0_Framework.Domain;
-using Domin.ExchangeRateDomin;
+using Domin.ManagementPresonsDomin.PersonsReceiptDomin;
 
 namespace Domin.MoneyDomin
 {
@@ -8,7 +8,11 @@ namespace Domin.MoneyDomin
         public string? Name { get; set; }
         public string? Country { get; set; }
         public string? Symbol { get; set; }
-        public Money() { }
+        public List<PersonsReceipt>? PersonsReceipts { get; }
+        public Money() 
+        {
+            PersonsReceipts = new List<PersonsReceipt>();
+        }
         public Money(string? name, string? country, string? symbol, int userid, int agenciesId)
         {
             Name = name;

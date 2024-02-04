@@ -63,7 +63,7 @@ namespace Infrastructure.Repository.UsersRepository
                 IdAgencies = x.AgenciesId
             });
             var result = query.OrderByDescending(x => x.Id).ToList();
-            result.ForEach(item => item.NameAgencies = agencies.FirstOrDefault(x => x.Id == item.IdAgencies)?.Name);
+            result.ForEach(item => item.AgenciesName = agencies.FirstOrDefault(x => x.Id == item.IdAgencies)?.Name);
             return result;
         }
         public UserPermissionsCreate GetDetailsPer(int id)
@@ -100,7 +100,7 @@ namespace Infrastructure.Repository.UsersRepository
                 IdAgencies = x.AgenciesId
             });
             var result = query.OrderByDescending(x => x.Id).ToList();
-            result.ForEach(item => item.NameAgencies = agencies.FirstOrDefault(x => x.Id == item.IdAgencies)?.Name);
+            result.ForEach(item => item.AgenciesName = agencies.FirstOrDefault(x => x.Id == item.IdAgencies)?.Name);
             return result;
         }
 
@@ -126,7 +126,7 @@ namespace Infrastructure.Repository.UsersRepository
                 IdAgencies = x.AgenciesId
             });
             var result = query.OrderByDescending(x => x.Id).ToList();
-            result.ForEach(item => item.NameAgencies = agencies.FirstOrDefault(x => x.Id == item.IdAgencies)?.Name);
+            result.ForEach(item => item.AgenciesName = agencies.FirstOrDefault(x => x.Id == item.IdAgencies)?.Name);
             return result;
         }
     }

@@ -19,6 +19,8 @@ namespace Infrastructure.Mappings
             builder.Property(x => x.Deleted);
             builder.Property(x => x.UserId);
             builder.Property(x => x.AgenciesId);
+
+            builder.HasMany(x => x.PersonsReceipts).WithOne(x => x.Moneys).HasForeignKey(x => x.MoneyId);
         }
     }
 }

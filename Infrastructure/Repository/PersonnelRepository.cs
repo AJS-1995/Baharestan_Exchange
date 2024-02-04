@@ -32,7 +32,7 @@ namespace Infrastructure.Repository
             });
             var result = query.OrderByDescending(x => x.Id).ToList();
             result.ForEach(item => item.User_Name = ((users.FirstOrDefault(x => x.Id == item.User_Id)?.FullName) + " - " + users.FirstOrDefault(x => x.Id == item.User_Id)?.UserName));
-            result.ForEach(item => item.NameAgencies = agencies.FirstOrDefault(x => x.Id == item.AgenciesId)?.Name);
+            result.ForEach(item => item.AgenciesName = agencies.FirstOrDefault(x => x.Id == item.AgenciesId)?.Name);
             return result;
         }
         public PersonnelEdit GetDetails(int id)
@@ -68,7 +68,7 @@ namespace Infrastructure.Repository
                 AgenciesId = x.AgenciesId,
             });
             var result = query.OrderByDescending(x => x.Id).ToList();
-            result.ForEach(item => item.NameAgencies = agencies.FirstOrDefault(x => x.Id == item.AgenciesId)?.Name);
+            result.ForEach(item => item.AgenciesName = agencies.FirstOrDefault(x => x.Id == item.AgenciesId)?.Name);
             return result;
         }
         public List<PersonnelViewModel> GetInActive(int agenciesId)
@@ -90,7 +90,7 @@ namespace Infrastructure.Repository
                 AgenciesId = x.AgenciesId,
             });
             var result = query.OrderByDescending(x => x.Id).ToList();
-            result.ForEach(item => item.NameAgencies = agencies.FirstOrDefault(x => x.Id == item.AgenciesId)?.Name);
+            result.ForEach(item => item.AgenciesName = agencies.FirstOrDefault(x => x.Id == item.AgenciesId)?.Name);
             return result;
         }
         public List<PersonnelViewModel> GetRemove()
@@ -112,7 +112,7 @@ namespace Infrastructure.Repository
                 AgenciesId = x.AgenciesId,
             });
             var result = query.OrderByDescending(x => x.Id).ToList();
-            result.ForEach(item => item.NameAgencies = agencies.FirstOrDefault(x => x.Id == item.AgenciesId)?.Name);
+            result.ForEach(item => item.AgenciesName = agencies.FirstOrDefault(x => x.Id == item.AgenciesId)?.Name);
             return result;
         }
         public List<PersonnelViewModel> GetRemove(int agenciesId)
@@ -134,7 +134,7 @@ namespace Infrastructure.Repository
                 AgenciesId = x.AgenciesId,
             });
             var result = query.OrderByDescending(x => x.Id).ToList();
-            result.ForEach(item => item.NameAgencies = agencies.FirstOrDefault(x => x.Id == item.AgenciesId)?.Name);
+            result.ForEach(item => item.AgenciesName = agencies.FirstOrDefault(x => x.Id == item.AgenciesId)?.Name);
             return result;
         }
         public List<PersonnelViewModel> GetViewModel()
@@ -158,7 +158,7 @@ namespace Infrastructure.Repository
             });
             var result = query.OrderByDescending(x => x.Id).ToList();
             result.ForEach(item => item.User_Name = ((users.FirstOrDefault(x => x.Id == item.User_Id)?.FullName) + " - " + users.FirstOrDefault(x => x.Id == item.User_Id)?.UserName));
-            result.ForEach(item => item.NameAgencies = agencies.FirstOrDefault(x => x.Id == item.AgenciesId)?.Name);
+            result.ForEach(item => item.AgenciesName = agencies.FirstOrDefault(x => x.Id == item.AgenciesId)?.Name);
             return result;
         }
         public List<PersonnelViewModel> GetViewModel(int agenciesId)
@@ -182,7 +182,7 @@ namespace Infrastructure.Repository
             });
             var result = query.OrderByDescending(x => x.Id).ToList();
             result.ForEach(item => item.User_Name = ((users.FirstOrDefault(x => x.Id == item.User_Id)?.FullName) + " - " + users.FirstOrDefault(x => x.Id == item.User_Id)?.UserName));
-            result.ForEach(item => item.NameAgencies = agencies.FirstOrDefault(x => x.Id == item.AgenciesId)?.Name);
+            result.ForEach(item => item.AgenciesName = agencies.FirstOrDefault(x => x.Id == item.AgenciesId)?.Name);
             return result;
         }
     }

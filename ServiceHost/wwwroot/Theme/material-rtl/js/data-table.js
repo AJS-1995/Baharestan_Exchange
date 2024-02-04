@@ -45,12 +45,6 @@ $(function () {
 			'excel', 'print'
 		]
     });
-    $('#exampleex').DataTable({
-        dom: 'Bfrtip',
-        buttons: [
-            'excel', 'print'
-        ]
-    });
 	
 	$('#tickets').DataTable({
 	  'paging'      : true,

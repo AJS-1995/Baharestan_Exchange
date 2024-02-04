@@ -20,6 +20,10 @@ namespace Infrastructure.Mappings
             builder.Property(x => x.UserId);
             builder.Property(x => x.Responsible).HasMaxLength(100);
             builder.Property(x => x.CompanyId);
+
+            //Persons
+            builder.HasMany(x => x.Personss).WithOne(x => x.Agenciess).HasForeignKey(x => x.AgenciesId);
+            builder.HasMany(x => x.PersonsReceipts).WithOne(x => x.Agenciess).HasForeignKey(x => x.AgenciesId);
         }
     }
 }

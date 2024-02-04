@@ -1,4 +1,6 @@
 ﻿using _0_Framework.Application;
+using Domin.ManagementPresonsDomin.PersonsDomin;
+using Domin.ManagementPresonsDomin.PersonsReceiptDomin;
 
 namespace Domin.AgenciesDomin
 {
@@ -14,7 +16,13 @@ namespace Domin.AgenciesDomin
         public bool Status { get; private set; }
         public bool Deleted { get; private set; }
         public int UserId { get; private set; }
-        public Agencies() { }
+        public List<Persons>? Personss { get; }
+        public List<PersonsReceipt>? PersonsReceipts { get; }
+        public Agencies()
+        {
+            Personss = new List<Persons>();
+            PersonsReceipts = new List<PersonsReceipt>();
+        }
         public Agencies(string? name, string? address, string? mobile, string? responsible, int companyId, int userId)
         {
             Name = name;

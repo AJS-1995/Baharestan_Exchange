@@ -1,0 +1,71 @@
+﻿@model Contracts.ManagementPresonsContracts.PersonsContracts.PersonsRemoved
+@{
+    ViewData["title"] = "لیست افراد حذف شده";
+}
+<div class="modal-header">
+    <a class="btn btn-sm btn-icon btn-outline-warning" asp-page="./Index"><i class="fa-solid fa-close fa-lg"></i></a>
+    <h4 class="modal-title">لیست افراد حذف شده</h4>
+</div>
+
+<div class="modal-body">
+    <div class="table-responsive">
+        <table class="table table-bordered table-hover display nowrap margin-top-10 w-p100 js-serial">
+            <thead class="table-Primary">
+                <tr>
+                    <th class="text-center">#</th>
+                    <th class="text-center">نام</th>
+                    <th class="text-center">شماره تماس</th>
+                    <th class="text-center">آدرس</th>
+                    <th class="text-center">کمپنی</th>
+                    <th class="text-center">ضامن</th>
+                    <th class="text-center">ضمانت خط</th>
+                    @if (Model.idAgencies == 0)
+                    {
+                        <th class="text-center">نماینده گی</th>
+                    }
+                    <th class="text-center">عملیات</th>
+                </tr>
+            </thead>
+            <tbody id="tbodyv">
+                @foreach (var item in Model.PersonsRemoveds)
+                {
+                    <tr>
+                        <td class="text-center"></td>
+                        <td class="text-center">@item.Name</td>
+                        <td class="text-center" dir="ltr">@item.Mobile</td>
+                        <td class="text-center">@item.Address</td>
+                        <td class="text-center">@item.Company</td>
+                        <td class="text-center">@item.Guarantor</td>
+                        @if (Model.idAgencies == 0)
+                        {
+                            if (item.AgenciesId == 0)
+                            {
+                                <td class="text-center">مرکزی</td>
+                            }
+                            else
+                            {
+                                <td class="text-center">@item.AgenciesName</td>
+                            }
+                        }
+                        <td class="text-center">
+                            <a href="#">
+                                @if (item.GuarantorPhoto != null && item.GuarantorPhoto != "")
+                                {
+                                    <img class="GuarantorPhoto" src="~/Uploader/@item.GuarantorPhoto" alt="GuarantorPhoto">
+                                }
+                                else
+                                {
+                                    <img class="GuarantorPhoto" src="~/notify.svg" alt="GuarantorPhoto">
+                                }
+                            </a>
+                        </td>
+                        <td class="text-center">
+                            <a class="btn btn-sm btn-icon btn-outline-primary" title="بازیابی" onclick="Reset(@item.Id)"><i class="fa-solid fa-check-to-slot fa-lg"></i></a>
+                            <a class="btn btn-sm btn-icon btn-outline-danger" title="حذف کامل" onclick="Delete(@item.Id)"><i class="fa-solid fa-eraser fa-lg"></i></a>
+                        </td>
+                    </tr>
+                }
+            </tbody>
+        </table>
+    </div>
+</div>

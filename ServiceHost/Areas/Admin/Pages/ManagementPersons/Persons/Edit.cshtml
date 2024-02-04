@@ -1,0 +1,78 @@
+﻿@model Contracts.ManagementPresonsContracts.PersonsContracts.PersonsEdit
+@{
+    ViewData["title"] = "ویرایش فرد";
+}
+<div class="modal-header">
+    <a class="btn btn-sm btn-icon btn-outline-warning" asp-page="./Index"><i class="fa-solid fa-close fa-lg"></i></a>
+    <h4 class="modal-title">ویرایش فرد - @Model.Name</h4>
+</div>
+
+<form class="needs-validation" novalidate asp-page="./Index" asp-page-handler="Edit" method="post"
+      data-ajax="true"
+      data-callback=""
+      data-action="Refresh">
+    <div class="modal-body">
+        <div class="row">
+            <div class="col-sm-6">
+                <div class="form-group">
+                    <label class="form-label" asp-for="Name">نام</label>
+                    <input type="text" class="form-control" required asp-for="Name" id="Name">
+                    <div class="invalid-feedback">اطلاعات باید وارد شود !</div>
+                </div>
+            </div>
+            <div class="col-sm-6">
+                <div class="form-group">
+                    <label class="form-label" for="Mobiles">شماره تماس</label>
+                    <input id="Mobiles" dir="ltr" type="text" class="form-control" asp-for="Mobile">
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-sm-6">
+                <div class="form-group">
+                    <label class="form-label" asp-for="Company">کمپنی</label>
+                    <input type="text" class="form-control" asp-for="Company" id="Company">
+                </div>
+            </div>
+            <div class="col-sm-6">
+                <div class="form-group">
+                    <label class="form-label" asp-for="Address">آدرس</label>
+                    <input type="text" class="form-control" asp-for="Address" id="Address">
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-sm-6">
+                <div class="form-group">
+                    <label class="form-label" for="Guarantor">ضامن</label>
+                    <input id="Guarantor" type="text" class="form-control" asp-for="Guarantor">
+                </div>
+            </div>
+            <div class="col-sm-6">
+                <div class="form-group">
+                    <label class="form-label" for="GuarantorPhoto">ضمانت خط</label>
+                    <input type="file" id="GuarantorPhoto" class="form-control" asp-for="GuarantorPhoto" accept="image/*">
+                </div>
+            </div>
+        </div>
+        @if (Model.IdAgencies == 0)
+        {
+            <div class="row">
+                <div class="col-sm-12">
+                    <div class="form-group">
+                        <label class="form-label" asp-for="AgenciesId">نماینده گی</label>
+                        <select id="AgenciesId" class="form-control" required asp-for="AgenciesId"
+                                asp-items='new SelectList(Model.Agencies, "Id", "Name")'>
+                            <option disabled value="" selected="">نماینده گی ...</option>
+                        </select>
+                        <div class="invalid-feedback">اطلاعات باید وارد شود !</div>
+                    </div>
+                </div>
+            </div>
+        }
+        <input type="hidden" asp-for="Id" value="@Model.Id" />
+        <div class="modal-footer">
+            <button type="submit" class="btn btn-sm btn-icon btn-outline-success"><i class="fa-solid fa-save fa-lg"></i></button>
+        </div>
+    </div>
+</form>

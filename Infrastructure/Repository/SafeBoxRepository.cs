@@ -41,7 +41,7 @@ namespace Infrastructure.Repository
             });
             var result = query.OrderByDescending(x => x.Id).ToList();
             result.ForEach(item => item.UserName = ((users.FirstOrDefault(x => x.Id == item.UserId)?.FullName) + " - " + users.FirstOrDefault(x => x.Id == item.UserId)?.UserName));
-            result.ForEach(item => item.NameAgencies = agencies.FirstOrDefault(x => x.Id == item.AgenciesId)?.Name);
+            result.ForEach(item => item.AgenciesName = agencies.FirstOrDefault(x => x.Id == item.AgenciesId)?.Name);
             return result;
         }
         public List<SafeBoxViewModel> GetInActive(int agenciesId)
@@ -62,7 +62,7 @@ namespace Infrastructure.Repository
             });
             var result = query.OrderByDescending(x => x.Id).ToList();
             result.ForEach(item => item.UserName = ((users.FirstOrDefault(x => x.Id == item.UserId)?.FullName) + " - " + users.FirstOrDefault(x => x.Id == item.UserId)?.UserName));
-            result.ForEach(item => item.NameAgencies = agencies.FirstOrDefault(x => x.Id == item.AgenciesId)?.Name);
+            result.ForEach(item => item.AgenciesName = agencies.FirstOrDefault(x => x.Id == item.AgenciesId)?.Name);
             return result;
         }
         public List<SafeBoxViewModel> GetRemove()
@@ -83,7 +83,7 @@ namespace Infrastructure.Repository
             });
             var result = query.OrderByDescending(x => x.Id).ToList();
             result.ForEach(item => item.UserName = ((users.FirstOrDefault(x => x.Id == item.UserId)?.FullName) + " - " + users.FirstOrDefault(x => x.Id == item.UserId)?.UserName));
-            result.ForEach(item => item.NameAgencies = agencies.FirstOrDefault(x => x.Id == item.AgenciesId)?.Name);
+            result.ForEach(item => item.AgenciesName = agencies.FirstOrDefault(x => x.Id == item.AgenciesId)?.Name);
             return result;
         }
         public List<SafeBoxViewModel> GetRemove(int agenciesId)
@@ -104,7 +104,7 @@ namespace Infrastructure.Repository
             });
             var result = query.OrderByDescending(x => x.Id).ToList();
             result.ForEach(item => item.UserName = ((users.FirstOrDefault(x => x.Id == item.UserId)?.FullName) + " - " + users.FirstOrDefault(x => x.Id == item.UserId)?.UserName));
-            result.ForEach(item => item.NameAgencies = agencies.FirstOrDefault(x => x.Id == item.AgenciesId)?.Name);
+            result.ForEach(item => item.AgenciesName = agencies.FirstOrDefault(x => x.Id == item.AgenciesId)?.Name);
             return result;
         }
         public List<SafeBoxViewModel> GetViewModel()
@@ -125,7 +125,7 @@ namespace Infrastructure.Repository
             });
             var result = query.OrderByDescending(x => x.Id).ToList();
             result.ForEach(item => item.UserName = ((users.FirstOrDefault(x => x.Id == item.UserId)?.FullName) + " - " + users.FirstOrDefault(x => x.Id == item.UserId)?.UserName));
-            result.ForEach(item => item.NameAgencies = agencies.FirstOrDefault(x => x.Id == item.AgenciesId)?.Name);
+            result.ForEach(item => item.AgenciesName = agencies.FirstOrDefault(x => x.Id == item.AgenciesId)?.Name);
             return result;
         }
         public List<SafeBoxViewModel> GetViewModel(int agenciesId)
@@ -146,7 +146,7 @@ namespace Infrastructure.Repository
             });
             var result = query.OrderByDescending(x => x.Id).ToList();
             result.ForEach(item => item.UserName = ((users.FirstOrDefault(x => x.Id == item.UserId)?.FullName) + " - " + users.FirstOrDefault(x => x.Id == item.UserId)?.UserName));
-            result.ForEach(item => item.NameAgencies = agencies.FirstOrDefault(x => x.Id == item.AgenciesId)?.Name);
+            result.ForEach(item => item.AgenciesName = agencies.FirstOrDefault(x => x.Id == item.AgenciesId)?.Name);
             return result;
         }
     }

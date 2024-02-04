@@ -1,11 +1,8 @@
 using _0_Framework.Application.Auth;
 using _01_QueryManagement.Contracts.Permissions.General;
-using Application;
 using Configuration.Permissions.General;
 using Contracts.AgenciesContracts;
 using Contracts.PersonnelContracts;
-using Contracts.PersonsContracts;
-using Domin.AgenciesDomin;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 

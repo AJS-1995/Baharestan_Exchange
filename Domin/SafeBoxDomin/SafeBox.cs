@@ -1,4 +1,5 @@
 ﻿using _0_Framework.Domain;
+using Domin.ManagementPresonsDomin.PersonsReceiptDomin;
 
 namespace Domin.SafeBoxDomin
 {
@@ -7,7 +8,11 @@ namespace Domin.SafeBoxDomin
         public string? Name { get; private set; }
         public string? Treasurer { get; private set; }
         public string? Mobile { get; private set; }
-        protected SafeBox() { }
+        public List<PersonsReceipt>? PersonsReceipts { get; }
+        public SafeBox()
+        {
+            PersonsReceipts = new List<PersonsReceipt>();
+        }
         public SafeBox(string? name, string? treasurer, string? mobile, int userid, int agenciesId)
         {
             Name = name;

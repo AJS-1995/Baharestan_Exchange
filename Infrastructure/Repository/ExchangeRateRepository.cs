@@ -52,7 +52,7 @@ namespace Infrastructure.Repository
             result.ForEach(item => item.SecondaryMoneyName = moneys.FirstOrDefault(x => x.Id == item.SecondaryMoneyId)?.Name);
             result.ForEach(item => item.MainMoneySymbol = moneys.FirstOrDefault(x => x.Id == item.MainMoneyId)?.Symbol);
             result.ForEach(item => item.SecondaryMoneySymbol = moneys.FirstOrDefault(x => x.Id == item.SecondaryMoneyId)?.Symbol);
-            result.ForEach(item => item.NameAgencies = agencies.FirstOrDefault(x => x.Id == item.AgenciesId)?.Name);
+            result.ForEach(item => item.AgenciesName = agencies.FirstOrDefault(x => x.Id == item.AgenciesId)?.Name);
             return result;
         }
         public List<ExchangeRateViewModel> GetInActive(int agenciesId)
@@ -81,7 +81,7 @@ namespace Infrastructure.Repository
             result.ForEach(item => item.SecondaryMoneyName = moneys.FirstOrDefault(x => x.Id == item.SecondaryMoneyId)?.Name);
             result.ForEach(item => item.MainMoneySymbol = moneys.FirstOrDefault(x => x.Id == item.MainMoneyId)?.Symbol);
             result.ForEach(item => item.SecondaryMoneySymbol = moneys.FirstOrDefault(x => x.Id == item.SecondaryMoneyId)?.Symbol);
-            result.ForEach(item => item.NameAgencies = agencies.FirstOrDefault(x => x.Id == item.AgenciesId)?.Name);
+            result.ForEach(item => item.AgenciesName = agencies.FirstOrDefault(x => x.Id == item.AgenciesId)?.Name);
             return result;
         }
         public List<ExchangeRateViewModel> GetRemove()
@@ -110,7 +110,7 @@ namespace Infrastructure.Repository
             result.ForEach(item => item.SecondaryMoneyName = moneys.FirstOrDefault(x => x.Id == item.SecondaryMoneyId)?.Name);
             result.ForEach(item => item.MainMoneySymbol = moneys.FirstOrDefault(x => x.Id == item.MainMoneyId)?.Symbol);
             result.ForEach(item => item.SecondaryMoneySymbol = moneys.FirstOrDefault(x => x.Id == item.SecondaryMoneyId)?.Symbol);
-            result.ForEach(item => item.NameAgencies = agencies.FirstOrDefault(x => x.Id == item.AgenciesId)?.Name);
+            result.ForEach(item => item.AgenciesName = agencies.FirstOrDefault(x => x.Id == item.AgenciesId)?.Name);
             return result;
         }
         public List<ExchangeRateViewModel> GetRemove(int agenciesId)
@@ -139,7 +139,7 @@ namespace Infrastructure.Repository
             result.ForEach(item => item.SecondaryMoneyName = moneys.FirstOrDefault(x => x.Id == item.SecondaryMoneyId)?.Name);
             result.ForEach(item => item.MainMoneySymbol = moneys.FirstOrDefault(x => x.Id == item.MainMoneyId)?.Symbol);
             result.ForEach(item => item.SecondaryMoneySymbol = moneys.FirstOrDefault(x => x.Id == item.SecondaryMoneyId)?.Symbol);
-            result.ForEach(item => item.NameAgencies = agencies.FirstOrDefault(x => x.Id == item.AgenciesId)?.Name);
+            result.ForEach(item => item.AgenciesName = agencies.FirstOrDefault(x => x.Id == item.AgenciesId)?.Name);
             return result;
         }
         public List<ExchangeRateViewModel> GetViewModel()
@@ -168,7 +168,7 @@ namespace Infrastructure.Repository
             result.ForEach(item => item.SecondaryMoneyName = moneys.FirstOrDefault(x => x.Id == item.SecondaryMoneyId)?.Name);
             result.ForEach(item => item.MainMoneySymbol = moneys.FirstOrDefault(x => x.Id == item.MainMoneyId)?.Symbol);
             result.ForEach(item => item.SecondaryMoneySymbol = moneys.FirstOrDefault(x => x.Id == item.SecondaryMoneyId)?.Symbol);
-            result.ForEach(item => item.NameAgencies = agencies.FirstOrDefault(x => x.Id == item.AgenciesId)?.Name);
+            result.ForEach(item => item.AgenciesName = agencies.FirstOrDefault(x => x.Id == item.AgenciesId)?.Name);
             return result;
         }
         public List<ExchangeRateViewModel> GetViewModel(int agenciesId)
@@ -197,7 +197,7 @@ namespace Infrastructure.Repository
             result.ForEach(item => item.SecondaryMoneyName = moneys.FirstOrDefault(x => x.Id == item.SecondaryMoneyId)?.Name);
             result.ForEach(item => item.MainMoneySymbol = moneys.FirstOrDefault(x => x.Id == item.MainMoneyId)?.Symbol);
             result.ForEach(item => item.SecondaryMoneySymbol = moneys.FirstOrDefault(x => x.Id == item.SecondaryMoneyId)?.Symbol);
-            result.ForEach(item => item.NameAgencies = agencies.FirstOrDefault(x => x.Id == item.AgenciesId)?.Name);
+            result.ForEach(item => item.AgenciesName = agencies.FirstOrDefault(x => x.Id == item.AgenciesId)?.Name);
             return result;
         }
     }

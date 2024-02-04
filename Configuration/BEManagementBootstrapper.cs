@@ -1,5 +1,6 @@
 ﻿using _0_Framework.Infrastructure.Permission;
 using Application;
+using Application.ManagementPresonsApplication;
 using Application.UsersApplication;
 using Configuration.Permissions.General;
 using Configuration.Permissions.Users;
@@ -8,10 +9,10 @@ using Contracts.CompanyContracts;
 using Contracts.DailyRateContracts;
 using Contracts.ExchangeRateContracts;
 using Contracts.ExpenseContracts;
+using Contracts.ManagementPresonsContracts.PersonsContracts;
+using Contracts.ManagementPresonsContracts.PersonsReceiptContracts;
 using Contracts.MoneyContracts;
 using Contracts.PersonnelContracts;
-using Contracts.PersonsContracts;
-using Contracts.PersonsReceiptContracts;
 using Contracts.SafeBoxContracts;
 using Contracts.UsersContracts.RoleContracts;
 using Contracts.UsersContracts.UsersContracts;
@@ -20,14 +21,15 @@ using Domin.CompanyDomin;
 using Domin.DailyRateDomin;
 using Domin.ExchangeRateDomin;
 using Domin.ExpenseDomin;
+using Domin.ManagementPresonsDomin.PersonsDomin;
+using Domin.ManagementPresonsDomin.PersonsReceiptDomin;
 using Domin.MoneyDomin;
 using Domin.PersonnelDomin;
-using Domin.PersonsDomin;
-using Domin.PersonsReceiptDomin;
 using Domin.SafeBoxDomin;
 using Domin.UsersDomin;
 using Infrastructure;
 using Infrastructure.Repository;
+using Infrastructure.Repository.ManagementPresonsRepository;
 using Infrastructure.Repository.UsersRepository;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.DependencyInjection;
@@ -62,9 +64,6 @@ namespace Configuration
             services.AddTransient<IPersonnelApplication, PersonnelApplication>();
             services.AddTransient<IPersonnelRepository, PersonnelRepository>();
 
-            services.AddTransient<IPersonsApplication, PersonsApplication>();
-            services.AddTransient<IPersonsRepository, PersonsRepository>();
-
             services.AddTransient<ISafeBoxApplication, SafeBoxApplication>();
             services.AddTransient<ISafeBoxRepository, SafeBoxRepository>();
 
@@ -73,7 +72,9 @@ namespace Configuration
 
             services.AddTransient<IDailyRateApplication, DailyRateApplication>();
             services.AddTransient<IDailyRateRepository, DailyRateRepository>();
-
+            //Persons
+            services.AddTransient<IPersonsApplication, PersonsApplication>();
+            services.AddTransient<IPersonsRepository, PersonsRepository>();
             services.AddTransient<IPersonsReceiptApplication, PersonsReceiptApplication>();
             services.AddTransient<IPersonsReceiptRepository, PersonsReceiptRepository>();
 
