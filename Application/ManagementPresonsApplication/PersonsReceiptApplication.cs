@@ -9,10 +9,12 @@ namespace Application.ManagementPresonsApplication
     {
         private readonly IPersonsReceiptRepository _personsReceiptRepository;
         private readonly IAuthHelper _authHelper;
-        public PersonsReceiptApplication(IPersonsReceiptRepository PersonsReceiptRepository, IAuthHelper authHelper)
+        private readonly IFileUploader _fileUploader;
+        public PersonsReceiptApplication(IPersonsReceiptRepository PersonsReceiptRepository, IAuthHelper authHelper, IFileUploader fileUploader)
         {
             _personsReceiptRepository = PersonsReceiptRepository;
             _authHelper = authHelper;
+            _fileUploader = fileUploader;
         }
         public OperationResult Active(long id)
         {
@@ -36,8 +38,19 @@ namespace Application.ManagementPresonsApplication
             if (_personsReceiptRepository.Exists(x => x.Date == command.Date && x.Description == command.Description && x.AgenciesId == command.AgenciesId))
                 return operation.Failed(ApplicationMessages.DuplicatedRecord);
 
+            var logoPath = "PersonsReceipts";
+            var Fingerprintname = DateTime.Now.ToFull() + " - " + "Fingerprint";
+            var FingerprintPath = _fileUploader.Upload(command.Fingerprint, logoPath, Fingerprintname);
+            if (FingerprintPath == "no")
+                return operation.Failed(ApplicationMessages.PhotoFormat);
+
+            var Picturename = DateTime.Now.ToFull() + " - " + "Picture"; ;
+            var PicturePath = _fileUploader.Upload(command.Picture, logoPath, Picturename);
+            if (PicturePath == "no")
+                return operation.Failed(ApplicationMessages.PhotoFormat);
+
             var result = new PersonsReceipt(command.Date, command.Description, command.By, command.ReceiptNumber,
-                command.Type, command.Amount, command.SafeBoxId, command.MoneyId, command.PersonId, userid, agenciesId);
+                command.Type, command.Amount, command.SafeBoxId, command.MoneyId, command.PersonId, FingerprintPath, PicturePath, userid, agenciesId);
             _personsReceiptRepository.Create(result);
             _personsReceiptRepository.SaveChanges();
             return operation.Succedded();
@@ -46,6 +59,16 @@ namespace Application.ManagementPresonsApplication
         {
             var operation = new OperationResult();
             var result = _personsReceiptRepository.Get(id);
+            if (result.Fingerprint != null || result.Fingerprint != "")
+            {
+                string? path = result.Fingerprint;
+                _fileUploader.Delete(path);
+            }
+            if (result.Picture != null || result.Picture != "")
+            {
+                string? path = result.Picture;
+                _fileUploader.Delete(path);
+            }
             _personsReceiptRepository.Delete(result);
             _personsReceiptRepository.SaveChanges();
             return operation.Succedded();
@@ -67,8 +90,42 @@ namespace Application.ManagementPresonsApplication
             if (_personsReceiptRepository.Exists(x => x.Date == command.Date && x.Description == command.Description && x.AgenciesId == command.AgenciesId && x.Id != command.Id))
                 return operation.Failed(ApplicationMessages.DuplicatedRecord);
 
+            if (command.Fingerprint != null)
+            {
+                if (result.Fingerprint != "")
+                {
+                    string? path = result.Fingerprint;
+                    _fileUploader.Delete(path);
+                }
+            }
+            if (command.Picture != null)
+            {
+                if (result.Fingerprint != "")
+                {
+                    string? path = result.Picture;
+                    _fileUploader.Delete(path);
+                }
+            }
+            var logoPath = "PersonsReceipts";
+            var FingerprintPath = command.Fingerprint?.ToString();
+            var PicturePath = command.Picture?.ToString();
+            if (command.Fingerprint != null)
+            {
+                var Fingerprintname = DateTime.Now.ToFull() + " - " + "Fingerprint";
+                FingerprintPath = _fileUploader.Upload(command.Fingerprint, logoPath, Fingerprintname);
+                if (FingerprintPath == "no")
+                    return operation.Failed(ApplicationMessages.PhotoFormat);
+            }
+            if (command.Picture != null)
+            {
+                var Picturename = DateTime.Now.ToFull() + " - " + "Picture"; ;
+                PicturePath = _fileUploader.Upload(command.Picture, logoPath, Picturename);
+                if (PicturePath == "no")
+                    return operation.Failed(ApplicationMessages.PhotoFormat);
+            }
+
             result.Edit(command.Date, command.Description, command.By, command.ReceiptNumber,
-                command.Type, command.Amount, command.SafeBoxId, command.MoneyId, command.PersonId, userid, agenciesId);
+                command.Type, command.Amount, command.SafeBoxId, command.MoneyId, command.PersonId, FingerprintPath, PicturePath, userid, agenciesId);
             _personsReceiptRepository.SaveChanges();
             return operation.Succedded();
         }

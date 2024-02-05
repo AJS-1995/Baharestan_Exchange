@@ -15,6 +15,8 @@
         public string? MoneyName { get; set; }
         public int PersonId { get; set; }
         public string? PersonName { get; set; }
+        public string? Fingerprint { get; set; }
+        public string? Picture { get; set; }
         public int AgenciesId { get; set; }
         public int IdAgencies { get; set; }
         public string? AgenciesName { get; set; }

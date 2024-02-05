@@ -26,6 +26,8 @@ namespace Infrastructure.Mappings.ManagementPresonsMapping
             builder.Property(x => x.Deleted);
             builder.Property(x => x.UserId);
             builder.Property(x => x.AgenciesId);
+            builder.Property(x => x.Fingerprint).HasMaxLength(500);
+            builder.Property(x => x.Picture).HasMaxLength(500);
 
             builder.HasOne(x => x.Persons).WithMany(x => x.PersonsReceipts).HasForeignKey(x => x.PersonId);
             builder.HasOne(x => x.Moneys).WithMany(x => x.PersonsReceipts).HasForeignKey(x => x.MoneyId);

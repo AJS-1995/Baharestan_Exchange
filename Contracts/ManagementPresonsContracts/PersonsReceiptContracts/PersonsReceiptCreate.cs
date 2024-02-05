@@ -3,6 +3,7 @@ using Contracts.AgenciesContracts;
 using Contracts.ManagementPresonsContracts.PersonsContracts;
 using Contracts.MoneyContracts;
 using Contracts.SafeBoxContracts;
+using Microsoft.AspNetCore.Http;
 using System.ComponentModel.DataAnnotations;
 
 namespace Contracts.ManagementPresonsContracts.PersonsReceiptContracts
@@ -26,6 +27,8 @@ namespace Contracts.ManagementPresonsContracts.PersonsReceiptContracts
         [Required(ErrorMessage = ValidationMessages.IsRequired)]
         public int PersonId { get; set; }
         public string? PersonName { get; set; }
+        public IFormFile? Fingerprint { get; set; }
+        public IFormFile? Picture { get; set; }
         public List<PersonsViewModel>? Persons { get; set; }
         public List<SafeBoxViewModel>? SafeBoxs { get; set; }
         public List<MoneyViewModel>? Moneys { get; set; }

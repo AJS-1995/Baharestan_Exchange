@@ -10,7 +10,8 @@
 <form class="needs-validation" novalidate asp-page="./Index" asp-page-handler="Edit" method="post"
       data-ajax="true"
       data-callback=""
-      data-action="Refresh">
+      data-action="Refresh"
+      enctype="multipart/form-data">
     <div class="modal-body">
         <div class="row">
             <div class="form-group col-md-6">
@@ -109,6 +110,20 @@
                         <option disabled value="" selected="">افراد ...</option>
                     </select>
                     <div class="invalid-feedback">اطلاعات باید وارد شود !</div>
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-sm-6">
+                <div class="form-group">
+                    <label for="Fingerprint" class="form-label">نشان انگشت</label>
+                    <input type="file" class="form-control" name="Fingerprint" accept="image/*">
+                </div>
+            </div>
+            <div class="col-sm-6">
+                <div class="form-group">
+                    <label for="Picture" class="form-label">عکس</label>
+                    <input type="file" class="form-control" name="Picture" accept="image/*">
                 </div>
             </div>
         </div>

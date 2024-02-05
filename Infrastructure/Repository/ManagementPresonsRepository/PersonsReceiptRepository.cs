@@ -56,6 +56,8 @@ namespace Infrastructure.Repository.ManagementPresonsRepository
                     MoneyName = x.Moneys.Symbol,
                     AgenciesName = x.Agenciess.Name,
                     SafeBoxName = x.SafeBoxs.Name,
+                    Fingerprint = x.Fingerprint,
+                    Picture = x.Picture,
                 });
             var result = query.OrderByDescending(x => x.Id).ToList();
             result.ForEach(item => item.UserName = (users.FirstOrDefault(x => x.Id == item.UserId)?.FullName) + " - " + users.FirstOrDefault(x => x.Id == item.UserId)?.UserName);
@@ -87,6 +89,8 @@ namespace Infrastructure.Repository.ManagementPresonsRepository
                     MoneyName = x.Moneys.Name,
                     AgenciesName = x.Agenciess.Name,
                     SafeBoxName = x.SafeBoxs.Name,
+                    Fingerprint = x.Fingerprint,
+                    Picture = x.Picture,
                 });
             var result = query.OrderByDescending(x => x.Id).ToList();
             result.ForEach(item => item.UserName = (users.FirstOrDefault(x => x.Id == item.UserId)?.FullName) + " - " + users.FirstOrDefault(x => x.Id == item.UserId)?.UserName);
@@ -118,6 +122,8 @@ namespace Infrastructure.Repository.ManagementPresonsRepository
                     MoneyName = x.Moneys.Name,
                     AgenciesName = x.Agenciess.Name,
                     SafeBoxName = x.SafeBoxs.Name,
+                    Fingerprint = x.Fingerprint,
+                    Picture = x.Picture,
                 });
             var result = query.OrderByDescending(x => x.Id).ToList();
             result.ForEach(item => item.UserName = (users.FirstOrDefault(x => x.Id == item.UserId)?.FullName) + " - " + users.FirstOrDefault(x => x.Id == item.UserId)?.UserName);
@@ -149,6 +155,8 @@ namespace Infrastructure.Repository.ManagementPresonsRepository
                     MoneyName = x.Moneys.Name,
                     AgenciesName = x.Agenciess.Name,
                     SafeBoxName = x.SafeBoxs.Name,
+                    Fingerprint = x.Fingerprint,
+                    Picture = x.Picture,
                 });
             var result = query.OrderByDescending(x => x.Id).ToList();
             result.ForEach(item => item.UserName = (users.FirstOrDefault(x => x.Id == item.UserId)?.FullName) + " - " + users.FirstOrDefault(x => x.Id == item.UserId)?.UserName);
@@ -180,6 +188,8 @@ namespace Infrastructure.Repository.ManagementPresonsRepository
                     MoneyName = x.Moneys.Name,
                     AgenciesName = x.Agenciess.Name,
                     SafeBoxName = x.SafeBoxs.Name,
+                    Fingerprint = x.Fingerprint,
+                    Picture = x.Picture,
                 });
             var result = query.OrderByDescending(x => x.Id).ToList();
             result.ForEach(item => item.UserName = (users.FirstOrDefault(x => x.Id == item.UserId)?.FullName) + " - " + users.FirstOrDefault(x => x.Id == item.UserId)?.UserName);
@@ -211,6 +221,8 @@ namespace Infrastructure.Repository.ManagementPresonsRepository
                     MoneyName = x.Moneys.Name,
                     AgenciesName = x.Agenciess.Name,
                     SafeBoxName = x.SafeBoxs.Name,
+                    Fingerprint = x.Fingerprint,
+                    Picture = x.Picture,
                 });
             var result = query.OrderByDescending(x => x.Id).ToList();
             result.ForEach(item => item.UserName = (users.FirstOrDefault(x => x.Id == item.UserId)?.FullName) + " - " + users.FirstOrDefault(x => x.Id == item.UserId)?.UserName);

@@ -89,6 +89,8 @@
                                         {
                                             <th class="text-center">نماینده گی</th>
                                         }
+                                        <th class="text-center">نشان انگشت</th>
+                                        <th class="text-center">عکس</th>
                                         <th class="text-center">عملیات</th>
                                     </tr>
                                 </thead>
@@ -122,6 +124,30 @@
                                                     <td class="text-center">@item.AgenciesName</td>
                                                 }
                                             }
+                                            <td class="text-center">
+                                                <a href="#showmodal=@Url.Page("./Details", "Photo", new { id = item.Id, name = "Fingerprint" })">
+                                                    @if (item.Fingerprint != null && item.Fingerprint != "" && item.Fingerprint != " ")
+                                                    {
+                                                        <img class="GuarantorPhoto" src="~/Uploader/@item.Fingerprint" alt="user">
+                                                    }
+                                                    else
+                                                    {
+                                                        <img class="GuarantorPhoto" src="~/notify.svg" alt="GuarantorPhoto">
+                                                    }
+                                                </a>
+                                            </td>
+                                            <td class="text-center">
+                                                <a href="#showmodal=@Url.Page("./Details", "Photo", new { id = item.Id, name = "Picture" })">
+                                                    @if (item.Picture != null && item.Picture != "" && item.Picture != " ")
+                                                    {
+                                                        <img class="GuarantorPhoto" src="~/Uploader/@item.Picture" alt="user">
+                                                    }
+                                                    else
+                                                    {
+                                                        <img class="GuarantorPhoto" src="~/notify.svg" alt="GuarantorPhoto">
+                                                    }
+                                                </a>
+                                            </td>
                                             <td class="text-center">
                                                 @if (Model.permissionQueryModels.EditGeneral == GeneralPermissions.EditGeneral || Model.permissionQueryModels.AdminGeneral == GeneralPermissions.AdminGeneral)
                                                 {

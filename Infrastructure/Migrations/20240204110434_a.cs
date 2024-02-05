@@ -304,6 +304,8 @@ namespace Infrastructure.Migrations
                     SafeBoxId = table.Column<int>(type: "int", nullable: false),
                     MoneyId = table.Column<int>(type: "int", nullable: false),
                     PersonId = table.Column<int>(type: "int", nullable: false),
+                    Fingerprint = table.Column<string>(type: "nvarchar(500)", maxLength: 500, nullable: true),
+                    Picture = table.Column<string>(type: "nvarchar(500)", maxLength: 500, nullable: true),
                     SaveDate = table.Column<string>(type: "nvarchar(25)", maxLength: 25, nullable: true),
                     Status = table.Column<bool>(type: "bit", nullable: false),
                     Deleted = table.Column<bool>(type: "bit", nullable: false),
@@ -364,16 +366,16 @@ namespace Infrastructure.Migrations
                 columns: new[] { "Id", "AgenciesId", "Country", "Deleted", "Name", "SaveDate", "Status", "Symbol", "UserId" },
                 values: new object[,]
                 {
-                    { 1, 0, "افغانستان", false, "افغانی", "1402/11/15 - 11:17:47", true, "؋", 1 },
-                    { 2, 0, "ایالات متحده امریکا", false, "دلار", "1402/11/15 - 11:17:47", true, "$", 1 },
-                    { 3, 0, "ایران", false, "تومان", "1402/11/15 - 11:17:47", true, "IRR", 1 },
-                    { 4, 0, "پاکستان", false, "روپیه پاکستان", "1402/11/15 - 11:17:47", true, "₨", 1 },
-                    { 5, 0, "هندوستان", false, "روپیه هندی", "1402/11/15 - 11:17:47", true, "₹", 1 },
-                    { 6, 0, "اروپا", false, "یورو", "1402/11/15 - 11:17:47", true, "€", 1 },
-                    { 7, 0, "بریتانیا", false, "پوند", "1402/11/15 - 11:17:47", true, "£", 1 },
-                    { 8, 0, "چین", false, "یوآن", "1402/11/15 - 11:17:47", true, "¥", 1 },
-                    { 9, 0, "ترکیه", false, "لیره", "1402/11/15 - 11:17:47", true, "₺", 1 },
-                    { 10, 0, "روسیه", false, "روبل", "1402/11/15 - 11:17:47", true, "₽", 1 }
+                    { 1, 0, "افغانستان", false, "افغانی", "1402/11/15 - 15:34:32", true, "؋", 1 },
+                    { 2, 0, "ایالات متحده امریکا", false, "دالر", "1402/11/15 - 15:34:32", true, "$", 1 },
+                    { 3, 0, "ایران", false, "تومان", "1402/11/15 - 15:34:32", true, "IRR", 1 },
+                    { 4, 0, "پاکستان", false, "روپیه پاکستان", "1402/11/15 - 15:34:32", true, "₨", 1 },
+                    { 5, 0, "هندوستان", false, "روپیه هندی", "1402/11/15 - 15:34:32", true, "₹", 1 },
+                    { 6, 0, "اروپا", false, "یورو", "1402/11/15 - 15:34:32", true, "€", 1 },
+                    { 7, 0, "بریتانیا", false, "پوند", "1402/11/15 - 15:34:32", true, "£", 1 },
+                    { 8, 0, "چین", false, "یوآن", "1402/11/15 - 15:34:32", true, "¥", 1 },
+                    { 9, 0, "ترکیه", false, "لیره", "1402/11/15 - 15:34:32", true, "₺", 1 },
+                    { 10, 0, "روسیه", false, "روبل", "1402/11/15 - 15:34:32", true, "₽", 1 }
                 });
 
             migrationBuilder.InsertData(
@@ -381,9 +383,9 @@ namespace Infrastructure.Migrations
                 columns: new[] { "Id", "AgenciesId", "Cod", "Deleted", "Name", "NamePersian", "SaveDate", "Status", "UserId" },
                 values: new object[,]
                 {
-                    { 1, 0, 1, false, "Admin", "مدیر سیستم", "1402/11/15 - 11:17:47", true, 1 },
-                    { 2, 0, 1, false, "Accountant", "حسابدار", "1402/11/15 - 11:17:47", true, 1 },
-                    { 3, 0, 1, false, "Viewer", "بیننده", "1402/11/15 - 11:17:47", true, 1 }
+                    { 1, 0, 1, false, "Admin", "مدیر سیستم", "1402/11/15 - 15:34:32", true, 1 },
+                    { 2, 0, 1, false, "Accountant", "حسابدار", "1402/11/15 - 15:34:32", true, 1 },
+                    { 3, 0, 1, false, "Viewer", "بیننده", "1402/11/15 - 15:34:32", true, 1 }
                 });
 
             migrationBuilder.CreateIndex(

@@ -1,0 +1,17 @@
+﻿@model Contracts.ManagementPresonsContracts.PersonsReceiptContracts.PersonsReceiptPhoto
+@{
+    ViewData["title"] = "نشان شصت و عکس افراد";
+}
+<div class="modal-header">
+    <a class="btn btn-sm btn-icon btn-outline-warning" asp-page="./Index"><i class="fa-solid fa-close fa-lg"></i></a>
+    <h4 class="modal-title">@Model.PhotoName _ @Model.PersonsName</h4>
+</div>
+
+@if (Model.Photo != null && Model.Photo != "")
+{
+    <img src="~/Uploader/@Model.Photo" alt="Photo">
+}
+else
+{
+    <img src="~/nouser.svg" alt="Photo">
+}

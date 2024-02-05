@@ -17,13 +17,15 @@ namespace Domin.ManagementPresonsDomin.PersonsReceiptDomin
         public int SafeBoxId { get; private set; }
         public int MoneyId { get; private set; }
         public int PersonId { get; private set; }
+        public string? Fingerprint { get; private set; }
+        public string? Picture { get; private set; }
         public Persons? Persons { get; private set; }
         public Money? Moneys { get; private set; }
         public Agencies? Agenciess { get; private set; }
         public SafeBox? SafeBoxs { get; private set; }
         public PersonsReceipt() { }
 
-        public PersonsReceipt(string? date, string? description, string? by, string? receiptNumber, bool type, decimal amount, int safeBoxId, int moneyId, int personId, int userid, int agenciesId)
+        public PersonsReceipt(string? date, string? description, string? by, string? receiptNumber, bool type, decimal amount, int safeBoxId, int moneyId, int personId, string? fingerprint, string? picture, int userid, int agenciesId)
         {
             Date = date;
             Description = description;
@@ -34,10 +36,12 @@ namespace Domin.ManagementPresonsDomin.PersonsReceiptDomin
             SafeBoxId = safeBoxId;
             MoneyId = moneyId;
             PersonId = personId;
+            Fingerprint = fingerprint;
+            Picture = picture;
             UserId = userid;
             AgenciesId = agenciesId;
         }
-        public void Edit(string? date, string? description, string? by, string? receiptNumber, bool type, decimal amount, int safeBoxId, int moneyId, int personId, int userid, int agenciesId)
+        public void Edit(string? date, string? description, string? by, string? receiptNumber, bool type, decimal amount, int safeBoxId, int moneyId, int personId, string? fingerprint, string? picture, int userid, int agenciesId)
         {
             Date = date;
             Description = description;
@@ -48,6 +52,10 @@ namespace Domin.ManagementPresonsDomin.PersonsReceiptDomin
             SafeBoxId = safeBoxId;
             MoneyId = moneyId;
             PersonId = personId;
+            if (!string.IsNullOrWhiteSpace(fingerprint))
+                Fingerprint = fingerprint;
+            if (!string.IsNullOrWhiteSpace(picture))
+                Picture = picture;
             UserId = userid;
             AgenciesId = agenciesId;
         }

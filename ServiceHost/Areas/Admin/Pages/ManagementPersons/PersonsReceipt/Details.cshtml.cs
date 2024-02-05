@@ -1,4 +1,4 @@
-using _0_Framework.Application;
+﻿using _0_Framework.Application;
 using _0_Framework.Application.Auth;
 using _01_QueryManagement.Contracts.AccountingsContracts.PersonsModels;
 using _01_QueryManagement.Contracts.Permissions.General;
@@ -145,6 +145,40 @@ namespace ServiceHost.Areas.Admin.Pages.PersonsReceipt
                     PersonsReceiptRemoveds = _personsReceiptApplication?.GetInActive().Where(x => x.PersonId == persons_id).ToList(),
                 };
                 return Partial("./Actived", commnd);
+            }
+            else
+            {
+                return Redirect("/Index");
+            }
+        }
+        public IActionResult OnGetPhoto(int id, string name)
+        {
+            var result = _personsReceiptApplication?.GetViewModel().Where(x => x.Id == id).FirstOrDefault();
+            if (result != null) 
+            {
+                var commnd = new PersonsReceiptPhoto();
+                if (name == "fingerprint")
+                {
+                    commnd = new PersonsReceiptPhoto()
+                    {
+                        Photo = result.Fingerprint,
+                        PersonsName = result.PersonName,
+                        PhotoName = "نشان انگشت",
+                    };
+                }
+                else
+                {
+                    if (name == "picture")
+                    {
+                        commnd = new PersonsReceiptPhoto()
+                        {
+                            Photo = result.Picture,
+                            PersonsName = result.PersonName,
+                            PhotoName = "عکس",
+                        };
+                    }
+                }
+                return Partial("./Photo", commnd);
             }
             else
             {

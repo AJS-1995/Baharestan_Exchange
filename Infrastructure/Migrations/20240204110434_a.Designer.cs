@@ -11,7 +11,7 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace Infrastructure.Migrations
 {
     [DbContext(typeof(BE_Context))]
-    [Migration("20240204064750_a")]
+    [Migration("20240204110434_a")]
     partial class a
     {
         /// <inheritdoc />
@@ -386,11 +386,19 @@ namespace Infrastructure.Migrations
                         .HasMaxLength(500)
                         .HasColumnType("nvarchar(500)");
 
+                    b.Property<string>("Fingerprint")
+                        .HasMaxLength(500)
+                        .HasColumnType("nvarchar(500)");
+
                     b.Property<int>("MoneyId")
                         .HasColumnType("int");
 
                     b.Property<int>("PersonId")
                         .HasColumnType("int");
+
+                    b.Property<string>("Picture")
+                        .HasMaxLength(500)
+                        .HasColumnType("nvarchar(500)");
 
                     b.Property<string>("ReceiptNumber")
                         .HasColumnType("nvarchar(max)");
@@ -473,7 +481,7 @@ namespace Infrastructure.Migrations
                             Country = "افغانستان",
                             Deleted = false,
                             Name = "افغانی",
-                            SaveDate = "1402/11/15 - 11:17:47",
+                            SaveDate = "1402/11/15 - 15:34:32",
                             Status = true,
                             Symbol = "؋",
                             UserId = 1
@@ -484,8 +492,8 @@ namespace Infrastructure.Migrations
                             AgenciesId = 0,
                             Country = "ایالات متحده امریکا",
                             Deleted = false,
-                            Name = "دلار",
-                            SaveDate = "1402/11/15 - 11:17:47",
+                            Name = "دالر",
+                            SaveDate = "1402/11/15 - 15:34:32",
                             Status = true,
                             Symbol = "$",
                             UserId = 1
@@ -497,7 +505,7 @@ namespace Infrastructure.Migrations
                             Country = "ایران",
                             Deleted = false,
                             Name = "تومان",
-                            SaveDate = "1402/11/15 - 11:17:47",
+                            SaveDate = "1402/11/15 - 15:34:32",
                             Status = true,
                             Symbol = "IRR",
                             UserId = 1
@@ -509,7 +517,7 @@ namespace Infrastructure.Migrations
                             Country = "پاکستان",
                             Deleted = false,
                             Name = "روپیه پاکستان",
-                            SaveDate = "1402/11/15 - 11:17:47",
+                            SaveDate = "1402/11/15 - 15:34:32",
                             Status = true,
                             Symbol = "₨",
                             UserId = 1
@@ -521,7 +529,7 @@ namespace Infrastructure.Migrations
                             Country = "هندوستان",
                             Deleted = false,
                             Name = "روپیه هندی",
-                            SaveDate = "1402/11/15 - 11:17:47",
+                            SaveDate = "1402/11/15 - 15:34:32",
                             Status = true,
                             Symbol = "₹",
                             UserId = 1
@@ -533,7 +541,7 @@ namespace Infrastructure.Migrations
                             Country = "اروپا",
                             Deleted = false,
                             Name = "یورو",
-                            SaveDate = "1402/11/15 - 11:17:47",
+                            SaveDate = "1402/11/15 - 15:34:32",
                             Status = true,
                             Symbol = "€",
                             UserId = 1
@@ -545,7 +553,7 @@ namespace Infrastructure.Migrations
                             Country = "بریتانیا",
                             Deleted = false,
                             Name = "پوند",
-                            SaveDate = "1402/11/15 - 11:17:47",
+                            SaveDate = "1402/11/15 - 15:34:32",
                             Status = true,
                             Symbol = "£",
                             UserId = 1
@@ -557,7 +565,7 @@ namespace Infrastructure.Migrations
                             Country = "چین",
                             Deleted = false,
                             Name = "یوآن",
-                            SaveDate = "1402/11/15 - 11:17:47",
+                            SaveDate = "1402/11/15 - 15:34:32",
                             Status = true,
                             Symbol = "¥",
                             UserId = 1
@@ -569,7 +577,7 @@ namespace Infrastructure.Migrations
                             Country = "ترکیه",
                             Deleted = false,
                             Name = "لیره",
-                            SaveDate = "1402/11/15 - 11:17:47",
+                            SaveDate = "1402/11/15 - 15:34:32",
                             Status = true,
                             Symbol = "₺",
                             UserId = 1
@@ -581,7 +589,7 @@ namespace Infrastructure.Migrations
                             Country = "روسیه",
                             Deleted = false,
                             Name = "روبل",
-                            SaveDate = "1402/11/15 - 11:17:47",
+                            SaveDate = "1402/11/15 - 15:34:32",
                             Status = true,
                             Symbol = "₽",
                             UserId = 1
@@ -733,7 +741,7 @@ namespace Infrastructure.Migrations
                             Deleted = false,
                             Name = "Admin",
                             NamePersian = "مدیر سیستم",
-                            SaveDate = "1402/11/15 - 11:17:47",
+                            SaveDate = "1402/11/15 - 15:34:32",
                             Status = true,
                             UserId = 1
                         },
@@ -745,7 +753,7 @@ namespace Infrastructure.Migrations
                             Deleted = false,
                             Name = "Accountant",
                             NamePersian = "حسابدار",
-                            SaveDate = "1402/11/15 - 11:17:47",
+                            SaveDate = "1402/11/15 - 15:34:32",
                             Status = true,
                             UserId = 1
                         },
@@ -757,7 +765,7 @@ namespace Infrastructure.Migrations
                             Deleted = false,
                             Name = "Viewer",
                             NamePersian = "بیننده",
-                            SaveDate = "1402/11/15 - 11:17:47",
+                            SaveDate = "1402/11/15 - 15:34:32",
                             Status = true,
                             UserId = 1
                         });
