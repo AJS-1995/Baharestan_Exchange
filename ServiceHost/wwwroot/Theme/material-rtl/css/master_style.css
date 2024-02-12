@@ -16865,3 +16865,24 @@ input[type=number] {
 #MainModal{
     padding: 10px 0;
 }
+
+.com_log {
+    display: flex;
+    align-items: center;
+    padding: 0 20px;
+    justify-content: space-between;
+    color: #000000;
+}
+.com_log h5{
+    font-size: 22px;
+}
+.table tbody tr td {
+    height: 38px;
+}
+.com_foter {
+    display: flex;
+    align-items: center;
+    padding: 0 20px;
+    justify-content: space-around;
+    color: #000000;
+}

@@ -7,11 +7,7 @@
     <h4 class="modal-title">ویرایش رسید و برد افراد - @Model.PersonName</h4>
 </div>
 
-<form class="needs-validation" novalidate asp-page="./Index" asp-page-handler="Edit" method="post"
-      data-ajax="true"
-      data-callback=""
-      data-action="Refresh"
-      enctype="multipart/form-data">
+<form class="needs-validation" novalidate asp-page="./Index" asp-page-handler="Edit" method="post" enctype="multipart/form-data">
     <div class="modal-body">
         <div class="row">
             <div class="form-group col-md-6">
@@ -104,7 +100,7 @@
         <input type="hidden" asp-for="PersonId" value="@Model.PersonId" />
         <input type="hidden" asp-for="AgenciesId" value="@Model.AgenciesId" />
         <div class="modal-footer">
-            <button type="submit" class="btn btn-sm btn-icon btn-outline-success"><i class="fa-solid fa-save fa-lg"></i></button>
+            <button type="submit" class="btn btn-sm btn-icon btn-outline-success"><i class="fa-solid fa-save fa-lg"> & <i class="fa-solid fa-print"></i></i></button>
         </div>
     </div>
 </form>

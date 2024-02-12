@@ -185,5 +185,29 @@ namespace ServiceHost.Areas.Admin.Pages.PersonsReceipt
                 return Redirect("/Index");
             }
         }
+        public IActionResult OnGetMoneyTransfer(int persons_id)
+        {
+            permissionQueryModels = _permissionQueryModel?.GetGeneral();
+            if (permissionQueryModels?.AddGeneral == GeneralPermissions.AddGeneral || permissionQueryModels?.AdminGeneral == GeneralPermissions.AdminGeneral)
+            {
+                var persons = _personsApplication?.GetDetails(persons_id);
+                int agenciesId = persons.AgenciesId;
+                var command = new PersonsReceiptCreate()
+                {
+                    IdAgencies = agenciesId,
+                    Date = DateTime.Now.ToFarsiFull(),
+                    Moneys = _moneyApplication?.GetViewModel(),
+                    SafeBoxs = _safeBoxApplication?.GetViewModel(agenciesId),
+                    PersonName = persons.Name,
+                    AgenciesId = agenciesId,
+                    PersonId = persons_id,
+                };
+                return Partial("./MoneyTransfer", command);
+            }
+            else
+            {
+                return Redirect("/Details");
+            }
+        }
     }
 }

@@ -86,10 +86,10 @@ namespace ServiceHost.Areas.Admin.Pages.PersonsReceipt
                 return Redirect("/Index");
             }
         }
-        public JsonResult OnPostCreate(PersonsReceiptCreate command)
+        public IActionResult OnPostCreate(PersonsReceiptCreate command)
         {
             var result = _personsReceiptApplication?.Create(command);
-            return new JsonResult(result);
+            return RedirectToPage("./Print_PR", result);
         }
         public IActionResult OnGetRemoved()
         {
@@ -178,10 +178,10 @@ namespace ServiceHost.Areas.Admin.Pages.PersonsReceipt
                 return Redirect("/Index");
             }
         }
-        public JsonResult OnPostEdit(PersonsReceiptEdit command)
+        public IActionResult OnPostEdit(PersonsReceiptEdit command)
         {
             var result = _personsReceiptApplication?.Edit(command);
-            return new JsonResult(result);
+            return RedirectToPage("./Print_PR", result);
         }
         public JsonResult OnGetInActive(long id)
         {

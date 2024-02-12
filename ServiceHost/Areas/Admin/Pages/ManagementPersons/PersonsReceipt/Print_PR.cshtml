@@ -1,0 +1,92 @@
+﻿@page "{id}"
+@model ServiceHost.Areas.Admin.Pages.ManagementPersons.PersonsReceipt.Print_PRModel
+@{
+    Layout = null;
+}
+<!DOCTYPE html>
+<html lang="fa" dir="rtl">
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="icon" href="~/favicon.ico">
+    <title> سیستم حسابداری | @Model.CompanyName </title>
+    <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.css">
+    <link rel="stylesheet" href="~/Theme/material-rtl/css/bootstrap-extend.css">
+    <link rel="stylesheet" href="~/Theme/material-rtl/css/master_style.css">
+    <link rel="stylesheet" href="~/Theme/material-rtl/css/skins/_all-skins.css">
+
+</head>
+<body class="hold-transition skin-info-light sidebar-mini fixed rtl body-print">
+    <div class="com_log mt-15">
+        <h5 class="text-center">@Model.CompanyName</h5>
+        @if (Model.CompanyLogo == null || Model.CompanyLogo == "")
+        {
+            <img class="GuarantorPhoto" src="~/notify.svg" alt="GuarantorPhoto">
+        }
+        else
+        {
+            <img class="GuarantorPhoto" src="~/Uploader/@Model.CompanyLogo" alt="user">
+        }
+    </div>
+    <h5 class="text-center mt-10">چک رسید و برد _ @Model.receiptEdit?.PersonName</h5>
+    <input type="hidden" id="PersonId" value="@Model.receiptEdit.PersonId" />
+    <div class="row">
+        <table class="table">
+            <tbody>
+                <tr>
+                    <td class="text-center border-top">نوع چک</td>
+                    @if (Model.receiptEdit.Type == true)
+                    {
+                        <td class="text-center border-top border-start">رسید</td>
+                    }
+                    else
+                    {
+                        <td class="text-center border-top border-start">برداشت</td>
+                    }
+                    <td class="text-center border-top">تاریخ</td>
+                    <td class="text-center border-top border-start">@Model.receiptEdit.Date</td>
+                    <td class="text-center border-top">نمبر چک</td>
+                    <td class="text-center border-top border-start">@Model.receiptEdit.ReceiptNumber</td>
+                    <td class="text-center border-top border-start border-end" rowspan="5"><img class="GuarantorPhoto" src="~/Uploader/@Model.receiptEdit.Picture" alt="user"></td>
+                </tr>
+                <tr>
+                    <td class="text-center border-top">توضیحات</td>
+                    <td class="text-center border-top border-start" colspan="5">@Model.receiptEdit.Description</td>
+                </tr>
+                <tr>
+                    <td class="text-center border-top">توسط</td>
+                    <td class="text-center border-top border-start" colspan="2">@Model.receiptEdit.By</td>
+                    <td class="text-center border-top">خزانه</td>
+                    <td class="text-center border-top border-start" colspan="2">@Model.receiptEdit.SafeBoxName</td>
+                </tr>
+                <tr>
+                    <td class="text-center border-top">مقدار</td>
+                    <td class="text-center border-top border-start" colspan="5">@Model.receiptEdit.Amount ـ @Model.receiptEdit.MoneyName</td>
+                </tr>
+                <tr>
+                    <td class="text-center" colspan="6">@Model.AgenciesName _ @Model.AgenciesAddress</td>
+                </tr>
+            </tbody>
+        </table>
+        <div class="com_foter mt-15">
+            <h5 class="text-center">امضاء ـ @Model.receiptEdit.By</h5>
+            <h5 class="text-center">امضاء ـ @Model.UserName</h5>
+        </div>
+    </div>
+    <script>
+        loadEventListeners();
+        function loadEventListeners() {
+            prints();
+        }
+        function prints() {
+            window.print();
+
+            onafterprint = function () {
+                var PersonId = document.getElementById("PersonId").value;
+                window.location.href = "/Admin/ManagementPersons/PersonsReceipt/Details/" + PersonId;
+            }
+        }
+    </script>
+</body>
+</html>
