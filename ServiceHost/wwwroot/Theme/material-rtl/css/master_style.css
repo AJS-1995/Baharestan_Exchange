@@ -16886,3 +16886,20 @@ input[type=number] {
     justify-content: space-around;
     color: #000000;
 }
+
+.chart-one{
+    min-height: 574px;
+}
+    .chart-one .card {
+        min-height: 100%;
+    }
+@media screen and (max-width:992px) {
+    .chatrmob {
+        margin-bottom: 15px;
+    }
+}
+@media screen and (min-width:991px) {
+    .chatrmob {
+        margin-bottom: 0px;
+    }
+}

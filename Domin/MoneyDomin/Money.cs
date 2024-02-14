@@ -1,4 +1,5 @@
 ﻿using _0_Framework.Domain;
+using Domin.ManagementPresonsDomin.PersonsMoneyExchangeDomin;
 using Domin.ManagementPresonsDomin.PersonsReceiptDomin;
 
 namespace Domin.MoneyDomin

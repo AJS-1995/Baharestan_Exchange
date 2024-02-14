@@ -4,6 +4,7 @@ using Domin.DailyRateDomin;
 using Domin.ExchangeRateDomin;
 using Domin.ExpenseDomin;
 using Domin.ManagementPresonsDomin.PersonsDomin;
+using Domin.ManagementPresonsDomin.PersonsMoneyExchangeDomin;
 using Domin.ManagementPresonsDomin.PersonsReceiptDomin;
 using Domin.MoneyDomin;
 using Domin.PersonnelDomin;
@@ -21,7 +22,7 @@ namespace Infrastructure
         public DbSet<Company> Companies { get; set; }
         public DbSet<Agencies> Agenciess { get; set; }
         public DbSet<Money> Moneies { get; set; }
-
+        public DbSet<PersonsMoneyExchange> PersonsMoneyExchanges { get; set; }  
         public DbSet<Expense> Expensess { get; set; }
         public DbSet<Collection> Collectionss { get; set; }
         public DbSet<SafeBox> SafeBoxs { get; set; }

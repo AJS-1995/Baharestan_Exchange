@@ -1,85 +1,7 @@
 ﻿@page
-@model ServiceHost.Areas.Admin.Pages.Persons.IndexModel
-@using Configuration.Permissions.General;
-@using _0_Framework.Application;
-@inject _0_Framework.Application.Auth.IAuthHelper AuthHelper;
-@{
-    Layout = "Shared/_AdminLayout";
-    ViewData["title"] = "مدیریت رسید و برد افراد";
-    var currentAccout = AuthHelper.CurrentUserInfo();
-}
-@if (Model?.permissionQueryModels?.ListGeneral == GeneralPermissions.ListGeneral || Model?.permissionQueryModels?.AdminGeneral == GeneralPermissions.AdminGeneral)
+@model ServiceHost.Areas.Admin.Pages.ManagementPersons.PersonsMoneyExchange.IndexModel
 {
-    <section class="content">
-        <div class="row">
-            <div class="col-sm-12">
-                <div class="card">
-                    <div class="card-header d-flex justify-content-between bb-1 border-info">
-                        <div class="header-title">
-                            @if (Model?.permissionQueryModels?.AddGeneral == GeneralPermissions.AddGeneral || Model?.permissionQueryModels?.AdminGeneral == GeneralPermissions.AdminGeneral)
-                            {
-                                <a class="btn btn-sm btn-icon btn-outline-success mx-2" title="ثبت جدید" href="#showmodal=@Url.Page("./Index", "Create")"><i class="fa-solid fa-plus fa-lg"></i></a>
-                            }
-                            @if (Model?.permissionQueryModels?.RemovedGeneral == GeneralPermissions.RemovedGeneral || Model?.permissionQueryModels?.AdminGeneral == GeneralPermissions.AdminGeneral)
-                            {
-                                <a class="btn btn-sm btn-icon btn-outline-danger mx-2" title="حذف شده ها" href="#showmodal=@Url.Page("./Index", "Removed")"><i class="fa-solid fa-trash-can fa-lg"></i></a>
-                            }
-                            @if (Model?.permissionQueryModels?.ActivedGeneral == GeneralPermissions.ActivedGeneral || Model?.permissionQueryModels?.AdminGeneral == GeneralPermissions.AdminGeneral)
-                            {
-                                <a class="btn btn-sm btn-icon btn-outline-warning mx-2" title="غیرفعال ها" href="#showmodal=@Url.Page("./Index", "Actived")"><i class="fa-solid fa-toggle-off fa-lg"></i></a>
-                            }
-                            <a class="btn btn-sm btn-icon btn-outline-info mx-2" title="برگشت" asp-page="/Index"><i class="fa-solid fa-left-long fa-lg"></i></a>
-                            <span class="card-title mx-2">لیست رسید و برد افراد</span>
-                        </div>
-                    </div>
-                    <div class="card-body">
-                        <div class="table-responsive">
-                            <table id="example" class="table table-bordered table-hover display nowrap margin-top-10 w-p100 js-serial">
-                                <thead class="table-Primary">
-                                    <tr>
-                                        <th class="text-center">نام</th>
-                                        <th class="text-center">شماره تماس</th>
-                                        <th class="text-center">آدرس</th>
-                                        <th class="text-center">کمپنی</th>
-                                        @if (Model.idAgencies == 0)
-                                        {
-                                            <th class="text-center">نماینده گی</th>
-                                        }
-                                        <th class="text-center">عملیات</th>
-                                    </tr>
-                                </thead>
-                                <tbody id="tbody">
-                                    @foreach (var item in Model.Persons)
-                                    {
-                                        <tr>
-                                            <td class="text-center">@item.Name</td>
-                                            <td class="text-center" dir="ltr">@item.Mobile</td>
-                                            <td class="text-center">@item.Address</td>
-                                            <td class="text-center">@item.Company</td>
-                                            @if (Model.idAgencies == 0)
-                                            {
-                                                if (item.AgenciesId == 0)
-                                                {
-                                                    <td class="text-center">مرکزی</td>
-                                                }
-                                                else
-                                                {
-                                                    <td class="text-center">@item.AgenciesName</td>
-                                                }
-                                            }
-                                            <td class="text-center">
-                                                <a class="btn btn-sm btn-icon btn-outline-primary" title="حسابات" asp-page="./Details" asp-route-persons_id="@item.Id"><i class="fa-solid fa-search fa-lg"></i></a>
-                                            </td>
-                                        </tr>
-                                    }
-                                </tbody>
-                            </table>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </section>
+
 }
 @section Scripts
 {
@@ -101,51 +23,6 @@
             });
         }
         addRowCount('.js-serial');
-    </script>
-    <script>
-        function agencies(agenciesid) {
-            if (agenciesid != "") {
-                var postData = {
-                    'agenciesid': agenciesid,
-                };
-                $.ajax({
-                    ccontentType: 'application/x-www-form-urlencoded',
-                    dataType: 'json',
-                    type: "GET",
-                    url: "@Url.Page("./Index", "Person")",
-                    data: postData,
-                    success: function (date) {
-                        if (date.length > 0) {
-                            $('#PersonId').empty();
-                            var option = '';
-                            option += '<option value="">افراد ...</option>';
-                            for (var i = 0; i < date.length; i++) {
-                                option += '<option value="' + date[i].id + '">' + date[i].name + '</option>';
-                            }
-                            $('#PersonId').append(option);
-                        }
-                    },
-                });
-                $.ajax({
-                    ccontentType: 'application/x-www-form-urlencoded',
-                    dataType: 'json',
-                    type: "GET",
-                    url: "@Url.Page("./Index", "SafeBox")",
-                    data: postData,
-                    success: function (date) {
-                        if (date.length > 0) {
-                            $('#SafeBoxId').empty();
-                            var option = '';
-                            option += '<option value="">خزانه ...</option>';
-                            for (var i = 0; i < date.length; i++) {
-                                option += '<option value="' + date[i].id + '">' + date[i].name + '</option>';
-                            }
-                            $('#SafeBoxId').append(option);
-                        }
-                    },
-                });
-            }
-        }
     </script>
     <script>
         function InActive(id) {

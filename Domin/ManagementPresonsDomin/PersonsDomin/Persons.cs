@@ -1,5 +1,6 @@
 ﻿using _0_Framework.Domain;
 using Domin.AgenciesDomin;
+using Domin.ManagementPresonsDomin.PersonsMoneyExchangeDomin;
 using Domin.ManagementPresonsDomin.PersonsReceiptDomin;
 
 namespace Domin.ManagementPresonsDomin.PersonsDomin
@@ -14,9 +15,11 @@ namespace Domin.ManagementPresonsDomin.PersonsDomin
         public string? GuarantorPhoto { get; private set; }
         public Agencies? Agenciess { get; private set; }
         public List<PersonsReceipt>? PersonsReceipts { get; }
+        public List<PersonsMoneyExchange>? PersonsMoneyExchanges { get; }
         public Persons()
         {
             PersonsReceipts = new List<PersonsReceipt>();
+            PersonsMoneyExchanges = new List<PersonsMoneyExchange>();
         }
         public Persons(string? name, string? mobile, string? address, string? company, string? guarantor, string? guarantorPhoto, int userid, int agenciesId)
         {

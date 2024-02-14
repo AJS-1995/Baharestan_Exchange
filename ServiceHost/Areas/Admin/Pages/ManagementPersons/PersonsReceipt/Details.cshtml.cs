@@ -5,6 +5,7 @@ using _01_QueryManagement.Contracts.Permissions.General;
 using Configuration.Permissions.General;
 using Contracts.AgenciesContracts;
 using Contracts.ManagementPresonsContracts.PersonsContracts;
+using Contracts.ManagementPresonsContracts.PersonsMoneyExchangeContracts;
 using Contracts.ManagementPresonsContracts.PersonsReceiptContracts;
 using Contracts.MoneyContracts;
 using Contracts.SafeBoxContracts;
@@ -22,6 +23,7 @@ namespace ServiceHost.Areas.Admin.Pages.PersonsReceipt
         private readonly IGeneralPermissionQueryModel? _permissionQueryModel;
         public List<PersonsReceiptViewModel>? PersonsReceipt;
         public List<PersonsModels>? PersonsAccounting;
+        public List<PersonsMoneyExchangeViewModel>? PersonsMoneyExchangeViewModels;
         private readonly IPersonsReceiptApplication? _personsReceiptApplication;
         private readonly IMoneyApplication? _moneyApplication;
         private readonly IAuthHelper? _authHelper;
@@ -29,7 +31,8 @@ namespace ServiceHost.Areas.Admin.Pages.PersonsReceipt
         private readonly IPersonsApplication? _personsApplication;
         private readonly ISafeBoxApplication? _safeBoxApplication;
         private readonly IPersonsModels _personsModels;
-        public DetailsModel(IGeneralPermissionQueryModel? permissionQueryModel, IPersonsReceiptApplication? PersonsReceiptApplication, IMoneyApplication? moneyApplication, IAuthHelper? authHelper, IAgenciesApplication? agenciesApplication, IPersonsApplication? personsApplication, ISafeBoxApplication? safeBoxApplication, IPersonsModels personsModels)
+        private readonly IPersonsMoneyExchangeApplication? _personsMoneyExchangeApplication;
+        public DetailsModel(IGeneralPermissionQueryModel? permissionQueryModel, IPersonsReceiptApplication? PersonsReceiptApplication, IMoneyApplication? moneyApplication, IAuthHelper? authHelper, IAgenciesApplication? agenciesApplication, IPersonsApplication? personsApplication, ISafeBoxApplication? safeBoxApplication, IPersonsModels personsModels, IPersonsMoneyExchangeApplication personsMoneyExchangeApplication)
         {
             _permissionQueryModel = permissionQueryModel;
             _personsReceiptApplication = PersonsReceiptApplication;
@@ -39,6 +42,7 @@ namespace ServiceHost.Areas.Admin.Pages.PersonsReceipt
             _personsApplication = personsApplication;
             _safeBoxApplication = safeBoxApplication;
             _personsModels = personsModels;
+            _personsMoneyExchangeApplication = personsMoneyExchangeApplication;
         }
         public IActionResult OnGet(int persons_id)
         {
@@ -56,7 +60,8 @@ namespace ServiceHost.Areas.Admin.Pages.PersonsReceipt
                     if (idAgencies == persons.AgenciesId)
                     {
                         PersonsReceipt = _personsReceiptApplication?.GetViewModel(idAgencies).Where(x => x.PersonId == persons_id).ToList();
-                        PersonsAccounting = _personsModels?.PersonsModelss()?.Where(x => x.PersonsId == persons_id).ToList();
+                        PersonsAccounting = _personsModels?.PersonsModelss()?.Where(x => x.PersonId == persons_id).ToList();
+                        PersonsMoneyExchangeViewModels = _personsMoneyExchangeApplication?.GetViewModel(idAgencies)?.Where(x => x.PersonId == persons_id).ToList();
                         return Page();
                     }
                     else
@@ -67,7 +72,8 @@ namespace ServiceHost.Areas.Admin.Pages.PersonsReceipt
                 else
                 {
                     PersonsReceipt = _personsReceiptApplication?.GetViewModel().Where(x => x.PersonId == persons_id).ToList();
-                    PersonsAccounting = _personsModels?.PersonsModelss()?.Where(x => x.PersonsId == persons_id).ToList();
+                    PersonsAccounting = _personsModels?.PersonsModelss()?.Where(x => x.PersonId == persons_id).ToList();
+                    PersonsMoneyExchangeViewModels = _personsMoneyExchangeApplication?.GetViewModel()?.Where(x => x.PersonId == persons_id).ToList();
                     return Page();
                 }
             }
@@ -185,29 +191,42 @@ namespace ServiceHost.Areas.Admin.Pages.PersonsReceipt
                 return Redirect("/Index");
             }
         }
-        public IActionResult OnGetMoneyTransfer(int persons_id)
+        public IActionResult OnGetMoneyExchangeCreate(int personsـid)
         {
             permissionQueryModels = _permissionQueryModel?.GetGeneral();
             if (permissionQueryModels?.AddGeneral == GeneralPermissions.AddGeneral || permissionQueryModels?.AdminGeneral == GeneralPermissions.AdminGeneral)
             {
-                var persons = _personsApplication?.GetDetails(persons_id);
+                var persons = _personsApplication?.GetDetails(personsـid);
                 int agenciesId = persons.AgenciesId;
-                var command = new PersonsReceiptCreate()
+                var command = new PersonsMoneyExchangeCreate()
                 {
                     IdAgencies = agenciesId,
                     Date = DateTime.Now.ToFarsiFull(),
                     Moneys = _moneyApplication?.GetViewModel(),
-                    SafeBoxs = _safeBoxApplication?.GetViewModel(agenciesId),
-                    PersonName = persons.Name,
                     AgenciesId = agenciesId,
-                    PersonId = persons_id,
+                    PersonId = personsـid,
                 };
-                return Partial("./MoneyTransfer", command);
+                return Partial("./MoneyExchangeCreate", command);
             }
             else
             {
-                return Redirect("/Details");
+                return Redirect("/Index");
             }
+        }
+        public IActionResult OnPostCreate(PersonsMoneyExchangeCreate command)
+        {
+            var result = _personsMoneyExchangeApplication?.Create(command);
+            return new JsonResult(result);
+        }
+        public IActionResult OnGetMoney(int moneyid, int personid)
+        {
+            var rest = _personsModels.PersonsModelss()?.Where(x => x.PersonId == personid && x.MoneyId == moneyid).ToList();
+            decimal result = 0;
+            if (rest?.Count != 0)
+            {
+                result = rest.FirstOrDefault().Rest;
+            }
+            return new JsonResult(result);
         }
     }
 }

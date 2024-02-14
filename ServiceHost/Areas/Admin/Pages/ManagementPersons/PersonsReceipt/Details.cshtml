@@ -10,16 +10,52 @@
 }
 <section class="px-15 pt-15">
     <div class="row">
-        <div class="col-sm-12">
+        <div class="chart-one chatrmob col-12 col-lg-6">
             <div class="card">
                 <div class="card-header d-flex justify-content-between bb-1 border-info">
                     <div class="header-title">
-                        <a class="btn btn-sm btn-icon btn-outline-success mx-2" title="تبدیل اسعار" href="#showmodal=@Url.Page("./Details", "MoneyTransfer", new { id = Model.Persons_Id })"><i class="fa-solid fa-money-bill-transfer"></i></a>
+                        <a class="btn btn-sm btn-icon btn-outline-success mx-2" title="تبدیل اسعار" href="#showmodal=@Url.Page("./Details", "MoneyExchangeCreate", new { personsـid = Model.Persons_Id })"><i class="fa-solid fa-money-bill-transfer"></i></a>
+                        <span class="card-title mx-2">لیست تبدیل اسعار _ @Model.Persons_Name</span>
                     </div>
                 </div>
                 <div class="card-body">
                     <div class="table-responsive">
                         <table id="exampled2" class="table table-bordered table-hover display nowrap margin-top-10 w-p100 js-serial caption-top">
+                            <thead class="table-Primary">
+                                <tr>
+                                    <th class="text-center">تاریخ</th>
+                                    <th class="text-center">مقدار فروش</th>
+                                    <th class="text-center">قیمت</th>
+                                    <th class="text-center">مقدار خرید</th>
+                                </tr>
+                            </thead>
+                            <tbody id="tbody">
+                                @foreach (var item in Model.PersonsMoneyExchangeViewModels)
+                                {
+                                    <tr>
+                                        <td class="text-center">@item.Date</td>
+                                        <td class="text-center">@item.Amount_One <sub>(@item.MoneyName_One)</sub></td>
+                                        <td class="text-center">@item.Price.ToMoney()</td>
+                                        <td class="text-center">@item.Amount_Two <sub>(@item.MoneyName_Two)</sub></td>
+                                    </tr>
+                                }
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="chart-one col-12 col-lg-6">
+            <div class="card">
+                <div class="card-header d-flex justify-content-between bb-1 border-info">
+                    <div class="header-title">
+                        <a class="btn btn-sm btn-icon btn-outline-success mx-2" title="تبدیل اسعار" href="#showmodal=@Url.Page("./Details", "PersonsMoneyExchange", new { id = Model.Persons_Id })"><i class="fa-solid fa-money-bill-transfer"></i></a>
+                        <span class="card-title mx-2">لیست الباقی حساب _ @Model.Persons_Name</span>
+                    </div>
+                </div>
+                <div class="card-body">
+                    <div class="table-responsive">
+                        <table id="examples2" class="table table-bordered table-hover display nowrap margin-top-10 w-p100 js-serial caption-top">
                             <thead class="table-Primary">
                                 <tr>
                                     <th class="text-center">اسعار</th>
@@ -488,6 +524,27 @@
                     });
                 }
             })
+        }
+    </script>
+    <script>
+        function moneies(moneyid) {
+            if (moneyid != "") {
+                var personid = document.getElementById('PersonId').value;
+                var postData = {
+                    'moneyid': moneyid,
+                    'personid': personid,
+                };
+                $.ajax({
+                    ccontentType: 'application/x-www-form-urlencoded',
+                    dataType: 'json',
+                    type: "GET",
+                    url: "@Url.Page("./Details", "Money")",
+                    data: postData,
+                    success: function (date) {
+                        document.getElementById('Amount_One').value = date;
+                    },
+                });
+            }
         }
     </script>
 }

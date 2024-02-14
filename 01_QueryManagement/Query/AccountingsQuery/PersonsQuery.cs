@@ -33,7 +33,7 @@ namespace _01_QueryManagement.Query.AccountingsQuery
                         decimal rest = receipt - slavary;
                         PersonsModels.Add(new PersonsModels()
                         {
-                            PersonsId = person.Id,
+                            PersonId = person.Id,
                             PersonsName = person.Name,
                             MoneyId = money.Id,
                             MoneyName = money.Name,

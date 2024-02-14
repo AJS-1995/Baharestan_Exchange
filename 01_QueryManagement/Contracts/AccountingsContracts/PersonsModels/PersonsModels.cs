@@ -2,7 +2,7 @@
 {
     public class PersonsModels
     {
-        public int PersonsId { get; set; }
+        public int PersonId { get; set; }
         public string? PersonsName { get; set; }
         public int MoneyId { get; set; }
         public string? MoneyName { get; set; }
