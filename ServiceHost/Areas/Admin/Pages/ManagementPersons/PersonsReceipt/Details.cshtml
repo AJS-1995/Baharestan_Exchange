@@ -15,6 +15,7 @@
                 <div class="card-header d-flex justify-content-between bb-1 border-info">
                     <div class="header-title">
                         <a class="btn btn-sm btn-icon btn-outline-success mx-2" title="تبدیل اسعار" href="#showmodal=@Url.Page("./Details", "MoneyExchangeCreate", new { personsـid = Model.Persons_Id })"><i class="fa-solid fa-money-bill-transfer"></i></a>
+                        <a class="btn btn-sm btn-icon btn-outline-info mx-2" title="برگشت" asp-page="./Index"><i class="fa-solid fa-left-long fa-lg"></i></a>
                         <span class="card-title mx-2">لیست تبدیل اسعار _ @Model.Persons_Name</span>
                     </div>
                 </div>
@@ -109,7 +110,6 @@
                             {
                                 <a class="btn btn-sm btn-icon btn-outline-warning mx-2" title="غیرفعال ها" href="#showmodal=@Url.Page("./Details", "Actived", new { id = Model.Persons_Id })"><i class="fa-solid fa-toggle-off fa-lg"></i></a>
                             }
-                            <a class="btn btn-sm btn-icon btn-outline-info mx-2" title="برگشت" asp-page="./Index"><i class="fa-solid fa-left-long fa-lg"></i></a>
                             <span class="card-title mx-2">لیست رسید و برد _ @Model.Persons_Name</span>
                         </div>
                     </div>
@@ -542,9 +542,36 @@
                     data: postData,
                     success: function (date) {
                         document.getElementById('Amount_One').value = date;
+                        Plus();
                     },
                 });
             }
+        }
+        function Plus() {
+            var amount_One = $("#Amount_One").val();
+            var price = $("#Price").val();
+            var multiplication = $("#Multiplication");
+            var division = $("#Division");
+            let a = parseFloat(amount_One);
+            let b = parseFloat(price);
+            if (Division.checked == true) {
+                var total = a / b;
+            } else {
+                var total = a * b;
+            }
+            if (total == Infinity) {
+                total = 0;
+            }
+            if (isNaN(total)) {
+                total = 0;
+            }
+            document.getElementById('Amount_Two').value = total.toFixed(2);
+        }
+        function type() {
+            var amount = $("#Amount").val();
+            var price = $("#Price").val();
+            var total = amount * price;
+            document.getElementById('Total').value = total;
         }
     </script>
 }
