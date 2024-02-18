@@ -5,5 +5,6 @@
         public string? Photo { get; set; }
         public string? PersonsName { get; set; }
         public string? PhotoName { get; set; }
+        public int PersonId { get; set; }
     }
 }

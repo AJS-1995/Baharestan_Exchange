@@ -197,6 +197,11 @@ namespace ServiceHost.Areas.Admin.Pages.Persons
                 return Redirect("/Index");
             }
         }
+        public JsonResult OnGetName(int id)
+        {
+            var result = _personsApplication?.GetDetails(id);
+            return new JsonResult(result);
+        }
     }
 
 }

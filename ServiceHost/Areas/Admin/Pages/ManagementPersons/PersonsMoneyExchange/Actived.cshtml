@@ -1,0 +1,41 @@
+﻿@model Contracts.ManagementPresonsContracts.PersonsMoneyExchangeContracts.PersonsMoneyExchangeRemoved
+@using _0_Framework.Application;
+@{
+    ViewData["title"] = "لیست تبادله اسعار افراد غیرفعال شده";
+}
+<div class="modal-header">
+    <a class="btn btn-sm btn-icon btn-outline-warning" asp-page="/Admin/ManagementPersons/PersonsReceipt/Index" asp-route-personsId="@Model.PersonId"><i class="fa-solid fa-close fa-lg"></i></a>
+    <h4 class="modal-title">لیست تبادله اسعار افراد غیرفعال شده</h4>
+</div>
+
+<div class="modal-body">
+    <div class="table-responsive">
+        <table class="table table-bordered table-hover display nowrap margin-top-10 w-p100">
+            <thead class="table-Primary">
+                <tr>
+                    <th class="text-center">#</th>
+                    <th class="text-center">تاریخ</th>
+                    <th class="text-center">مقدار فروش</th>
+                    <th class="text-center">قیمت</th>
+                    <th class="text-center">مقدار خرید</th>
+                    <th class="text-center">عملیات</th>
+                </tr>
+            </thead>
+            <tbody id="tbodyv">
+                @foreach (var item in Model.PersonsMoneyExchangeRemoveds)
+                {
+                    <tr>
+                        <td class="text-center"></td>
+                        <td class="text-center">@item.Date</td>
+                        <td class="text-center">@item.Amount_One <sub>(@item.MoneyName_One)</sub></td>
+                        <td class="text-center">@item.Price.ToMoney()</td>
+                        <td class="text-center">@item.Amount_Two <sub>(@item.MoneyName_Two)</sub></td>
+                        <td class="text-center">
+                            <a class="btn btn-sm btn-icon btn-outline-danger" title="فعال کردن" onclick="ActiveME(@item.Id)"><i class="fa-solid fa-check fa-lg"></i></a>
+                        </td>
+                    </tr>
+                }
+            </tbody>
+        </table>
+    </div>
+</div>

@@ -3,7 +3,7 @@
     ViewData["title"] = "نشان شصت و عکس افراد";
 }
 <div class="modal-header">
-    <a class="btn btn-sm btn-icon btn-outline-warning" asp-page="./Index"><i class="fa-solid fa-close fa-lg"></i></a>
+    <a class="btn btn-sm btn-icon btn-outline-warning" asp-page="./Index" asp-route-personsId="@Model.PersonId"><i class="fa-solid fa-close fa-lg"></i></a>
     <h4 class="modal-title">@Model.PhotoName _ @Model.PersonsName</h4>
 </div>
 

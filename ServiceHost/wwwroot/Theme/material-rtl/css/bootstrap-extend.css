@@ -1632,7 +1632,7 @@ input::-ms-clear
 
 .btn-group .dropdown-menu > li > a
 {
-    padding: 6px 40px 6px 15px;
+    padding: 6px 15px 6px 15px;
 }
 .btn-group .dropdown-menu > li > a .badge
 {

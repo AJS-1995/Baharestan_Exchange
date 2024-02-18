@@ -1,70 +1,47 @@
-﻿using _0_Framework.Application;
+using _0_Framework.Application;
 using _0_Framework.Application.Auth;
+using _01_QueryManagement.Contracts.AccountingsContracts.PersonsModels;
 using _01_QueryManagement.Contracts.Permissions.General;
 using Configuration.Permissions.General;
-using Contracts.AgenciesContracts;
+using Contracts.ManagementPresonsContracts.PersonsContracts;
+using Contracts.ManagementPresonsContracts.PersonsMoneyExchangeContracts;
 using Contracts.MoneyContracts;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
-using Contracts.ManagementPresonsContracts.PersonsContracts;
-using Contracts.ManagementPresonsContracts.PersonsMoneyExchangeContracts;
-using Contracts.ManagementPresonsContracts.PersonsReceiptContracts;
-using _01_QueryManagement.Contracts.AccountingsContracts.PersonsModels;
 
 namespace ServiceHost.Areas.Admin.Pages.ManagementPersons.PersonsMoneyExchange
 {
     public class IndexModel : PageModel
     {
         public int idAgencies;
+        public int PersonsId;
+        public string? PersonsName;
         public GeneralPermissionQueryModel? permissionQueryModels;
         private readonly IGeneralPermissionQueryModel? _permissionQueryModel;
-        public List<PersonsViewModel>? Persons;
+        public List<PersonsMoneyExchangeViewModel>? PersonsMoneyExchangeViewModels;
         private readonly IPersonsMoneyExchangeApplication? _personsMoneyExchangeApplication;
+        private readonly IPersonsApplication? _personsApplication;
+        private readonly IPersonsModels _personsModels;
         private readonly IMoneyApplication? _moneyApplication;
         private readonly IAuthHelper? _authHelper;
-        private readonly IAgenciesApplication? _agenciesApplication;
-        private readonly IPersonsApplication? _personsApplication;
-        private readonly IPersonsModels? _personsModels;
-        public IndexModel(IGeneralPermissionQueryModel? permissionQueryModel, IPersonsMoneyExchangeApplication? personsMoneyExchangeApplication, IMoneyApplication? moneyApplication, IAuthHelper? authHelper, IAgenciesApplication? agenciesApplication, IPersonsApplication? personsApplication, IPersonsModels personsModels)
+        public IndexModel(IGeneralPermissionQueryModel? permissionQueryModel, IPersonsMoneyExchangeApplication? personsMoneyExchangeApplication, IPersonsApplication? personsApplication, IPersonsModels personsModels, IMoneyApplication? moneyApplication, IAuthHelper? authHelper)
         {
             _permissionQueryModel = permissionQueryModel;
             _personsMoneyExchangeApplication = personsMoneyExchangeApplication;
-            _moneyApplication = moneyApplication;
-            _authHelper = authHelper;
-            _agenciesApplication = agenciesApplication;
             _personsApplication = personsApplication;
             _personsModels = personsModels;
+            _moneyApplication = moneyApplication;
+            _authHelper = authHelper;
         }
-        public IActionResult OnGet()
+        public void OnGet()
         {
-            permissionQueryModels = _permissionQueryModel?.GetGeneral();
-            if (permissionQueryModels?.ListGeneral == GeneralPermissions.ListGeneral || permissionQueryModels?.AdminGeneral == GeneralPermissions.AdminGeneral)
-            {
-                return Page();
-            }
-            else
-            {
-                return Redirect("/Index");
-            }
         }
-        public IActionResult OnGetCreate()
+        public IActionResult OnGetCreate(int personsId)
         {
             permissionQueryModels = _permissionQueryModel?.GetGeneral();
             if (permissionQueryModels?.AddGeneral == GeneralPermissions.AddGeneral || permissionQueryModels?.AdminGeneral == GeneralPermissions.AdminGeneral)
             {
-                return Partial("./Create");
-            }
-            else
-            {
-                return Redirect("/Index");
-            }
-        }
-        public IActionResult OnGetPersonsCreate(int personsـid)
-        {
-            permissionQueryModels = _permissionQueryModel?.GetGeneral();
-            if (permissionQueryModels?.AddGeneral == GeneralPermissions.AddGeneral || permissionQueryModels?.AdminGeneral == GeneralPermissions.AdminGeneral)
-            {
-                var persons = _personsApplication?.GetDetails(personsـid);
+                var persons = _personsApplication?.GetDetails(personsId);
                 int agenciesId = persons.AgenciesId;
                 var command = new PersonsMoneyExchangeCreate()
                 {
@@ -72,7 +49,7 @@ namespace ServiceHost.Areas.Admin.Pages.ManagementPersons.PersonsMoneyExchange
                     Date = DateTime.Now.ToFarsiFull(),
                     Moneys = _moneyApplication?.GetViewModel(),
                     AgenciesId = agenciesId,
-                    PersonId = personsـid,
+                    PersonId = personsId,
                 };
                 return Partial("./Create", command);
             }
@@ -84,86 +61,30 @@ namespace ServiceHost.Areas.Admin.Pages.ManagementPersons.PersonsMoneyExchange
         public IActionResult OnPostCreate(PersonsMoneyExchangeCreate command)
         {
             var result = _personsMoneyExchangeApplication?.Create(command);
-            return RedirectToPage("./Print_PR", result);
+            return new JsonResult(result);
         }
-        public IActionResult OnGetRemoved()
+        public IActionResult OnGetMoney(int moneyId, int personId)
         {
-            permissionQueryModels = _permissionQueryModel?.GetGeneral();
-            if (permissionQueryModels?.RemovedGeneral == GeneralPermissions.RemovedGeneral || permissionQueryModels?.AdminGeneral == GeneralPermissions.AdminGeneral)
+            var rest = _personsModels.PersonsModelss()?.Where(x => x.PersonId == personId && x.MoneyId == moneyId).ToList();
+            decimal result = 0;
+            if (rest?.Count != 0)
             {
-                var agenciesId = _authHelper.CurrentAgenciesId();
-                idAgencies = agenciesId;
-                if (idAgencies != 0)
-                {
-                    var commnd = new PersonsMoneyExchangeRemoved()
-                    {
-                        idAgencies = idAgencies,
-                        PersonsMoneyExchangeRemoveds = _personsMoneyExchangeApplication?.GetRemove(idAgencies)
-                    };
-                    return Partial("./Removed", commnd);
-                }
-                else
-                {
-                    var commnd = new PersonsMoneyExchangeRemoved()
-                    {
-                        PersonsMoneyExchangeRemoveds = _personsMoneyExchangeApplication?.GetRemove()
-                    };
-                    return Partial("./Removed", commnd);
-                }
+                result = rest.FirstOrDefault().Rest;
             }
-            else
-            {
-                return Redirect("/Index");
-            }
-        }
-        public IActionResult OnGetActived()
-        {
-            permissionQueryModels = _permissionQueryModel?.GetGeneral();
-            if (permissionQueryModels?.ActivedGeneral == GeneralPermissions.ActivedGeneral || permissionQueryModels?.AdminGeneral == GeneralPermissions.AdminGeneral)
-            {
-                var agenciesId = _authHelper.CurrentAgenciesId();
-                idAgencies = agenciesId;
-                if (idAgencies != 0)
-                {
-                    var commnd = new PersonsMoneyExchangeRemoved()
-                    {
-                        idAgencies = idAgencies,
-                        PersonsMoneyExchangeRemoveds = _personsMoneyExchangeApplication?.GetInActive(idAgencies)
-                    };
-                    return Partial("./Actived", commnd);
-                }
-                else
-                {
-                    var commnd = new PersonsMoneyExchangeRemoved()
-                    {
-                        PersonsMoneyExchangeRemoveds = _personsMoneyExchangeApplication?.GetInActive()
-                    };
-                    return Partial("./Actived", commnd);
-                }
-            }
-            else
-            {
-                return Redirect("/Index");
-            }
+            return new JsonResult(result);
         }
         public IActionResult OnGetEdit(long id)
         {
             permissionQueryModels = _permissionQueryModel?.GetGeneral();
             if (permissionQueryModels?.EditGeneral == GeneralPermissions.EditGeneral || permissionQueryModels?.AdminGeneral == GeneralPermissions.AdminGeneral)
             {
-                var agenciesId = _authHelper.CurrentAgenciesId();
                 var result = _personsMoneyExchangeApplication?.GetDetails(id);
+                var persons = _personsApplication?.GetDetails(result.PersonId);
+                int agenciesId = persons.AgenciesId;
                 result.Moneys = _moneyApplication?.GetViewModel();
-                if (agenciesId != 0)
-                {
-                    result.Personss = _personsApplication?.GetViewModel(agenciesId);
-                }
-                else
-                {
-                    result.Personss = _personsApplication?.GetViewModel();
-                }
-                result.Agencies = _agenciesApplication?.GetViewModel();
                 result.IdAgencies = agenciesId;
+                result.PersonName = persons.Name;
+                result.AgenciesId = agenciesId;
                 return Partial("Edit", result);
             }
             else
@@ -174,7 +95,7 @@ namespace ServiceHost.Areas.Admin.Pages.ManagementPersons.PersonsMoneyExchange
         public IActionResult OnPostEdit(PersonsMoneyExchangeEdit command)
         {
             var result = _personsMoneyExchangeApplication?.Edit(command);
-            return RedirectToPage("./Print_PR", result);
+            return new JsonResult(result);
         }
         public JsonResult OnGetInActive(long id)
         {
@@ -212,8 +133,74 @@ namespace ServiceHost.Areas.Admin.Pages.ManagementPersons.PersonsMoneyExchange
                     Date = PersonsMoneyExchange?.Date,
                     UserName = PersonsMoneyExchange?.UserName,
                     SaveDate = PersonsMoneyExchange?.SaveDate,
+                    PersonId = PersonsMoneyExchange.PersonId,
+                    PersonName = PersonsMoneyExchange.PersonName,
                 };
                 return Partial("./Saved", commnd);
+            }
+            else
+            {
+                return Redirect("/Index");
+            }
+        }
+        public IActionResult OnGetRemoved(int personsId)
+        {
+            permissionQueryModels = _permissionQueryModel?.GetGeneral();
+            if (permissionQueryModels?.RemovedGeneral == GeneralPermissions.RemovedGeneral || permissionQueryModels?.AdminGeneral == GeneralPermissions.AdminGeneral)
+            {
+                var agenciesId = _authHelper.CurrentAgenciesId();
+                idAgencies = agenciesId;
+                if (idAgencies != 0)
+                {
+                    var commnd = new PersonsMoneyExchangeRemoved()
+                    {
+                        idAgencies = idAgencies,
+                        PersonsMoneyExchangeRemoveds = _personsMoneyExchangeApplication?.GetRemove(idAgencies).Where(x => x.PersonId == personsId).ToList(),
+                        PersonId = personsId,
+                    };
+                    return Partial("./Removed", commnd);
+                }
+                else
+                {
+                    var commnd = new PersonsMoneyExchangeRemoved()
+                    {
+                        PersonsMoneyExchangeRemoveds = _personsMoneyExchangeApplication?.GetRemove().Where(x => x.PersonId == personsId).ToList(),
+                        PersonId = personsId,
+                    };
+                    return Partial("./Removed", commnd);
+                }
+            }
+            else
+            {
+                return Redirect("/Index");
+            }
+        }
+        public IActionResult OnGetActived(int personsId)
+        {
+            permissionQueryModels = _permissionQueryModel?.GetGeneral();
+            if (permissionQueryModels?.ActivedGeneral == GeneralPermissions.ActivedGeneral || permissionQueryModels?.AdminGeneral == GeneralPermissions.AdminGeneral)
+            {
+                var agenciesId = _authHelper.CurrentAgenciesId();
+                idAgencies = agenciesId;
+                if (idAgencies != 0)
+                {
+                    var commnd = new PersonsMoneyExchangeRemoved()
+                    {
+                        idAgencies = idAgencies,
+                        PersonsMoneyExchangeRemoveds = _personsMoneyExchangeApplication?.GetInActive(idAgencies).Where(x => x.PersonId == personsId).ToList(),
+                        PersonId = personsId,
+                    };
+                    return Partial("./Actived", commnd);
+                }
+                else
+                {
+                    var commnd = new PersonsMoneyExchangeRemoved()
+                    {
+                        PersonsMoneyExchangeRemoveds = _personsMoneyExchangeApplication?.GetInActive().Where(x => x.PersonId == personsId).ToList(),
+                        PersonId = personsId,
+                    };
+                    return Partial("./Actived", commnd);
+                }
             }
             else
             {

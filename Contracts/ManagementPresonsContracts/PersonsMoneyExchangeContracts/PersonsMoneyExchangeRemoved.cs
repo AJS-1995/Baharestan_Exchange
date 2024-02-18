@@ -4,5 +4,6 @@
     {
         public List<PersonsMoneyExchangeViewModel>? PersonsMoneyExchangeRemoveds { get; set; }
         public int idAgencies { get; set; }
+        public int PersonId { get; set; }
     }
 }

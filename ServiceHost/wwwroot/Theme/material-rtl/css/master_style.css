@@ -6443,6 +6443,7 @@ ul.flexbox {
     margin-right: 8px;
 }
 .card-header {
+    min-height: 50px;
     display: -webkit-box;
     display: flex;
     -webkit-box-pack: justify;

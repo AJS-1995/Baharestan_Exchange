@@ -1,10 +1,10 @@
 ﻿@model Contracts.ManagementPresonsContracts.PersonsReceiptContracts.PersonsReceiptViewModel
 @{
-    ViewData["title"] = "ثبت کننده رسید و برد افراد";
+    ViewData["title"] = "اطلاعات ثبت کننده رسید و برد";
 }
 <div class="modal-header">
-    <a class="btn btn-sm btn-icon btn-outline-warning" asp-page="./Index"><i class="fa-solid fa-close fa-lg"></i></a>
-    <h4 class="modal-title">ثبت کننده رسید و برد افراد  - @Model.Date</h4>
+    <a class="btn btn-sm btn-icon btn-outline-warning" asp-page="./Index" asp-route-personsId="@Model.PersonId"><i class="fa-solid fa-close fa-lg"></i></a>
+    <h4 class="modal-title">اطلاعات ثبت کننده مشخصات  - @Model.Date</h4>
 </div>
 
 <form class="needs-validation">

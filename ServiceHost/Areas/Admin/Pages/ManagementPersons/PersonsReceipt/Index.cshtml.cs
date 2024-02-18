@@ -1,8 +1,7 @@
-using _0_Framework.Application;
+﻿using _0_Framework.Application;
 using _0_Framework.Application.Auth;
 using _01_QueryManagement.Contracts.Permissions.General;
 using Configuration.Permissions.General;
-using Contracts.AgenciesContracts;
 using Contracts.MoneyContracts;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
@@ -10,75 +9,92 @@ using Contracts.SafeBoxContracts;
 using Contracts.ManagementPresonsContracts.PersonsContracts;
 using Contracts.ManagementPresonsContracts.PersonsReceiptContracts;
 using Contracts.ManagementPresonsContracts.PersonsMoneyExchangeContracts;
+using _01_QueryManagement.Contracts.AccountingsContracts.PersonsModels;
 
 namespace ServiceHost.Areas.Admin.Pages.PersonsReceipt
 {
     public class IndexModel : PageModel
     {
         public int idAgencies;
+        public int PersonsId;
+        public string? PersonsName;
         public GeneralPermissionQueryModel? permissionQueryModels;
         private readonly IGeneralPermissionQueryModel? _permissionQueryModel;
-        public List<PersonsViewModel>? Persons;
+        public List<PersonsReceiptViewModel>? PersonsReceipt;
+        public List<PersonsModels>? PersonsAccounting;
+        public List<PersonsMoneyExchangeViewModel>? PersonsMoneyExchangeViewModels;
         private readonly IPersonsReceiptApplication? _personsReceiptApplication;
         private readonly IMoneyApplication? _moneyApplication;
         private readonly IAuthHelper? _authHelper;
-        private readonly IAgenciesApplication? _agenciesApplication;
         private readonly IPersonsApplication? _personsApplication;
         private readonly ISafeBoxApplication? _safeBoxApplication;
-        public IndexModel(IGeneralPermissionQueryModel? permissionQueryModel, IPersonsReceiptApplication? PersonsReceiptApplication, IMoneyApplication? moneyApplication, IAuthHelper? authHelper, IAgenciesApplication? agenciesApplication, IPersonsApplication? personsApplication, ISafeBoxApplication? safeBoxApplication)
+        private readonly IPersonsModels _personsModels;
+        private readonly IPersonsMoneyExchangeApplication? _personsMoneyExchangeApplication;
+        public IndexModel(IGeneralPermissionQueryModel? permissionQueryModel, IPersonsReceiptApplication? PersonsReceiptApplication, IMoneyApplication? moneyApplication, IAuthHelper? authHelper, IPersonsApplication? personsApplication, ISafeBoxApplication? safeBoxApplication, IPersonsModels personsModels, IPersonsMoneyExchangeApplication personsMoneyExchangeApplication)
         {
             _permissionQueryModel = permissionQueryModel;
             _personsReceiptApplication = PersonsReceiptApplication;
             _moneyApplication = moneyApplication;
             _authHelper = authHelper;
-            _agenciesApplication = agenciesApplication;
             _personsApplication = personsApplication;
             _safeBoxApplication = safeBoxApplication;
+            _personsModels = personsModels;
+            _personsMoneyExchangeApplication = personsMoneyExchangeApplication;
         }
-        public IActionResult OnGet()
+        public IActionResult OnGet(int personsId)
         {
             permissionQueryModels = _permissionQueryModel?.GetGeneral();
             if (permissionQueryModels?.ListGeneral == GeneralPermissions.ListGeneral || permissionQueryModels?.AdminGeneral == GeneralPermissions.AdminGeneral)
             {
                 permissionQueryModels = _permissionQueryModel?.GetGeneral();
                 var agenciesId = _authHelper.CurrentAgenciesId();
+                var persons = _personsApplication?.GetDetails(personsId);
                 idAgencies = agenciesId;
+                PersonsId = personsId;
+                PersonsName = persons?.Name;
                 if (idAgencies != 0)
                 {
-                    Persons = _personsApplication?.GetViewModel(idAgencies);
+                    if (idAgencies == persons.AgenciesId)
+                    {
+                        PersonsReceipt = _personsReceiptApplication?.GetViewModel(idAgencies).Where(x => x.PersonId == personsId).ToList();
+                        PersonsAccounting = _personsModels?.PersonsModelss()?.Where(x => x.PersonId == personsId).ToList();
+                        PersonsMoneyExchangeViewModels = _personsMoneyExchangeApplication?.GetViewModel(idAgencies)?.Where(x => x.PersonId == personsId).ToList();
+                        return Page();
+                    }
+                    else
+                    {
+                        return Redirect("/Index");
+                    }
                 }
                 else
                 {
-                    Persons = _personsApplication?.GetViewModel();
+                    PersonsReceipt = _personsReceiptApplication?.GetViewModel().Where(x => x.PersonId == personsId).ToList();
+                    PersonsAccounting = _personsModels?.PersonsModelss()?.Where(x => x.PersonId == personsId).ToList();
+                    PersonsMoneyExchangeViewModels = _personsMoneyExchangeApplication?.GetViewModel()?.Where(x => x.PersonId == personsId).ToList();
+                    return Page();
                 }
-                return Page();
             }
             else
             {
                 return Redirect("/Index");
             }
         }
-        public IActionResult OnGetCreate()
+        public IActionResult OnGetCreate(int personsId)
         {
             permissionQueryModels = _permissionQueryModel?.GetGeneral();
             if (permissionQueryModels?.AddGeneral == GeneralPermissions.AddGeneral || permissionQueryModels?.AdminGeneral == GeneralPermissions.AdminGeneral)
             {
-                var agenciesId = _authHelper.CurrentAgenciesId();
-                var persons = _personsApplication?.GetViewModel();
-                var safeBoxs = _safeBoxApplication?.GetViewModel();
-                if (agenciesId != 0)
-                {
-                    persons = _personsApplication?.GetViewModel(agenciesId);
-                    safeBoxs = _safeBoxApplication?.GetViewModel(agenciesId);
-                }
+                var persons = _personsApplication?.GetDetails(personsId);
+                int agenciesId = persons.AgenciesId;
                 var command = new PersonsReceiptCreate()
                 {
                     IdAgencies = agenciesId,
                     Date = DateTime.Now.ToFarsiFull(),
                     Moneys = _moneyApplication?.GetViewModel(),
-                    Persons = persons,
-                    SafeBoxs = safeBoxs,
-                    Agencies = _agenciesApplication?.GetViewModel()
+                    SafeBoxs = _safeBoxApplication?.GetViewModel(agenciesId),
+                    PersonName = persons.Name,
+                    AgenciesId = agenciesId,
+                    PersonId = personsId,
                 };
                 return Partial("./Create", command);
             }
@@ -92,7 +108,7 @@ namespace ServiceHost.Areas.Admin.Pages.PersonsReceipt
             var result = _personsReceiptApplication?.Create(command);
             return RedirectToPage("./Print_PR", result);
         }
-        public IActionResult OnGetRemoved()
+        public IActionResult OnGetRemoved(int personsId)
         {
             permissionQueryModels = _permissionQueryModel?.GetGeneral();
             if (permissionQueryModels?.RemovedGeneral == GeneralPermissions.RemovedGeneral || permissionQueryModels?.AdminGeneral == GeneralPermissions.AdminGeneral)
@@ -104,7 +120,8 @@ namespace ServiceHost.Areas.Admin.Pages.PersonsReceipt
                     var commnd = new PersonsReceiptRemoved()
                     {
                         idAgencies = idAgencies,
-                        PersonsReceiptRemoveds = _personsReceiptApplication?.GetRemove(idAgencies)
+                        PersonsReceiptRemoveds = _personsReceiptApplication?.GetRemove(idAgencies).Where(x=> x.PersonId == personsId).ToList(),
+                        PersonId = personsId,
                     };
                     return Partial("./Removed", commnd);
                 }
@@ -112,7 +129,8 @@ namespace ServiceHost.Areas.Admin.Pages.PersonsReceipt
                 {
                     var commnd = new PersonsReceiptRemoved()
                     {
-                        PersonsReceiptRemoveds = _personsReceiptApplication?.GetRemove()
+                        PersonsReceiptRemoveds = _personsReceiptApplication?.GetRemove().Where(x => x.PersonId == personsId).ToList(),
+                        PersonId = personsId,
                     };
                     return Partial("./Removed", commnd);
                 }
@@ -122,7 +140,7 @@ namespace ServiceHost.Areas.Admin.Pages.PersonsReceipt
                 return Redirect("/Index");
             }
         }
-        public IActionResult OnGetActived()
+        public IActionResult OnGetActived(int personsId)
         {
             permissionQueryModels = _permissionQueryModel?.GetGeneral();
             if (permissionQueryModels?.ActivedGeneral == GeneralPermissions.ActivedGeneral || permissionQueryModels?.AdminGeneral == GeneralPermissions.AdminGeneral)
@@ -134,7 +152,8 @@ namespace ServiceHost.Areas.Admin.Pages.PersonsReceipt
                     var commnd = new PersonsReceiptRemoved()
                     {
                         idAgencies = idAgencies,
-                        PersonsReceiptRemoveds = _personsReceiptApplication?.GetInActive(idAgencies)
+                        PersonsReceiptRemoveds = _personsReceiptApplication?.GetInActive(idAgencies).Where(x => x.PersonId == personsId).ToList(),
+                        PersonId = personsId,
                     };
                     return Partial("./Actived", commnd);
                 }
@@ -142,7 +161,8 @@ namespace ServiceHost.Areas.Admin.Pages.PersonsReceipt
                 {
                     var commnd = new PersonsReceiptRemoved()
                     {
-                        PersonsReceiptRemoveds = _personsReceiptApplication?.GetInActive()
+                        PersonsReceiptRemoveds = _personsReceiptApplication?.GetInActive().Where(x => x.PersonId == personsId).ToList(),
+                        PersonId = personsId,
                     };
                     return Partial("./Actived", commnd);
                 }
@@ -157,21 +177,13 @@ namespace ServiceHost.Areas.Admin.Pages.PersonsReceipt
             permissionQueryModels = _permissionQueryModel?.GetGeneral();
             if (permissionQueryModels?.EditGeneral == GeneralPermissions.EditGeneral || permissionQueryModels?.AdminGeneral == GeneralPermissions.AdminGeneral)
             {
-                var agenciesId = _authHelper.CurrentAgenciesId();
                 var result = _personsReceiptApplication?.GetDetails(id);
+                var persons = _personsApplication?.GetDetails(result.PersonId);
+                int agenciesId = persons.AgenciesId;
                 result.Moneys = _moneyApplication?.GetViewModel();
-                if (agenciesId != 0)
-                {
-                    result.Persons = _personsApplication?.GetViewModel(agenciesId);
-                    result.SafeBoxs = _safeBoxApplication?.GetViewModel(agenciesId);
-                }
-                else
-                {
-                    result.Persons = _personsApplication?.GetViewModel();
-                    result.SafeBoxs = _safeBoxApplication?.GetViewModel();
-                }
-                result.Agencies = _agenciesApplication?.GetViewModel();
+                result.SafeBoxs = _safeBoxApplication?.GetViewModel(agenciesId);
                 result.IdAgencies = agenciesId;
+                result.PersonName = persons.Name;
                 return Partial("Edit", result);
             }
             else
@@ -220,6 +232,7 @@ namespace ServiceHost.Areas.Admin.Pages.PersonsReceipt
                     Date = PersonsReceipt?.Date,
                     UserName = PersonsReceipt?.UserName,
                     SaveDate = PersonsReceipt?.SaveDate,
+                    PersonId = PersonsReceipt.PersonId,
                 };
                 return Partial("./Saved", commnd);
             }
@@ -236,6 +249,52 @@ namespace ServiceHost.Areas.Admin.Pages.PersonsReceipt
         public IActionResult OnGetSafeBox(int agenciesid)
         {
             var result = _safeBoxApplication?.GetViewModel(agenciesid);
+            return new JsonResult(result);
+        }
+        public IActionResult OnGetPhoto(int id, string name)
+        {
+            var result = _personsReceiptApplication?.GetViewModel().Where(x => x.Id == id).FirstOrDefault();
+            if (result != null)
+            {
+                var commnd = new PersonsReceiptPhoto();
+                if (name == "fingerprint")
+                {
+                    commnd = new PersonsReceiptPhoto()
+                    {
+                        Photo = result.Fingerprint,
+                        PersonsName = result.PersonName,
+                        PhotoName = "نشان انگشت",
+                        PersonId = result.PersonId,
+                    };
+                }
+                else
+                {
+                    if (name == "picture")
+                    {
+                        commnd = new PersonsReceiptPhoto()
+                        {
+                            Photo = result.Picture,
+                            PersonsName = result.PersonName,
+                            PhotoName = "عکس",
+                            PersonId = result.PersonId,
+                        };
+                    }
+                }
+                return Partial("./Photo", commnd);
+            }
+            else
+            {
+                return Redirect("/Index");
+            }
+        }
+        public JsonResult OnGetName(long id)
+        {
+            var result = _personsReceiptApplication?.GetDetails(id);
+            return new JsonResult(result);
+        }
+        public JsonResult OnGetDate(long id)
+        {
+            var result = _personsMoneyExchangeApplication?.GetDetails(id);
             return new JsonResult(result);
         }
     }

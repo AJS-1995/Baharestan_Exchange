@@ -3,11 +3,11 @@
     ViewData["title"] = "ثبت تبدیل اسعار جدید";
 }
 <div class="modal-header">
-    <a class="btn btn-sm btn-icon btn-outline-warning" asp-page="./Details" asp-route-persons_id="@Model.PersonId"><i class="fa-solid fa-close fa-lg"></i></a>
+    <a class="btn btn-sm btn-icon btn-outline-warning" asp-page="/Admin/ManagementPersons/PersonsReceipt/Index" asp-route-personsId="@Model.PersonId"><i class="fa-solid fa-close fa-lg"></i></a>
     <h4 class="modal-title">ثبت تبدیل اسعار جدید</h4>
 </div>
 
-<form class="needs-validation" novalidate asp-page="./Details" asp-page-handler="Create" method="post"
+<form class="needs-validation" novalidate asp-page="./Index" asp-page-handler="Create" method="post"
       data-ajax="true"
       data-callback=""
       data-action="Refresh">
@@ -84,7 +84,7 @@
         <input type="hidden" id="PersonId" asp-for="PersonId" value="@Model.PersonId" />
         <input type="hidden" id="AgenciesId" asp-for="AgenciesId" value="@Model.AgenciesId" />
         <div class="modal-footer">
-            <button type="submit" class="btn btn-sm btn-icon btn-outline-success"><i class="fa-solid fa-save fa-lg"> & <i class="fa-solid fa-print"></i></i></button>
+            <button type="submit" class="btn btn-sm btn-icon btn-outline-success"><i class="fa-solid fa-save fa-lg"></i></button>
         </div>
     </div>
 </form>

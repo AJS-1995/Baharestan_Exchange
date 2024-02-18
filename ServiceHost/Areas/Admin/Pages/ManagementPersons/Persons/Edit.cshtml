@@ -1,10 +1,10 @@
 ﻿@model Contracts.ManagementPresonsContracts.PersonsContracts.PersonsEdit
 @{
-    ViewData["title"] = "ویرایش فرد";
+    ViewData["title"] = "ویرایش مشخصات افراد";
 }
 <div class="modal-header">
     <a class="btn btn-sm btn-icon btn-outline-warning" asp-page="./Index"><i class="fa-solid fa-close fa-lg"></i></a>
-    <h4 class="modal-title">ویرایش فرد - @Model.Name</h4>
+    <h4 class="modal-title">ویرایش مشخصات - @Model.Name</h4>
 </div>
 
 <form class="needs-validation" novalidate asp-page="./Index" asp-page-handler="Edit" method="post"

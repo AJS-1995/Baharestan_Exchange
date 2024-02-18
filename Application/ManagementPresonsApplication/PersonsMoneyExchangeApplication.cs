@@ -62,9 +62,6 @@ namespace Application.ManagementPresonsApplication
                 agenciesId = command.AgenciesId;
             }
 
-            if (_personsMoneyExchangeRepository.Exists(x => x.Id != command.Id))
-                return operation.Failed(ApplicationMessages.DuplicatedRecord);
-
             result.Edit(command.Date, command.MoneyId_One, command.Amount_One, command.Price,
                 command.Type, command.MoneyId_Two, command.Amount_Two, command.PersonId, userid, agenciesId);
             _personsMoneyExchangeRepository.SaveChanges();
