@@ -1,10 +1,10 @@
-﻿@model Contracts.PersonnelContracts.PersonnelViewModel
+﻿@model Contracts.ManagementPresonsContracts.LivelihoodContracts.LivelihoodViewModel
 @{
-    ViewData["title"] = "ثبت کننده کارمند";
+    ViewData["title"] = "اطلاعات ثبت کننده معاش کارمند";
 }
 <div class="modal-header">
-    <a class="btn btn-sm btn-icon btn-outline-warning" asp-page="./Index"><i class="fa-solid fa-close fa-lg"></i></a>
-    <h4 class="modal-title">ثبت کننده کارمند  - @Model.FullName</h4>
+    <a class="btn btn-sm btn-icon btn-outline-warning" asp-page="/Admin/ManagementPersons/Livelihood/Index" asp-route-personsId="@Model.PersonsId"><i class="fa-solid fa-close fa-lg"></i></a>
+    <h4 class="modal-title">اطلاعات ثبت کننده معاش  - @Model.PresonsName _ @Model.SDate - @Model.EDate</h4>
 </div>
 
 <form class="needs-validation">
@@ -13,7 +13,7 @@
             <div class="col-sm-6">
                 <div class="form-group">
                     <label class="form-label" for="User_Name">نام ثبت کننده</label>
-                    <input id="User_Name" readonly type="text" class="form-control" required asp-for="User_Name">
+                    <input id="User_Name" readonly type="text" class="form-control" required asp-for="UserName">
                 </div>
             </div>
             <div class="col-sm-6">

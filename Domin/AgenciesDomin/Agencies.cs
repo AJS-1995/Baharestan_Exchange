@@ -1,4 +1,5 @@
 ﻿using _0_Framework.Application;
+using Domin.ManagementPresonsDomin.LivelihoodDomin;
 using Domin.ManagementPresonsDomin.PersonsDomin;
 using Domin.ManagementPresonsDomin.PersonsMoneyExchangeDomin;
 using Domin.ManagementPresonsDomin.PersonsReceiptDomin;
@@ -20,11 +21,13 @@ namespace Domin.AgenciesDomin
         public List<Persons>? Personss { get; }
         public List<PersonsReceipt>? PersonsReceipts { get; }
         public List<PersonsMoneyExchange>? PersonsMoneyExchanges { get; }
+        public List<Livelihood>? Livelihoods { get; }
         public Agencies()
         {
             Personss = new List<Persons>();
             PersonsReceipts = new List<PersonsReceipt>();
             PersonsMoneyExchanges = new List<PersonsMoneyExchange>();
+            Livelihoods = new List<Livelihood>();
         }
         public Agencies(string? name, string? address, string? mobile, string? responsible, int companyId, int userId)
         {

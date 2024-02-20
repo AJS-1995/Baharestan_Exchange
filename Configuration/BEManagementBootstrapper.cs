@@ -9,11 +9,11 @@ using Contracts.CompanyContracts;
 using Contracts.DailyRateContracts;
 using Contracts.ExchangeRateContracts;
 using Contracts.ExpenseContracts;
+using Contracts.ManagementPresonsContracts.LivelihoodContracts;
 using Contracts.ManagementPresonsContracts.PersonsContracts;
 using Contracts.ManagementPresonsContracts.PersonsMoneyExchangeContracts;
 using Contracts.ManagementPresonsContracts.PersonsReceiptContracts;
 using Contracts.MoneyContracts;
-using Contracts.PersonnelContracts;
 using Contracts.SafeBoxContracts;
 using Contracts.UsersContracts.RoleContracts;
 using Contracts.UsersContracts.UsersContracts;
@@ -22,11 +22,11 @@ using Domin.CompanyDomin;
 using Domin.DailyRateDomin;
 using Domin.ExchangeRateDomin;
 using Domin.ExpenseDomin;
+using Domin.ManagementPresonsDomin.LivelihoodDomin;
 using Domin.ManagementPresonsDomin.PersonsDomin;
 using Domin.ManagementPresonsDomin.PersonsMoneyExchangeDomin;
 using Domin.ManagementPresonsDomin.PersonsReceiptDomin;
 using Domin.MoneyDomin;
-using Domin.PersonnelDomin;
 using Domin.SafeBoxDomin;
 using Domin.UsersDomin;
 using Infrastructure;
@@ -63,9 +63,6 @@ namespace Configuration
             services.AddTransient<IMoneyApplication, MoneyApplication>();
             services.AddTransient<IMoneyRepository, MoneyRepository>();
 
-            services.AddTransient<IPersonnelApplication, PersonnelApplication>();
-            services.AddTransient<IPersonnelRepository, PersonnelRepository>();
-
             services.AddTransient<ISafeBoxApplication, SafeBoxApplication>();
             services.AddTransient<ISafeBoxRepository, SafeBoxRepository>();
 
@@ -81,6 +78,8 @@ namespace Configuration
             services.AddTransient<IPersonsReceiptRepository, PersonsReceiptRepository>();
             services.AddTransient<IPersonsMoneyExchangeApplication, PersonsMoneyExchangeApplication>();
             services.AddTransient<IPersonsMoneyExchangeRepository, PersonsMoneyExchangeRepository>();
+            services.AddTransient<ILivelihoodApplication, LivelihoodApplication>();
+            services.AddTransient<ILivelihoodRepository, LivelihoodRepository>();
 
             services.AddTransient<IPermissionExposer, UserPermissionExposer>();
             services.AddTransient<IPermissionExposer, GeneralPermissionExposer>();

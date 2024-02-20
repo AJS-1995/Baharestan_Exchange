@@ -34,7 +34,7 @@ namespace Application.ManagementPresonsApplication
             }
 
             var result = new PersonsMoneyExchange(command.Date, command.MoneyId_One, command.Amount_One, command.Price,
-                command.Type, command.MoneyId_Two, command.Amount_Two, command.PersonId, userid, agenciesId);
+                command.Type, command.MoneyId_Two, command.Amount_Two, command.PersonsId, userid, agenciesId);
             _personsMoneyExchangeRepository.Create(result);
             _personsMoneyExchangeRepository.SaveChanges();
             operation.Id = result.Id;
@@ -63,7 +63,7 @@ namespace Application.ManagementPresonsApplication
             }
 
             result.Edit(command.Date, command.MoneyId_One, command.Amount_One, command.Price,
-                command.Type, command.MoneyId_Two, command.Amount_Two, command.PersonId, userid, agenciesId);
+                command.Type, command.MoneyId_Two, command.Amount_Two, command.PersonsId, userid, agenciesId);
             _personsMoneyExchangeRepository.SaveChanges();
             operation.Id = result.Id;
             return operation.Succedded();

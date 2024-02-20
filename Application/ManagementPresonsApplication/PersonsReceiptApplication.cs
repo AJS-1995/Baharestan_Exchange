@@ -50,7 +50,7 @@ namespace Application.ManagementPresonsApplication
                 return operation.Failed(ApplicationMessages.PhotoFormat);
 
             var result = new PersonsReceipt(command.Date, command.Description, command.By, command.ReceiptNumber,
-                command.Type, command.Amount, command.SafeBoxId, command.MoneyId, command.PersonId, FingerprintPath, PicturePath, userid, agenciesId);
+                command.Type, command.Amount, command.SafeBoxId, command.MoneyId, command.PersonsId, FingerprintPath, PicturePath, userid, agenciesId);
             _personsReceiptRepository.Create(result);
             _personsReceiptRepository.SaveChanges();
             operation.Id = result.Id;
@@ -126,7 +126,7 @@ namespace Application.ManagementPresonsApplication
             }
 
             result.Edit(command.Date, command.Description, command.By, command.ReceiptNumber,
-                command.Type, command.Amount, command.SafeBoxId, command.MoneyId, command.PersonId, FingerprintPath, PicturePath, userid, agenciesId);
+                command.Type, command.Amount, command.SafeBoxId, command.MoneyId, command.PersonsId, FingerprintPath, PicturePath, userid, agenciesId);
             _personsReceiptRepository.SaveChanges();
             operation.Id = result.Id;
             return operation.Succedded();

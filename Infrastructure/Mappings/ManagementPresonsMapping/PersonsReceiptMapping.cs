@@ -20,7 +20,7 @@ namespace Infrastructure.Mappings.ManagementPresonsMapping
             builder.Property(x => x.Amount);
             builder.Property(x => x.SafeBoxId);
             builder.Property(x => x.MoneyId);
-            builder.Property(x => x.PersonId);
+            builder.Property(x => x.PersonsId);
             builder.Property(x => x.SaveDate).HasMaxLength(25);
             builder.Property(x => x.Status);
             builder.Property(x => x.Deleted);
@@ -29,7 +29,7 @@ namespace Infrastructure.Mappings.ManagementPresonsMapping
             builder.Property(x => x.Fingerprint).HasMaxLength(500);
             builder.Property(x => x.Picture).HasMaxLength(500);
 
-            builder.HasOne(x => x.Persons).WithMany(x => x.PersonsReceipts).HasForeignKey(x => x.PersonId);
+            builder.HasOne(x => x.Persons).WithMany(x => x.PersonsReceipts).HasForeignKey(x => x.PersonsId);
             builder.HasOne(x => x.Moneys).WithMany(x => x.PersonsReceipts).HasForeignKey(x => x.MoneyId);
             builder.HasOne(x => x.Agenciess).WithMany(x => x.PersonsReceipts).HasForeignKey(x => x.AgenciesId);
             builder.HasOne(x => x.SafeBoxs).WithMany(x => x.PersonsReceipts).HasForeignKey(x => x.SafeBoxId);

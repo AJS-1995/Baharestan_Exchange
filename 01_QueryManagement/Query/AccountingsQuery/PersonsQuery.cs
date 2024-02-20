@@ -28,9 +28,9 @@ namespace _01_QueryManagement.Query.AccountingsQuery
                 var moneies = _moneyRepository.GetViewModel();
                 foreach (var money in moneies)
                 {
-                    var pr = _personsReceiptRepository.GetViewModel().Where(x => x.PersonId == person.Id && x.MoneyId == money.Id).ToList();
-                    var smoneyperson = _personsMoneyExchangeRepository.GetViewModel().Where(x => x.PersonId == person.Id && x.MoneyId_One == money.Id).ToList();
-                    var rmoneyperson = _personsMoneyExchangeRepository.GetViewModel().Where(x => x.PersonId == person.Id && x.MoneyId_Two == money.Id).ToList();
+                    var pr = _personsReceiptRepository.GetViewModel().Where(x => x.PersonsId == person.Id && x.MoneyId == money.Id).ToList();
+                    var smoneyperson = _personsMoneyExchangeRepository.GetViewModel().Where(x => x.PersonsId == person.Id && x.MoneyId_One == money.Id).ToList();
+                    var rmoneyperson = _personsMoneyExchangeRepository.GetViewModel().Where(x => x.PersonsId == person.Id && x.MoneyId_Two == money.Id).ToList();
                     if (pr.Count != 0)
                     {
                         decimal receiptp = pr.Where(x => x.Type == true).Sum(x => x.Amount);
@@ -42,7 +42,7 @@ namespace _01_QueryManagement.Query.AccountingsQuery
                         decimal rest = receipt - slavary;
                         PersonsModels.Add(new PersonsModels()
                         {
-                            PersonId = person.Id,
+                            PersonsId = person.Id,
                             PersonsName = person.Name,
                             MoneyId = money.Id,
                             MoneyName = money.Name,

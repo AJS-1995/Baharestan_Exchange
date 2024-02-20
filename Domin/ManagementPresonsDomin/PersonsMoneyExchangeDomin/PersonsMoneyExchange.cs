@@ -13,11 +13,11 @@ namespace Domin.ManagementPresonsDomin.PersonsMoneyExchangeDomin
         public bool Type { get; private set; }
         public int MoneyId_Two { get; private set; }
         public decimal Amount_Two { get; private set; }
-        public int PersonId { get; private set; }
+        public int PersonsId { get; private set; }
         public Persons? Persons { get; private set; }
         public Agencies? Agenciess { get; private set; }
         public PersonsMoneyExchange() { }
-        public PersonsMoneyExchange(string? date, int moneyId_One, decimal amount_One, decimal price, bool type, int moneyId_Two, decimal amount_Two, int personId, int userid, int agenciesId)
+        public PersonsMoneyExchange(string? date, int moneyId_One, decimal amount_One, decimal price, bool type, int moneyId_Two, decimal amount_Two, int PersonsId, int userid, int agenciesId)
         {
             Date = date;
             MoneyId_One = moneyId_One;
@@ -26,11 +26,11 @@ namespace Domin.ManagementPresonsDomin.PersonsMoneyExchangeDomin
             Type = type;
             MoneyId_Two = moneyId_Two;
             Amount_Two = amount_Two;
-            PersonId = personId;
+            PersonsId = PersonsId;
             UserId = userid;
             AgenciesId = agenciesId;
         }
-        public void Edit(string? date, int moneyId_One, decimal amount_One, decimal price, bool type, int moneyId_Two, decimal amount_Two, int personId, int userid, int agenciesId)
+        public void Edit(string? date, int moneyId_One, decimal amount_One, decimal price, bool type, int moneyId_Two, decimal amount_Two, int PersonsId, int userid, int agenciesId)
         {
             Date = date;
             MoneyId_One = moneyId_One;
@@ -39,7 +39,7 @@ namespace Domin.ManagementPresonsDomin.PersonsMoneyExchangeDomin
             Type = type;
             MoneyId_Two = moneyId_Two;
             Amount_Two = amount_Two;
-            PersonId = personId;
+            PersonsId = PersonsId;
             UserId = userid;
             AgenciesId = agenciesId;
         }

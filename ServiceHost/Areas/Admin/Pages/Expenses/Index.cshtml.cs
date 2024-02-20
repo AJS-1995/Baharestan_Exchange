@@ -5,9 +5,7 @@ using Configuration.Permissions.General;
 using Contracts.AgenciesContracts;
 using Contracts.ExpenseContracts;
 using Contracts.MoneyContracts;
-using Contracts.PersonnelContracts;
 using Contracts.SafeBoxContracts;
-using Domin.AgenciesDomin;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 
@@ -21,17 +19,15 @@ namespace ServiceHost.Areas.Admin.Pages.Expenses
         public List<ExpenseViewModel>? Expense;
         private readonly IExpenseApplication? _ExpenseApplication;
         private readonly ICollectionApplication? _CollectionApplication;
-        private readonly IPersonnelApplication? _personnelApplication;
         private readonly ISafeBoxApplication? _safeBoxApplication;
         private readonly IMoneyApplication? _moneyApplication;
         private readonly IAuthHelper? _authHelper;
         private readonly IAgenciesApplication? _agenciesApplication;
-        public IndexModel(IGeneralPermissionQueryModel? permissionQueryModel, IExpenseApplication? ExpenseApplication, ICollectionApplication? CollectionApplication, IPersonnelApplication? personnelApplication, ISafeBoxApplication? safeBoxApplication, IMoneyApplication? moneyApplication, IAuthHelper? authHelper, IAgenciesApplication? agenciesApplication)
+        public IndexModel(IGeneralPermissionQueryModel? permissionQueryModel, IExpenseApplication? ExpenseApplication, ICollectionApplication? CollectionApplication, ISafeBoxApplication? safeBoxApplication, IMoneyApplication? moneyApplication, IAuthHelper? authHelper, IAgenciesApplication? agenciesApplication)
         {
             _permissionQueryModel = permissionQueryModel;
             _ExpenseApplication = ExpenseApplication;
             _CollectionApplication = CollectionApplication;
-            _personnelApplication = personnelApplication;
             _safeBoxApplication = safeBoxApplication;
             _moneyApplication = moneyApplication;
             _authHelper = authHelper;
@@ -66,11 +62,9 @@ namespace ServiceHost.Areas.Admin.Pages.Expenses
             if (permissionQueryModels?.AddGeneral == GeneralPermissions.AddGeneral || permissionQueryModels?.AdminGeneral == GeneralPermissions.AdminGeneral)
             {
                 var agenciesId = _authHelper.CurrentAgenciesId();
-                var Personnel = _personnelApplication?.GetViewModel();
                 var SafeBox = _safeBoxApplication?.GetViewModel();
                 if (agenciesId != 0)
                 {
-                    Personnel = _personnelApplication?.GetViewModel(agenciesId);
                     SafeBox = _safeBoxApplication?.GetViewModel(agenciesId);
                 }
                 var command = new ExpenseCreate()
@@ -79,7 +73,6 @@ namespace ServiceHost.Areas.Admin.Pages.Expenses
                     Agencies = _agenciesApplication?.GetViewModel(),
                     Collections = _CollectionApplication?.GetViewModel(),
                     Date = DateTime.Now.ToFarsi(),
-                    Personnels = Personnel,
                     SafeBoxs = SafeBox,
                     Moneys = _moneyApplication?.GetViewModel()
                 };
@@ -171,12 +164,10 @@ namespace ServiceHost.Areas.Admin.Pages.Expenses
                 result.Collections = _CollectionApplication?.GetViewModel();
                 if (agenciesId != 0)
                 {
-                    result.Personnels = _personnelApplication?.GetViewModel(agenciesId);
                     result.SafeBoxs = _safeBoxApplication?.GetViewModel(agenciesId);
                 }
                 else
                 {
-                    result.Personnels = _personnelApplication?.GetViewModel();
                     result.SafeBoxs = _safeBoxApplication?.GetViewModel();
                 }
                 result.Moneys = _moneyApplication?.GetViewModel();
@@ -362,11 +353,6 @@ namespace ServiceHost.Areas.Admin.Pages.Expenses
             {
                 return Redirect("/Index");
             }
-        }
-        public IActionResult OnGetPersonne(int agenciesid)
-        {
-            var result = _personnelApplication?.GetViewModel(agenciesid);
-            return new JsonResult(result);
         }
         public IActionResult OnGetSafeBox(int agenciesid)
         {

@@ -1,4 +1,5 @@
 ﻿using _0_Framework.Domain;
+using Domin.ManagementPresonsDomin.LivelihoodDomin;
 using Domin.ManagementPresonsDomin.PersonsMoneyExchangeDomin;
 using Domin.ManagementPresonsDomin.PersonsReceiptDomin;
 
@@ -10,9 +11,11 @@ namespace Domin.MoneyDomin
         public string? Country { get; set; }
         public string? Symbol { get; set; }
         public List<PersonsReceipt>? PersonsReceipts { get; }
+        public List<Livelihood>? Livelihoods { get; }
         public Money() 
         {
             PersonsReceipts = new List<PersonsReceipt>();
+            Livelihoods = new List<Livelihood>();
         }
         public Money(string? name, string? country, string? symbol, int userid, int agenciesId)
         {

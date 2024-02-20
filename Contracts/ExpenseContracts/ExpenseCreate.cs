@@ -1,7 +1,6 @@
 ﻿using _0_Framework.Application;
 using Contracts.AgenciesContracts;
 using Contracts.MoneyContracts;
-using Contracts.PersonnelContracts;
 using Contracts.SafeBoxContracts;
 using Microsoft.AspNetCore.Http;
 using System.ComponentModel.DataAnnotations;
@@ -24,7 +23,6 @@ namespace Contracts.ExpenseContracts
         public int IdAgencies { get; set; }
         public List<AgenciesViewModel>? Agencies { get; set; }
         public List<CollectionViewModel>? Collections { get; set; }
-        public List<PersonnelViewModel>? Personnels { get; set; }
         public List<SafeBoxViewModel>? SafeBoxs { get; set; }
         public List<MoneyViewModel>? Moneys { get; set; }
     }

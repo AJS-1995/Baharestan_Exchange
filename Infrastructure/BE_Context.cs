@@ -3,11 +3,11 @@ using Domin.CompanyDomin;
 using Domin.DailyRateDomin;
 using Domin.ExchangeRateDomin;
 using Domin.ExpenseDomin;
+using Domin.ManagementPresonsDomin.LivelihoodDomin;
 using Domin.ManagementPresonsDomin.PersonsDomin;
 using Domin.ManagementPresonsDomin.PersonsMoneyExchangeDomin;
 using Domin.ManagementPresonsDomin.PersonsReceiptDomin;
 using Domin.MoneyDomin;
-using Domin.PersonnelDomin;
 using Domin.SafeBoxDomin;
 using Domin.UsersDomin;
 using Infrastructure.Mappings.UsersMapping;
@@ -22,17 +22,17 @@ namespace Infrastructure
         public DbSet<Company> Companies { get; set; }
         public DbSet<Agencies> Agenciess { get; set; }
         public DbSet<Money> Moneies { get; set; }
-        public DbSet<PersonsMoneyExchange> PersonsMoneyExchanges { get; set; }  
         public DbSet<Expense> Expensess { get; set; }
         public DbSet<Collection> Collectionss { get; set; }
         public DbSet<SafeBox> SafeBoxs { get; set; }
-        public DbSet<Personnel> Personnels { get; set; }
         public DbSet<ExchangeRate> ExchangeRates { get; set; }
         public DbSet<DailyRate> DailyRates { get; set; }
 
         // Persons
         public DbSet<Persons> Personss { get; set; }
         public DbSet<PersonsReceipt> PersonsReceipt { get; set; }
+        public DbSet<PersonsMoneyExchange> PersonsMoneyExchanges { get; set; }
+        public DbSet<Livelihood> Livelihoods { get; set; }
 
         public BE_Context(DbContextOptions<BE_Context> options) : base(options)
         {

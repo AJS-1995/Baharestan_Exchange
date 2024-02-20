@@ -13,6 +13,7 @@
             <thead class="table-Primary">
                 <tr>
                     <th class="text-center">#</th>
+                    <th class="text-center">وظیفه</th>
                     <th class="text-center">نام</th>
                     <th class="text-center">شماره تماس</th>
                     <th class="text-center">آدرس</th>
@@ -31,6 +32,14 @@
                 {
                     <tr>
                         <td class="text-center"></td>
+                        @if (@item.Personnel == true)
+                        {
+                            <td class="text-center">کارمند</td>
+                        }
+                        else
+                        {
+                            <td class="text-center">فرد</td>
+                        }
                         <td class="text-center">@item.Name</td>
                         <td class="text-center" dir="ltr">@item.Mobile</td>
                         <td class="text-center">@item.Address</td>

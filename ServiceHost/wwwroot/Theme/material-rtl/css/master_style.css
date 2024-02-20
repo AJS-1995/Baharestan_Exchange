@@ -16878,8 +16878,13 @@ input[type=number] {
     font-size: 22px;
 }
 .table tbody tr td {
-    height: 38px;
+    height: 35px;
 }
+
+.table thead tr th {
+    height: 42px;
+}
+
 .com_foter {
     display: flex;
     align-items: center;

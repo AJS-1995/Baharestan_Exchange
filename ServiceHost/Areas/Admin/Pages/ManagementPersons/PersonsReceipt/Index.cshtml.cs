@@ -56,9 +56,9 @@ namespace ServiceHost.Areas.Admin.Pages.PersonsReceipt
                 {
                     if (idAgencies == persons.AgenciesId)
                     {
-                        PersonsReceipt = _personsReceiptApplication?.GetViewModel(idAgencies).Where(x => x.PersonId == personsId).ToList();
-                        PersonsAccounting = _personsModels?.PersonsModelss()?.Where(x => x.PersonId == personsId).ToList();
-                        PersonsMoneyExchangeViewModels = _personsMoneyExchangeApplication?.GetViewModel(idAgencies)?.Where(x => x.PersonId == personsId).ToList();
+                        PersonsReceipt = _personsReceiptApplication?.GetViewModel(idAgencies).Where(x => x.PersonsId == personsId).ToList();
+                        PersonsAccounting = _personsModels?.PersonsModelss()?.Where(x => x.PersonsId == personsId).ToList();
+                        PersonsMoneyExchangeViewModels = _personsMoneyExchangeApplication?.GetViewModel(idAgencies)?.Where(x => x.PersonsId == personsId).ToList();
                         return Page();
                     }
                     else
@@ -68,9 +68,9 @@ namespace ServiceHost.Areas.Admin.Pages.PersonsReceipt
                 }
                 else
                 {
-                    PersonsReceipt = _personsReceiptApplication?.GetViewModel().Where(x => x.PersonId == personsId).ToList();
-                    PersonsAccounting = _personsModels?.PersonsModelss()?.Where(x => x.PersonId == personsId).ToList();
-                    PersonsMoneyExchangeViewModels = _personsMoneyExchangeApplication?.GetViewModel()?.Where(x => x.PersonId == personsId).ToList();
+                    PersonsReceipt = _personsReceiptApplication?.GetViewModel().Where(x => x.PersonsId == personsId).ToList();
+                    PersonsAccounting = _personsModels?.PersonsModelss()?.Where(x => x.PersonsId == personsId).ToList();
+                    PersonsMoneyExchangeViewModels = _personsMoneyExchangeApplication?.GetViewModel()?.Where(x => x.PersonsId == personsId).ToList();
                     return Page();
                 }
             }
@@ -94,7 +94,7 @@ namespace ServiceHost.Areas.Admin.Pages.PersonsReceipt
                     SafeBoxs = _safeBoxApplication?.GetViewModel(agenciesId),
                     PersonName = persons.Name,
                     AgenciesId = agenciesId,
-                    PersonId = personsId,
+                    PersonsId = personsId,
                 };
                 return Partial("./Create", command);
             }
@@ -120,8 +120,8 @@ namespace ServiceHost.Areas.Admin.Pages.PersonsReceipt
                     var commnd = new PersonsReceiptRemoved()
                     {
                         idAgencies = idAgencies,
-                        PersonsReceiptRemoveds = _personsReceiptApplication?.GetRemove(idAgencies).Where(x=> x.PersonId == personsId).ToList(),
-                        PersonId = personsId,
+                        PersonsReceiptRemoveds = _personsReceiptApplication?.GetRemove(idAgencies).Where(x=> x.PersonsId == personsId).ToList(),
+                        PersonsId = personsId,
                     };
                     return Partial("./Removed", commnd);
                 }
@@ -129,8 +129,8 @@ namespace ServiceHost.Areas.Admin.Pages.PersonsReceipt
                 {
                     var commnd = new PersonsReceiptRemoved()
                     {
-                        PersonsReceiptRemoveds = _personsReceiptApplication?.GetRemove().Where(x => x.PersonId == personsId).ToList(),
-                        PersonId = personsId,
+                        PersonsReceiptRemoveds = _personsReceiptApplication?.GetRemove().Where(x => x.PersonsId == personsId).ToList(),
+                        PersonsId = personsId,
                     };
                     return Partial("./Removed", commnd);
                 }
@@ -152,8 +152,8 @@ namespace ServiceHost.Areas.Admin.Pages.PersonsReceipt
                     var commnd = new PersonsReceiptRemoved()
                     {
                         idAgencies = idAgencies,
-                        PersonsReceiptRemoveds = _personsReceiptApplication?.GetInActive(idAgencies).Where(x => x.PersonId == personsId).ToList(),
-                        PersonId = personsId,
+                        PersonsReceiptRemoveds = _personsReceiptApplication?.GetInActive(idAgencies).Where(x => x.PersonsId == personsId).ToList(),
+                        PersonsId = personsId,
                     };
                     return Partial("./Actived", commnd);
                 }
@@ -161,8 +161,8 @@ namespace ServiceHost.Areas.Admin.Pages.PersonsReceipt
                 {
                     var commnd = new PersonsReceiptRemoved()
                     {
-                        PersonsReceiptRemoveds = _personsReceiptApplication?.GetInActive().Where(x => x.PersonId == personsId).ToList(),
-                        PersonId = personsId,
+                        PersonsReceiptRemoveds = _personsReceiptApplication?.GetInActive().Where(x => x.PersonsId == personsId).ToList(),
+                        PersonsId = personsId,
                     };
                     return Partial("./Actived", commnd);
                 }
@@ -178,7 +178,7 @@ namespace ServiceHost.Areas.Admin.Pages.PersonsReceipt
             if (permissionQueryModels?.EditGeneral == GeneralPermissions.EditGeneral || permissionQueryModels?.AdminGeneral == GeneralPermissions.AdminGeneral)
             {
                 var result = _personsReceiptApplication?.GetDetails(id);
-                var persons = _personsApplication?.GetDetails(result.PersonId);
+                var persons = _personsApplication?.GetDetails(result.PersonsId);
                 int agenciesId = persons.AgenciesId;
                 result.Moneys = _moneyApplication?.GetViewModel();
                 result.SafeBoxs = _safeBoxApplication?.GetViewModel(agenciesId);
@@ -232,7 +232,7 @@ namespace ServiceHost.Areas.Admin.Pages.PersonsReceipt
                     Date = PersonsReceipt?.Date,
                     UserName = PersonsReceipt?.UserName,
                     SaveDate = PersonsReceipt?.SaveDate,
-                    PersonId = PersonsReceipt.PersonId,
+                    PersonsId = PersonsReceipt.PersonsId,
                 };
                 return Partial("./Saved", commnd);
             }
@@ -264,7 +264,7 @@ namespace ServiceHost.Areas.Admin.Pages.PersonsReceipt
                         Photo = result.Fingerprint,
                         PersonsName = result.PersonName,
                         PhotoName = "نشان انگشت",
-                        PersonId = result.PersonId,
+                        PersonsId = result.PersonsId,
                     };
                 }
                 else
@@ -276,7 +276,7 @@ namespace ServiceHost.Areas.Admin.Pages.PersonsReceipt
                             Photo = result.Picture,
                             PersonsName = result.PersonName,
                             PhotoName = "عکس",
-                            PersonId = result.PersonId,
+                            PersonsId = result.PersonsId,
                         };
                     }
                 }

@@ -3,7 +3,7 @@
     ViewData["title"] = "ویرایش تبدیل اسعار";
 }
 <div class="modal-header">
-    <a class="btn btn-sm btn-icon btn-outline-warning" asp-page="/Admin/ManagementPersons/PersonsReceipt/Index" asp-route-personsId="@Model.PersonId"><i class="fa-solid fa-close fa-lg"></i></a>
+    <a class="btn btn-sm btn-icon btn-outline-warning" asp-page="/Admin/ManagementPersons/PersonsReceipt/Index" asp-route-personsId="@Model.PersonsId"><i class="fa-solid fa-close fa-lg"></i></a>
     <h4 class="modal-title">ویرایش تبدیل اسعار @Model.PersonName _ @Model.Date</h4>
 </div>
 
@@ -82,7 +82,7 @@
             </div>
         </div>
         <input type="hidden" id="Id" asp-for="Id" value="@Model.Id" />
-        <input type="hidden" id="PersonId" asp-for="PersonId" value="@Model.PersonId" />
+        <input type="hidden" id="PersonsId" asp-for="PersonsId" value="@Model.PersonsId" />
         <input type="hidden" id="AgenciesId" asp-for="AgenciesId" value="@Model.AgenciesId" />
         <div class="modal-footer">
             <button type="submit" class="btn btn-sm btn-icon btn-outline-success"><i class="fa-solid fa-save fa-lg"></i></button>

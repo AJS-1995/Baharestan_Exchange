@@ -18,14 +18,14 @@ namespace Infrastructure.Mappings.ManagementPresonsMapping
             builder.Property(x => x.Amount_Two);
             builder.Property(x => x.Price);
             builder.Property(x => x.Type);
-            builder.Property(x => x.PersonId);
+            builder.Property(x => x.PersonsId);
             builder.Property(x => x.SaveDate);
             builder.Property(x => x.Status);
             builder.Property(x => x.Deleted);
             builder.Property(x => x.UserId);
             builder.Property(x => x.AgenciesId);
 
-            builder.HasOne(x => x.Persons).WithMany(x => x.PersonsMoneyExchanges).HasForeignKey(x => x.PersonId);
+            builder.HasOne(x => x.Persons).WithMany(x => x.PersonsMoneyExchanges).HasForeignKey(x => x.PersonsId);
             builder.HasOne(x => x.Agenciess).WithMany(x => x.PersonsMoneyExchanges).HasForeignKey(x => x.AgenciesId);
         }
     }

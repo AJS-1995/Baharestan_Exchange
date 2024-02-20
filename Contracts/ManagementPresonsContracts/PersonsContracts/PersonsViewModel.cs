@@ -9,6 +9,7 @@
         public string? Company { get; set; }
         public string? Guarantor { get; set; }
         public string? GuarantorPhoto { get; set; }
+        public bool Personnel { get; set; }
         public int AgenciesId { get; set; }
         public int IdAgencies { get; set; }
         public string? AgenciesName { get; set; }

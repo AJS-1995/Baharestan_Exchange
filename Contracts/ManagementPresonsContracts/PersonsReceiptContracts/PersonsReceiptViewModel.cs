@@ -13,7 +13,7 @@
         public string? SafeBoxName { get; set; }
         public int MoneyId { get; set; }
         public string? MoneyName { get; set; }
-        public int PersonId { get; set; }
+        public int PersonsId { get; set; }
         public string? PersonName { get; set; }
         public string? Fingerprint { get; set; }
         public string? Picture { get; set; }

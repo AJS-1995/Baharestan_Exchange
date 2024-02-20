@@ -136,29 +136,6 @@ namespace Infrastructure.Migrations
                 });
 
             migrationBuilder.CreateTable(
-                name: "Tbl_Personnel",
-                columns: table => new
-                {
-                    Id = table.Column<int>(type: "int", nullable: false)
-                        .Annotation("SqlServer:Identity", "1, 1"),
-                    FullName = table.Column<string>(type: "nvarchar(100)", maxLength: 100, nullable: false),
-                    Fathers_Name = table.Column<string>(type: "nvarchar(100)", maxLength: 100, nullable: true),
-                    Mobile = table.Column<string>(type: "nvarchar(50)", maxLength: 50, nullable: true),
-                    Address = table.Column<string>(type: "nvarchar(500)", maxLength: 500, nullable: true),
-                    Cart_Id = table.Column<string>(type: "nvarchar(100)", maxLength: 100, nullable: true),
-                    Photo = table.Column<string>(type: "nvarchar(500)", maxLength: 500, nullable: true),
-                    SaveDate = table.Column<string>(type: "nvarchar(25)", maxLength: 25, nullable: true),
-                    Status = table.Column<bool>(type: "bit", nullable: false),
-                    Deleted = table.Column<bool>(type: "bit", nullable: false),
-                    UserId = table.Column<int>(type: "int", nullable: false),
-                    AgenciesId = table.Column<int>(type: "int", nullable: false)
-                },
-                constraints: table =>
-                {
-                    table.PrimaryKey("PK_Tbl_Personnel", x => x.Id);
-                });
-
-            migrationBuilder.CreateTable(
                 name: "Tbl_Roles",
                 columns: table => new
                 {
@@ -210,6 +187,7 @@ namespace Infrastructure.Migrations
                     Company = table.Column<string>(type: "nvarchar(100)", maxLength: 100, nullable: true),
                     Guarantor = table.Column<string>(type: "nvarchar(100)", maxLength: 100, nullable: true),
                     GuarantorPhoto = table.Column<string>(type: "nvarchar(500)", maxLength: 500, nullable: true),
+                    Personnel = table.Column<bool>(type: "bit", nullable: false),
                     SaveDate = table.Column<string>(type: "nvarchar(25)", maxLength: 25, nullable: true),
                     Status = table.Column<bool>(type: "bit", nullable: false),
                     Deleted = table.Column<bool>(type: "bit", nullable: false),
@@ -290,6 +268,47 @@ namespace Infrastructure.Migrations
                 });
 
             migrationBuilder.CreateTable(
+                name: "Tbl_Livelihoods",
+                columns: table => new
+                {
+                    Id = table.Column<int>(type: "int", nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1"),
+                    SDate = table.Column<string>(type: "nvarchar(25)", maxLength: 25, nullable: true),
+                    EDate = table.Column<string>(type: "nvarchar(25)", maxLength: 25, nullable: true),
+                    PersonsId = table.Column<int>(type: "int", nullable: false),
+                    Amount = table.Column<decimal>(type: "decimal(18,2)", nullable: false),
+                    Cancel = table.Column<bool>(type: "bit", nullable: false),
+                    MoneyId = table.Column<int>(type: "int", nullable: false),
+                    SaveDate = table.Column<string>(type: "nvarchar(25)", maxLength: 25, nullable: true),
+                    Status = table.Column<bool>(type: "bit", nullable: false),
+                    Deleted = table.Column<bool>(type: "bit", nullable: false),
+                    UserId = table.Column<int>(type: "int", nullable: false),
+                    AgenciesId = table.Column<int>(type: "int", nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_Tbl_Livelihoods", x => x.Id);
+                    table.ForeignKey(
+                        name: "FK_Tbl_Livelihoods_Tbl_Agencies_AgenciesId",
+                        column: x => x.AgenciesId,
+                        principalTable: "Tbl_Agencies",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Cascade);
+                    table.ForeignKey(
+                        name: "FK_Tbl_Livelihoods_Tbl_Moneys_MoneyId",
+                        column: x => x.MoneyId,
+                        principalTable: "Tbl_Moneys",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Cascade);
+                    table.ForeignKey(
+                        name: "FK_Tbl_Livelihoods_Tbl_Persons_PersonsId",
+                        column: x => x.PersonsId,
+                        principalTable: "Tbl_Persons",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.NoAction);
+                });
+
+            migrationBuilder.CreateTable(
                 name: "Tbl_PersonsMoneyExchanges",
                 columns: table => new
                 {
@@ -302,7 +321,7 @@ namespace Infrastructure.Migrations
                     Type = table.Column<bool>(type: "bit", nullable: false),
                     MoneyId_Two = table.Column<int>(type: "int", nullable: false),
                     Amount_Two = table.Column<decimal>(type: "decimal(18,2)", nullable: false),
-                    PersonId = table.Column<int>(type: "int", nullable: false),
+                    PersonsId = table.Column<int>(type: "int", nullable: false),
                     SaveDate = table.Column<string>(type: "nvarchar(max)", nullable: true),
                     Status = table.Column<bool>(type: "bit", nullable: false),
                     Deleted = table.Column<bool>(type: "bit", nullable: false),
@@ -319,8 +338,8 @@ namespace Infrastructure.Migrations
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Cascade);
                     table.ForeignKey(
-                        name: "FK_Tbl_PersonsMoneyExchanges_Tbl_Persons_PersonId",
-                        column: x => x.PersonId,
+                        name: "FK_Tbl_PersonsMoneyExchanges_Tbl_Persons_PersonsId",
+                        column: x => x.PersonsId,
                         principalTable: "Tbl_Persons",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.NoAction);
@@ -340,7 +359,7 @@ namespace Infrastructure.Migrations
                     Amount = table.Column<decimal>(type: "decimal(18,2)", nullable: false),
                     SafeBoxId = table.Column<int>(type: "int", nullable: false),
                     MoneyId = table.Column<int>(type: "int", nullable: false),
-                    PersonId = table.Column<int>(type: "int", nullable: false),
+                    PersonsId = table.Column<int>(type: "int", nullable: false),
                     Fingerprint = table.Column<string>(type: "nvarchar(500)", maxLength: 500, nullable: true),
                     Picture = table.Column<string>(type: "nvarchar(500)", maxLength: 500, nullable: true),
                     SaveDate = table.Column<string>(type: "nvarchar(25)", maxLength: 25, nullable: true),
@@ -365,8 +384,8 @@ namespace Infrastructure.Migrations
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Cascade);
                     table.ForeignKey(
-                        name: "FK_Tbl_PersonsReceipts_Tbl_Persons_PersonId",
-                        column: x => x.PersonId,
+                        name: "FK_Tbl_PersonsReceipts_Tbl_Persons_PersonsId",
+                        column: x => x.PersonsId,
                         principalTable: "Tbl_Persons",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.NoAction);
@@ -403,16 +422,16 @@ namespace Infrastructure.Migrations
                 columns: new[] { "Id", "AgenciesId", "Country", "Deleted", "Name", "SaveDate", "Status", "Symbol", "UserId" },
                 values: new object[,]
                 {
-                    { 1, 0, "افغانستان", false, "افغانی", "1402/11/25 - 22:49:43", true, "؋", 1 },
-                    { 2, 0, "ایالات متحده امریکا", false, "دالر", "1402/11/25 - 22:49:43", true, "$", 1 },
-                    { 3, 0, "ایران", false, "تومان", "1402/11/25 - 22:49:43", true, "IRR", 1 },
-                    { 4, 0, "پاکستان", false, "روپیه پاکستان", "1402/11/25 - 22:49:43", true, "₨", 1 },
-                    { 5, 0, "هندوستان", false, "روپیه هندی", "1402/11/25 - 22:49:43", true, "₹", 1 },
-                    { 6, 0, "اروپا", false, "یورو", "1402/11/25 - 22:49:43", true, "€", 1 },
-                    { 7, 0, "بریتانیا", false, "پوند", "1402/11/25 - 22:49:43", true, "£", 1 },
-                    { 8, 0, "چین", false, "یوآن", "1402/11/25 - 22:49:43", true, "¥", 1 },
-                    { 9, 0, "ترکیه", false, "لیره", "1402/11/25 - 22:49:43", true, "₺", 1 },
-                    { 10, 0, "روسیه", false, "روبل", "1402/11/25 - 22:49:43", true, "₽", 1 }
+                    { 1, 0, "افغانستان", false, "افغانی", "1402/12/01 - 05:03:49", true, "؋", 1 },
+                    { 2, 0, "ایالات متحده امریکا", false, "دالر", "1402/12/01 - 05:03:49", true, "$", 1 },
+                    { 3, 0, "ایران", false, "تومان", "1402/12/01 - 05:03:49", true, "IRR", 1 },
+                    { 4, 0, "پاکستان", false, "روپیه پاکستان", "1402/12/01 - 05:03:49", true, "₨", 1 },
+                    { 5, 0, "هندوستان", false, "روپیه هندی", "1402/12/01 - 05:03:49", true, "₹", 1 },
+                    { 6, 0, "اروپا", false, "یورو", "1402/12/01 - 05:03:49", true, "€", 1 },
+                    { 7, 0, "بریتانیا", false, "پوند", "1402/12/01 - 05:03:49", true, "£", 1 },
+                    { 8, 0, "چین", false, "یوآن", "1402/12/01 - 05:03:49", true, "¥", 1 },
+                    { 9, 0, "ترکیه", false, "لیره", "1402/12/01 - 05:03:49", true, "₺", 1 },
+                    { 10, 0, "روسیه", false, "روبل", "1402/12/01 - 05:03:49", true, "₽", 1 }
                 });
 
             migrationBuilder.InsertData(
@@ -420,15 +439,30 @@ namespace Infrastructure.Migrations
                 columns: new[] { "Id", "AgenciesId", "Cod", "Deleted", "Name", "NamePersian", "SaveDate", "Status", "UserId" },
                 values: new object[,]
                 {
-                    { 1, 0, 1, false, "Admin", "مدیر سیستم", "1402/11/25 - 22:49:43", true, 1 },
-                    { 2, 0, 1, false, "Accountant", "حسابدار", "1402/11/25 - 22:49:43", true, 1 },
-                    { 3, 0, 1, false, "Viewer", "بیننده", "1402/11/25 - 22:49:43", true, 1 }
+                    { 1, 0, 1, false, "Admin", "مدیر سیستم", "1402/12/01 - 05:03:49", true, 1 },
+                    { 2, 0, 1, false, "Accountant", "حسابدار", "1402/12/01 - 05:03:49", true, 1 },
+                    { 3, 0, 1, false, "Viewer", "بیننده", "1402/12/01 - 05:03:49", true, 1 }
                 });
 
             migrationBuilder.CreateIndex(
                 name: "IX_Tbl_Expenses_Collection_Id",
                 table: "Tbl_Expenses",
                 column: "Collection_Id");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_Tbl_Livelihoods_AgenciesId",
+                table: "Tbl_Livelihoods",
+                column: "AgenciesId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_Tbl_Livelihoods_MoneyId",
+                table: "Tbl_Livelihoods",
+                column: "MoneyId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_Tbl_Livelihoods_PersonsId",
+                table: "Tbl_Livelihoods",
+                column: "PersonsId");
 
             migrationBuilder.CreateIndex(
                 name: "IX_Tbl_Permissions_UserId",
@@ -446,9 +480,9 @@ namespace Infrastructure.Migrations
                 column: "AgenciesId");
 
             migrationBuilder.CreateIndex(
-                name: "IX_Tbl_PersonsMoneyExchanges_PersonId",
+                name: "IX_Tbl_PersonsMoneyExchanges_PersonsId",
                 table: "Tbl_PersonsMoneyExchanges",
-                column: "PersonId");
+                column: "PersonsId");
 
             migrationBuilder.CreateIndex(
                 name: "IX_Tbl_PersonsReceipts_AgenciesId",
@@ -461,9 +495,9 @@ namespace Infrastructure.Migrations
                 column: "MoneyId");
 
             migrationBuilder.CreateIndex(
-                name: "IX_Tbl_PersonsReceipts_PersonId",
+                name: "IX_Tbl_PersonsReceipts_PersonsId",
                 table: "Tbl_PersonsReceipts",
-                column: "PersonId");
+                column: "PersonsId");
 
             migrationBuilder.CreateIndex(
                 name: "IX_Tbl_PersonsReceipts_SafeBoxId",
@@ -498,10 +532,10 @@ namespace Infrastructure.Migrations
                 name: "Tbl_Expenses");
 
             migrationBuilder.DropTable(
-                name: "Tbl_Permissions");
+                name: "Tbl_Livelihoods");
 
             migrationBuilder.DropTable(
-                name: "Tbl_Personnel");
+                name: "Tbl_Permissions");
 
             migrationBuilder.DropTable(
                 name: "Tbl_PersonsMoneyExchanges");

@@ -298,13 +298,13 @@
                     data: postData,
                     success: function (date) {
                         if (date.length > 0) {
-                            $('#PersonId').empty();
+                            $('#PersonsId').empty();
                             var option = '';
                             option += '<option value="">افراد ...</option>';
                             for (var i = 0; i < date.length; i++) {
                                 option += '<option value="' + date[i].id + '">' + date[i].name + '</option>';
                             }
-                            $('#PersonId').append(option);
+                            $('#PersonsId').append(option);
                         }
                     },
                 });
@@ -630,10 +630,10 @@
     <script>
         function moneies(moneyId) {
             if (moneyId != "") {
-                var personId = document.getElementById('PersonId').value;
+                var PersonsId = document.getElementById('PersonsId').value;
                 var postData = {
                     'moneyId': moneyId,
-                    'personId': personId,
+                    'PersonsId': PersonsId,
                 };
                 $.ajax({
                     ccontentType: 'application/x-www-form-urlencoded',

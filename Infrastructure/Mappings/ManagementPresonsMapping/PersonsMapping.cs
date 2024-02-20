@@ -17,14 +17,15 @@ namespace Infrastructure.Mappings.ManagementPresonsMapping
             builder.Property(x => x.Company).HasMaxLength(100);
             builder.Property(x => x.Guarantor).HasMaxLength(100);
             builder.Property(x => x.GuarantorPhoto).HasMaxLength(500);
+            builder.Property(x => x.Personnel);
             builder.Property(x => x.SaveDate).HasMaxLength(25);
             builder.Property(x => x.Status);
             builder.Property(x => x.Deleted);
             builder.Property(x => x.UserId);
             builder.Property(x => x.AgenciesId);
 
-            builder.HasMany(x => x.PersonsReceipts).WithOne(x => x.Persons).HasForeignKey(x => x.PersonId);
-            builder.HasMany(x => x.PersonsMoneyExchanges).WithOne(x => x.Persons).HasForeignKey(x => x.PersonId);
+            builder.HasMany(x => x.PersonsReceipts).WithOne(x => x.Persons).HasForeignKey(x => x.PersonsId);
+            builder.HasMany(x => x.PersonsMoneyExchanges).WithOne(x => x.Persons).HasForeignKey(x => x.PersonsId);
             builder.HasOne(x => x.Agenciess).WithMany(x => x.Personss).HasForeignKey(x => x.AgenciesId);
         }
     }

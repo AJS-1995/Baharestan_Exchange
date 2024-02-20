@@ -1,0 +1,46 @@
+﻿@model Contracts.ManagementPresonsContracts.LivelihoodContracts.LivelihoodRemoved
+@using _0_Framework.Application;
+@{
+    ViewData["title"] = "لیست معاش کارمند غیرفعال شده";
+}
+<div class="modal-header">
+    <a class="btn btn-sm btn-icon btn-outline-warning" asp-page="/Admin/ManagementPersons/Livelihood/Index" asp-route-personsId="@Model.PersonsId"><i class="fa-solid fa-close fa-lg"></i></a>
+    <h4 class="modal-title">لیست معاش کارمند غیرفعال شده</h4>
+</div>
+
+<div class="modal-body">
+    <div class="table-responsive">
+        <table class="table table-bordered table-hover display nowrap margin-top-10 w-p100">
+            <thead class="table-Primary">
+                <tr>
+                    <th class="text-center">#</th>
+                    <th class="text-center">تاریخ</th>
+                    <th class="text-center">مقدار معاش</th>
+                    <th class="text-center">حالت</th>
+                    <th class="text-center">عملیات</th>
+                </tr>
+            </thead>
+            <tbody id="tbodyv">
+                @foreach (var item in Model.LivelihoodRemoveds)
+                {
+                    <tr>
+                        <td class="text-center"></td>
+                        <td class="text-center">@item.SDate - @item.EDate</td>
+                        <td class="text-center">@item.Amount.ToMoney() <sub>(@item.MoneyName)</sub></td>
+                        @if (item.Cancel == true)
+                        {
+                            <td class="text-center">غیرفعال</td>
+                        }
+                        else
+                        {
+                            <td class="text-center">فعال</td>
+                        }
+                        <td class="text-center">
+                            <a class="btn btn-sm btn-icon btn-outline-danger" title="فعال کردن" onclick="Active(@item.Id)"><i class="fa-solid fa-check fa-lg"></i></a>
+                        </td>
+                    </tr>
+                }
+            </tbody>
+        </table>
+    </div>
+</div>

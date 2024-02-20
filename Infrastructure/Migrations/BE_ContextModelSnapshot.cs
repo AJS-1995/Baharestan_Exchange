@@ -298,6 +298,61 @@ namespace Infrastructure.Migrations
                     b.ToTable("Tbl_Expenses", (string)null);
                 });
 
+            modelBuilder.Entity("Domin.ManagementPresonsDomin.LivelihoodDomin.Livelihood", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
+
+                    b.Property<int>("AgenciesId")
+                        .HasColumnType("int");
+
+                    b.Property<decimal>("Amount")
+                        .HasColumnType("decimal(18,2)");
+
+                    b.Property<bool>("Cancel")
+                        .HasColumnType("bit");
+
+                    b.Property<bool>("Deleted")
+                        .HasColumnType("bit");
+
+                    b.Property<string>("EDate")
+                        .HasMaxLength(25)
+                        .HasColumnType("nvarchar(25)");
+
+                    b.Property<int>("MoneyId")
+                        .HasColumnType("int");
+
+                    b.Property<int>("PersonsId")
+                        .HasColumnType("int");
+
+                    b.Property<string>("SDate")
+                        .HasMaxLength(25)
+                        .HasColumnType("nvarchar(25)");
+
+                    b.Property<string>("SaveDate")
+                        .HasMaxLength(25)
+                        .HasColumnType("nvarchar(25)");
+
+                    b.Property<bool>("Status")
+                        .HasColumnType("bit");
+
+                    b.Property<int>("UserId")
+                        .HasColumnType("int");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("AgenciesId");
+
+                    b.HasIndex("MoneyId");
+
+                    b.HasIndex("PersonsId");
+
+                    b.ToTable("Tbl_Livelihoods", (string)null);
+                });
+
             modelBuilder.Entity("Domin.ManagementPresonsDomin.PersonsDomin.Persons", b =>
                 {
                     b.Property<int>("Id")
@@ -336,6 +391,9 @@ namespace Infrastructure.Migrations
                         .IsRequired()
                         .HasMaxLength(100)
                         .HasColumnType("nvarchar(100)");
+
+                    b.Property<bool>("Personnel")
+                        .HasColumnType("bit");
 
                     b.Property<string>("SaveDate")
                         .HasMaxLength(25)
@@ -383,7 +441,7 @@ namespace Infrastructure.Migrations
                     b.Property<int>("MoneyId_Two")
                         .HasColumnType("int");
 
-                    b.Property<int>("PersonId")
+                    b.Property<int>("PersonsId")
                         .HasColumnType("int");
 
                     b.Property<decimal>("Price")
@@ -405,7 +463,7 @@ namespace Infrastructure.Migrations
 
                     b.HasIndex("AgenciesId");
 
-                    b.HasIndex("PersonId");
+                    b.HasIndex("PersonsId");
 
                     b.ToTable("Tbl_PersonsMoneyExchanges", (string)null);
                 });
@@ -446,7 +504,7 @@ namespace Infrastructure.Migrations
                     b.Property<int>("MoneyId")
                         .HasColumnType("int");
 
-                    b.Property<int>("PersonId")
+                    b.Property<int>("PersonsId")
                         .HasColumnType("int");
 
                     b.Property<string>("Picture")
@@ -478,7 +536,7 @@ namespace Infrastructure.Migrations
 
                     b.HasIndex("MoneyId");
 
-                    b.HasIndex("PersonId");
+                    b.HasIndex("PersonsId");
 
                     b.HasIndex("SafeBoxId");
 
@@ -534,7 +592,7 @@ namespace Infrastructure.Migrations
                             Country = "افغانستان",
                             Deleted = false,
                             Name = "افغانی",
-                            SaveDate = "1402/11/25 - 22:49:43",
+                            SaveDate = "1402/12/01 - 05:03:49",
                             Status = true,
                             Symbol = "؋",
                             UserId = 1
@@ -546,7 +604,7 @@ namespace Infrastructure.Migrations
                             Country = "ایالات متحده امریکا",
                             Deleted = false,
                             Name = "دالر",
-                            SaveDate = "1402/11/25 - 22:49:43",
+                            SaveDate = "1402/12/01 - 05:03:49",
                             Status = true,
                             Symbol = "$",
                             UserId = 1
@@ -558,7 +616,7 @@ namespace Infrastructure.Migrations
                             Country = "ایران",
                             Deleted = false,
                             Name = "تومان",
-                            SaveDate = "1402/11/25 - 22:49:43",
+                            SaveDate = "1402/12/01 - 05:03:49",
                             Status = true,
                             Symbol = "IRR",
                             UserId = 1
@@ -570,7 +628,7 @@ namespace Infrastructure.Migrations
                             Country = "پاکستان",
                             Deleted = false,
                             Name = "روپیه پاکستان",
-                            SaveDate = "1402/11/25 - 22:49:43",
+                            SaveDate = "1402/12/01 - 05:03:49",
                             Status = true,
                             Symbol = "₨",
                             UserId = 1
@@ -582,7 +640,7 @@ namespace Infrastructure.Migrations
                             Country = "هندوستان",
                             Deleted = false,
                             Name = "روپیه هندی",
-                            SaveDate = "1402/11/25 - 22:49:43",
+                            SaveDate = "1402/12/01 - 05:03:49",
                             Status = true,
                             Symbol = "₹",
                             UserId = 1
@@ -594,7 +652,7 @@ namespace Infrastructure.Migrations
                             Country = "اروپا",
                             Deleted = false,
                             Name = "یورو",
-                            SaveDate = "1402/11/25 - 22:49:43",
+                            SaveDate = "1402/12/01 - 05:03:49",
                             Status = true,
                             Symbol = "€",
                             UserId = 1
@@ -606,7 +664,7 @@ namespace Infrastructure.Migrations
                             Country = "بریتانیا",
                             Deleted = false,
                             Name = "پوند",
-                            SaveDate = "1402/11/25 - 22:49:43",
+                            SaveDate = "1402/12/01 - 05:03:49",
                             Status = true,
                             Symbol = "£",
                             UserId = 1
@@ -618,7 +676,7 @@ namespace Infrastructure.Migrations
                             Country = "چین",
                             Deleted = false,
                             Name = "یوآن",
-                            SaveDate = "1402/11/25 - 22:49:43",
+                            SaveDate = "1402/12/01 - 05:03:49",
                             Status = true,
                             Symbol = "¥",
                             UserId = 1
@@ -630,7 +688,7 @@ namespace Infrastructure.Migrations
                             Country = "ترکیه",
                             Deleted = false,
                             Name = "لیره",
-                            SaveDate = "1402/11/25 - 22:49:43",
+                            SaveDate = "1402/12/01 - 05:03:49",
                             Status = true,
                             Symbol = "₺",
                             UserId = 1
@@ -642,65 +700,11 @@ namespace Infrastructure.Migrations
                             Country = "روسیه",
                             Deleted = false,
                             Name = "روبل",
-                            SaveDate = "1402/11/25 - 22:49:43",
+                            SaveDate = "1402/12/01 - 05:03:49",
                             Status = true,
                             Symbol = "₽",
                             UserId = 1
                         });
-                });
-
-            modelBuilder.Entity("Domin.PersonnelDomin.Personnel", b =>
-                {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int");
-
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
-
-                    b.Property<string>("Address")
-                        .HasMaxLength(500)
-                        .HasColumnType("nvarchar(500)");
-
-                    b.Property<int>("AgenciesId")
-                        .HasColumnType("int");
-
-                    b.Property<string>("Cart_Id")
-                        .HasMaxLength(100)
-                        .HasColumnType("nvarchar(100)");
-
-                    b.Property<bool>("Deleted")
-                        .HasColumnType("bit");
-
-                    b.Property<string>("Fathers_Name")
-                        .HasMaxLength(100)
-                        .HasColumnType("nvarchar(100)");
-
-                    b.Property<string>("FullName")
-                        .IsRequired()
-                        .HasMaxLength(100)
-                        .HasColumnType("nvarchar(100)");
-
-                    b.Property<string>("Mobile")
-                        .HasMaxLength(50)
-                        .HasColumnType("nvarchar(50)");
-
-                    b.Property<string>("Photo")
-                        .HasMaxLength(500)
-                        .HasColumnType("nvarchar(500)");
-
-                    b.Property<string>("SaveDate")
-                        .HasMaxLength(25)
-                        .HasColumnType("nvarchar(25)");
-
-                    b.Property<bool>("Status")
-                        .HasColumnType("bit");
-
-                    b.Property<int>("UserId")
-                        .HasColumnType("int");
-
-                    b.HasKey("Id");
-
-                    b.ToTable("Tbl_Personnel", (string)null);
                 });
 
             modelBuilder.Entity("Domin.SafeBoxDomin.SafeBox", b =>
@@ -794,7 +798,7 @@ namespace Infrastructure.Migrations
                             Deleted = false,
                             Name = "Admin",
                             NamePersian = "مدیر سیستم",
-                            SaveDate = "1402/11/25 - 22:49:43",
+                            SaveDate = "1402/12/01 - 05:03:49",
                             Status = true,
                             UserId = 1
                         },
@@ -806,7 +810,7 @@ namespace Infrastructure.Migrations
                             Deleted = false,
                             Name = "Accountant",
                             NamePersian = "حسابدار",
-                            SaveDate = "1402/11/25 - 22:49:43",
+                            SaveDate = "1402/12/01 - 05:03:49",
                             Status = true,
                             UserId = 1
                         },
@@ -818,7 +822,7 @@ namespace Infrastructure.Migrations
                             Deleted = false,
                             Name = "Viewer",
                             NamePersian = "بیننده",
-                            SaveDate = "1402/11/25 - 22:49:43",
+                            SaveDate = "1402/12/01 - 05:03:49",
                             Status = true,
                             UserId = 1
                         });
@@ -902,6 +906,33 @@ namespace Infrastructure.Migrations
                     b.Navigation("Collection");
                 });
 
+            modelBuilder.Entity("Domin.ManagementPresonsDomin.LivelihoodDomin.Livelihood", b =>
+                {
+                    b.HasOne("Domin.AgenciesDomin.Agencies", "Agenciess")
+                        .WithMany("Livelihoods")
+                        .HasForeignKey("AgenciesId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("Domin.MoneyDomin.Money", "Moneys")
+                        .WithMany("Livelihoods")
+                        .HasForeignKey("MoneyId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("Domin.ManagementPresonsDomin.PersonsDomin.Persons", "Persons")
+                        .WithMany("Livelihoods")
+                        .HasForeignKey("PersonsId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("Agenciess");
+
+                    b.Navigation("Moneys");
+
+                    b.Navigation("Persons");
+                });
+
             modelBuilder.Entity("Domin.ManagementPresonsDomin.PersonsDomin.Persons", b =>
                 {
                     b.HasOne("Domin.AgenciesDomin.Agencies", "Agenciess")
@@ -923,7 +954,7 @@ namespace Infrastructure.Migrations
 
                     b.HasOne("Domin.ManagementPresonsDomin.PersonsDomin.Persons", "Persons")
                         .WithMany("PersonsMoneyExchanges")
-                        .HasForeignKey("PersonId")
+                        .HasForeignKey("PersonsId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
@@ -948,7 +979,7 @@ namespace Infrastructure.Migrations
 
                     b.HasOne("Domin.ManagementPresonsDomin.PersonsDomin.Persons", "Persons")
                         .WithMany("PersonsReceipts")
-                        .HasForeignKey("PersonId")
+                        .HasForeignKey("PersonsId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
@@ -1008,6 +1039,8 @@ namespace Infrastructure.Migrations
 
             modelBuilder.Entity("Domin.AgenciesDomin.Agencies", b =>
                 {
+                    b.Navigation("Livelihoods");
+
                     b.Navigation("PersonsMoneyExchanges");
 
                     b.Navigation("PersonsReceipts");
@@ -1022,6 +1055,8 @@ namespace Infrastructure.Migrations
 
             modelBuilder.Entity("Domin.ManagementPresonsDomin.PersonsDomin.Persons", b =>
                 {
+                    b.Navigation("Livelihoods");
+
                     b.Navigation("PersonsMoneyExchanges");
 
                     b.Navigation("PersonsReceipts");
@@ -1029,6 +1064,8 @@ namespace Infrastructure.Migrations
 
             modelBuilder.Entity("Domin.MoneyDomin.Money", b =>
                 {
+                    b.Navigation("Livelihoods");
+
                     b.Navigation("PersonsReceipts");
                 });
 

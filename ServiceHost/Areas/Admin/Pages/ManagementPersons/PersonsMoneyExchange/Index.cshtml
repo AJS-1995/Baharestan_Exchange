@@ -12,10 +12,10 @@
     <script>
         function moneies(moneyId) {
             if (moneyId != "") {
-                var personId = document.getElementById('PersonId').value;
+                var PersonsId = document.getElementById('PersonsId').value;
                 var postData = {
                     'moneyId': moneyId,
-                    'personId': personId,
+                    'PersonsId': PersonsId,
                 };
                 $.ajax({
                     ccontentType: 'application/x-www-form-urlencoded',

@@ -25,7 +25,7 @@ namespace Contracts.ManagementPresonsContracts.PersonsReceiptContracts
         [Required(ErrorMessage = ValidationMessages.IsRequired)]
         public int MoneyId { get; set; }
         [Required(ErrorMessage = ValidationMessages.IsRequired)]
-        public int PersonId { get; set; }
+        public int PersonsId { get; set; }
         public string? PersonName { get; set; }
         public IFormFile? Fingerprint { get; set; }
         public IFormFile? Picture { get; set; }

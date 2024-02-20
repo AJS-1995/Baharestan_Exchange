@@ -16,7 +16,7 @@ namespace Contracts.ManagementPresonsContracts.PersonsMoneyExchangeContracts
         public bool Type { get; set; }
         public int MoneyId_Two { get; set; }
         public decimal Amount_Two { get; set; }
-        public int PersonId { get; set; }
+        public int PersonsId { get; set; }
         public int AgenciesId { get; set; }
         public int IdAgencies { get; set; }
         public List<MoneyViewModel>? Moneys { get; set; }

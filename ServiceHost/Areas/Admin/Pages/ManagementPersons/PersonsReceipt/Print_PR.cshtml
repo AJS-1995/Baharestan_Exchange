@@ -30,7 +30,7 @@
         }
     </div>
     <h5 class="text-center mt-10">چک رسید و برد _ @Model.receiptEdit?.PersonName</h5>
-    <input type="hidden" id="PersonId" value="@Model.receiptEdit.PersonId" />
+    <input type="hidden" id="PersonsId" value="@Model.receiptEdit.PersonsId" />
     <div class="row">
         <table class="table">
             <tbody>
@@ -83,8 +83,8 @@
             window.print();
 
             onafterprint = function () {
-                var PersonId = document.getElementById("PersonId").value;
-                window.location.href = "/Admin/ManagementPersons/PersonsReceipt/" + PersonId;
+                var PersonsId = document.getElementById("PersonsId").value;
+                window.location.href = "/Admin/ManagementPersons/PersonsReceipt/" + PersonsId;
             }
         }
     </script>

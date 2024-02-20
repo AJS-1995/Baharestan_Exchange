@@ -49,7 +49,7 @@ namespace ServiceHost.Areas.Admin.Pages.ManagementPersons.PersonsMoneyExchange
                     Date = DateTime.Now.ToFarsiFull(),
                     Moneys = _moneyApplication?.GetViewModel(),
                     AgenciesId = agenciesId,
-                    PersonId = personsId,
+                    PersonsId = personsId,
                 };
                 return Partial("./Create", command);
             }
@@ -63,9 +63,9 @@ namespace ServiceHost.Areas.Admin.Pages.ManagementPersons.PersonsMoneyExchange
             var result = _personsMoneyExchangeApplication?.Create(command);
             return new JsonResult(result);
         }
-        public IActionResult OnGetMoney(int moneyId, int personId)
+        public IActionResult OnGetMoney(int moneyId, int PersonsId)
         {
-            var rest = _personsModels.PersonsModelss()?.Where(x => x.PersonId == personId && x.MoneyId == moneyId).ToList();
+            var rest = _personsModels.PersonsModelss()?.Where(x => x.PersonsId == PersonsId && x.MoneyId == moneyId).ToList();
             decimal result = 0;
             if (rest?.Count != 0)
             {
@@ -79,7 +79,7 @@ namespace ServiceHost.Areas.Admin.Pages.ManagementPersons.PersonsMoneyExchange
             if (permissionQueryModels?.EditGeneral == GeneralPermissions.EditGeneral || permissionQueryModels?.AdminGeneral == GeneralPermissions.AdminGeneral)
             {
                 var result = _personsMoneyExchangeApplication?.GetDetails(id);
-                var persons = _personsApplication?.GetDetails(result.PersonId);
+                var persons = _personsApplication?.GetDetails(result.PersonsId);
                 int agenciesId = persons.AgenciesId;
                 result.Moneys = _moneyApplication?.GetViewModel();
                 result.IdAgencies = agenciesId;
@@ -133,7 +133,7 @@ namespace ServiceHost.Areas.Admin.Pages.ManagementPersons.PersonsMoneyExchange
                     Date = PersonsMoneyExchange?.Date,
                     UserName = PersonsMoneyExchange?.UserName,
                     SaveDate = PersonsMoneyExchange?.SaveDate,
-                    PersonId = PersonsMoneyExchange.PersonId,
+                    PersonsId = PersonsMoneyExchange.PersonsId,
                     PersonName = PersonsMoneyExchange.PersonName,
                 };
                 return Partial("./Saved", commnd);
@@ -155,8 +155,8 @@ namespace ServiceHost.Areas.Admin.Pages.ManagementPersons.PersonsMoneyExchange
                     var commnd = new PersonsMoneyExchangeRemoved()
                     {
                         idAgencies = idAgencies,
-                        PersonsMoneyExchangeRemoveds = _personsMoneyExchangeApplication?.GetRemove(idAgencies).Where(x => x.PersonId == personsId).ToList(),
-                        PersonId = personsId,
+                        PersonsMoneyExchangeRemoveds = _personsMoneyExchangeApplication?.GetRemove(idAgencies).Where(x => x.PersonsId == personsId).ToList(),
+                        PersonsId = personsId,
                     };
                     return Partial("./Removed", commnd);
                 }
@@ -164,8 +164,8 @@ namespace ServiceHost.Areas.Admin.Pages.ManagementPersons.PersonsMoneyExchange
                 {
                     var commnd = new PersonsMoneyExchangeRemoved()
                     {
-                        PersonsMoneyExchangeRemoveds = _personsMoneyExchangeApplication?.GetRemove().Where(x => x.PersonId == personsId).ToList(),
-                        PersonId = personsId,
+                        PersonsMoneyExchangeRemoveds = _personsMoneyExchangeApplication?.GetRemove().Where(x => x.PersonsId == personsId).ToList(),
+                        PersonsId = personsId,
                     };
                     return Partial("./Removed", commnd);
                 }
@@ -187,8 +187,8 @@ namespace ServiceHost.Areas.Admin.Pages.ManagementPersons.PersonsMoneyExchange
                     var commnd = new PersonsMoneyExchangeRemoved()
                     {
                         idAgencies = idAgencies,
-                        PersonsMoneyExchangeRemoveds = _personsMoneyExchangeApplication?.GetInActive(idAgencies).Where(x => x.PersonId == personsId).ToList(),
-                        PersonId = personsId,
+                        PersonsMoneyExchangeRemoveds = _personsMoneyExchangeApplication?.GetInActive(idAgencies).Where(x => x.PersonsId == personsId).ToList(),
+                        PersonsId = personsId,
                     };
                     return Partial("./Actived", commnd);
                 }
@@ -196,8 +196,8 @@ namespace ServiceHost.Areas.Admin.Pages.ManagementPersons.PersonsMoneyExchange
                 {
                     var commnd = new PersonsMoneyExchangeRemoved()
                     {
-                        PersonsMoneyExchangeRemoveds = _personsMoneyExchangeApplication?.GetInActive().Where(x => x.PersonId == personsId).ToList(),
-                        PersonId = personsId,
+                        PersonsMoneyExchangeRemoveds = _personsMoneyExchangeApplication?.GetInActive().Where(x => x.PersonsId == personsId).ToList(),
+                        PersonsId = personsId,
                     };
                     return Partial("./Actived", commnd);
                 }

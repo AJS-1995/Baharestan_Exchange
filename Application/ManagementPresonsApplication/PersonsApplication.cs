@@ -46,7 +46,7 @@ namespace Application.ManagementPresonsApplication
             if (picturePath == "no")
                 return operation.Failed(ApplicationMessages.PhotoFormat);
 
-            var result = new Persons(command.Name, command.Mobile, command.Address, command.Company, command.Guarantor, picturePath, userid, agenciesId);
+            var result = new Persons(command.Name, command.Mobile, command.Address, command.Company, command.Guarantor, picturePath, command.Personnel, userid, agenciesId);
             _personsRepository.Create(result);
             _personsRepository.SaveChanges();
             return operation.Succedded();
@@ -96,7 +96,7 @@ namespace Application.ManagementPresonsApplication
             if (picturePath == "no")
                 return operation.Failed(ApplicationMessages.PhotoFormat);
 
-            result.Edit(command.Name, command.Mobile, command.Address, command.Company, command.Guarantor, picturePath, userid, agenciesId);
+            result.Edit(command.Name, command.Mobile, command.Address, command.Company, command.Guarantor, picturePath, command.Personnel, userid, agenciesId);
             _personsRepository.SaveChanges();
             return operation.Succedded();
         }

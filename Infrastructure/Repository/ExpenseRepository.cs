@@ -32,7 +32,6 @@ namespace Infrastructure.Repository
         public List<ExpenseViewModel> GetInActive()
         {
             var users = _context.Users.Select(x => new { x.Id, x.FullName, x.UserName }).ToList();
-            var personnel = _context.Personnels.Select(x => new { x.Id, x.FullName }).ToList();
             var moneys = _context.Moneies.Select(x => new { x.Id, x.Symbol }).ToList();
             var safeBox = _context.SafeBoxs.Select(x => new { x.Id, x.Name }).ToList();
             var agencies = _context.Agenciess.Select(x => new { x.Id, x.Name }).ToList();
@@ -57,7 +56,6 @@ namespace Infrastructure.Repository
             });
             var result = query.OrderByDescending(x => x.Id).ToList();
             result.ForEach(item => item.UserName = (users.FirstOrDefault(x => x.Id == item.UserId)?.FullName) + " - " + users.FirstOrDefault(x => x.Id == item.UserId)?.UserName);
-            result.ForEach(item => item.PersonnelName = personnel.FirstOrDefault(x => x.Id == item.PersonnelId)?.FullName);
             result.ForEach(item => item.MoneyName = moneys.FirstOrDefault(x => x.Id == item.MoneyId)?.Symbol);
             result.ForEach(item => item.SafeBoxName = safeBox.FirstOrDefault(x => x.Id == item.SafeBoxId)?.Name);
             result.ForEach(item => item.AgenciesName = agencies.FirstOrDefault(x => x.Id == item.AgenciesId)?.Name);
@@ -66,7 +64,6 @@ namespace Infrastructure.Repository
         public List<ExpenseViewModel> GetInActive(int agenciesId)
         {
             var users = _context.Users.Select(x => new { x.Id, x.FullName, x.UserName }).ToList();
-            var personnel = _context.Personnels.Select(x => new { x.Id, x.FullName }).ToList();
             var moneys = _context.Moneies.Select(x => new { x.Id, x.Symbol }).ToList();
             var safeBox = _context.SafeBoxs.Select(x => new { x.Id, x.Name }).ToList();
             var agencies = _context.Agenciess.Select(x => new { x.Id, x.Name }).ToList();
@@ -91,7 +88,6 @@ namespace Infrastructure.Repository
             });
             var result = query.OrderByDescending(x => x.Id).ToList();
             result.ForEach(item => item.UserName = (users.FirstOrDefault(x => x.Id == item.UserId)?.FullName) + " - " + users.FirstOrDefault(x => x.Id == item.UserId)?.UserName);
-            result.ForEach(item => item.PersonnelName = personnel.FirstOrDefault(x => x.Id == item.PersonnelId)?.FullName);
             result.ForEach(item => item.MoneyName = moneys.FirstOrDefault(x => x.Id == item.MoneyId)?.Symbol);
             result.ForEach(item => item.SafeBoxName = safeBox.FirstOrDefault(x => x.Id == item.SafeBoxId)?.Name);
             result.ForEach(item => item.AgenciesName = agencies.FirstOrDefault(x => x.Id == item.AgenciesId)?.Name);
@@ -100,7 +96,6 @@ namespace Infrastructure.Repository
         public List<ExpenseViewModel> GetRemove()
         {
             var users = _context.Users.Select(x => new { x.Id, x.FullName, x.UserName }).ToList();
-            var personnel = _context.Personnels.Select(x => new { x.Id, x.FullName }).ToList();
             var moneys = _context.Moneies.Select(x => new { x.Id, x.Symbol }).ToList();
             var safeBox = _context.SafeBoxs.Select(x => new { x.Id, x.Name }).ToList();
             var agencies = _context.Agenciess.Select(x => new { x.Id, x.Name }).ToList();
@@ -125,7 +120,6 @@ namespace Infrastructure.Repository
             });
             var result = query.OrderByDescending(x => x.Id).ToList();
             result.ForEach(item => item.UserName = (users.FirstOrDefault(x => x.Id == item.UserId)?.FullName) + " - " + users.FirstOrDefault(x => x.Id == item.UserId)?.UserName);
-            result.ForEach(item => item.PersonnelName = personnel.FirstOrDefault(x => x.Id == item.PersonnelId)?.FullName);
             result.ForEach(item => item.MoneyName = moneys.FirstOrDefault(x => x.Id == item.MoneyId)?.Symbol);
             result.ForEach(item => item.SafeBoxName = safeBox.FirstOrDefault(x => x.Id == item.SafeBoxId)?.Name);
             result.ForEach(item => item.AgenciesName = agencies.FirstOrDefault(x => x.Id == item.AgenciesId)?.Name);
@@ -134,7 +128,6 @@ namespace Infrastructure.Repository
         public List<ExpenseViewModel> GetRemove(int agenciesId)
         {
             var users = _context.Users.Select(x => new { x.Id, x.FullName, x.UserName }).ToList();
-            var personnel = _context.Personnels.Select(x => new { x.Id, x.FullName }).ToList();
             var moneys = _context.Moneies.Select(x => new { x.Id, x.Symbol }).ToList();
             var safeBox = _context.SafeBoxs.Select(x => new { x.Id, x.Name }).ToList();
             var agencies = _context.Agenciess.Select(x => new { x.Id, x.Name }).ToList();
@@ -159,7 +152,6 @@ namespace Infrastructure.Repository
             });
             var result = query.OrderByDescending(x => x.Id).ToList();
             result.ForEach(item => item.UserName = (users.FirstOrDefault(x => x.Id == item.UserId)?.FullName) + " - " + users.FirstOrDefault(x => x.Id == item.UserId)?.UserName);
-            result.ForEach(item => item.PersonnelName = personnel.FirstOrDefault(x => x.Id == item.PersonnelId)?.FullName);
             result.ForEach(item => item.MoneyName = moneys.FirstOrDefault(x => x.Id == item.MoneyId)?.Symbol);
             result.ForEach(item => item.SafeBoxName = safeBox.FirstOrDefault(x => x.Id == item.SafeBoxId)?.Name);
             result.ForEach(item => item.AgenciesName = agencies.FirstOrDefault(x => x.Id == item.AgenciesId)?.Name);
@@ -168,7 +160,6 @@ namespace Infrastructure.Repository
         public List<ExpenseViewModel> GetViewModel()
         {
             var users = _context.Users.Select(x => new { x.Id, x.FullName, x.UserName }).ToList();
-            var personnel = _context.Personnels.Select(x => new { x.Id, x.FullName }).ToList();
             var moneys = _context.Moneies.Select(x => new { x.Id, x.Symbol }).ToList();
             var safeBox = _context.SafeBoxs.Select(x => new { x.Id, x.Name }).ToList();
             var agencies = _context.Agenciess.Select(x => new { x.Id, x.Name }).ToList();
@@ -193,7 +184,6 @@ namespace Infrastructure.Repository
             });
             var result = query.OrderByDescending(x => x.Id).ToList();
             result.ForEach(item => item.UserName = (users.FirstOrDefault(x => x.Id == item.UserId)?.FullName) + " - " + users.FirstOrDefault(x => x.Id == item.UserId)?.UserName);
-            result.ForEach(item => item.PersonnelName = personnel.FirstOrDefault(x => x.Id == item.PersonnelId)?.FullName);
             result.ForEach(item => item.MoneyName = moneys.FirstOrDefault(x => x.Id == item.MoneyId)?.Symbol);
             result.ForEach(item => item.SafeBoxName = safeBox.FirstOrDefault(x => x.Id == item.SafeBoxId)?.Name);
             result.ForEach(item => item.AgenciesName = agencies.FirstOrDefault(x => x.Id == item.AgenciesId)?.Name);
@@ -202,7 +192,6 @@ namespace Infrastructure.Repository
         public List<ExpenseViewModel> GetViewModel(int agenciesId)
         {
             var users = _context.Users.Select(x => new { x.Id, x.FullName, x.UserName }).ToList();
-            var personnel = _context.Personnels.Select(x => new { x.Id, x.FullName }).ToList();
             var moneys = _context.Moneies.Select(x => new { x.Id, x.Symbol }).ToList();
             var safeBox = _context.SafeBoxs.Select(x => new { x.Id, x.Name }).ToList();
             var agencies = _context.Agenciess.Select(x => new { x.Id, x.Name }).ToList();
@@ -227,7 +216,6 @@ namespace Infrastructure.Repository
             });
             var result = query.OrderByDescending(x => x.Id).ToList();
             result.ForEach(item => item.UserName = (users.FirstOrDefault(x => x.Id == item.UserId)?.FullName) + " - " + users.FirstOrDefault(x => x.Id == item.UserId)?.UserName);
-            result.ForEach(item => item.PersonnelName = personnel.FirstOrDefault(x => x.Id == item.PersonnelId)?.FullName);
             result.ForEach(item => item.MoneyName = moneys.FirstOrDefault(x => x.Id == item.MoneyId)?.Symbol);
             result.ForEach(item => item.SafeBoxName = safeBox.FirstOrDefault(x => x.Id == item.SafeBoxId)?.Name);
             result.ForEach(item => item.AgenciesName = agencies.FirstOrDefault(x => x.Id == item.AgenciesId)?.Name);

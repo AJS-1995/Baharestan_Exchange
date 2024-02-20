@@ -49,6 +49,7 @@
                             <table id="example" class="table table-bordered table-hover display nowrap margin-top-10 w-p100 js-serial">
                                 <thead class="table-Primary">
                                     <tr>
+                                        <th class="text-center">وظیفه</th>
                                         <th class="text-center">نام</th>
                                         <th class="text-center">شماره تماس</th>
                                         <th class="text-center">آدرس</th>
@@ -66,6 +67,14 @@
                                     @foreach (var item in Model.Persons)
                                     {
                                         <tr>
+                                            @if (@item.Personnel == true)
+                                            {
+                                                <td class="text-center">کارمند</td>
+                                            }
+                                            else
+                                            {
+                                                <td class="text-center">فرد</td>
+                                            }
                                             <td class="text-center">@item.Name</td>
                                             <td class="text-center" dir="ltr">@item.Mobile</td>
                                             <td class="text-center">@item.Address</td>
@@ -100,6 +109,10 @@
                                                         <i class="fa-solid fa-ellipsis fa-lg"></i>
                                                     </button>
                                                     <ul class="dropdown-menu dropdown-menu-dark">
+                                                        @if (@item.Personnel == true)
+                                                        {
+                                                            <li><a class="dropdown-item" title="معاشات" asp-page="/ManagementPersons/Livelihood/Index" asp-route-personsId="@item.Id">معاشات</a></li>
+                                                        }
                                                         <li><a class="dropdown-item" title="حسابات" asp-page="/ManagementPersons/PersonsReceipt/Index" asp-route-personsId="@item.Id">حسابات</a></li>
                                                         <li><hr class="dropdown-divider"></li>
                                                         @if (Model.permissionQueryModels.EditGeneral == GeneralPermissions.EditGeneral || Model.permissionQueryModels.AdminGeneral == GeneralPermissions.AdminGeneral)

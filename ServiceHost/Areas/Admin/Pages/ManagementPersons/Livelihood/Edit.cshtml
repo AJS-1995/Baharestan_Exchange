@@ -1,0 +1,58 @@
+﻿@model Contracts.ManagementPresonsContracts.LivelihoodContracts.LivelihoodEdit
+@{
+    ViewData["title"] = "ویرایش معاش کارمندان";
+}
+<div class="modal-header">
+    <a class="btn btn-sm btn-icon btn-outline-warning" asp-page="/Admin/ManagementPersons/Livelihood/Index" asp-route-personsId="@Model.PersonsId"><i class="fa-solid fa-close fa-lg"></i></a>
+    <h4 class="modal-title">ویرایش معاش  @Model.PersonName _ @Model.SDate - @Model.EDate</h4>
+</div>
+
+<form class="needs-validation" novalidate asp-page="./Index" asp-page-handler="Edit" method="post"
+      data-ajax="true"
+      data-callback=""
+      data-action="Refresh">
+    <div class="modal-body">
+        <div class="row">
+            <div class="col-sm-6">
+                <div class="form-group">
+                    <label class="form-label" asp-for="SDate">تاریخ</label>
+                    <input id="Date" dir="ltr" type="text" required class="form-control" asp-for="SDate" placeholder="yyyy/mm/dd" maxlength="10">
+                    <div class="invalid-feedback">اطلاعات باید وارد شود !</div>
+                </div>
+            </div>
+            <div class="col-sm-6">
+                <div class="form-group">
+                    <label class="form-label" asp-for="EDate">تاریخ</label>
+                    <input id="Date" dir="ltr" type="text" required class="form-control" asp-for="EDate" placeholder="yyyy/mm/dd" maxlength="10">
+                    <div class="invalid-feedback">اطلاعات باید وارد شود !</div>
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-sm-6">
+                <div class="form-group">
+                    <label class="form-label" asp-for="Amount">قیمت</label>
+                    <input id="Amount" type="text" class="form-control input-mask text-start" data-inputmask="'alias': 'numeric'"
+                           required asp-for="Amount">
+                    <div class="invalid-feedback">اطلاعات باید وارد شود !</div>
+                </div>
+            </div>
+            <div class="col-md-6">
+                <div class="form-group">
+                    <label class="form-label" asp-for="MoneyId">اسعار</label>
+                    <select class="form-control" required asp-for="MoneyId" id="MoneyId"
+                            asp-items='new SelectList(Model.Money, "Id", "Name")'>
+                        <option disabled value="" selected="">اسعار ...</option>
+                    </select>
+                    <div class="invalid-feedback">اطلاعات باید وارد شود !</div>
+                </div>
+            </div>
+        </div>
+        <input type="hidden" id="Id" asp-for="Id" value="@Model.Id" />
+        <input type="hidden" id="PersonsId" asp-for="PersonsId" value="@Model.PersonsId" />
+        <input type="hidden" id="AgenciesId" asp-for="AgenciesId" value="@Model.AgenciesId" />
+        <div class="modal-footer">
+            <button type="submit" class="btn btn-sm btn-icon btn-outline-success"><i class="fa-solid fa-save fa-lg"></i></button>
+        </div>
+    </div>
+</form>
