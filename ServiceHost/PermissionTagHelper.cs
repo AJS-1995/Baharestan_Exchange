@@ -1,4 +1,5 @@
 ﻿using _0_Framework.Application.Auth;
+using _0_Framework.Application.PersonsAuth;
 using Microsoft.AspNetCore.Razor.TagHelpers;
 
 namespace ServiceHost

@@ -2,7 +2,7 @@
 
 namespace Contracts.UsersContracts.UsersContracts
 {
-    public interface IUserApplication
+	public interface IUserApplication
     {
         UserViewModel GetUserBy(int id);
         OperationResult Create(UserCreate command);

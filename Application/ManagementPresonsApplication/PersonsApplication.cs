@@ -2,6 +2,8 @@
 using _0_Framework.Application;
 using Domin.ManagementPresonsDomin.PersonsDomin;
 using Contracts.ManagementPresonsContracts.PersonsContracts;
+using _0_Framework.Application.PersonsAuth;
+using Domin.ManagementPresonsDomin.PersonsUsers;
 
 namespace Application.ManagementPresonsApplication
 {
@@ -49,6 +51,7 @@ namespace Application.ManagementPresonsApplication
             var result = new Persons(command.Name, command.Mobile, command.Address, command.Company, command.Guarantor, picturePath, command.Personnel, userid, agenciesId);
             _personsRepository.Create(result);
             _personsRepository.SaveChanges();
+            operation.Id = result.Id;
             return operation.Succedded();
         }
         public OperationResult Delete(int id)
@@ -98,6 +101,7 @@ namespace Application.ManagementPresonsApplication
 
             result.Edit(command.Name, command.Mobile, command.Address, command.Company, command.Guarantor, picturePath, command.Personnel, userid, agenciesId);
             _personsRepository.SaveChanges();
+            operation.Id = result.Id;
             return operation.Succedded();
         }
         public PersonsEdit GetDetails(int id)

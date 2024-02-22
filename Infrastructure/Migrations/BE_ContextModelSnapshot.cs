@@ -543,6 +543,55 @@ namespace Infrastructure.Migrations
                     b.ToTable("Tbl_PersonsReceipts", (string)null);
                 });
 
+            modelBuilder.Entity("Domin.ManagementPresonsDomin.PersonsUsers.PersonsUser", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
+
+                    b.Property<int>("AgenciesId")
+                        .HasColumnType("int");
+
+                    b.Property<bool>("Deleted")
+                        .HasColumnType("bit");
+
+                    b.Property<string>("Password")
+                        .IsRequired()
+                        .HasMaxLength(1000)
+                        .HasColumnType("nvarchar(1000)");
+
+                    b.Property<int>("PersonsId")
+                        .HasColumnType("int");
+
+                    b.Property<string>("ProfilePhoto")
+                        .IsRequired()
+                        .HasMaxLength(500)
+                        .HasColumnType("nvarchar(500)");
+
+                    b.Property<string>("SaveDate")
+                        .HasMaxLength(25)
+                        .HasColumnType("nvarchar(25)");
+
+                    b.Property<bool>("Status")
+                        .HasColumnType("bit");
+
+                    b.Property<int>("UserId")
+                        .HasColumnType("int");
+
+                    b.Property<string>("UserName")
+                        .IsRequired()
+                        .HasMaxLength(100)
+                        .HasColumnType("nvarchar(100)");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("PersonsId");
+
+                    b.ToTable("Tbl_PersonsUser", (string)null);
+                });
+
             modelBuilder.Entity("Domin.MoneyDomin.Money", b =>
                 {
                     b.Property<int>("Id")
@@ -592,7 +641,7 @@ namespace Infrastructure.Migrations
                             Country = "افغانستان",
                             Deleted = false,
                             Name = "افغانی",
-                            SaveDate = "1402/12/01 - 05:03:49",
+                            SaveDate = "1402/12/02 - 16:23:42",
                             Status = true,
                             Symbol = "؋",
                             UserId = 1
@@ -604,7 +653,7 @@ namespace Infrastructure.Migrations
                             Country = "ایالات متحده امریکا",
                             Deleted = false,
                             Name = "دالر",
-                            SaveDate = "1402/12/01 - 05:03:49",
+                            SaveDate = "1402/12/02 - 16:23:42",
                             Status = true,
                             Symbol = "$",
                             UserId = 1
@@ -616,7 +665,7 @@ namespace Infrastructure.Migrations
                             Country = "ایران",
                             Deleted = false,
                             Name = "تومان",
-                            SaveDate = "1402/12/01 - 05:03:49",
+                            SaveDate = "1402/12/02 - 16:23:42",
                             Status = true,
                             Symbol = "IRR",
                             UserId = 1
@@ -628,7 +677,7 @@ namespace Infrastructure.Migrations
                             Country = "پاکستان",
                             Deleted = false,
                             Name = "روپیه پاکستان",
-                            SaveDate = "1402/12/01 - 05:03:49",
+                            SaveDate = "1402/12/02 - 16:23:42",
                             Status = true,
                             Symbol = "₨",
                             UserId = 1
@@ -640,7 +689,7 @@ namespace Infrastructure.Migrations
                             Country = "هندوستان",
                             Deleted = false,
                             Name = "روپیه هندی",
-                            SaveDate = "1402/12/01 - 05:03:49",
+                            SaveDate = "1402/12/02 - 16:23:42",
                             Status = true,
                             Symbol = "₹",
                             UserId = 1
@@ -652,7 +701,7 @@ namespace Infrastructure.Migrations
                             Country = "اروپا",
                             Deleted = false,
                             Name = "یورو",
-                            SaveDate = "1402/12/01 - 05:03:49",
+                            SaveDate = "1402/12/02 - 16:23:42",
                             Status = true,
                             Symbol = "€",
                             UserId = 1
@@ -664,7 +713,7 @@ namespace Infrastructure.Migrations
                             Country = "بریتانیا",
                             Deleted = false,
                             Name = "پوند",
-                            SaveDate = "1402/12/01 - 05:03:49",
+                            SaveDate = "1402/12/02 - 16:23:42",
                             Status = true,
                             Symbol = "£",
                             UserId = 1
@@ -676,7 +725,7 @@ namespace Infrastructure.Migrations
                             Country = "چین",
                             Deleted = false,
                             Name = "یوآن",
-                            SaveDate = "1402/12/01 - 05:03:49",
+                            SaveDate = "1402/12/02 - 16:23:42",
                             Status = true,
                             Symbol = "¥",
                             UserId = 1
@@ -688,7 +737,7 @@ namespace Infrastructure.Migrations
                             Country = "ترکیه",
                             Deleted = false,
                             Name = "لیره",
-                            SaveDate = "1402/12/01 - 05:03:49",
+                            SaveDate = "1402/12/02 - 16:23:42",
                             Status = true,
                             Symbol = "₺",
                             UserId = 1
@@ -700,7 +749,7 @@ namespace Infrastructure.Migrations
                             Country = "روسیه",
                             Deleted = false,
                             Name = "روبل",
-                            SaveDate = "1402/12/01 - 05:03:49",
+                            SaveDate = "1402/12/02 - 16:23:42",
                             Status = true,
                             Symbol = "₽",
                             UserId = 1
@@ -798,7 +847,7 @@ namespace Infrastructure.Migrations
                             Deleted = false,
                             Name = "Admin",
                             NamePersian = "مدیر سیستم",
-                            SaveDate = "1402/12/01 - 05:03:49",
+                            SaveDate = "1402/12/02 - 16:23:42",
                             Status = true,
                             UserId = 1
                         },
@@ -810,7 +859,7 @@ namespace Infrastructure.Migrations
                             Deleted = false,
                             Name = "Accountant",
                             NamePersian = "حسابدار",
-                            SaveDate = "1402/12/01 - 05:03:49",
+                            SaveDate = "1402/12/02 - 16:23:42",
                             Status = true,
                             UserId = 1
                         },
@@ -822,7 +871,7 @@ namespace Infrastructure.Migrations
                             Deleted = false,
                             Name = "Viewer",
                             NamePersian = "بیننده",
-                            SaveDate = "1402/12/01 - 05:03:49",
+                            SaveDate = "1402/12/02 - 16:23:42",
                             Status = true,
                             UserId = 1
                         });
@@ -998,6 +1047,17 @@ namespace Infrastructure.Migrations
                     b.Navigation("SafeBoxs");
                 });
 
+            modelBuilder.Entity("Domin.ManagementPresonsDomin.PersonsUsers.PersonsUser", b =>
+                {
+                    b.HasOne("Domin.ManagementPresonsDomin.PersonsDomin.Persons", "Persons")
+                        .WithMany("PersonsUser")
+                        .HasForeignKey("PersonsId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("Persons");
+                });
+
             modelBuilder.Entity("Domin.UsersDomin.User", b =>
                 {
                     b.HasOne("Domin.UsersDomin.Role", "Role")
@@ -1060,6 +1120,8 @@ namespace Infrastructure.Migrations
                     b.Navigation("PersonsMoneyExchanges");
 
                     b.Navigation("PersonsReceipts");
+
+                    b.Navigation("PersonsUser");
                 });
 
             modelBuilder.Entity("Domin.MoneyDomin.Money", b =>

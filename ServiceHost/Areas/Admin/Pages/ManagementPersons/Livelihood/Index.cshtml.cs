@@ -7,6 +7,7 @@ using Contracts.MoneyContracts;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using _0_Framework.Application;
+using _0_Framework.Application.PersonsAuth;
 
 namespace ServiceHost.Areas.Admin.Pages.ManagementPersons.Livelihood
 {

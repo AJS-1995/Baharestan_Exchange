@@ -1,5 +1,6 @@
 ﻿using _0_Framework.Application;
 using _0_Framework.Application.Auth;
+using _0_Framework.Application.PersonsAuth;
 using Contracts.AgenciesContracts;
 using Contracts.CompanyContracts;
 using Contracts.UsersContracts.UsersContracts;

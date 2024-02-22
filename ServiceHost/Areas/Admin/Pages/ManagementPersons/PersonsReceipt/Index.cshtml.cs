@@ -10,6 +10,7 @@ using Contracts.ManagementPresonsContracts.PersonsContracts;
 using Contracts.ManagementPresonsContracts.PersonsReceiptContracts;
 using Contracts.ManagementPresonsContracts.PersonsMoneyExchangeContracts;
 using _01_QueryManagement.Contracts.AccountingsContracts.PersonsModels;
+using _0_Framework.Application.PersonsAuth;
 
 namespace ServiceHost.Areas.Admin.Pages.PersonsReceipt
 {

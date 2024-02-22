@@ -3,7 +3,7 @@ using Contracts.UsersContracts.UsersContracts;
 
 namespace Domin.UsersDomin
 {
-    public interface IUserRepository : IRepository<int, User>
+	public interface IUserRepository : IRepository<int, User>
     {
         User GetBy(string username);
         UserEdit GetDetails(int id);

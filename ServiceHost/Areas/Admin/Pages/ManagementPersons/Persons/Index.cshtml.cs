@@ -1,8 +1,10 @@
 using _0_Framework.Application.Auth;
+using _0_Framework.Application.PersonsAuth;
 using _01_QueryManagement.Contracts.Permissions.General;
 using Configuration.Permissions.General;
 using Contracts.AgenciesContracts;
 using Contracts.ManagementPresonsContracts.PersonsContracts;
+using Contracts.ManagementPresonsContracts.PersonsUsers;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 
@@ -17,12 +19,14 @@ namespace ServiceHost.Areas.Admin.Pages.Persons
         private readonly IPersonsApplication? _personsApplication;
         private readonly IAuthHelper? _authHelper;
         private readonly IAgenciesApplication? _agenciesApplication;
-        public IndexModel(IGeneralPermissionQueryModel? permissionQueryModel, IPersonsApplication? personsApplication, IAuthHelper? authHelper, IAgenciesApplication? agenciesApplication)
+        private readonly IPersonsUserApplication _personsUserApplication;
+        public IndexModel(IGeneralPermissionQueryModel? permissionQueryModel, IPersonsApplication? personsApplication, IAuthHelper? authHelper, IAgenciesApplication? agenciesApplication, IPersonsUserApplication personsUserApplication)
         {
             _permissionQueryModel = permissionQueryModel;
             _personsApplication = personsApplication;
             _authHelper = authHelper;
             _agenciesApplication = agenciesApplication;
+            _personsUserApplication = personsUserApplication;
         }
         public IActionResult OnGet()
         {
@@ -68,6 +72,18 @@ namespace ServiceHost.Areas.Admin.Pages.Persons
         public JsonResult OnPostCreate(PersonsCreate command)
         {
             var result = _personsApplication?.Create(command);
+            if (result.IsSuccedded == true)
+            {
+                var personsUser = new PersonsUserCreate()
+                {
+                    AgenciesId = command.AgenciesId,
+                    Password = "123",
+                    PersonsId = ((int)result.Id),
+                    UserName = "asd",
+                    ProfilePhoto = command.GuarantorPhoto,
+                };
+                _personsUserApplication.Create(personsUser);
+            }
             return new JsonResult(result);
         }
         public IActionResult OnGetRemoved()

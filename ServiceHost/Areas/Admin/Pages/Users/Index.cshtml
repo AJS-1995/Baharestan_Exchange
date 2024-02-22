@@ -1,7 +1,10 @@
 ﻿@page
 @model ServiceHost.Areas.Admin.Pages.Users.IndexModel
-@using Configuration.Permissions.Users;
-@inject _0_Framework.Application.Auth.IAuthHelper AuthHelper;
+@using Configuration.Permissions.General;
+@using Configuration.Permissions.Users
+@using _0_Framework.Application;
+@using _0_Framework.Application.Auth;
+@inject IAuthHelper AuthHelper;
 @{
     Layout = "Shared/_AdminLayout";
     ViewData["title"] = "مدیریت کاربران";

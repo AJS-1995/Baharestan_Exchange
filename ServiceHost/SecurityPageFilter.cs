@@ -1,4 +1,5 @@
 ﻿using _0_Framework.Application.Auth;
+using _0_Framework.Application.PersonsAuth;
 using _0_Framework.Infrastructure.Permission;
 using Microsoft.AspNetCore.Mvc.Filters;
 using System.Reflection;

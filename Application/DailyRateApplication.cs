@@ -2,6 +2,7 @@
 using _0_Framework.Application;
 using Contracts.DailyRateContracts;
 using Domin.DailyRateDomin;
+using _0_Framework.Application.PersonsAuth;
 
 namespace Application
 {

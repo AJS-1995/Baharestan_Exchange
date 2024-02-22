@@ -2,6 +2,7 @@
 using _0_Framework.Application;
 using Contracts.SafeBoxContracts;
 using Domin.SafeBoxDomin;
+using _0_Framework.Application.PersonsAuth;
 
 namespace Application
 {

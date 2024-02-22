@@ -2,7 +2,8 @@
 @model ServiceHost.Areas.Admin.Pages.PersonsReceipt.IndexModel
 @using Configuration.Permissions.General;
 @using _0_Framework.Application;
-@inject _0_Framework.Application.Auth.IAuthHelper AuthHelper;
+@using _0_Framework.Application.Auth;
+@inject IAuthHelper AuthHelper;
 @{
     Layout = "Shared/_AdminLayout";
     ViewData["title"] = "مدیریت حسابات افراد";

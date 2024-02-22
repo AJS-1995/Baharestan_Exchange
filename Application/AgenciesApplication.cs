@@ -2,6 +2,7 @@
 using _0_Framework.Application;
 using Contracts.AgenciesContracts;
 using Domin.AgenciesDomin;
+using _0_Framework.Application.PersonsAuth;
 
 namespace Application
 {

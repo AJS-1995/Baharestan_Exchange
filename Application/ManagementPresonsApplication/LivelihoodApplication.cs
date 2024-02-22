@@ -2,6 +2,7 @@
 using _0_Framework.Application;
 using Domin.ManagementPresonsDomin.LivelihoodDomin;
 using Contracts.ManagementPresonsContracts.LivelihoodContracts;
+using _0_Framework.Application.PersonsAuth;
 
 namespace Application.ManagementPresonsApplication
 {

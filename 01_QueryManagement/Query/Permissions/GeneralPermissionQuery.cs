@@ -1,4 +1,5 @@
 ﻿using _0_Framework.Application.Auth;
+using _0_Framework.Application.PersonsAuth;
 using _01_QueryManagement.Contracts.Permissions.General;
 using Contracts.UsersContracts.UsersContracts;
 

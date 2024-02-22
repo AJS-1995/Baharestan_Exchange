@@ -26,6 +26,7 @@ namespace Infrastructure.Mappings.ManagementPresonsMapping
 
             builder.HasMany(x => x.PersonsReceipts).WithOne(x => x.Persons).HasForeignKey(x => x.PersonsId);
             builder.HasMany(x => x.PersonsMoneyExchanges).WithOne(x => x.Persons).HasForeignKey(x => x.PersonsId);
+            builder.HasMany(x => x.PersonsUser).WithOne(x => x.Persons).HasForeignKey(x => x.PersonsId);
             builder.HasOne(x => x.Agenciess).WithMany(x => x.Personss).HasForeignKey(x => x.AgenciesId);
         }
     }

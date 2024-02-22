@@ -3,6 +3,7 @@ using Domin.AgenciesDomin;
 using Domin.ManagementPresonsDomin.LivelihoodDomin;
 using Domin.ManagementPresonsDomin.PersonsMoneyExchangeDomin;
 using Domin.ManagementPresonsDomin.PersonsReceiptDomin;
+using Domin.ManagementPresonsDomin.PersonsUsers;
 
 namespace Domin.ManagementPresonsDomin.PersonsDomin
 {
@@ -19,11 +20,13 @@ namespace Domin.ManagementPresonsDomin.PersonsDomin
         public List<PersonsReceipt>? PersonsReceipts { get; }
         public List<PersonsMoneyExchange>? PersonsMoneyExchanges { get; }
         public List<Livelihood>? Livelihoods { get; }
+        public List<PersonsUser>? PersonsUser { get; }
         public Persons()
         {
             PersonsReceipts = new List<PersonsReceipt>();
             PersonsMoneyExchanges = new List<PersonsMoneyExchange>();
             Livelihoods = new List<Livelihood>();
+            PersonsUser = new List<PersonsUser>();
         }
         public Persons(string? name, string? mobile, string? address, string? company, string? guarantor, string? guarantorPhoto, bool personnel, int userid, int agenciesId)
         {

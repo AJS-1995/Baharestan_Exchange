@@ -2,6 +2,7 @@
 using _0_Framework.Application;
 using Domin.ManagementPresonsDomin.PersonsReceiptDomin;
 using Contracts.ManagementPresonsContracts.PersonsReceiptContracts;
+using _0_Framework.Application.PersonsAuth;
 
 namespace Application.ManagementPresonsApplication
 {

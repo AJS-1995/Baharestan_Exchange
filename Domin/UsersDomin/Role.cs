@@ -2,7 +2,7 @@
 
 namespace Domin.UsersDomin
 {
-    public class Role : EntityBase<int>
+	public class Role : EntityBase<int>
     {
         public string? Name { get; set; }
         public int Cod { get; set; }

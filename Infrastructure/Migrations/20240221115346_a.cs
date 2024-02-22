@@ -398,6 +398,33 @@ namespace Infrastructure.Migrations
                 });
 
             migrationBuilder.CreateTable(
+                name: "Tbl_PersonsUser",
+                columns: table => new
+                {
+                    Id = table.Column<int>(type: "int", nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1"),
+                    UserName = table.Column<string>(type: "nvarchar(100)", maxLength: 100, nullable: false),
+                    Password = table.Column<string>(type: "nvarchar(1000)", maxLength: 1000, nullable: false),
+                    PersonsId = table.Column<int>(type: "int", nullable: false),
+                    ProfilePhoto = table.Column<string>(type: "nvarchar(500)", maxLength: 500, nullable: false),
+                    SaveDate = table.Column<string>(type: "nvarchar(25)", maxLength: 25, nullable: true),
+                    Status = table.Column<bool>(type: "bit", nullable: false),
+                    Deleted = table.Column<bool>(type: "bit", nullable: false),
+                    UserId = table.Column<int>(type: "int", nullable: false),
+                    AgenciesId = table.Column<int>(type: "int", nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_Tbl_PersonsUser", x => x.Id);
+                    table.ForeignKey(
+                        name: "FK_Tbl_PersonsUser_Tbl_Persons_PersonsId",
+                        column: x => x.PersonsId,
+                        principalTable: "Tbl_Persons",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.NoAction);
+                });
+
+            migrationBuilder.CreateTable(
                 name: "Tbl_Permissions",
                 columns: table => new
                 {
@@ -422,16 +449,16 @@ namespace Infrastructure.Migrations
                 columns: new[] { "Id", "AgenciesId", "Country", "Deleted", "Name", "SaveDate", "Status", "Symbol", "UserId" },
                 values: new object[,]
                 {
-                    { 1, 0, "افغانستان", false, "افغانی", "1402/12/01 - 05:03:49", true, "؋", 1 },
-                    { 2, 0, "ایالات متحده امریکا", false, "دالر", "1402/12/01 - 05:03:49", true, "$", 1 },
-                    { 3, 0, "ایران", false, "تومان", "1402/12/01 - 05:03:49", true, "IRR", 1 },
-                    { 4, 0, "پاکستان", false, "روپیه پاکستان", "1402/12/01 - 05:03:49", true, "₨", 1 },
-                    { 5, 0, "هندوستان", false, "روپیه هندی", "1402/12/01 - 05:03:49", true, "₹", 1 },
-                    { 6, 0, "اروپا", false, "یورو", "1402/12/01 - 05:03:49", true, "€", 1 },
-                    { 7, 0, "بریتانیا", false, "پوند", "1402/12/01 - 05:03:49", true, "£", 1 },
-                    { 8, 0, "چین", false, "یوآن", "1402/12/01 - 05:03:49", true, "¥", 1 },
-                    { 9, 0, "ترکیه", false, "لیره", "1402/12/01 - 05:03:49", true, "₺", 1 },
-                    { 10, 0, "روسیه", false, "روبل", "1402/12/01 - 05:03:49", true, "₽", 1 }
+                    { 1, 0, "افغانستان", false, "افغانی", "1402/12/02 - 16:23:42", true, "؋", 1 },
+                    { 2, 0, "ایالات متحده امریکا", false, "دالر", "1402/12/02 - 16:23:42", true, "$", 1 },
+                    { 3, 0, "ایران", false, "تومان", "1402/12/02 - 16:23:42", true, "IRR", 1 },
+                    { 4, 0, "پاکستان", false, "روپیه پاکستان", "1402/12/02 - 16:23:42", true, "₨", 1 },
+                    { 5, 0, "هندوستان", false, "روپیه هندی", "1402/12/02 - 16:23:42", true, "₹", 1 },
+                    { 6, 0, "اروپا", false, "یورو", "1402/12/02 - 16:23:42", true, "€", 1 },
+                    { 7, 0, "بریتانیا", false, "پوند", "1402/12/02 - 16:23:42", true, "£", 1 },
+                    { 8, 0, "چین", false, "یوآن", "1402/12/02 - 16:23:42", true, "¥", 1 },
+                    { 9, 0, "ترکیه", false, "لیره", "1402/12/02 - 16:23:42", true, "₺", 1 },
+                    { 10, 0, "روسیه", false, "روبل", "1402/12/02 - 16:23:42", true, "₽", 1 }
                 });
 
             migrationBuilder.InsertData(
@@ -439,9 +466,9 @@ namespace Infrastructure.Migrations
                 columns: new[] { "Id", "AgenciesId", "Cod", "Deleted", "Name", "NamePersian", "SaveDate", "Status", "UserId" },
                 values: new object[,]
                 {
-                    { 1, 0, 1, false, "Admin", "مدیر سیستم", "1402/12/01 - 05:03:49", true, 1 },
-                    { 2, 0, 1, false, "Accountant", "حسابدار", "1402/12/01 - 05:03:49", true, 1 },
-                    { 3, 0, 1, false, "Viewer", "بیننده", "1402/12/01 - 05:03:49", true, 1 }
+                    { 1, 0, 1, false, "Admin", "مدیر سیستم", "1402/12/02 - 16:23:42", true, 1 },
+                    { 2, 0, 1, false, "Accountant", "حسابدار", "1402/12/02 - 16:23:42", true, 1 },
+                    { 3, 0, 1, false, "Viewer", "بیننده", "1402/12/02 - 16:23:42", true, 1 }
                 });
 
             migrationBuilder.CreateIndex(
@@ -505,6 +532,11 @@ namespace Infrastructure.Migrations
                 column: "SafeBoxId");
 
             migrationBuilder.CreateIndex(
+                name: "IX_Tbl_PersonsUser_PersonsId",
+                table: "Tbl_PersonsUser",
+                column: "PersonsId");
+
+            migrationBuilder.CreateIndex(
                 name: "IX_Tbl_Users_Mobile",
                 table: "Tbl_Users",
                 column: "Mobile",
@@ -544,6 +576,9 @@ namespace Infrastructure.Migrations
                 name: "Tbl_PersonsReceipts");
 
             migrationBuilder.DropTable(
+                name: "Tbl_PersonsUser");
+
+            migrationBuilder.DropTable(
                 name: "Tbl_Collections");
 
             migrationBuilder.DropTable(
@@ -553,10 +588,10 @@ namespace Infrastructure.Migrations
                 name: "Tbl_Moneys");
 
             migrationBuilder.DropTable(
-                name: "Tbl_Persons");
+                name: "Tbl_SafeBoxs");
 
             migrationBuilder.DropTable(
-                name: "Tbl_SafeBoxs");
+                name: "Tbl_Persons");
 
             migrationBuilder.DropTable(
                 name: "Tbl_Roles");

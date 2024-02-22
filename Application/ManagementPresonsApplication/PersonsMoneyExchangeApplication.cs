@@ -2,6 +2,7 @@
 using _0_Framework.Application;
 using Domin.ManagementPresonsDomin.PersonsMoneyExchangeDomin;
 using Contracts.ManagementPresonsContracts.PersonsMoneyExchangeContracts;
+using _0_Framework.Application.PersonsAuth;
 
 namespace Application.ManagementPresonsApplication
 {

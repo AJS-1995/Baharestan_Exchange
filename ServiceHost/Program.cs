@@ -1,6 +1,7 @@
 using _0_Framework.Application;
 using _0_Framework.Application.Auth;
 using _0_Framework.Application.Password;
+using _0_Framework.Application.PersonsAuth;
 using _01_QueryManagement;
 using Configuration;
 using Microsoft.AspNetCore.Authentication.Cookies;
@@ -20,6 +21,7 @@ builder.Services.AddSingleton(HtmlEncoder.Create(UnicodeRanges.BasicLatin, Unico
 builder.Services.AddSingleton<IPasswordHasher, PasswordHasher>();
 builder.Services.AddTransient<IFileUploader, FileUploader>();
 builder.Services.AddTransient<IAuthHelper, AuthHelper>();
+builder.Services.AddTransient<IPersonsAuthHelper, PersonsAuthHelper>();
 
 builder.Services.Configure<CookiePolicyOptions>(options =>
 {
@@ -38,6 +40,8 @@ builder.Services.AddAuthorization(options =>
 {
     options.AddPolicy("AdminArea",
         builder => builder.RequireRole(new List<string> { "1" }));
+    options.AddPolicy("PersonsAdminArea", 
+        builder => builder.RequireRole(new List<string> { "3" }));
 });
 
 builder.Services.AddCors(options => options.AddPolicy("MyPolicy", builder =>
@@ -51,6 +55,7 @@ builder.Services.AddRazorPages()
     .AddRazorPagesOptions(options =>
     {
         options.Conventions.AuthorizeAreaFolder("Admin", "/", "AdminArea");
+        options.Conventions.AuthorizeAreaFolder("PersonsAdmin", "/", "PersonsAdminArea");
     }).AddNewtonsoftJson();
 
 var app = builder.Build();

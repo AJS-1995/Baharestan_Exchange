@@ -3,11 +3,10 @@ using _0_Framework.Infrastructure.Permission;
 using Contracts.UsersContracts.UsersContracts;
 using Domin.UsersDomin;
 using Microsoft.EntityFrameworkCore;
-using static Microsoft.EntityFrameworkCore.DbLoggerCategory;
 
 namespace Infrastructure.Repository.UsersRepository
 {
-    public class UserRepository : RepositoryBase<int, User>, IUserRepository
+	public class UserRepository : RepositoryBase<int, User>, IUserRepository
     {
         private readonly BE_Context _context;
         public UserRepository(BE_Context context) : base(context)

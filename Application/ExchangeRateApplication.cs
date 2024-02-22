@@ -3,6 +3,7 @@ using _0_Framework.Application;
 using Contracts.ExchangeRateContracts;
 using Domin.ExchangeRateDomin;
 using Domin.AgenciesDomin;
+using _0_Framework.Application.PersonsAuth;
 
 namespace Application
 {

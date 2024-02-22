@@ -1,7 +1,9 @@
 ﻿@page
 @model ServiceHost.Areas.Admin.Pages.Persons.IndexModel
 @using Configuration.Permissions.General;
-@inject _0_Framework.Application.Auth.IAuthHelper AuthHelper;
+@using _0_Framework.Application;
+@using _0_Framework.Application.Auth;
+@inject IAuthHelper AuthHelper;
 @{
     Layout = "Shared/_AdminLayout";
     ViewData["title"] = "مدیریت افراد";

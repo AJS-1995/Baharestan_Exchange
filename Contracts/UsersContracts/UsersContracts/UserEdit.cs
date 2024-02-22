@@ -2,7 +2,7 @@
 
 namespace Contracts.UsersContracts.UsersContracts
 {
-    public class UserEdit : UserCreate
+	public class UserEdit : UserCreate
     {
         public int Id { get; set; }
         public List<PermissionDto>? MappedPermissions { get; set; }

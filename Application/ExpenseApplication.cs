@@ -2,6 +2,7 @@
 using _0_Framework.Application;
 using Contracts.ExpenseContracts;
 using Domin.ExpenseDomin;
+using _0_Framework.Application.PersonsAuth;
 
 namespace Application
 {

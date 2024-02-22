@@ -1,6 +1,6 @@
 ﻿namespace Domin.UsersDomin
 {
-    public class Permission
+	public class Permission
     {
         public long Id { get; private set; }
         public int Code { get; private set; }

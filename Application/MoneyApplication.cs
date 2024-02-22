@@ -3,6 +3,7 @@ using _0_Framework.Application;
 using Contracts.MoneyContracts;
 using Domin.MoneyDomin;
 using Contracts.ExchangeRateContracts;
+using _0_Framework.Application.PersonsAuth;
 
 namespace Application
 {
