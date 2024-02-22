@@ -1,14 +1,13 @@
-﻿using _01_QueryManagement;
-using _01_QueryManagement.Contracts.AgenciesInfo;
-using _01_QueryManagement.Contracts.CompanyInfo;
+﻿using _01_QueryManagement.Contracts.CompanyInfo;
+using _01_QueryManagement;
 using Microsoft.AspNetCore.Mvc;
 
-namespace ServiceHost.Areas.Admin.ViewComponents
+namespace ServiceHost.Areas.PersonsAdmin.ViewComponents
 {
-    public class CompanyInfoViewComponent : ViewComponent
+    public class PCompanyInfoViewComponent : ViewComponent
     {
         private readonly ICompanyQueryModel _companyQueryModel;
-        public CompanyInfoViewComponent(ICompanyQueryModel companyQueryModel)
+        public PCompanyInfoViewComponent(ICompanyQueryModel companyQueryModel)
         {
             _companyQueryModel = companyQueryModel;
         }

@@ -1,0 +1,41 @@
+﻿@model _01_QueryManagement.SidebarModel
+
+<aside class="main-sidebar">
+    <section class="sidebar">
+        <ul class="sidebar-menu" data-widget="tree">
+
+            <li class="user-profile treeview">
+                <a asp-page="/Users/Index">
+                    @if (Model.PersonsQueryModel != null)
+                    {
+                        @if (Model.PersonsQueryModel.ProfilePhoto != null && Model.PersonsQueryModel.ProfilePhoto != "")
+                        {
+                            <img src="~/Uploader/@Model.PersonsQueryModel.ProfilePhoto" alt="user">
+                        }
+                        else
+                        {
+                            <img src="~/nouser.svg" alt="user">
+                        }
+                        <span>
+                            @if (Model.PersonsQueryModel.FullName == "Administrator")
+                            {
+                                <span class="d-block font-weight-600 font-size-16">مدیر کُل</span>
+                            }
+                            else
+                            {
+                                <span class="d-block font-weight-600 font-size-16">@Model.PersonsQueryModel.FullName</span>
+                            }
+                            <span class="email-id text-center" dir="ltr">@Model.PersonsQueryModel.Mobile</span>
+                        </span>
+                    }
+                    else
+                    {
+                        <script>
+                            window.location.href = "/Index";
+                        </script>
+                    }
+                </a>
+            </li>
+        </ul>
+    </section>
+</aside>

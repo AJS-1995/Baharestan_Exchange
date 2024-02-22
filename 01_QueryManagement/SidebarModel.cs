@@ -9,5 +9,6 @@ namespace _01_QueryManagement
         public UserQueryModel? UsersQueryModel { get; set; }
         public CompanyQueryModel? CompaneisQueryModel { get; set; }
         public AgenciesQueryModel? AgenciessQueryModel { get; set; }
+        public PersonsQueryModel? PersonsQueryModel { get; set; }
     }
 }

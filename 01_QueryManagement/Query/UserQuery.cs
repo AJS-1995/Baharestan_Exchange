@@ -11,6 +11,20 @@ namespace _01_QueryManagement.Query
         {
             _context = context;
         }
+        public PersonsQueryModel GetPersons(int id)
+        {
+            var persons = _context.Personss.Include(x=> x.PersonsUser).Select(x => new PersonsQueryModel
+            {
+                Id = x.Id,
+                FullName = x.Name,
+                Mobile = x.Mobile,
+                ProfilePhoto = x.GuarantorPhoto,
+                SaveDate = x.SaveDate,
+                Status = x.Status,
+            }).FirstOrDefault(x => x.Id == id);
+            return persons;
+        }
+
         public UserQueryModel GetUsers(int id)
         {
             var user = _context.Users.Include(x => x.Role).Select(x => new UserQueryModel

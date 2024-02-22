@@ -3,5 +3,6 @@
     public interface IUserQueryModel
     {
         UserQueryModel GetUsers(int id);
+        PersonsQueryModel GetPersons(int id);
     }
 }

@@ -1,6 +1,206 @@
 ﻿@page
 @model ServiceHost.Areas.PersonsAdmin.Pages.IndexModel
+@using Configuration.Permissions.General;
+@using _0_Framework.Application;
 @{
-	Layout = "Shared/_PersonsAdminLayout";
-	ViewData["Title"] = "صفحه ورود";
+    Layout = "Shared/_PersonsAdminLayout";
+    ViewData["Title"] = "صفحه ورود";
+}
+<section class="px-15 pt-15">
+    <div class="row">
+        <div class="chart-one chatrmob col-12 col-lg-6">
+            <div class="card">
+                <div class="card-header d-flex justify-content-between bb-1 border-info">
+                    <div class="header-title">
+                        <span class="card-title mx-2">لیست تبدیل اسعار _ @Model.PersonsName</span>
+                    </div>
+                </div>
+                <div class="card-body">
+                    <div class="table-responsive">
+                        <table id="exampled2" class="table table-bordered table-hover display nowrap margin-top-10 w-p100 js-serial caption-top">
+                            <thead class="table-Primary">
+                                <tr>
+                                    <th class="text-center">تاریخ</th>
+                                    <th class="text-center">مقدار فروش</th>
+                                    <th class="text-center">قیمت</th>
+                                    <th class="text-center">مقدار خرید</th>
+                                </tr>
+                            </thead>
+                            <tbody id="tbody">
+                                @foreach (var item in Model.PersonsMoneyExchangeViewModels)
+                                {
+                                    <tr>
+                                        <td class="text-center">@item.Date</td>
+                                        <td class="text-center">@item.Amount_One <sub>(@item.MoneyName_One)</sub></td>
+                                        <td class="text-center">@item.Price.ToMoney()</td>
+                                        <td class="text-center">@item.Amount_Two <sub>(@item.MoneyName_Two)</sub></td>
+                                    </tr>
+                                }
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="chart-one col-12 col-lg-6">
+            <div class="card">
+                <div class="card-header d-flex justify-content-between bb-1 border-info">
+                    <div class="header-title">
+                        <span class="card-title mx-2">لیست الباقی حساب _ @Model.PersonsName</span>
+                    </div>
+                </div>
+                <div class="card-body">
+                    <div class="table-responsive">
+                        <table id="examples2" class="table table-bordered table-hover display nowrap margin-top-10 w-p100 js-serial caption-top">
+                            <thead class="table-Primary">
+                                <tr>
+                                    <th class="text-center">اسعار</th>
+                                    <th class="text-center">رسیدات</th>
+                                    <th class="text-center">برده گی</th>
+                                    <th class="text-center">الباقی</th>
+                                </tr>
+                            </thead>
+                            <tbody id="tbody">
+                                @foreach (var item in Model.PersonsAccounting)
+                                {
+                                    <tr>
+                                        <td class="text-center">@item.MoneyName <sub>(@item.MoneySymbol)</sub></td>
+                                        <td class="text-center">@item.Receipts.ToMoney()</td>
+                                        <td class="text-center">@item.Slavery.ToMoney()</td>
+                                        @if (@item.Rest <= 0)
+                                        {
+                                            <td class="text-center text-danger">@item.Rest.ToMoney()</td>
+                                        }
+                                        else
+                                        {
+                                            <td class="text-center">@item.Rest.ToMoney()</td>
+                                        }
+                                    </tr>
+                                }
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+@if (Model?.permissionQueryModels?.ListGeneral == GeneralPermissions.ListGeneral || Model?.permissionQueryModels?.AdminGeneral == GeneralPermissions.AdminGeneral)
+{
+    <section class="content">
+        <div class="row">
+            <div class="col-sm-12">
+                <div class="card">
+                    <div class="card-header d-flex justify-content-between bb-1 border-info">
+                        <div class="header-title">
+                            <span class="card-title mx-2">لیست رسید و برد _ @Model.PersonsName</span>
+                        </div>
+                    </div>
+                    <div class="card-body">
+                        <div class="table-responsive">
+                            <table id="example" class="table table-bordered table-hover display nowrap margin-top-10 w-p100 js-serial caption-top">
+                                <thead class="table-Primary">
+                                    <tr>
+                                        <th class="text-center">تاریخ</th>
+                                        <th class="text-center">توضیحات</th>
+                                        <th class="text-center">توسط</th>
+                                        <th class="text-center">شماره فاکتور</th>
+                                        <th class="text-center">نوع</th>
+                                        <th class="text-center">مقدار</th>
+                                        <th class="text-center">اسعار</th>
+                                        <th class="text-center">خزانه</th>
+                                        @if (Model.idAgencies == 0)
+                                        {
+                                            <th class="text-center">نماینده گی</th>
+                                        }
+                                        <th class="text-center">نشان انگشت</th>
+                                        <th class="text-center">عکس</th>
+                                    </tr>
+                                </thead>
+                                <tbody id="tbody">
+                                    @foreach (var item in Model.PersonsReceipt)
+                                    {
+                                        <tr>
+                                            <td class="text-center">@item.Date</td>
+                                            <td class="text-center">@item.Description</td>
+                                            <td class="text-center">@item.By</td>
+                                            <td class="text-center">@item.ReceiptNumber</td>
+                                            @if (item.Type == false)
+                                            {
+                                                <td class="text-center">برد</td>
+                                            }
+                                            else
+                                            {
+                                                <td class="text-center">رسید</td>
+                                            }
+                                            <td class="text-center">@item.Amount.ToMoney()</td>
+                                            <td class="text-center">@item.MoneyName</td>
+                                            <td class="text-center">@item.SafeBoxName</td>
+                                            @if (Model.idAgencies == 0)
+                                            {
+                                                if (item.AgenciesId == 0)
+                                                {
+                                                    <td class="text-center">مرکزی</td>
+                                                }
+                                                else
+                                                {
+                                                    <td class="text-center">@item.AgenciesName</td>
+                                                }
+                                            }
+                                            <td class="text-center">
+                                                <a href="#showmodal=@Url.Page("./Index", "Photo", new { id = item.Id, name = "Fingerprint" })">
+                                                    @if (item.Fingerprint != null && item.Fingerprint != "" && item.Fingerprint != " ")
+                                                    {
+                                                        <img class="GuarantorPhoto" src="~/Uploader/@item.Fingerprint" alt="user">
+                                                    }
+                                                    else
+                                                    {
+                                                        <img class="GuarantorPhoto" src="~/notify.svg" alt="GuarantorPhoto">
+                                                    }
+                                                </a>
+                                            </td>
+                                            <td class="text-center">
+                                                <a href="#showmodal=@Url.Page("./Index", "Photo", new { id = item.Id, name = "Picture" })">
+                                                    @if (item.Picture != null && item.Picture != "" && item.Picture != " ")
+                                                    {
+                                                        <img class="GuarantorPhoto" src="~/Uploader/@item.Picture" alt="user">
+                                                    }
+                                                    else
+                                                    {
+                                                        <img class="GuarantorPhoto" src="~/notify.svg" alt="GuarantorPhoto">
+                                                    }
+                                                </a>
+                                            </td>
+                                        </tr>
+                                    }
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+}
+@section Scripts
+{
+    <script src="~/Theme/assets/formatter/formatter.js"></script>
+    <script src="~/Theme/assets/formatter/jquery.formatter.js"></script>
+    <script src="~/Theme/material-rtl/js/formatter.js"></script>
+    <script src="~/Theme/assets/datatable/datatables.js"></script>
+    <script src="~/Theme/material-rtl/js/data-table.js"></script>
+    <script>
+        function addRowCount(tableAttr) {
+            $(tableAttr).each(function () {
+                $('th:first-child, thead td:first-child', this).each(function () {
+                    var tag = $(this).prop('tagName');
+                    $(this).before('<' + tag + ' class="text-center" >#</' + tag + '>');
+                });
+                $('td:first-child', this).each(function (i) {
+                    $(this).before('<td class="text-center">' + (i + 1) + '</td>');
+                });
+            });
+        }
+        addRowCount('.js-serial');
+    </script>
 }

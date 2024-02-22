@@ -1,42 +1,91 @@
-﻿<!DOCTYPE html>
-<html class="loading" lang="fa" data-textdirection="rtl">
+﻿@using _0_Framework.Application
+<!DOCTYPE html>
+<html lang="fa" dir="rtl">
 <head>
-	<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-	<meta http-equiv="X-UA-Compatible" content="IE=edge">
-	<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=0, minimal-ui">
-	<meta name="description" content="سیستم حسابداری صرافی و خدمات اسعاری">
-	<meta name="keywords" content="حسابداری ، نرم افزار ، وب سایت">
-	<meta name="author" content="عبدالجبار سروری">
-	<title>@ViewData["Name"] | @ViewData["Title"]</title>
-	<link rel="shortcut icon" href="~/Templet/favicon.ico" type="image/x-icon">
-	<link rel="stylesheet" type="text/css" href="~/Templet/bootstrap.css">
-	<link rel="stylesheet" type="text/css" href="~/Templet/bootstrap-extended.css">
-	<link rel="stylesheet" type="text/css" href="~/Templet/components.css">
-	<link rel="stylesheet" type="text/css" href="~/Templet/account-login.css">
-	<link rel="stylesheet" type="text/css" href="~/sweetalert2/sweetalert2.css">
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="سیستم حسابداری صرافی و خدمات اسعاری">
+    <meta name="author" content="عبدالجبار سروری">
+    <link rel="shortcut icon" href="~/favicon.ico" type="image/x-icon">
+    <title>@ViewData["Title"]</title>
+    <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.css">
+    <link rel="stylesheet" href="~/Theme/material-rtl/css/bootstrap-extend.css">
+    @RenderSection("Css", false)
+    <link rel="stylesheet" href="~/Theme/material-rtl/css/master_style.css">
+    <link rel="stylesheet" href="~/Theme/material-rtl/css/skins/_all-skins.css">
+    <link rel="stylesheet" type="text/css" href="~/sweetalert2/sweetalert2.css">
 </head>
-<body class="vertical-layout 1-column bg-full-screen-image blank-page blank-page">
-	<div class="app-content content">
-		<div class="content-wrapper">
-			<div class="content-body">
-				<section id="account-login" class="flexbox-container">
-					<div class="col-12 d-flex align-items-center justify-content-center">
-						<div class="bg col-xl-3 col-lg-4 col-md-5 col-sm-5 col-12 p-0">
-							<div class="card-content">
-								<div class="card-body p-2">
-									@RenderBody()
-								</div>
-							</div>
-						</div>
-					</div>
-				</section>
-			</div>
-		</div>
-	</div>
-	<script src="~/lib/jquery/dist/jquery.min.js"></script>
-	<script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
-	<script src="~/js/site.js" asp-append-version="true"></script>
-	<script src="~/sweetalert2/sweetalert2.js"></script>
-	@await RenderSectionAsync("Scripts", required: false)
+<body class="hold-transition skin-info dark sidebar-collapse sidebar-mini rtl">
+    <div class="wrapper">
+        <header class="main-header">
+            @await Component.InvokeAsync("PCompanyInfo")
+            <nav class="navbar navbar-static-top">
+                <div>
+                    <a href="#" class="sidebar-toggle" data-toggle="push-menu" role="button">
+                        <span class="sr-only">Toggle navigation</span>
+                    </a>
+                </div>
+                <div class="navbar-custom-menu">
+                    @await Component.InvokeAsync("PNavbar")
+                </div>
+            </nav>
+        </header>
+        @await Component.InvokeAsync("PSidebar")
+        <div class="content-wrapper">
+            <section class="px-15 pt-15">
+                <div class="row">
+                    <div class="col-sm-12">
+                        <div class="card">
+                            <div class="card-header d-flex justify-content-between bb-1 border-info">
+                                <div class="header-title">
+                                    @await Component.InvokeAsync("PAgencies")
+                                </div>
+                            </div>
+                            <div class="card-body">
+                                <div class="row">
+                                    <div class="col-4 col-sm-2 text-center">
+                                        <label class="form-label">@DateTime.Now.DayOfWeek.ToDayFarsi()</label>
+                                    </div>
+                                    <div class="col-4 col-sm-2 text-center">
+                                        <label class="form-label" for="SearchModel.UserName">@DateTime.Now.ToMonthFarsi()</label>
+                                    </div>
+                                    <div class="col-4 col-sm-2 text-center">
+                                        <label class="form-label" for="SearchModel.Mobile">@DateTime.Now.ToFarsi()</label>
+                                    </div>
+                                    <div class="col-6 col-sm-2 text-center">
+                                        <label class="form-label" for="SearchModel.RoleId">@DateTime.Now.ToDiscountFormat()</label>
+                                    </div>
+                                    <div class="col-6 col-sm-3 text-center">
+                                        <label class="form-label" for="SearchModel.User_Id">@DateTime.Now.ToHijri()</label>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+            @RenderBody()
+        </div>
+        <footer class="main-footer" dir="ltr">
+            <img src="/footer.jpg" />
+        </footer>
+    </div>
+    <div id="MainModal" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true" style="display: none;">
+        <div class="modal-dialog">
+            <div class="modal-content" id="ModalContent">
+            </div>
+        </div>
+    </div>
+    <script src="~/lib/jquery/dist/jquery.js"></script>
+    <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.js"></script>
+    <script src="~/Theme/assets/jquery-slimscroll/jquery.slimscroll.min.js"></script>
+    <script src="~/sweetalert2/sweetalert2.js"></script>
+    <script src="~/lib/jquery-validation/dist/jquery.validate.min.js"></script>
+    <script src="~/lib/jquery-validation-unobtrusive/jquery.validate.unobtrusive.min.js"></script>
+    @RenderSection("Scripts", false)
+    <script src="~/js/site.js" asp-append-version="true"></script>
+    <script src="~/Theme/material-rtl/js/template.js"></script>
+    <script src="~/Theme/material-rtl/js/demo.js"></script>
 </body>
 </html>
