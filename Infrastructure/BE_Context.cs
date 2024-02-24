@@ -7,7 +7,6 @@ using Domin.ManagementPresonsDomin.LivelihoodDomin;
 using Domin.ManagementPresonsDomin.PersonsDomin;
 using Domin.ManagementPresonsDomin.PersonsMoneyExchangeDomin;
 using Domin.ManagementPresonsDomin.PersonsReceiptDomin;
-using Domin.ManagementPresonsDomin.PersonsUsers;
 using Domin.MoneyDomin;
 using Domin.SafeBoxDomin;
 using Domin.UsersDomin;
@@ -16,7 +15,7 @@ using Microsoft.EntityFrameworkCore;
 
 namespace Infrastructure
 {
-	public class BE_Context : DbContext
+    public class BE_Context : DbContext
     {
         public DbSet<User> Users { get; set; }
         public DbSet<Role> Roles { get; set; }
@@ -34,8 +33,6 @@ namespace Infrastructure
         public DbSet<PersonsReceipt> PersonsReceipt { get; set; }
         public DbSet<PersonsMoneyExchange> PersonsMoneyExchanges { get; set; }
         public DbSet<Livelihood> Livelihoods { get; set; }
-        public DbSet<PersonsUser> PersonsUsers { get; set; }
-
         public BE_Context(DbContextOptions<BE_Context> options) : base(options)
         {
         }

@@ -5,6 +5,7 @@ namespace Domin.ManagementPresonsDomin.PersonsDomin
 {
     public interface IPersonsRepository : IRepository<int, Persons>
     {
+        Persons GetBy(string? personsUsername);
         PersonsEdit GetDetails(int id);
         List<PersonsViewModel> GetViewModel();
         List<PersonsViewModel> GetViewModel(int agenciesId);

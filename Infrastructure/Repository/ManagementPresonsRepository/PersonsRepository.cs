@@ -12,6 +12,10 @@ namespace Infrastructure.Repository.ManagementPresonsRepository
         {
             _context = context;
         }
+        public Persons GetBy(string? personsUsername)
+        {
+            return _context.Personss.FirstOrDefault(x => x.UserName == personsUsername);
+        }
         public PersonsEdit GetDetails(int id)
         {
             var Persons = _context.Personss.Select(x => new PersonsEdit
@@ -24,6 +28,7 @@ namespace Infrastructure.Repository.ManagementPresonsRepository
                 Personnel = x.Personnel,
                 Mobile = x.Mobile,
                 AgenciesId = x.AgenciesId,
+                UserName = x.UserName
             }).FirstOrDefault(x => x.Id == id);
             return Persons;
         }
@@ -38,12 +43,13 @@ namespace Infrastructure.Repository.ManagementPresonsRepository
                     Company = x.Company,
                     Guarantor = x.Guarantor,
                     Mobile = x.Mobile,
-                    GuarantorPhoto = x.GuarantorPhoto,
+                    ProfilePhoto = x.ProfilePhoto,
                     Personnel = x.Personnel,
                     SaveDate = x.SaveDate,
                     Deleted = x.Deleted,
                     Status = x.Status,
                     UserId = x.UserId,
+                    UserName = x.UserName,
                     AgenciesId = x.AgenciesId,
                     AgenciesName = x.Agenciess.Name
                 }).OrderByDescending(x => x.Id).ToList();
@@ -59,12 +65,13 @@ namespace Infrastructure.Repository.ManagementPresonsRepository
                     Company = x.Company,
                     Guarantor = x.Guarantor,
                     Mobile = x.Mobile,
-                    GuarantorPhoto = x.GuarantorPhoto,
+                    ProfilePhoto = x.ProfilePhoto,
                     Personnel = x.Personnel,
                     SaveDate = x.SaveDate,
                     Deleted = x.Deleted,
                     Status = x.Status,
                     UserId = x.UserId,
+                    UserName = x.UserName,
                     AgenciesId = x.AgenciesId,
                     AgenciesName = x.Agenciess.Name
                 });
@@ -82,12 +89,13 @@ namespace Infrastructure.Repository.ManagementPresonsRepository
                     Company = x.Company,
                     Guarantor = x.Guarantor,
                     Mobile = x.Mobile,
-                    GuarantorPhoto = x.GuarantorPhoto,
+                    ProfilePhoto = x.ProfilePhoto,
                     Personnel = x.Personnel,
                     SaveDate = x.SaveDate,
                     Deleted = x.Deleted,
                     Status = x.Status,
                     UserId = x.UserId,
+                    UserName = x.UserName,
                     AgenciesId = x.AgenciesId,
                     AgenciesName = x.Agenciess.Name
                 });
@@ -105,12 +113,13 @@ namespace Infrastructure.Repository.ManagementPresonsRepository
                     Company = x.Company,
                     Guarantor = x.Guarantor,
                     Mobile = x.Mobile,
-                    GuarantorPhoto = x.GuarantorPhoto,
+                    ProfilePhoto = x.ProfilePhoto,
                     Personnel = x.Personnel,
                     SaveDate = x.SaveDate,
                     Deleted = x.Deleted,
                     Status = x.Status,
                     UserId = x.UserId,
+                    UserName = x.UserName,
                     AgenciesId = x.AgenciesId,
                     AgenciesName = x.Agenciess.Name
                 });
@@ -129,17 +138,18 @@ namespace Infrastructure.Repository.ManagementPresonsRepository
                     Company = x.Company,
                     Guarantor = x.Guarantor,
                     Mobile = x.Mobile,
-                    GuarantorPhoto = x.GuarantorPhoto,
+                    ProfilePhoto = x.ProfilePhoto,
                     Personnel = x.Personnel,
                     SaveDate = x.SaveDate,
                     Deleted = x.Deleted,
                     Status = x.Status,
                     UserId = x.UserId,
+                    UserName = x.UserName,
                     AgenciesId = x.AgenciesId,
                     AgenciesName = x.Agenciess.Name
                 });
             var result = query.OrderByDescending(x => x.Id).ToList();
-            result.ForEach(item => item.UserName = (users.FirstOrDefault(x => x.Id == item.UserId)?.FullName) + " - " + users.FirstOrDefault(x => x.Id == item.UserId)?.UserName);
+            result.ForEach(item => item.User_Name = (users.FirstOrDefault(x => x.Id == item.UserId)?.FullName) + " - " + users.FirstOrDefault(x => x.Id == item.UserId)?.UserName);
             return result;
         }
         public List<PersonsViewModel> GetViewModel(int agenciesId)
@@ -154,17 +164,18 @@ namespace Infrastructure.Repository.ManagementPresonsRepository
                     Company = x.Company,
                     Guarantor = x.Guarantor,
                     Mobile = x.Mobile,
-                    GuarantorPhoto = x.GuarantorPhoto,
+                    ProfilePhoto = x.ProfilePhoto,
                     Personnel = x.Personnel,
                     SaveDate = x.SaveDate,
                     Deleted = x.Deleted,
                     Status = x.Status,
                     UserId = x.UserId,
+                    UserName = x.UserName,
                     AgenciesId = x.AgenciesId,
                     AgenciesName = x.Agenciess.Name
                 });
             var result = query.OrderByDescending(x => x.Id).ToList();
-            result.ForEach(item => item.UserName = (users.FirstOrDefault(x => x.Id == item.UserId)?.FullName) + " - " + users.FirstOrDefault(x => x.Id == item.UserId)?.UserName);
+            result.ForEach(item => item.User_Name = (users.FirstOrDefault(x => x.Id == item.UserId)?.FullName) + " - " + users.FirstOrDefault(x => x.Id == item.UserId)?.UserName);
             return result;
         }
     }

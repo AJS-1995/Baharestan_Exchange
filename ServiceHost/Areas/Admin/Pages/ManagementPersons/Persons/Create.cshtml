@@ -64,8 +64,24 @@
             </div>
             <div class="col-sm-6">
                 <div class="form-group">
-                    <label class="form-label" for="GuarantorPhoto">ضمانت خط</label>
-                    <input type="file" id="GuarantorPhoto" class="form-control" asp-for="GuarantorPhoto" accept="image/*">
+                    <label class="form-label" for="ProfilePhoto">عکس</label>
+                    <input type="file" id="ProfilePhoto" class="form-control" asp-for="ProfilePhoto" accept="image/*">
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-sm-6">
+                <div class="form-group">
+                    <label class="form-label" asp-for="UserName">نام کاربری</label>
+                    <input type="text" class="form-control" required asp-for="UserName">
+                    <div class="invalid-feedback">اطلاعات باید وارد شود !</div>
+                </div>
+            </div>
+            <div class="col-sm-6">
+                <div class="form-group">
+                    <label class="form-label" asp-for="Password">رمز عبور</label>
+                    <input type="text" class="form-control" required asp-for="Password">
+                    <div class="invalid-feedback">اطلاعات باید وارد شود !</div>
                 </div>
             </div>
         </div>

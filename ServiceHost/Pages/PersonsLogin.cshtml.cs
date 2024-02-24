@@ -2,7 +2,7 @@ using _0_Framework.Application;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using _0_Framework.Application.PersonsAuth;
-using Contracts.ManagementPresonsContracts.PersonsUsers;
+using Contracts.ManagementPresonsContracts.PersonsContracts;
 
 namespace ServiceHost.Pages
 {
@@ -13,11 +13,11 @@ namespace ServiceHost.Pages
 		public string? Name = "";
 		public int Id = 1;
 
-		private readonly IPersonsUserApplication _personsUserApplication;
+		private readonly IPersonsApplication _personsApplication;
 		private readonly IPersonsAuthHelper _personsAuthHelper;
-		public PersonsLoginModel(IPersonsUserApplication personsUserApplication, IPersonsAuthHelper personsAuthHelper)
+		public PersonsLoginModel(IPersonsApplication personsApplication, IPersonsAuthHelper personsAuthHelper)
 		{
-            _personsUserApplication = personsUserApplication;
+            _personsApplication = personsApplication;
             _personsAuthHelper = personsAuthHelper;
 		}
 		public IActionResult OnGet()
@@ -32,9 +32,9 @@ namespace ServiceHost.Pages
                 return Page();
             }
 		}
-		public IActionResult OnPostLogin(PersonsUserLogin command)
+		public IActionResult OnPostLogin(PersonsLogin command)
 		{
-			OperationResult result = _personsUserApplication.Login(command);
+			OperationResult result = _personsApplication.Login(command);
 			if (result.IsSuccedded == true)
 			{
 				return Redirect("/PersonsAdmin");
@@ -47,7 +47,7 @@ namespace ServiceHost.Pages
 		}
 		public IActionResult OnGetLogout()
 		{
-            _personsUserApplication.Logout();
+            _personsApplication.Logout();
 			return RedirectToPage("/");
 		}
 	}

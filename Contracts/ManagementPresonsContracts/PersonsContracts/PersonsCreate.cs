@@ -14,7 +14,11 @@ namespace Contracts.ManagementPresonsContracts.PersonsContracts
         public string? Company { get; set; }
         public string? Guarantor { get; set; }
         public bool Personnel { get; set; }
-        public IFormFile? GuarantorPhoto { get; set; }
+        [Required(ErrorMessage = ValidationMessages.IsRequired)]
+        public string? UserName { get; set; }
+        [Required(ErrorMessage = ValidationMessages.IsRequired)]
+        public string? Password { get; set; }
+        public IFormFile? ProfilePhoto { get; set; }
         public int AgenciesId { get; set; }
         public int IdAgencies { get; set; }
         public List<AgenciesViewModel>? Agencies { get; set; }

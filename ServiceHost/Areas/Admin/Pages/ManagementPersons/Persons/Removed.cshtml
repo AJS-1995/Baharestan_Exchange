@@ -13,13 +13,14 @@
             <thead class="table-Primary">
                 <tr>
                     <th class="text-center">#</th>
+                    <th class="text-center">عکس</th>
                     <th class="text-center">وظیفه</th>
                     <th class="text-center">نام</th>
                     <th class="text-center">شماره تماس</th>
                     <th class="text-center">آدرس</th>
                     <th class="text-center">کمپنی</th>
                     <th class="text-center">ضامن</th>
-                    <th class="text-center">ضمانت خط</th>
+                    <th class="text-center">نام کاربری</th>
                     @if (Model.idAgencies == 0)
                     {
                         <th class="text-center">نماینده گی</th>
@@ -32,6 +33,18 @@
                 {
                     <tr>
                         <td class="text-center"></td>
+                        <td class="text-center">
+                            <a href="#">
+                                @if (item.ProfilePhoto != null && item.ProfilePhoto != "")
+                                {
+                                    <img class="ProfilePhoto" src="~/Uploader/@item.ProfilePhoto" alt="ProfilePhoto">
+                                }
+                                else
+                                {
+                                    <img class="ProfilePhoto" src="~/notify.svg" alt="ProfilePhoto">
+                                }
+                            </a>
+                        </td>
                         @if (@item.Personnel == true)
                         {
                             <td class="text-center">کارمند</td>
@@ -45,6 +58,7 @@
                         <td class="text-center">@item.Address</td>
                         <td class="text-center">@item.Company</td>
                         <td class="text-center">@item.Guarantor</td>
+                        <td class="text-center">@item.UserName</td>
                         @if (Model.idAgencies == 0)
                         {
                             if (item.AgenciesId == 0)
@@ -58,13 +72,13 @@
                         }
                         <td class="text-center">
                             <a href="#">
-                                @if (item.GuarantorPhoto != null && item.GuarantorPhoto != "")
+                                @if (item.ProfilePhoto != null && item.ProfilePhoto != "")
                                 {
-                                    <img class="GuarantorPhoto" src="~/Uploader/@item.GuarantorPhoto" alt="GuarantorPhoto">
+                                    <img class="ProfilePhoto" src="~/Uploader/@item.ProfilePhoto" alt="ProfilePhoto">
                                 }
                                 else
                                 {
-                                    <img class="GuarantorPhoto" src="~/notify.svg" alt="GuarantorPhoto">
+                                    <img class="ProfilePhoto" src="~/notify.svg" alt="ProfilePhoto">
                                 }
                             </a>
                         </td>

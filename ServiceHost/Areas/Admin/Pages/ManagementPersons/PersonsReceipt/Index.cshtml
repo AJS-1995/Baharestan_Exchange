@@ -206,11 +206,11 @@
                                                 <a href="#showmodal=@Url.Page("./Index", "Photo", new { id = item.Id, name = "Fingerprint" })">
                                                     @if (item.Fingerprint != null && item.Fingerprint != "" && item.Fingerprint != " ")
                                                     {
-                                                        <img class="GuarantorPhoto" src="~/Uploader/@item.Fingerprint" alt="user">
+                                                        <img class="ProfilePhoto" src="~/Uploader/@item.Fingerprint" alt="user">
                                                     }
                                                     else
                                                     {
-                                                        <img class="GuarantorPhoto" src="~/notify.svg" alt="GuarantorPhoto">
+                                                        <img class="ProfilePhoto" src="~/notify.svg" alt="ProfilePhoto">
                                                     }
                                                 </a>
                                             </td>
@@ -218,11 +218,11 @@
                                                 <a href="#showmodal=@Url.Page("./Index", "Photo", new { id = item.Id, name = "Picture" })">
                                                     @if (item.Picture != null && item.Picture != "" && item.Picture != " ")
                                                     {
-                                                        <img class="GuarantorPhoto" src="~/Uploader/@item.Picture" alt="user">
+                                                        <img class="ProfilePhoto" src="~/Uploader/@item.Picture" alt="user">
                                                     }
                                                     else
                                                     {
-                                                        <img class="GuarantorPhoto" src="~/notify.svg" alt="GuarantorPhoto">
+                                                        <img class="ProfilePhoto" src="~/notify.svg" alt="ProfilePhoto">
                                                     }
                                                 </a>
                                             </td>

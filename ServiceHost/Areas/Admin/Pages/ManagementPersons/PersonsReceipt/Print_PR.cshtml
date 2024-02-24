@@ -22,11 +22,11 @@
         <h5 class="text-center">@Model.CompanyName</h5>
         @if (Model.CompanyLogo == null || Model.CompanyLogo == "")
         {
-            <img class="GuarantorPhoto" src="~/notify.svg" alt="GuarantorPhoto">
+            <img class="ProfilePhoto" src="~/notify.svg" alt="ProfilePhoto">
         }
         else
         {
-            <img class="GuarantorPhoto" src="~/Uploader/@Model.CompanyLogo" alt="user">
+            <img class="ProfilePhoto" src="~/Uploader/@Model.CompanyLogo" alt="user">
         }
     </div>
     <h5 class="text-center mt-10">چک رسید و برد _ @Model.receiptEdit?.PersonName</h5>
@@ -48,7 +48,7 @@
                     <td class="text-center border-top border-start">@Model.receiptEdit.Date</td>
                     <td class="text-center border-top">نمبر چک</td>
                     <td class="text-center border-top border-start">@Model.receiptEdit.ReceiptNumber</td>
-                    <td class="text-center border-top border-start border-end" rowspan="5"><img class="GuarantorPhoto" src="~/Uploader/@Model.receiptEdit.Picture" alt="user"></td>
+                    <td class="text-center border-top border-start border-end" rowspan="5"><img class="ProfilePhoto" src="~/Uploader/@Model.receiptEdit.Picture" alt="user"></td>
                 </tr>
                 <tr>
                     <td class="text-center border-top">توضیحات</td>

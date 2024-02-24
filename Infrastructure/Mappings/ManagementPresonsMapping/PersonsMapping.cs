@@ -16,8 +16,10 @@ namespace Infrastructure.Mappings.ManagementPresonsMapping
             builder.Property(x => x.Address).HasMaxLength(500);
             builder.Property(x => x.Company).HasMaxLength(100);
             builder.Property(x => x.Guarantor).HasMaxLength(100);
-            builder.Property(x => x.GuarantorPhoto).HasMaxLength(500);
+            builder.Property(x => x.ProfilePhoto).HasMaxLength(500);
             builder.Property(x => x.Personnel);
+            builder.Property(x => x.UserName).HasMaxLength(100).IsRequired();
+            builder.Property(x => x.Password).HasMaxLength(1000).IsRequired();
             builder.Property(x => x.SaveDate).HasMaxLength(25);
             builder.Property(x => x.Status);
             builder.Property(x => x.Deleted);
@@ -26,7 +28,6 @@ namespace Infrastructure.Mappings.ManagementPresonsMapping
 
             builder.HasMany(x => x.PersonsReceipts).WithOne(x => x.Persons).HasForeignKey(x => x.PersonsId);
             builder.HasMany(x => x.PersonsMoneyExchanges).WithOne(x => x.Persons).HasForeignKey(x => x.PersonsId);
-            builder.HasMany(x => x.PersonsUser).WithOne(x => x.Persons).HasForeignKey(x => x.PersonsId);
             builder.HasOne(x => x.Agenciess).WithMany(x => x.Personss).HasForeignKey(x => x.AgenciesId);
         }
     }

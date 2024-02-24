@@ -51,13 +51,14 @@
                             <table id="example" class="table table-bordered table-hover display nowrap margin-top-10 w-p100 js-serial">
                                 <thead class="table-Primary">
                                     <tr>
+                                        <th class="text-center">عکس</th>
                                         <th class="text-center">وظیفه</th>
                                         <th class="text-center">نام</th>
                                         <th class="text-center">شماره تماس</th>
                                         <th class="text-center">آدرس</th>
                                         <th class="text-center">کمپنی</th>
                                         <th class="text-center">ضامن</th>
-                                        <th class="text-center">ضمانت خط</th>
+                                        <th class="text-center">نام کاربری</th>
                                         @if (Model.idAgencies == 0)
                                         {
                                             <th class="text-center">نماینده گی</th>
@@ -69,6 +70,18 @@
                                     @foreach (var item in Model.Persons)
                                     {
                                         <tr>
+                                            <td class="text-center">
+                                                <a href="#">
+                                                    @if (item.ProfilePhoto != null && item.ProfilePhoto != "")
+                                                    {
+                                                        <img class="ProfilePhoto" src="~/Uploader/@item.ProfilePhoto" alt="ProfilePhoto">
+                                                    }
+                                                    else
+                                                    {
+                                                        <img class="ProfilePhoto" src="~/notify.svg" alt="ProfilePhoto">
+                                                    }
+                                                </a>
+                                            </td>
                                             @if (@item.Personnel == true)
                                             {
                                                 <td class="text-center">کارمند</td>
@@ -82,18 +95,7 @@
                                             <td class="text-center">@item.Address</td>
                                             <td class="text-center">@item.Company</td>
                                             <td class="text-center">@item.Guarantor</td>
-                                            <td class="text-center">
-                                                <a href="#">
-                                                    @if (item.GuarantorPhoto != null && item.GuarantorPhoto != "")
-                                                    {
-                                                        <img class="GuarantorPhoto" src="~/Uploader/@item.GuarantorPhoto" alt="GuarantorPhoto">
-                                                    }
-                                                    else
-                                                    {
-                                                        <img class="GuarantorPhoto" src="~/notify.svg" alt="GuarantorPhoto">
-                                                    }
-                                                </a>
-                                            </td>
+                                            <td class="text-center">@item.UserName</td>
                                             @if (Model.idAgencies == 0)
                                             {
                                                 if (item.AgenciesId == 0)
@@ -121,6 +123,7 @@
                                                         {
                                                             <li><a class="dropdown-item" title="ویرایش" href="#showmodal=@Url.Page("./Index", "Edit", new { id = item.Id })">ویرایش</a></li>
                                                         }
+                                                        <li><a class="dropdown-item" title="تغییر رمز" href="#showmodal=@Url.Page("./Index", "ChangePassword", new { id = item.Id })">تغییر رمز</a></li>
                                                         @if (Model.permissionQueryModels.RemoveGeneral == GeneralPermissions.RemoveGeneral || Model.permissionQueryModels.AdminGeneral == GeneralPermissions.AdminGeneral)
                                                         {
                                                             <li><a class="dropdown-item" title="حذف" onclick="Remove(@item.Id)">حذف</a></li>

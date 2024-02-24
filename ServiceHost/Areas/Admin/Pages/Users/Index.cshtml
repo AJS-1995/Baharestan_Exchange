@@ -76,11 +76,11 @@
                                                 <a href="#">
                                                     @if (item.ProfilePhoto != null && item.ProfilePhoto != "" && item.ProfilePhoto != " ")
                                                     {
-                                                        <img class="GuarantorPhoto" src="~/Uploader/@item.ProfilePhoto" alt="user">
+                                                        <img class="ProfilePhoto" src="~/Uploader/@item.ProfilePhoto" alt="user">
                                                     }
                                                     else
                                                     {
-                                                        <img class="GuarantorPhoto" src="~/notify.svg" alt="GuarantorPhoto">
+                                                        <img class="ProfilePhoto" src="~/notify.svg" alt="ProfilePhoto">
                                                     }
                                                 </a>
                                             </td>
@@ -110,7 +110,7 @@
                                                 }
                                                 @if (item.Id == currentAccout.Id || Model.permissionQueryModels.ChangePasswordUser == UserPermissions.ChangePasswordUser || Model.permissionQueryModels.AdminUsers == UserPermissions.AdminUsers)
                                                 {
-                                                    <a class="btn btn-sm btn-icon btn-outline-primary" title="تغیر رمز" href="#showmodal=@Url.Page("./Index", "ChangePassword", new { id = item.Id })"><i class="fa-solid fa-key fa-lg"></i></a>
+                                                    <a class="btn btn-sm btn-icon btn-outline-primary" title="تغییر رمز" href="#showmodal=@Url.Page("./Index", "ChangePassword", new { id = item.Id })"><i class="fa-solid fa-key fa-lg"></i></a>
                                                 }
                                                 @if (item.Id != currentAccout.Id)
                                                 {

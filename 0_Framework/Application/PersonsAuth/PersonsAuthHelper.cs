@@ -14,35 +14,29 @@ namespace _0_Framework.Application.PersonsAuth
         {
             _contextAccessor = contextAccessor;
         }
-        public PersonsAuthViewModel CurrentUserInfo()
+        public PersonsAuthViewModel CurrentPersonsInfo()
         {
             var result = new PersonsAuthViewModel();
             if (!IsPersonsAuthenticated())
                 return result;
 
             var personsclaims = _contextAccessor.HttpContext.User.Claims.ToList();
-            result.Id = int.Parse(personsclaims.FirstOrDefault(x => x.Type == "UserId").Value);
+            result.Id = int.Parse(personsclaims.FirstOrDefault(x => x.Type == "Id").Value);
             result.AgenciesId = int.Parse(personsclaims.FirstOrDefault(x => x.Type == "AgenciesId").Value);
             result.UserName = personsclaims.FirstOrDefault(x => x.Type == "UserName").Value;
-            result.PersonsId = int.Parse(personsclaims.FirstOrDefault(x => x.Type == "PersonsId").Value);
             result.RoleId = int.Parse(personsclaims.FirstOrDefault(x => x.Type == ClaimTypes.Role).Value);
             result.Role = Roles.GetRoleBy(result.RoleId);
             return result;
         }
-        public int CurrentUserId()
+        public int CurrentPersonsId()
         {
             return IsPersonsAuthenticated()
-                ? int.Parse(_contextAccessor.HttpContext.User.Claims.First(x => x.Type == "UserId")?.Value) : 0;
+                ? int.Parse(_contextAccessor.HttpContext.User.Claims.First(x => x.Type == "Id")?.Value) : 0;
         }
         public int CurrentAgenciesId()
         {
             return IsPersonsAuthenticated()
                 ? int.Parse(_contextAccessor.HttpContext.User.Claims.First(x => x.Type == "AgenciesId")?.Value) : 0;
-        }
-        public int CurrentPersonsId()
-        {
-            return IsPersonsAuthenticated()
-                ? int.Parse(_contextAccessor.HttpContext.User.Claims.First(x => x.Type == "PersonsId")?.Value) : 0;
         }
         public bool IsPersonsAuthenticated()
         {
@@ -52,8 +46,7 @@ namespace _0_Framework.Application.PersonsAuth
         {
             var personsclaims = new List<Claim>
             {
-                new Claim("UserId", user.Id.ToString()),
-                new Claim("PersonsId", user.PersonsId.ToString()),
+                new Claim("Id", user.Id.ToString()),
                 new Claim("AgenciesId", user.AgenciesId.ToString()),
                 new Claim("RoleId", user.RoleId.ToString()),
                 new Claim(ClaimTypes.Role, user.RoleId.ToString()),

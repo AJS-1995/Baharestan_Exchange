@@ -18,5 +18,8 @@ namespace Contracts.ManagementPresonsContracts.PersonsContracts
         OperationResult Remove(int id);
         OperationResult Reset(int id);
         OperationResult Delete(int id);
+        OperationResult ChangePassword(PersonsChangePassword command);
+        OperationResult Login(PersonsLogin command);
+        OperationResult Logout();
     }
 }

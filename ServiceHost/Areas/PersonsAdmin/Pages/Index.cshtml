@@ -1,6 +1,5 @@
 ﻿@page
 @model ServiceHost.Areas.PersonsAdmin.Pages.IndexModel
-@using Configuration.Permissions.General;
 @using _0_Framework.Application;
 @{
     Layout = "Shared/_PersonsAdminLayout";
@@ -85,103 +84,100 @@
         </div>
     </div>
 </section>
-@if (Model?.permissionQueryModels?.ListGeneral == GeneralPermissions.ListGeneral || Model?.permissionQueryModels?.AdminGeneral == GeneralPermissions.AdminGeneral)
-{
-    <section class="content">
-        <div class="row">
-            <div class="col-sm-12">
-                <div class="card">
-                    <div class="card-header d-flex justify-content-between bb-1 border-info">
-                        <div class="header-title">
-                            <span class="card-title mx-2">لیست رسید و برد _ @Model.PersonsName</span>
-                        </div>
+<section class="content">
+    <div class="row">
+        <div class="col-sm-12">
+            <div class="card">
+                <div class="card-header d-flex justify-content-between bb-1 border-info">
+                    <div class="header-title">
+                        <span class="card-title mx-2">لیست رسید و برد _ @Model.PersonsName</span>
                     </div>
-                    <div class="card-body">
-                        <div class="table-responsive">
-                            <table id="example" class="table table-bordered table-hover display nowrap margin-top-10 w-p100 js-serial caption-top">
-                                <thead class="table-Primary">
+                </div>
+                <div class="card-body">
+                    <div class="table-responsive">
+                        <table id="example" class="table table-bordered table-hover display nowrap margin-top-10 w-p100 js-serial caption-top">
+                            <thead class="table-Primary">
+                                <tr>
+                                    <th class="text-center">تاریخ</th>
+                                    <th class="text-center">توضیحات</th>
+                                    <th class="text-center">توسط</th>
+                                    <th class="text-center">شماره فاکتور</th>
+                                    <th class="text-center">نوع</th>
+                                    <th class="text-center">مقدار</th>
+                                    <th class="text-center">اسعار</th>
+                                    <th class="text-center">خزانه</th>
+                                    @if (Model.idAgencies == 0)
+                                    {
+                                        <th class="text-center">نماینده گی</th>
+                                    }
+                                    <th class="text-center">نشان انگشت</th>
+                                    <th class="text-center">عکس</th>
+                                </tr>
+                            </thead>
+                            <tbody id="tbody">
+                                @foreach (var item in Model.PersonsReceipt)
+                                {
                                     <tr>
-                                        <th class="text-center">تاریخ</th>
-                                        <th class="text-center">توضیحات</th>
-                                        <th class="text-center">توسط</th>
-                                        <th class="text-center">شماره فاکتور</th>
-                                        <th class="text-center">نوع</th>
-                                        <th class="text-center">مقدار</th>
-                                        <th class="text-center">اسعار</th>
-                                        <th class="text-center">خزانه</th>
+                                        <td class="text-center">@item.Date</td>
+                                        <td class="text-center">@item.Description</td>
+                                        <td class="text-center">@item.By</td>
+                                        <td class="text-center">@item.ReceiptNumber</td>
+                                        @if (item.Type == false)
+                                        {
+                                            <td class="text-center">برد</td>
+                                        }
+                                        else
+                                        {
+                                            <td class="text-center">رسید</td>
+                                        }
+                                        <td class="text-center">@item.Amount.ToMoney()</td>
+                                        <td class="text-center">@item.MoneyName</td>
+                                        <td class="text-center">@item.SafeBoxName</td>
                                         @if (Model.idAgencies == 0)
                                         {
-                                            <th class="text-center">نماینده گی</th>
-                                        }
-                                        <th class="text-center">نشان انگشت</th>
-                                        <th class="text-center">عکس</th>
-                                    </tr>
-                                </thead>
-                                <tbody id="tbody">
-                                    @foreach (var item in Model.PersonsReceipt)
-                                    {
-                                        <tr>
-                                            <td class="text-center">@item.Date</td>
-                                            <td class="text-center">@item.Description</td>
-                                            <td class="text-center">@item.By</td>
-                                            <td class="text-center">@item.ReceiptNumber</td>
-                                            @if (item.Type == false)
+                                            if (item.AgenciesId == 0)
                                             {
-                                                <td class="text-center">برد</td>
+                                                <td class="text-center">مرکزی</td>
                                             }
                                             else
                                             {
-                                                <td class="text-center">رسید</td>
+                                                <td class="text-center">@item.AgenciesName</td>
                                             }
-                                            <td class="text-center">@item.Amount.ToMoney()</td>
-                                            <td class="text-center">@item.MoneyName</td>
-                                            <td class="text-center">@item.SafeBoxName</td>
-                                            @if (Model.idAgencies == 0)
-                                            {
-                                                if (item.AgenciesId == 0)
+                                        }
+                                        <td class="text-center">
+                                            <a href="#showmodal=@Url.Page("./Index", "Photo", new { id = item.Id, name = "Fingerprint" })">
+                                                @if (item.Fingerprint != null && item.Fingerprint != "" && item.Fingerprint != " ")
                                                 {
-                                                    <td class="text-center">مرکزی</td>
+                                                    <img class="ProfilePhoto" src="~/Uploader/@item.Fingerprint" alt="user">
                                                 }
                                                 else
                                                 {
-                                                    <td class="text-center">@item.AgenciesName</td>
+                                                    <img class="ProfilePhoto" src="~/notify.svg" alt="ProfilePhoto">
                                                 }
-                                            }
-                                            <td class="text-center">
-                                                <a href="#showmodal=@Url.Page("./Index", "Photo", new { id = item.Id, name = "Fingerprint" })">
-                                                    @if (item.Fingerprint != null && item.Fingerprint != "" && item.Fingerprint != " ")
-                                                    {
-                                                        <img class="GuarantorPhoto" src="~/Uploader/@item.Fingerprint" alt="user">
-                                                    }
-                                                    else
-                                                    {
-                                                        <img class="GuarantorPhoto" src="~/notify.svg" alt="GuarantorPhoto">
-                                                    }
-                                                </a>
-                                            </td>
-                                            <td class="text-center">
-                                                <a href="#showmodal=@Url.Page("./Index", "Photo", new { id = item.Id, name = "Picture" })">
-                                                    @if (item.Picture != null && item.Picture != "" && item.Picture != " ")
-                                                    {
-                                                        <img class="GuarantorPhoto" src="~/Uploader/@item.Picture" alt="user">
-                                                    }
-                                                    else
-                                                    {
-                                                        <img class="GuarantorPhoto" src="~/notify.svg" alt="GuarantorPhoto">
-                                                    }
-                                                </a>
-                                            </td>
-                                        </tr>
-                                    }
-                                </tbody>
-                            </table>
-                        </div>
+                                            </a>
+                                        </td>
+                                        <td class="text-center">
+                                            <a href="#showmodal=@Url.Page("./Index", "Photo", new { id = item.Id, name = "Picture" })">
+                                                @if (item.Picture != null && item.Picture != "" && item.Picture != " ")
+                                                {
+                                                    <img class="ProfilePhoto" src="~/Uploader/@item.Picture" alt="user">
+                                                }
+                                                else
+                                                {
+                                                    <img class="ProfilePhoto" src="~/notify.svg" alt="ProfilePhoto">
+                                                }
+                                            </a>
+                                        </td>
+                                    </tr>
+                                }
+                            </tbody>
+                        </table>
                     </div>
                 </div>
             </div>
         </div>
-    </section>
-}
+    </div>
+</section>
 @section Scripts
 {
     <script src="~/Theme/assets/formatter/formatter.js"></script>

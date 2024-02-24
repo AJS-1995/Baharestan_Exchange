@@ -2,10 +2,9 @@
 {
     public interface IPersonsAuthHelper
     {
-        PersonsAuthViewModel CurrentUserInfo();
-        int CurrentUserId();
-        int CurrentAgenciesId();
+        PersonsAuthViewModel CurrentPersonsInfo();
         int CurrentPersonsId();
+        int CurrentAgenciesId();
         bool IsPersonsAuthenticated();
         void Signin(PersonsAuthViewModel user);
         void SignOut();
