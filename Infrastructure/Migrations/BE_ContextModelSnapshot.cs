@@ -602,7 +602,7 @@ namespace Infrastructure.Migrations
                             Country = "افغانستان",
                             Deleted = false,
                             Name = "افغانی",
-                            SaveDate = "1402/12/05 - 20:49:43",
+                            SaveDate = "1402/12/06 - 12:05:36",
                             Status = true,
                             Symbol = "؋",
                             UserId = 1
@@ -614,7 +614,7 @@ namespace Infrastructure.Migrations
                             Country = "ایالات متحده امریکا",
                             Deleted = false,
                             Name = "دالر",
-                            SaveDate = "1402/12/05 - 20:49:43",
+                            SaveDate = "1402/12/06 - 12:05:36",
                             Status = true,
                             Symbol = "$",
                             UserId = 1
@@ -626,7 +626,7 @@ namespace Infrastructure.Migrations
                             Country = "ایران",
                             Deleted = false,
                             Name = "تومان",
-                            SaveDate = "1402/12/05 - 20:49:43",
+                            SaveDate = "1402/12/06 - 12:05:36",
                             Status = true,
                             Symbol = "IRR",
                             UserId = 1
@@ -638,7 +638,7 @@ namespace Infrastructure.Migrations
                             Country = "پاکستان",
                             Deleted = false,
                             Name = "روپیه پاکستان",
-                            SaveDate = "1402/12/05 - 20:49:43",
+                            SaveDate = "1402/12/06 - 12:05:36",
                             Status = true,
                             Symbol = "₨",
                             UserId = 1
@@ -650,7 +650,7 @@ namespace Infrastructure.Migrations
                             Country = "هندوستان",
                             Deleted = false,
                             Name = "روپیه هندی",
-                            SaveDate = "1402/12/05 - 20:49:43",
+                            SaveDate = "1402/12/06 - 12:05:36",
                             Status = true,
                             Symbol = "₹",
                             UserId = 1
@@ -662,7 +662,7 @@ namespace Infrastructure.Migrations
                             Country = "اروپا",
                             Deleted = false,
                             Name = "یورو",
-                            SaveDate = "1402/12/05 - 20:49:43",
+                            SaveDate = "1402/12/06 - 12:05:36",
                             Status = true,
                             Symbol = "€",
                             UserId = 1
@@ -674,7 +674,7 @@ namespace Infrastructure.Migrations
                             Country = "بریتانیا",
                             Deleted = false,
                             Name = "پوند",
-                            SaveDate = "1402/12/05 - 20:49:43",
+                            SaveDate = "1402/12/06 - 12:05:36",
                             Status = true,
                             Symbol = "£",
                             UserId = 1
@@ -686,7 +686,7 @@ namespace Infrastructure.Migrations
                             Country = "چین",
                             Deleted = false,
                             Name = "یوآن",
-                            SaveDate = "1402/12/05 - 20:49:43",
+                            SaveDate = "1402/12/06 - 12:05:36",
                             Status = true,
                             Symbol = "¥",
                             UserId = 1
@@ -698,7 +698,7 @@ namespace Infrastructure.Migrations
                             Country = "ترکیه",
                             Deleted = false,
                             Name = "لیره",
-                            SaveDate = "1402/12/05 - 20:49:43",
+                            SaveDate = "1402/12/06 - 12:05:36",
                             Status = true,
                             Symbol = "₺",
                             UserId = 1
@@ -710,7 +710,7 @@ namespace Infrastructure.Migrations
                             Country = "روسیه",
                             Deleted = false,
                             Name = "روبل",
-                            SaveDate = "1402/12/05 - 20:49:43",
+                            SaveDate = "1402/12/06 - 12:05:36",
                             Status = true,
                             Symbol = "₽",
                             UserId = 1
@@ -808,7 +808,7 @@ namespace Infrastructure.Migrations
                             Deleted = false,
                             Name = "Admin",
                             NamePersian = "مدیر سیستم",
-                            SaveDate = "1402/12/05 - 20:49:43",
+                            SaveDate = "1402/12/06 - 12:05:36",
                             Status = true,
                             UserId = 1
                         },
@@ -820,7 +820,7 @@ namespace Infrastructure.Migrations
                             Deleted = false,
                             Name = "Accountant",
                             NamePersian = "حسابدار",
-                            SaveDate = "1402/12/05 - 20:49:43",
+                            SaveDate = "1402/12/06 - 12:05:36",
                             Status = true,
                             UserId = 1
                         },
@@ -832,7 +832,7 @@ namespace Infrastructure.Migrations
                             Deleted = false,
                             Name = "Viewer",
                             NamePersian = "بیننده",
-                            SaveDate = "1402/12/05 - 20:49:43",
+                            SaveDate = "1402/12/06 - 12:05:36",
                             Status = true,
                             UserId = 1
                         });

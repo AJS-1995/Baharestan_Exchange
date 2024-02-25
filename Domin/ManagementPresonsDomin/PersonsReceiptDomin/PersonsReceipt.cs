@@ -25,7 +25,7 @@ namespace Domin.ManagementPresonsDomin.PersonsReceiptDomin
         public SafeBox? SafeBoxs { get; private set; }
         public PersonsReceipt() { }
 
-        public PersonsReceipt(string? date, string? description, string? by, string? receiptNumber, bool type, decimal amount, int safeBoxId, int moneyId, int PersonsId, string? fingerprint, string? picture, int userid, int agenciesId)
+        public PersonsReceipt(string? date, string? description, string? by, string? receiptNumber, bool type, decimal amount, int safeBoxId, int moneyId, int personsId, string? fingerprint, string? picture, int userid, int agenciesId)
         {
             Date = date;
             Description = description;
@@ -35,13 +35,13 @@ namespace Domin.ManagementPresonsDomin.PersonsReceiptDomin
             Amount = amount;
             SafeBoxId = safeBoxId;
             MoneyId = moneyId;
-            PersonsId = PersonsId;
+            PersonsId = personsId;
             Fingerprint = fingerprint;
             Picture = picture;
             UserId = userid;
             AgenciesId = agenciesId;
         }
-        public void Edit(string? date, string? description, string? by, string? receiptNumber, bool type, decimal amount, int safeBoxId, int moneyId, int PersonsId, string? fingerprint, string? picture, int userid, int agenciesId)
+        public void Edit(string? date, string? description, string? by, string? receiptNumber, bool type, decimal amount, int safeBoxId, int moneyId, int personsId, string? fingerprint, string? picture, int userid, int agenciesId)
         {
             Date = date;
             Description = description;
@@ -51,7 +51,7 @@ namespace Domin.ManagementPresonsDomin.PersonsReceiptDomin
             Amount = amount;
             SafeBoxId = safeBoxId;
             MoneyId = moneyId;
-            PersonsId = PersonsId;
+            PersonsId = personsId;
             if (!string.IsNullOrWhiteSpace(fingerprint))
                 Fingerprint = fingerprint;
             if (!string.IsNullOrWhiteSpace(picture))
