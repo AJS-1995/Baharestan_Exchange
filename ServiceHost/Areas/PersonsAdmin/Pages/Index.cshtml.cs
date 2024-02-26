@@ -62,7 +62,7 @@ namespace ServiceHost.Areas.PersonsAdmin.Pages
         public IActionResult OnGetLogout()
         {
             _personsAuthHelper?.SignOut();
-            return RedirectToPage("/PersonsLogin");
+            return RedirectToPage("/Index");
         }
     }
 }

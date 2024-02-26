@@ -3,6 +3,7 @@ using _0_Framework.Application.Auth;
 using _0_Framework.Application.PersonsAuth;
 using Contracts.AgenciesContracts;
 using Contracts.CompanyContracts;
+using Contracts.ManagementPresonsContracts.PersonsContracts;
 using Contracts.UsersContracts.UsersContracts;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
@@ -20,14 +21,16 @@ namespace ServiceHost.Pages
         private readonly IAgenciesApplication _agenciesApplication;
         private readonly IUserApplication _UserApplication;
         private readonly IAuthHelper _authHelper;
-        public IndexModel(IUserApplication UserApplication, IAuthHelper authHelper, ICompanyApplication companyApplication, IAgenciesApplication agenciesApplication)
-        {
-            _UserApplication = UserApplication;
-            _authHelper = authHelper;
-            _companyApplication = companyApplication;
-            _agenciesApplication = agenciesApplication;
-        }
-        public IActionResult OnGet()
+		private readonly IPersonsApplication _personsApplication;
+		public IndexModel(IUserApplication UserApplication, IAuthHelper authHelper, ICompanyApplication companyApplication, IAgenciesApplication agenciesApplication, IPersonsApplication personsApplication)
+		{
+			_UserApplication = UserApplication;
+			_authHelper = authHelper;
+			_companyApplication = companyApplication;
+			_agenciesApplication = agenciesApplication;
+			_personsApplication = personsApplication;
+		}
+		public IActionResult OnGet()
         {
             var Authenticated = _authHelper.IsAuthenticated();
             if (Authenticated == true)
@@ -102,9 +105,22 @@ namespace ServiceHost.Pages
             }
             else
             {
-                Message = result.Message;
-                return Page();
-            }
+                var commandpersons = new PersonsLogin()
+                {
+                    Password = command.Password,
+                    UserName = command.UserName,
+                };
+				OperationResult persons = _personsApplication.Login(commandpersons);
+				if (persons.IsSuccedded == true)
+				{
+					return Redirect("/PersonsAdmin");
+				}
+				else
+				{
+					Message = result.Message;
+					return Page();
+				}
+			}
         }
         public IActionResult OnGetLogout()
         {

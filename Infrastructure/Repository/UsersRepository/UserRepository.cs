@@ -27,6 +27,7 @@ namespace Infrastructure.Repository.UsersRepository
                 RoleId = x.RoleId,
                 UserName = x.UserName,
                 SecurityCod = x.SecurityCod,
+                AgenciesId = x.AgenciesId,
                 MappedPermissions = MapPermissions(x.Permissions),
             }).AsNoTracking()
                 .FirstOrDefault(x => x.Id == id);

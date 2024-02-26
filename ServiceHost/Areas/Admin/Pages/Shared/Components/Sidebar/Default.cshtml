@@ -36,56 +36,12 @@
                     }
                 </a>
             </li>
-            <li><a asp-page="/Journal"><i class="fa-solid fa-book"></i><span>روزنامچه</span></a></li>
-            <li><a asp-page="/DailyRate/Index"><i class="fa-solid fa-money-bill-transfer"></i><span>تبدیل اسعار روزانه</span></a></li>
-            <li class="treeview">
-                <a href="#">
-                    <i class="fa-solid fa-comment-dollar fa-2xl"></i>
-                    <span>مدیریت اسعار</span>
-                    <span class="pull-right-container">
-                        <i class="fa fa-angle-right pull-right"></i>
-                    </span>
-                </a>
-                <ul class="treeview-menu">
-                    <li><a asp-page="/ExchangeRate/Index"><i class="fa-solid fa-comments-dollar fa-xl margin_left"></i>تبدیل اسعار</a></li>
-                </ul>
-            </li>
-            <li class="treeview">
-                <a href="#">
-                    <i class="fa-solid fa-people-group fa-2xl"></i>
-                    <span>مدیریت اشخاص</span>
-                    <span class="pull-right-container">
-                        <i class="fa fa-angle-right pull-right"></i>
-                    </span>
-                </a>
-                <ul class="treeview-menu">
-                    <li><a asp-page="/ManagementPersons/Persons/Index"><i class="fa-solid fa-people-robbery fa-xl margin_left"></i>افراد</a></li>
-                </ul>
-            </li>
-            <li class="treeview">
-                <a href="#">
-                    <i class="fa-solid fa-vault fa-2xl"></i>
-                    <span>مدیریت صندق ها</span>
-                    <span class="pull-right-container">
-                        <i class="fa fa-angle-right pull-right"></i>
-                    </span>
-                </a>
-                <ul class="treeview-menu">                   
-                    <li><a asp-page="/SafeBoxs/Index"><i class="fa-solid fa-piggy-bank fa-xl margin_left"></i>صندق ها</a></li>
-                </ul>
-            </li>
-            <li class="treeview">
-                <a href="#">
-                    <i class="fa-solid fa-flask fa-2xl"></i>
-                    <span>مدیریت مصارف</span>
-                    <span class="pull-right-container">
-                        <i class="fa fa-angle-right pull-right"></i>
-                    </span>
-                </a>
-                <ul class="treeview-menu">
-                    <li><a asp-page="/Expenses/Index"><i class="fa-solid fa-flask-vial fa-xl margin_left"></i>مصارف</a></li>
-                </ul>
-            </li>
+            @* <li><a asp-page="/Journal"><i class="fa-solid fa-book"></i><span>روزنامچه</span></a></li> *@
+            @* <li><a asp-page="/DailyRate/Index"><i class="fa-solid fa-money-bill-transfer"></i><span>تبدیل اسعار روزانه</span></a></li> *@
+            @* <li><a asp-page="/ExchangeRate/Index"><i class="fa-solid fa-comment-dollar"></i><span>تبدیل اسعار</span></a></li> *@
+            <li><a asp-page="/ManagementPersons/Persons/Index"><i class="fa-solid fa-people-group"></i><span>مدیریت افراد</span></a></li>
+            <li><a asp-page="/SafeBoxs/Index"><i class="fa-solid fa-vault"></i><span>مدیریت صندق ها</span></a></li>
+            <li><a asp-page="/Expenses/Index"><i class="fa-solid fa-flask"></i><span>مدیریت مصارف</span></a></li>
         </ul>
     </section>
 </aside>

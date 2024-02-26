@@ -41,7 +41,7 @@
                 <div class="form-group">
                     <label class="form-label" asp-for="MoneyId">اسعار</label>
                     <select class="form-control" required asp-for="MoneyId" id="MoneyId"
-                            asp-items='new SelectList(Model.Money, "Id", "Name")'>
+                            asp-items='new SelectList(Model.Money, "Id", "NameSymblo")'>
                         <option disabled value="" selected="">اسعار ...</option>
                     </select>
                     <div class="invalid-feedback">اطلاعات باید وارد شود !</div>

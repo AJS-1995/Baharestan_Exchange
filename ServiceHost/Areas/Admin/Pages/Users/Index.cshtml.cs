@@ -50,7 +50,7 @@ namespace ServiceHost.Areas.Admin.Pages.Users
                 var agenciesId = _AuthHelper.CurrentAgenciesId();
                 var command = new UserCreate
                 {
-                    
+
                     IdAgencies = agenciesId,
                     Roles = _roleApplication?.GetViewModel(),
                     Agencies = _agenciesApplication?.GetViewModel(),
@@ -186,6 +186,10 @@ namespace ServiceHost.Areas.Admin.Pages.Users
                 return Redirect("/Index");
             }
         }
+        public JsonResult OnGetName(int id)
+        {
+            var result = _userApplication?.GetDetails(id);
+            return new JsonResult(result);
+        }
     }
-
 }

@@ -31,11 +31,19 @@
                         <td class="text-center">@item.Name</td>
                         <td class="text-center">@item.Description</td>
                         <td class="text-center">
-                            <a class="btn btn-sm btn-icon btn-outline-warning" title="ویرایش" href="#showmodal=@Url.Page("./Index", "CollectionEdit", new { id = item.Id })"><i class="fa-solid fa-edit (alias) fa-lg"></i></a>
-                            <a class="btn btn-sm btn-icon btn-outline-danger" title="حذف" onclick="CollectionRemove(@item.Id)"><i class="fa-solid fa-minus fa-lg"></i></a>
-                            <a class="btn btn-sm btn-icon btn-outline-success" title="غیر فعال" onclick="CollectionInActive(@item.Id)"><i class="fa-solid fa-toggle-off fa-lg"></i></a>
-                            <a class="btn btn-sm btn-icon btn-outline-info" title="ثبت کننده" href="#showmodal=@Url.Page("./Index", "CollectionSaved", new { id = item.Id })"><i class="fa-solid fa-swatchbook fa-lg"></i></a>
+                            <div class="dropdown dropend">
+                                <button class="btn btn-sm btn-icon btn-outline-primary" type="button" data-bs-toggle="dropdown" aria-expanded="false">
+                                    <i class="fa-solid fa-ellipsis fa-lg"></i>
+                                </button>
+                                <ul class="dropdown-menu dropdown-menu-dark">
+                                    <li><a class="dropdown-item" title="ویرایش" href="#showmodal=@Url.Page("./Index", "CollectionEdit", new { id = item.Id })">ویرایش</a></li>
+                                    <li><a class="dropdown-item" title="حذف" onclick="CollectionRemove(@item.Id)">حذف</a></li>
+                                    <li><a class="dropdown-item" title="غیر فعال" onclick="CollectionInActive(@item.Id)">غیرفعال</a></li>
+                                    <li><a class="dropdown-item" title="ثبت کننده" href="#showmodal=@Url.Page("./Index", "CollectionSaved", new { id = item.Id })">ثبت کننده</a></li>
+                                </ul>
+                            </div>
                         </td>
+
                     </tr>
                 }
             </tbody>

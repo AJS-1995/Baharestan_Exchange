@@ -360,5 +360,15 @@ namespace ServiceHost.Areas.Admin.Pages.Expenses
             var result = _safeBoxApplication?.GetViewModel(agenciesid);
             return new JsonResult(result);
         }
+        public JsonResult OnGetName(int id)
+        {
+            var result = _ExpenseApplication?.GetDetails(id);
+            return new JsonResult(result);
+        }
+        public JsonResult OnGetCollectionName(int id)
+        {
+            var result = _CollectionApplication?.GetDetails(id);
+            return new JsonResult(result);
+        }
     }
 }

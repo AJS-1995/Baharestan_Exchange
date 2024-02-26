@@ -93,8 +93,9 @@
                                             </td>
                                             <td class="text-center" dir="ltr">@item.Mobile</td>
                                             <td class="text-center">@item.RolePersian</td>
-                                            @if(Model.idAgencies == 0){
-                                                if(item.IdAgencies == 0)
+                                            @if (Model.idAgencies == 0)
+                                            {
+                                                if (item.IdAgencies == 0)
                                                 {
                                                     <td class="text-center">مرکزی</td>
                                                 }
@@ -104,33 +105,52 @@
                                                 }
                                             }
                                             <td class="text-center">
-                                                @if (item.Id == currentAccout.Id || Model.permissionQueryModels.EditUser == UserPermissions.EditUser || Model.permissionQueryModels.AdminUsers == UserPermissions.AdminUsers)
-                                                {
-                                                    <a class="btn btn-sm btn-icon btn-outline-warning" title="ویرایش" href="#showmodal=@Url.Page("./Index", "Edit", new { id = item.Id })"><i class="fa-solid fa-edit (alias) fa-lg"></i></a>
-                                                }
-                                                @if (item.Id == currentAccout.Id || Model.permissionQueryModels.ChangePasswordUser == UserPermissions.ChangePasswordUser || Model.permissionQueryModels.AdminUsers == UserPermissions.AdminUsers)
-                                                {
-                                                    <a class="btn btn-sm btn-icon btn-outline-primary" title="تغییر رمز" href="#showmodal=@Url.Page("./Index", "ChangePassword", new { id = item.Id })"><i class="fa-solid fa-key fa-lg"></i></a>
-                                                }
-                                                @if (item.Id != currentAccout.Id)
-                                                {
-                                                    if (Model.permissionQueryModels.RemoveUser == UserPermissions.RemoveUser || Model.permissionQueryModels.AdminUsers == UserPermissions.AdminUsers)
-                                                    {
-                                                        <a class="btn btn-sm btn-icon btn-outline-danger" title="حذف" onclick="Remove(@item.Id,@item.IdAgencies)"><i class="fa-solid fa-minus fa-lg"></i></a>
-                                                    }
-                                                    @if (Model.permissionQueryModels.ActiveUser == UserPermissions.ActiveUser || Model.permissionQueryModels.AdminUsers == UserPermissions.AdminUsers)
-                                                    {
-                                                        <a class="btn btn-sm btn-icon btn-outline-success" title="غیر فعال" onclick="InActive(@item.Id,@item.IdAgencies)"><i class="fa-solid fa-toggle-off fa-lg"></i></a>
-                                                    }
-                                                }
-                                                @if (Model.permissionQueryModels.LevelUser == UserPermissions.LevelUser || Model.permissionQueryModels.AdminUsers == UserPermissions.AdminUsers)
-                                                {
-                                                    <a class="btn btn-sm btn-icon btn-outline-secondary" title="سطح دسترسی" asp-page="./Level" asp-route-id="@item.Id"><i class="fa-solid fa-user-gear fa-lg"></i></a>
-                                                }
-                                                @if (Model.permissionQueryModels.SavedUser == UserPermissions.SavedUser || Model.permissionQueryModels.AdminUsers == UserPermissions.AdminUsers)
-                                                {
-                                                    <a class="btn btn-sm btn-icon btn-outline-info" title="ثبت کننده" href="#showmodal=@Url.Page("./Index", "Saved", new { id = item.Id })"><i class="fa-solid fa-swatchbook fa-lg"></i></a>
-                                                }
+                                                <div class="dropdown dropend">
+                                                    <button class="btn btn-sm btn-icon btn-outline-primary" type="button" data-bs-toggle="dropdown" aria-expanded="false">
+                                                        <i class="fa-solid fa-ellipsis fa-lg"></i>
+                                                    </button>
+                                                    <ul class="dropdown-menu dropdown-menu-dark">
+                                                        @if (item.Id == currentAccout.Id || Model.permissionQueryModels.EditUser == UserPermissions.EditUser || Model.permissionQueryModels.AdminUsers == UserPermissions.AdminUsers)
+                                                        {
+                                                            <li>
+                                                                <a class="dropdown-item" title="ویرایش" href="#showmodal=@Url.Page("./Index", "Edit", new { id = item.Id })">ویرایش</a>
+                                                            </li>
+                                                        }
+                                                        @if (item.Id == currentAccout.Id || Model.permissionQueryModels.ChangePasswordUser == UserPermissions.ChangePasswordUser || Model.permissionQueryModels.AdminUsers == UserPermissions.AdminUsers)
+                                                        {
+                                                            <li>
+                                                                <a class="dropdown-item" title="تغییر رمز" href="#showmodal=@Url.Page("./Index", "ChangePassword", new { id = item.Id })">تغییررمز</a>
+                                                            </li>
+                                                        }
+                                                        @if (item.Id != currentAccout.Id)
+                                                        {
+                                                            if (Model.permissionQueryModels.RemoveUser == UserPermissions.RemoveUser || Model.permissionQueryModels.AdminUsers == UserPermissions.AdminUsers)
+                                                            {
+                                                                <li>
+                                                                    <a class="dropdown-item" title="حذف" onclick="Remove(@item.Id,@item.IdAgencies)">حذف</a>
+                                                                </li>
+                                                            }
+                                                            @if (Model.permissionQueryModels.ActiveUser == UserPermissions.ActiveUser || Model.permissionQueryModels.AdminUsers == UserPermissions.AdminUsers)
+                                                            {
+                                                                <li>
+                                                                    <a class="dropdown-item" title="غیر فعال" onclick="InActive(@item.Id,@item.IdAgencies)">غیر فعال</a>
+                                                                </li>
+                                                            }
+                                                        }
+                                                        @if (Model.permissionQueryModels.LevelUser == UserPermissions.LevelUser || Model.permissionQueryModels.AdminUsers == UserPermissions.AdminUsers)
+                                                        {
+                                                            <li>
+                                                                <a class="dropdown-item" title="سطح دسترسی" asp-page="./Level" asp-route-id="@item.Id">سطح دسترسی</a>
+                                                            </li>
+                                                        }
+                                                        @if (Model.permissionQueryModels.SavedUser == UserPermissions.SavedUser || Model.permissionQueryModels.AdminUsers == UserPermissions.AdminUsers)
+                                                        {
+                                                            <li>
+                                                                <a class="dropdown-item" title="ثبت کننده" href="#showmodal=@Url.Page("./Index", "Saved", new { id = item.Id })">ثبت کننده</a>
+                                                            </li>
+                                                        }
+                                                    </ul>
+                                                </div>
                                             </td>
                                         </tr>
                                     }
@@ -144,7 +164,7 @@
     </section>
 }
 @section Scripts
-    {
+{
     <script src="~/Theme/assets/formatter/formatter.js"></script>
     <script src="~/Theme/assets/formatter/jquery.formatter.js"></script>
     <script src="~/Theme/material-rtl/js/formatter.js"></script>
@@ -174,102 +194,124 @@
                     confirmButtonText: 'باشه'
                 });
             } else {
-                Swal.fire({
-                    title: 'آیا میخواهید کاربر غیر فعال شود ؟',
-                    text: "پس میتوانید فعال کنید !",
-                    icon: 'warning',
-                    showCancelButton: true,
-                    confirmButtonColor: '#3085d6',
-                    cancelButtonColor: '#d33',
-                    cancelButtonText: 'خیر',
-                    confirmButtonText: 'بلی'
-                }).then((result) => {
-                    if (result.isConfirmed) {
-                        var postData = {
-                            'id': id,
-                        };
-                        $.ajax({
-                            ccontentType: 'application/x-www-form-urlencoded',
-                            dataType: 'json',
-                            type: "GET",
-                            url: "@Url.Page("./Index", "InActive")",
-                            data: postData,
-                            success: function (date) {
-                                if (date.isSuccedded == true) {
-                                    Swal.fire({
-                                        position: 'center',
-                                        icon: 'success',
-                                        title: date.message,
-                                        showConfirmButton: false,
-                                        timer: 2000
-                                    });
-                                    setTimeout(function () {
-                                        window.location.reload(1);
-                                    }, 2500);
-                                } else {
-                                    Swal.fire({
-                                        position: 'center',
-                                        icon: 'warning',
-                                        title: date.message,
-                                        showConfirmButton: false,
-                                        timer: 2000
-                                    });
-                                }
-                            },
-                        });
-                    }
-                })
-            }
-        }
-
-        function Active(id) {
-            Swal.fire({
-                title: 'آیا میخواهید کاربر فعال شود ؟',
-                text: "پس میتوانید غیر فعال کنید !",
-                icon: 'warning',
-                showCancelButton: true,
-                confirmButtonColor: '#3085d6',
-                cancelButtonColor: '#d33',
-                cancelButtonText: 'خیر',
-                confirmButtonText: 'بلی'
-            }).then((result) => {
-                if (result.isConfirmed) {
-                    var postData = {
-                        'id': id,
-                    };
-                    $.ajax({
-                        ccontentType: 'application/x-www-form-urlencoded',
-                        dataType: 'json',
-                        type: "GET",
-                        url: "@Url.Page("./Index", "Active")",
-                        data: postData,
-                        success: function (date) {
-                            if (date.isSuccedded == true) {
-                                Swal.fire({
-                                    position: 'center',
-                                    icon: 'success',
-                                    title: date.message,
-                                    showConfirmButton: false,
-                                    timer: 2000
-                                });
-                                setTimeout(function () {
-                                    window.location.reload(1);
-                                }, 2500);
-                            } else {
-                                Swal.fire({
-                                    position: 'center',
-                                    icon: 'warning',
-                                    title: date.message,
-                                    showConfirmButton: false,
-                                    timer: 2000
+                var postData = {
+                    'id': id,
+                };
+                $.ajax({
+                    ccontentType: 'application/x-www-form-urlencoded',
+                    dataType: 'json',
+                    type: "GET",
+                    url: "@Url.Page("./Index", "Name")",
+                    data: postData,
+                    success: function (date) {
+                        Swal.fire({
+                            title: 'آیا میخواهید ' + date.fullName + ' غیرفعال شود؟',
+                            text: "پس میتوانید فعال کنید !",
+                            icon: 'warning',
+                            showCancelButton: true,
+                            confirmButtonColor: '#3085d6',
+                            cancelButtonColor: '#d33',
+                            cancelButtonText: 'خیر',
+                            confirmButtonText: 'بلی'
+                        }).then((result) => {
+                            if (result.isConfirmed) {
+                                var postData = {
+                                    'id': id,
+                                };
+                                $.ajax({
+                                    ccontentType: 'application/x-www-form-urlencoded',
+                                    dataType: 'json',
+                                    type: "GET",
+                                    url: "@Url.Page("./Index", "InActive")",
+                                    data: postData,
+                                    success: function (date) {
+                                        if (date.isSuccedded == true) {
+                                            Swal.fire({
+                                                position: 'center',
+                                                icon: 'success',
+                                                title: date.message,
+                                                showConfirmButton: false,
+                                                timer: 2000
+                                            });
+                                            setTimeout(function () {
+                                                window.location.reload(1);
+                                            }, 2500);
+                                        } else {
+                                            Swal.fire({
+                                                position: 'center',
+                                                icon: 'warning',
+                                                title: date.message,
+                                                showConfirmButton: false,
+                                                timer: 2000
+                                            });
+                                        }
+                                    },
                                 });
                             }
-                        },
-                    });
-                }
-            })
+                        });
+                    },
+                });
+            }
         }
-
+        function Active(id) {
+            var postData = {
+                'id': id,
+            };
+            $.ajax({
+                ccontentType: 'application/x-www-form-urlencoded',
+                dataType: 'json',
+                type: "GET",
+                url: "@Url.Page("./Index", "Name")",
+                data: postData,
+                success: function (date) {
+                    Swal.fire({
+                        title: 'آیا میخواهید ' + date.fullName + ' فعال شود؟',
+                        text: "پس میتوانید غیر فعال کنید !",
+                        icon: 'warning',
+                        showCancelButton: true,
+                        confirmButtonColor: '#3085d6',
+                        cancelButtonColor: '#d33',
+                        cancelButtonText: 'خیر',
+                        confirmButtonText: 'بلی'
+                    }).then((result) => {
+                        if (result.isConfirmed) {
+                            var postData = {
+                                'id': id,
+                            };
+                            $.ajax({
+                                ccontentType: 'application/x-www-form-urlencoded',
+                                dataType: 'json',
+                                type: "GET",
+                                url: "@Url.Page("./Index", "Active")",
+                                data: postData,
+                                success: function (date) {
+                                    if (date.isSuccedded == true) {
+                                        Swal.fire({
+                                            position: 'center',
+                                            icon: 'success',
+                                            title: date.message,
+                                            showConfirmButton: false,
+                                            timer: 2000
+                                        });
+                                        setTimeout(function () {
+                                            window.location.reload(1);
+                                        }, 2500);
+                                    } else {
+                                        Swal.fire({
+                                            position: 'center',
+                                            icon: 'warning',
+                                            title: date.message,
+                                            showConfirmButton: false,
+                                            timer: 2000
+                                        });
+                                    }
+                                },
+                            });
+                        }
+                    });
+                },
+            });
+        }
         function Remove(id, idAgencies) {
             if (idAgencies == 0) {
                 Swal.fire({
@@ -279,148 +321,182 @@
                     confirmButtonText: 'باشه'
                 });
             } else {
-                Swal.fire({
-                    title: 'آیا میخواهید کاربر حذف شود ؟',
-                    text: "پس میتوانید بازیابی کنید !",
-                    icon: 'warning',
-                    showCancelButton: true,
-                    confirmButtonColor: '#3085d6',
-                    cancelButtonColor: '#d33',
-                    cancelButtonText: 'خیر',
-                    confirmButtonText: 'بلی'
-                }).then((result) => {
-                    if (result.isConfirmed) {
-                        var postData = {
-                            'id': id,
-                        };
-                        $.ajax({
-                            ccontentType: 'application/x-www-form-urlencoded',
-                            dataType: 'json',
-                            type: "GET",
-                            url: "@Url.Page("./Index", "Remove")",
-                            data: postData,
-                            success: function (date) {
-                                if (date.isSuccedded == true) {
-                                    Swal.fire({
-                                        position: 'center',
-                                        icon: 'success',
-                                        title: date.message,
-                                        showConfirmButton: false,
-                                        timer: 2000
-                                    });
-                                    setTimeout(function () {
-                                        window.location.reload(1);
-                                    }, 2500);
-                                } else {
-                                    Swal.fire({
-                                        position: 'center',
-                                        icon: 'warning',
-                                        title: date.message,
-                                        showConfirmButton: false,
-                                        timer: 2000
-                                    });
-                                }
-                            },
+                var postData = {
+                    'id': id,
+                };
+                $.ajax({
+                    ccontentType: 'application/x-www-form-urlencoded',
+                    dataType: 'json',
+                    type: "GET",
+                    url: "@Url.Page("./Index", "Name")",
+                    data: postData,
+                    success: function (date) {
+                        Swal.fire({
+                            title: 'آیا میخواهید ' + date.fullName + ' حذف شود؟',
+                            text: "پس میتوانید بازیابی کنید !",
+                            icon: 'warning',
+                            showCancelButton: true,
+                            confirmButtonColor: '#3085d6',
+                            cancelButtonColor: '#d33',
+                            cancelButtonText: 'خیر',
+                            confirmButtonText: 'بلی'
+                        }).then((result) => {
+                            if (result.isConfirmed) {
+                                var postData = {
+                                    'id': id,
+                                };
+                                $.ajax({
+                                    ccontentType: 'application/x-www-form-urlencoded',
+                                    dataType: 'json',
+                                    type: "GET",
+                                    url: "@Url.Page("./Index", "Remove")",
+                                    data: postData,
+                                    success: function (date) {
+                                        if (date.isSuccedded == true) {
+                                            Swal.fire({
+                                                position: 'center',
+                                                icon: 'success',
+                                                title: date.message,
+                                                showConfirmButton: false,
+                                                timer: 2000
+                                            });
+                                            setTimeout(function () {
+                                                window.location.reload(1);
+                                            }, 2500);
+                                        } else {
+                                            Swal.fire({
+                                                position: 'center',
+                                                icon: 'warning',
+                                                title: date.message,
+                                                showConfirmButton: false,
+                                                timer: 2000
+                                            });
+                                        }
+                                    },
+                                });
+                            }
                         });
-                    }
-                })
+                    },
+                });
             }
         }
-
         function Reset(id) {
-            Swal.fire({
-                title: 'آیا میخواهید کاربر بازیابی شود ؟',
-                text: "پس میتوانید حذف کنید !",
-                icon: 'warning',
-                showCancelButton: true,
-                confirmButtonColor: '#3085d6',
-                cancelButtonColor: '#d33',
-                cancelButtonText: 'خیر',
-                confirmButtonText: 'بلی'
-            }).then((result) => {
-                if (result.isConfirmed) {
-                    var postData = {
-                        'id': id,
-                    };
-                    $.ajax({
-                        ccontentType: 'application/x-www-form-urlencoded',
-                        dataType: 'json',
-                        type: "GET",
-                        url: "@Url.Page("./Index", "Reset")",
-                        data: postData,
-                        success: function (date) {
-                            if (date.isSuccedded == true) {
-                                Swal.fire({
-                                    position: 'center',
-                                    icon: 'success',
-                                    title: date.message,
-                                    showConfirmButton: false,
-                                    timer: 2000
-                                });
-                                setTimeout(function () {
-                                    window.location.reload(1);
-                                }, 2500);
-                            } else {
-                                Swal.fire({
-                                    position: 'center',
-                                    icon: 'warning',
-                                    title: date.message,
-                                    showConfirmButton: false,
-                                    timer: 2000
-                                });
-                            }
-                        },
+            var postData = {
+                'id': id,
+            };
+            $.ajax({
+                ccontentType: 'application/x-www-form-urlencoded',
+                dataType: 'json',
+                type: "GET",
+                url: "@Url.Page("./Index", "Name")",
+                data: postData,
+                success: function (date) {
+                    Swal.fire({
+                        title: 'آیا میخواهید ' + date.fullName + ' بازیابی شود؟',
+                        text: "پس میتوانید حذف کنید !",
+                        icon: 'warning',
+                        showCancelButton: true,
+                        confirmButtonColor: '#3085d6',
+                        cancelButtonColor: '#d33',
+                        cancelButtonText: 'خیر',
+                        confirmButtonText: 'بلی'
+                    }).then((result) => {
+                        if (result.isConfirmed) {
+                            var postData = {
+                                'id': id,
+                            };
+                            $.ajax({
+                                ccontentType: 'application/x-www-form-urlencoded',
+                                dataType: 'json',
+                                type: "GET",
+                                url: "@Url.Page("./Index", "Reset")",
+                                data: postData,
+                                success: function (date) {
+                                    if (date.isSuccedded == true) {
+                                        Swal.fire({
+                                            position: 'center',
+                                            icon: 'success',
+                                            title: date.message,
+                                            showConfirmButton: false,
+                                            timer: 2000
+                                        });
+                                        setTimeout(function () {
+                                            window.location.reload(1);
+                                        }, 2500);
+                                    } else {
+                                        Swal.fire({
+                                            position: 'center',
+                                            icon: 'warning',
+                                            title: date.message,
+                                            showConfirmButton: false,
+                                            timer: 2000
+                                        });
+                                    }
+                                },
+                            });
+                        }
                     });
-                }
-            })
+                },
+            });
         }
-
         function Delete(id) {
-            Swal.fire({
-                title: 'آیا میخواهید کاربر کامل شود ؟',
-                text: "پس نمیتوانید بازیابی کنید !",
-                icon: 'warning',
-                showCancelButton: true,
-                confirmButtonColor: '#3085d6',
-                cancelButtonColor: '#d33',
-                cancelButtonText: 'خیر',
-                confirmButtonText: 'بلی'
-            }).then((result) => {
-                if (result.isConfirmed) {
-                    var postData = {
-                        'id': id,
-                    };
-                    $.ajax({
-                        ccontentType: 'application/x-www-form-urlencoded',
-                        dataType: 'json',
-                        type: "GET",
-                        url: "@Url.Page("./Index", "Delete")",
-                        data: postData,
-                        success: function (date) {
-                            if (date.isSuccedded == true) {
-                                Swal.fire({
-                                    position: 'center',
-                                    icon: 'success',
-                                    title: date.message,
-                                    showConfirmButton: false,
-                                    timer: 2000
-                                });
-                                setTimeout(function () {
-                                    window.location.reload(1);
-                                }, 2500);
-                            } else {
-                                Swal.fire({
-                                    position: 'center',
-                                    icon: 'warning',
-                                    title: date.message,
-                                    showConfirmButton: false,
-                                    timer: 2000
-                                });
-                            }
-                        },
+            var postData = {
+                'id': id,
+            };
+            $.ajax({
+                ccontentType: 'application/x-www-form-urlencoded',
+                dataType: 'json',
+                type: "GET",
+                url: "@Url.Page("./Index", "Name")",
+                data: postData,
+                success: function (date) {
+                    Swal.fire({
+                        title: 'آیا میخواهید ' + date.fullName + ' کامل حذف شود؟',
+                        text: "پس نمیتوانید بازیابی کنید !",
+                        icon: 'warning',
+                        showCancelButton: true,
+                        confirmButtonColor: '#3085d6',
+                        cancelButtonColor: '#d33',
+                        cancelButtonText: 'خیر',
+                        confirmButtonText: 'بلی'
+                    }).then((result) => {
+                        if (result.isConfirmed) {
+                            var postData = {
+                                'id': id,
+                            };
+                            $.ajax({
+                                ccontentType: 'application/x-www-form-urlencoded',
+                                dataType: 'json',
+                                type: "GET",
+                                url: "@Url.Page("./Index", "Delete")",
+                                data: postData,
+                                success: function (date) {
+                                    if (date.isSuccedded == true) {
+                                        Swal.fire({
+                                            position: 'center',
+                                            icon: 'success',
+                                            title: date.message,
+                                            showConfirmButton: false,
+                                            timer: 2000
+                                        });
+                                        setTimeout(function () {
+                                            window.location.reload(1);
+                                        }, 2500);
+                                    } else {
+                                        Swal.fire({
+                                            position: 'center',
+                                            icon: 'warning',
+                                            title: date.message,
+                                            showConfirmButton: false,
+                                            timer: 2000
+                                        });
+                                    }
+                                },
+                            });
+                        }
                     });
-                }
-            })
+                },
+            });
         }
     </script>
 }

@@ -198,5 +198,10 @@ namespace ServiceHost.Areas.Admin.Pages.SafeBoxs
                 return Redirect("/Index");
             }
         }
+        public JsonResult OnGetName(int id)
+        {
+            var result = _safeBoxApplication?.GetDetails(id);
+            return new JsonResult(result);
+        }
     }
 }
