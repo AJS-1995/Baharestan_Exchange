@@ -10,7 +10,7 @@ using Contracts.ManagementPresonsContracts.PersonsContracts;
 using Contracts.ManagementPresonsContracts.PersonsReceiptContracts;
 using Contracts.ManagementPresonsContracts.PersonsMoneyExchangeContracts;
 using _01_QueryManagement.Contracts.AccountingsContracts.PersonsModels;
-using _0_Framework.Application.PersonsAuth;
+using Contracts.ManagementPresonsContracts.LivelihoodMonthContracts;
 
 namespace ServiceHost.Areas.Admin.Pages.PersonsReceipt
 {
@@ -19,11 +19,13 @@ namespace ServiceHost.Areas.Admin.Pages.PersonsReceipt
         public int idAgencies;
         public int PersonsId;
         public string? PersonsName;
+        public bool Personnel;
         public GeneralPermissionQueryModel? permissionQueryModels;
         private readonly IGeneralPermissionQueryModel? _permissionQueryModel;
         public List<PersonsReceiptViewModel>? PersonsReceipt;
         public List<PersonsModels>? PersonsAccounting;
         public List<PersonsMoneyExchangeViewModel>? PersonsMoneyExchangeViewModels;
+        public List<LivelihoodMonthViewModel>? LivelihoodMonthViewModels;
         private readonly IPersonsReceiptApplication? _personsReceiptApplication;
         private readonly IMoneyApplication? _moneyApplication;
         private readonly IAuthHelper? _authHelper;
@@ -31,7 +33,8 @@ namespace ServiceHost.Areas.Admin.Pages.PersonsReceipt
         private readonly ISafeBoxApplication? _safeBoxApplication;
         private readonly IPersonsModels _personsModels;
         private readonly IPersonsMoneyExchangeApplication? _personsMoneyExchangeApplication;
-        public IndexModel(IGeneralPermissionQueryModel? permissionQueryModel, IPersonsReceiptApplication? PersonsReceiptApplication, IMoneyApplication? moneyApplication, IAuthHelper? authHelper, IPersonsApplication? personsApplication, ISafeBoxApplication? safeBoxApplication, IPersonsModels personsModels, IPersonsMoneyExchangeApplication personsMoneyExchangeApplication)
+        private readonly ILivelihoodMonthApplication? _livelihoodMonthApplication;
+        public IndexModel(IGeneralPermissionQueryModel? permissionQueryModel, IPersonsReceiptApplication? PersonsReceiptApplication, IMoneyApplication? moneyApplication, IAuthHelper? authHelper, IPersonsApplication? personsApplication, ISafeBoxApplication? safeBoxApplication, IPersonsModels personsModels, IPersonsMoneyExchangeApplication personsMoneyExchangeApplication, ILivelihoodMonthApplication? livelihoodMonthApplication)
         {
             _permissionQueryModel = permissionQueryModel;
             _personsReceiptApplication = PersonsReceiptApplication;
@@ -41,22 +44,26 @@ namespace ServiceHost.Areas.Admin.Pages.PersonsReceipt
             _safeBoxApplication = safeBoxApplication;
             _personsModels = personsModels;
             _personsMoneyExchangeApplication = personsMoneyExchangeApplication;
+            _livelihoodMonthApplication = livelihoodMonthApplication;
         }
         public IActionResult OnGet(int personsId)
         {
             permissionQueryModels = _permissionQueryModel?.GetGeneral();
             if (permissionQueryModels?.ListGeneral == GeneralPermissions.ListGeneral || permissionQueryModels?.AdminGeneral == GeneralPermissions.AdminGeneral)
             {
+                _personsModels.LivelihoodMonthModelss();
                 permissionQueryModels = _permissionQueryModel?.GetGeneral();
                 var agenciesId = _authHelper.CurrentAgenciesId();
                 var persons = _personsApplication?.GetDetails(personsId);
                 idAgencies = agenciesId;
                 PersonsId = personsId;
                 PersonsName = persons?.Name;
+                Personnel = persons.Personnel;
                 if (idAgencies != 0)
                 {
                     if (idAgencies == persons.AgenciesId)
                     {
+                        LivelihoodMonthViewModels = _livelihoodMonthApplication?.GetViewModel(idAgencies).Where(x => x.PersonsId == personsId).ToList();
                         PersonsReceipt = _personsReceiptApplication?.GetViewModel(idAgencies).Where(x => x.PersonsId == personsId).ToList();
                         PersonsAccounting = _personsModels?.PersonsModelss()?.Where(x => x.PersonsId == personsId).ToList();
                         PersonsMoneyExchangeViewModels = _personsMoneyExchangeApplication?.GetViewModel(idAgencies)?.Where(x => x.PersonsId == personsId).ToList();
@@ -69,6 +76,7 @@ namespace ServiceHost.Areas.Admin.Pages.PersonsReceipt
                 }
                 else
                 {
+                    LivelihoodMonthViewModels = _livelihoodMonthApplication?.GetViewModel().Where(x => x.PersonsId == personsId).ToList();
                     PersonsReceipt = _personsReceiptApplication?.GetViewModel().Where(x => x.PersonsId == personsId).ToList();
                     PersonsAccounting = _personsModels?.PersonsModelss()?.Where(x => x.PersonsId == personsId).ToList();
                     PersonsMoneyExchangeViewModels = _personsMoneyExchangeApplication?.GetViewModel()?.Where(x => x.PersonsId == personsId).ToList();
@@ -296,6 +304,11 @@ namespace ServiceHost.Areas.Admin.Pages.PersonsReceipt
         public JsonResult OnGetDate(long id)
         {
             var result = _personsMoneyExchangeApplication?.GetDetails(id);
+            return new JsonResult(result);
+        }
+        public JsonResult OnGetNameLM(int id)
+        {
+            var result = _livelihoodMonthApplication?.GetDetails(id);
             return new JsonResult(result);
         }
     }

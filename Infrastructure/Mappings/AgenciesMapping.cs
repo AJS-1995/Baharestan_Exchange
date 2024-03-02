@@ -25,6 +25,8 @@ namespace Infrastructure.Mappings
             builder.HasMany(x => x.Personss).WithOne(x => x.Agenciess).HasForeignKey(x => x.AgenciesId);
             builder.HasMany(x => x.PersonsReceipts).WithOne(x => x.Agenciess).HasForeignKey(x => x.AgenciesId);
             builder.HasMany(x => x.PersonsMoneyExchanges).WithOne(x => x.Agenciess).HasForeignKey(x => x.AgenciesId);
+            builder.HasMany(x => x.Livelihoods).WithOne(x => x.Agenciess).HasForeignKey(x => x.AgenciesId);
+            builder.HasMany(x => x.LivelihoodMonths).WithOne(x => x.Agenciess).HasForeignKey(x => x.AgenciesId);
         }
     }
 }

@@ -20,7 +20,7 @@
                     <div class="invalid-feedback">اطلاعات باید وارد شود !</div>
                 </div>
             </div>
-            <div class="col-md-4">
+            <div class="col-sm-4">
                 <div class="form-group">
                     <label class="form-label" asp-for="MoneyId_One">اسعار</label>
                     <select class="form-control" required asp-for="MoneyId_One" id="MoneyId_One" onchange="moneies(this.value)"
@@ -48,13 +48,13 @@
                     <div class="invalid-feedback">اطلاعات باید وارد شود !</div>
                 </div>
             </div>
-            <div class="form-group col-md-4">
+            <div class="form-group col-sm-4">
                 <div class="form-check form-check-inline">
                     <input class="form-check-input with-gap radio-col-green" type="radio" onchange="Plus()" asp-for="Type" id="Multiplication" checked="" value="true">
                     <label class="form-check-label" for="Multiplication">ضرب</label>
                 </div>
             </div>
-            <div class="form-group col-md-4">
+            <div class="form-group col-sm-4">
                 <div class="form-check form-check-inline">
                     <input class="form-check-input with-gap radio-col-yellow" type="radio" onchange="Plus()" asp-for="Type" id="Division" value="false">
                     <label class="form-check-label" for="Division">تقسیم</label>
@@ -62,7 +62,7 @@
             </div>
         </div>
         <div class="row">
-            <div class="col-md-6">
+            <div class="col-sm-6">
                 <div class="form-group">
                     <label class="form-label" asp-for="MoneyId_Two">اسعار</label>
                     <select class="form-control" required asp-for="MoneyId_Two" id="MoneyId_Two" onchange="Plus()"

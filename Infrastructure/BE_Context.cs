@@ -4,6 +4,7 @@ using Domin.DailyRateDomin;
 using Domin.ExchangeRateDomin;
 using Domin.ExpenseDomin;
 using Domin.ManagementPresonsDomin.LivelihoodDomin;
+using Domin.ManagementPresonsDomin.LivelihoodMonthDomin;
 using Domin.ManagementPresonsDomin.PersonsDomin;
 using Domin.ManagementPresonsDomin.PersonsMoneyExchangeDomin;
 using Domin.ManagementPresonsDomin.PersonsReceiptDomin;
@@ -33,6 +34,7 @@ namespace Infrastructure
         public DbSet<PersonsReceipt> PersonsReceipt { get; set; }
         public DbSet<PersonsMoneyExchange> PersonsMoneyExchanges { get; set; }
         public DbSet<Livelihood> Livelihoods { get; set; }
+        public DbSet<LivelihoodMonth> LivelihoodMonths { get; set; }
         public BE_Context(DbContextOptions<BE_Context> options) : base(options)
         {
         }

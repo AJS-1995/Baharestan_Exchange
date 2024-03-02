@@ -1,5 +1,6 @@
 ﻿using _0_Framework.Domain;
 using Domin.AgenciesDomin;
+using Domin.ManagementPresonsDomin.LivelihoodMonthDomin;
 using Domin.ManagementPresonsDomin.PersonsDomin;
 using Domin.MoneyDomin;
 
@@ -16,7 +17,11 @@ namespace Domin.ManagementPresonsDomin.LivelihoodDomin
         public Agencies? Agenciess { get; private set; }
         public Persons? Persons { get; private set; }
         public Money? Moneys { get; private set; }
-        public Livelihood() { }
+        public List<LivelihoodMonth>? LivelihoodMonths { get; }
+        public Livelihood() 
+        {
+            LivelihoodMonths = new List<LivelihoodMonth>();
+        }
         public Livelihood(string? sDate, string? eDate, int personsId, decimal amount, bool cancel, int moneyId, int userid, int agenciesId)
         {
             SDate = sDate;

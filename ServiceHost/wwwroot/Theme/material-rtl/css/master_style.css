@@ -6401,11 +6401,14 @@ ul.flexbox {
     box-shadow: 0 0 4px rgba(0, 0, 0, 0.06);
     z-index: 992;
 }
-.dropdown-toggle {
-    cursor: pointer;
-    -webkit-transition: .2s linear;
-    transition: .2s linear;
-}
+    .dropdown-menu > li, .dropdown-grid > li{
+        cursor:pointer;
+    }
+    .dropdown-toggle {
+        cursor: pointer;
+        -webkit-transition: .2s linear;
+        transition: .2s linear;
+    }
 .dropdown-item i {
     margin-right: 0.5rem;
 }
@@ -16908,4 +16911,8 @@ input[type=number] {
     .chatrmob {
         margin-bottom: 0px;
     }
+}
+
+.TP-Min{
+    padding-top: 0 !important;
 }

@@ -1,10 +1,10 @@
-﻿@model Contracts.ManagementPresonsContracts.LivelihoodContracts.LivelihoodEdit
+﻿@model Contracts.ManagementPresonsContracts.LivelihoodMonthContracts.LivelihoodMonthEdit
 @{
     ViewData["title"] = "ویرایش معاش کارمندان";
 }
 <div class="modal-header">
-    <a class="btn btn-sm btn-icon btn-outline-warning" asp-page="/Admin/ManagementPersons/Livelihood/Index" asp-route-personsId="@Model.PersonsId"><i class="fa-solid fa-close fa-lg"></i></a>
-    <h4 class="modal-title">ویرایش معاش  @Model.PersonName _ @Model.SDate - @Model.EDate</h4>
+    <a class="btn btn-sm btn-icon btn-outline-warning" asp-page="/Admin/ManagementPersons/PersonsReceipt/Index" asp-route-personsId="@Model.PersonsId"><i class="fa-solid fa-close fa-lg"></i></a>
+    <h4 class="modal-title">ویرایش معاش  @Model.PersonName _ @Model.Year - @Model.Month</h4>
 </div>
 
 <form class="needs-validation" novalidate asp-page="./Index" asp-page-handler="Edit" method="post"
@@ -13,17 +13,13 @@
       data-action="Refresh">
     <div class="modal-body">
         <div class="row">
-            <div class="col-sm-6">
+            <div class="col-sm-12">
                 <div class="form-group">
-                    <label class="form-label" asp-for="SDate">تاریخ</label>
-                    <input id="Start_Date" dir="ltr" type="text" required class="form-control" asp-for="SDate" placeholder="yyyy/mm/dd" maxlength="10">
-                    <div class="invalid-feedback">اطلاعات باید وارد شود !</div>
-                </div>
-            </div>
-            <div class="col-sm-6">
-                <div class="form-group">
-                    <label class="form-label" asp-for="EDate">تاریخ</label>
-                    <input id="End_Date" dir="ltr" type="text" required class="form-control" asp-for="EDate" placeholder="yyyy/mm/dd" maxlength="10">
+                    <label class="form-label" asp-for="LivelihoodId">قرارداد</label>
+                    <select class="form-control" required asp-for="LivelihoodId" id="LivelihoodId" onchange="livelihood(this.value)"
+                            asp-items='new SelectList(Model.Livelihoods, "Id", "Date")'>
+                        <option disabled value="" selected="">قرارداد ...</option>
+                    </select>
                     <div class="invalid-feedback">اطلاعات باید وارد شود !</div>
                 </div>
             </div>
@@ -31,7 +27,23 @@
         <div class="row">
             <div class="col-sm-6">
                 <div class="form-group">
-                    <label class="form-label" asp-for="Amount">قیمت</label>
+                    <label class="form-label" asp-for="Year">سال</label>
+                    <input id="Year" dir="ltr" type="text" required class="form-control" asp-for="Year" placeholder="yyyy" maxlength="4">
+                    <div class="invalid-feedback">اطلاعات باید وارد شود !</div>
+                </div>
+            </div>
+            <div class="col-sm-6">
+                <div class="form-group">
+                    <label class="form-label" asp-for="Month">ماه</label>
+                    <input id="Month" dir="ltr" type="text" required class="form-control" asp-for="Month" placeholder="mm" maxlength="2">
+                    <div class="invalid-feedback">اطلاعات باید وارد شود !</div>
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-sm-6">
+                <div class="form-group">
+                    <label class="form-label" asp-for="Amount">مقدار</label>
                     <input id="Amount" type="text" class="form-control input-mask text-start" data-inputmask="'alias': 'numeric'"
                            required asp-for="Amount">
                     <div class="invalid-feedback">اطلاعات باید وارد شود !</div>

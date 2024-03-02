@@ -16,14 +16,14 @@
             <div class="col-sm-6">
                 <div class="form-group">
                     <label class="form-label" asp-for="SDate">تاریخ شروع</label>
-                    <input id="Date" dir="ltr" type="text" required class="form-control" asp-for="SDate" placeholder="yyyy/mm/dd" maxlength="10">
+                    <input id="Start_Date" dir="ltr" type="text" required class="form-control" asp-for="SDate" placeholder="yyyy/mm/dd" maxlength="10">
                     <div class="invalid-feedback">اطلاعات باید وارد شود !</div>
                 </div>
             </div>
             <div class="col-sm-6">
                 <div class="form-group">
                     <label class="form-label" asp-for="EDate">تاریخ ختم</label>
-                    <input id="Date" dir="ltr" type="text" required class="form-control" asp-for="EDate" placeholder="yyyy/mm/dd" maxlength="10">
+                    <input id="End_Date" dir="ltr" type="text" required class="form-control" asp-for="EDate" placeholder="yyyy/mm/dd" maxlength="10">
                     <div class="invalid-feedback">اطلاعات باید وارد شود !</div>
                 </div>
             </div>
@@ -37,7 +37,7 @@
                     <div class="invalid-feedback">اطلاعات باید وارد شود !</div>
                 </div>
             </div>
-            <div class="col-md-6">
+            <div class="col-sm-6">
                 <div class="form-group">
                     <label class="form-label" asp-for="MoneyId">اسعار</label>
                     <select class="form-control" required asp-for="MoneyId" id="MoneyId"

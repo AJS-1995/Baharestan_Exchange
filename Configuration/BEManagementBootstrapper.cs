@@ -10,6 +10,7 @@ using Contracts.DailyRateContracts;
 using Contracts.ExchangeRateContracts;
 using Contracts.ExpenseContracts;
 using Contracts.ManagementPresonsContracts.LivelihoodContracts;
+using Contracts.ManagementPresonsContracts.LivelihoodMonthContracts;
 using Contracts.ManagementPresonsContracts.PersonsContracts;
 using Contracts.ManagementPresonsContracts.PersonsMoneyExchangeContracts;
 using Contracts.ManagementPresonsContracts.PersonsReceiptContracts;
@@ -23,6 +24,7 @@ using Domin.DailyRateDomin;
 using Domin.ExchangeRateDomin;
 using Domin.ExpenseDomin;
 using Domin.ManagementPresonsDomin.LivelihoodDomin;
+using Domin.ManagementPresonsDomin.LivelihoodMonthDomin;
 using Domin.ManagementPresonsDomin.PersonsDomin;
 using Domin.ManagementPresonsDomin.PersonsMoneyExchangeDomin;
 using Domin.ManagementPresonsDomin.PersonsReceiptDomin;
@@ -80,6 +82,8 @@ namespace Configuration
             services.AddTransient<IPersonsMoneyExchangeRepository, PersonsMoneyExchangeRepository>();
             services.AddTransient<ILivelihoodApplication, LivelihoodApplication>();
             services.AddTransient<ILivelihoodRepository, LivelihoodRepository>();
+            services.AddTransient<ILivelihoodMonthApplication, LivelihoodMonthApplication>();
+            services.AddTransient<ILivelihoodMonthRepository, LivelihoodMonthRepository>();
 
             services.AddTransient<IPermissionExposer, UserPermissionExposer>();
             services.AddTransient<IPermissionExposer, GeneralPermissionExposer>();

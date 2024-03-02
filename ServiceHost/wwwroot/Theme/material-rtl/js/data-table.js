@@ -21,21 +21,17 @@ $(function () {
         'autoWidth': false
     });
     $('#examples2').DataTable({
-        'paging': true,
-        'lengthChange': false,
-        'searching': false,
-        'ordering': true,
-        'info': true,
-        'autoWidth': false
+        dom: 'Bfrtip',
+        buttons: [
+            'excel', 'print'
+        ]
     });
 
     $('#exampled2').DataTable({
-        'paging': true,
-        'lengthChange': false,
-        'searching': false,
-        'ordering': true,
-        'info': true,
-        'autoWidth': false
+        dom: 'Bfrtip',
+        buttons: [
+            'excel', 'print'
+        ]
     });
 
 	
@@ -44,6 +40,13 @@ $(function () {
 		buttons: [
 			'excel', 'print'
 		]
+    });
+
+    $('#exampled3').DataTable({
+        dom: 'Bfrtip',
+        buttons: [
+            'excel', 'print'
+        ]
     });
 	
 	$('#tickets').DataTable({

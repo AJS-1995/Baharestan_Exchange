@@ -57,6 +57,14 @@ SinglePage.LoadModal = function () {
                 'pattern': '{{9999}}/{{99}}/{{99}}',
                 'persistent': true
             });
+            $('#Year').formatter({
+                'pattern': '{{9999}}',
+                'persistent': true
+            });
+            $('#Month').formatter({
+                'pattern': '{{99}}',
+                'persistent': true
+            });
             $('#tbodyv tr').each(function (idx) {
                 $(this).children().first().html(idx + 1);
             });

@@ -1,0 +1,27 @@
+﻿@model Contracts.ManagementPresonsContracts.LivelihoodMonthContracts.LivelihoodMonthViewModel
+@{
+    ViewData["title"] = "اطلاعات ثبت کننده معاش کارمند";
+}
+<div class="modal-header">
+    <a class="btn btn-sm btn-icon btn-outline-warning" asp-page="/Admin/ManagementPersons/PersonsReceipt/Index" asp-route-personsId="@Model.PersonsId"><i class="fa-solid fa-close fa-lg"></i></a>
+    <h4 class="modal-title">اطلاعات ثبت کننده معاش  - @Model.PresonsName _ @Model.Year - @Model.Month</h4>
+</div>
+
+<form class="needs-validation">
+    <div class="modal-body">
+        <div class="row">
+            <div class="col-sm-6">
+                <div class="form-group">
+                    <label class="form-label" for="User_Name">نام ثبت کننده</label>
+                    <input id="User_Name" readonly type="text" class="form-control" required asp-for="UserName">
+                </div>
+            </div>
+            <div class="col-sm-6">
+                <div class="form-group">
+                    <label class="form-label" for="SaveDate">تاریخ ثبت</label>
+                    <input id="SaveDate" readonly type="text" class="form-control" required asp-for="SaveDate">
+                </div>
+            </div>
+        </div>
+    </div>
+</form>

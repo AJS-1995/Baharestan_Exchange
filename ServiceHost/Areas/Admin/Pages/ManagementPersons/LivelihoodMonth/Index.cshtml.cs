@@ -1,18 +1,17 @@
-﻿using _0_Framework.Application.Auth;
+using _0_Framework.Application.Auth;
+using _0_Framework.Application;
+using _01_QueryManagement.Contracts.AccountingsContracts.PersonsModels;
 using _01_QueryManagement.Contracts.Permissions.General;
 using Configuration.Permissions.General;
+using Contracts.ManagementPresonsContracts.LivelihoodMonthContracts;
 using Contracts.ManagementPresonsContracts.PersonsContracts;
-using Contracts.ManagementPresonsContracts.LivelihoodContracts;
 using Contracts.MoneyContracts;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
-using _0_Framework.Application;
-using _0_Framework.Application.PersonsAuth;
-using _01_QueryManagement.Contracts.AccountingsContracts.PersonsModels;
-using Contracts.ManagementPresonsContracts.LivelihoodMonthContracts;
-using static Microsoft.EntityFrameworkCore.DbLoggerCategory.Database;
+using Contracts.ManagementPresonsContracts.LivelihoodContracts;
+using Application;
 
-namespace ServiceHost.Areas.Admin.Pages.ManagementPersons.Livelihood
+namespace ServiceHost.Areas.Admin.Pages.ManagementPersons.LivelihoodMonth
 {
     public class IndexModel : PageModel
     {
@@ -21,22 +20,22 @@ namespace ServiceHost.Areas.Admin.Pages.ManagementPersons.Livelihood
         public string? PersonsName;
         public GeneralPermissionQueryModel? permissionQueryModels;
         private readonly IGeneralPermissionQueryModel? _permissionQueryModel;
-        public List<LivelihoodViewModel>? Livelihood;
-        private readonly ILivelihoodApplication? _LivelihoodApplication;
+        public List<LivelihoodMonthViewModel>? LivelihoodMonth;
+        private readonly ILivelihoodMonthApplication? _LivelihoodMonthApplication;
         private readonly IMoneyApplication? _moneyApplication;
         private readonly IAuthHelper? _authHelper;
         private readonly IPersonsApplication? _personsApplication;
         private readonly IPersonsModels _personsModels;
-        private readonly ILivelihoodMonthApplication? _livelihoodMonthApplication;
-        public IndexModel(IGeneralPermissionQueryModel? permissionQueryModel, ILivelihoodApplication? LivelihoodApplication, IMoneyApplication? moneyApplication, IAuthHelper? authHelper, IPersonsApplication? personsApplication, IPersonsModels personsModels, ILivelihoodMonthApplication? livelihoodMonthApplication)
+        private readonly ILivelihoodApplication? _LivelihoodApplication;
+        public IndexModel(IGeneralPermissionQueryModel? permissionQueryModel, ILivelihoodMonthApplication? LivelihoodMonthApplication, IMoneyApplication? moneyApplication, IAuthHelper? authHelper, IPersonsApplication? personsApplication, IPersonsModels personsModels, ILivelihoodApplication? livelihoodApplication)
         {
             _permissionQueryModel = permissionQueryModel;
-            _LivelihoodApplication = LivelihoodApplication;
+            _LivelihoodMonthApplication = LivelihoodMonthApplication;
             _moneyApplication = moneyApplication;
             _authHelper = authHelper;
             _personsApplication = personsApplication;
             _personsModels = personsModels;
-            _livelihoodMonthApplication = livelihoodMonthApplication;
+            _LivelihoodApplication = livelihoodApplication;
         }
         public IActionResult OnGet(int personsId)
         {
@@ -46,6 +45,7 @@ namespace ServiceHost.Areas.Admin.Pages.ManagementPersons.Livelihood
                 permissionQueryModels = _permissionQueryModel?.GetGeneral();
                 var agenciesId = _authHelper.CurrentAgenciesId();
                 var persons = _personsApplication?.GetDetails(personsId);
+                _personsModels.LivelihoodMonthModelss();
                 idAgencies = agenciesId;
                 PersonsId = personsId;
                 PersonsName = persons?.Name;
@@ -53,7 +53,7 @@ namespace ServiceHost.Areas.Admin.Pages.ManagementPersons.Livelihood
                 {
                     if (idAgencies == persons.AgenciesId)
                     {
-                        Livelihood = _LivelihoodApplication?.GetViewModel(idAgencies).Where(x => x.PersonsId == personsId).ToList();
+                        LivelihoodMonth = _LivelihoodMonthApplication?.GetViewModel(idAgencies).Where(x => x.PersonsId == personsId).ToList();
                         return Page();
                     }
                     else
@@ -63,7 +63,7 @@ namespace ServiceHost.Areas.Admin.Pages.ManagementPersons.Livelihood
                 }
                 else
                 {
-                    Livelihood = _LivelihoodApplication?.GetViewModel().Where(x => x.PersonsId == personsId).ToList();
+                    LivelihoodMonth = _LivelihoodMonthApplication?.GetViewModel().Where(x => x.PersonsId == personsId).ToList();
                     return Page();
                 }
             }
@@ -79,14 +79,16 @@ namespace ServiceHost.Areas.Admin.Pages.ManagementPersons.Livelihood
             {
                 var persons = _personsApplication?.GetDetails(personsId);
                 int agenciesId = persons.AgenciesId;
-                var edate = DateTime.Now.AddYears(1);
-                var p = edate.AddDays(-2);
-                var command = new LivelihoodCreate()
+                var dates = DateTime.Now.ToFarsi();
+                var dyears = Convert.ToInt32(dates.Substring(0, 4));
+                var dmonths = Convert.ToInt32(dates.Substring(5, 2));
+                var command = new LivelihoodMonthCreate()
                 {
                     IdAgencies = agenciesId,
-                    SDate = DateTime.Now.ToFarsi(),
-                    EDate = p.ToFarsi(),
+                    Year = dyears,
+                    Month = dmonths,
                     Money = _moneyApplication?.GetViewModel(),
+                    Livelihoods = _LivelihoodApplication?.GetViewModel().Where(x => x.PersonsId == personsId).ToList(),
                     PersonName = persons.Name,
                     AgenciesId = agenciesId,
                     PersonsId = personsId,
@@ -98,9 +100,9 @@ namespace ServiceHost.Areas.Admin.Pages.ManagementPersons.Livelihood
                 return Redirect("/Index");
             }
         }
-        public IActionResult OnPostCreate(LivelihoodCreate command)
+        public IActionResult OnPostCreate(LivelihoodMonthCreate command)
         {
-            var result = _LivelihoodApplication?.Create(command);
+            var result = _LivelihoodMonthApplication?.Create(command);
             return new JsonResult(result);
         }
         public IActionResult OnGetRemoved(int personsId)
@@ -112,19 +114,19 @@ namespace ServiceHost.Areas.Admin.Pages.ManagementPersons.Livelihood
                 idAgencies = agenciesId;
                 if (idAgencies != 0)
                 {
-                    var commnd = new LivelihoodRemoved()
+                    var commnd = new LivelihoodMonthRemoved()
                     {
                         idAgencies = idAgencies,
-                        LivelihoodRemoveds = _LivelihoodApplication?.GetRemove(idAgencies).Where(x => x.PersonsId == personsId).ToList(),
+                        LivelihoodMonthRemoveds = _LivelihoodMonthApplication?.GetRemove(idAgencies).Where(x => x.PersonsId == personsId).ToList(),
                         PersonsId = personsId,
                     };
                     return Partial("./Removed", commnd);
                 }
                 else
                 {
-                    var commnd = new LivelihoodRemoved()
+                    var commnd = new LivelihoodMonthRemoved()
                     {
-                        LivelihoodRemoveds = _LivelihoodApplication?.GetRemove().Where(x => x.PersonsId == personsId).ToList(),
+                        LivelihoodMonthRemoveds = _LivelihoodMonthApplication?.GetRemove().Where(x => x.PersonsId == personsId).ToList(),
                         PersonsId = personsId,
                     };
                     return Partial("./Removed", commnd);
@@ -144,19 +146,19 @@ namespace ServiceHost.Areas.Admin.Pages.ManagementPersons.Livelihood
                 idAgencies = agenciesId;
                 if (idAgencies != 0)
                 {
-                    var commnd = new LivelihoodRemoved()
+                    var commnd = new LivelihoodMonthRemoved()
                     {
                         idAgencies = idAgencies,
-                        LivelihoodRemoveds = _LivelihoodApplication?.GetInActive(idAgencies).Where(x => x.PersonsId == personsId).ToList(),
+                        LivelihoodMonthRemoveds = _LivelihoodMonthApplication?.GetInActive(idAgencies).Where(x => x.PersonsId == personsId).ToList(),
                         PersonsId = personsId,
                     };
                     return Partial("./Actived", commnd);
                 }
                 else
                 {
-                    var commnd = new LivelihoodRemoved()
+                    var commnd = new LivelihoodMonthRemoved()
                     {
-                        LivelihoodRemoveds = _LivelihoodApplication?.GetInActive().Where(x => x.PersonsId == personsId).ToList(),
+                        LivelihoodMonthRemoveds = _LivelihoodMonthApplication?.GetInActive().Where(x => x.PersonsId == personsId).ToList(),
                         PersonsId = personsId,
                     };
                     return Partial("./Actived", commnd);
@@ -167,15 +169,16 @@ namespace ServiceHost.Areas.Admin.Pages.ManagementPersons.Livelihood
                 return Redirect("/Index");
             }
         }
-        public IActionResult OnGetEdit(int id)
+        public IActionResult OnGetEdit(long id)
         {
             permissionQueryModels = _permissionQueryModel?.GetGeneral();
             if (permissionQueryModels?.EditGeneral == GeneralPermissions.EditGeneral || permissionQueryModels?.AdminGeneral == GeneralPermissions.AdminGeneral)
             {
-                var result = _LivelihoodApplication?.GetDetails(id);
+                var result = _LivelihoodMonthApplication?.GetDetails(id);
                 var persons = _personsApplication?.GetDetails(result.PersonsId);
                 int agenciesId = persons.AgenciesId;
                 result.Money = _moneyApplication?.GetViewModel();
+                result.Livelihoods = _LivelihoodApplication?.GetViewModel().Where(x => x.PersonsId == result.PersonsId).ToList();
                 result.IdAgencies = agenciesId;
                 result.PersonName = persons.Name;
                 return Partial("Edit", result);
@@ -185,106 +188,34 @@ namespace ServiceHost.Areas.Admin.Pages.ManagementPersons.Livelihood
                 return Redirect("/Index");
             }
         }
-        public IActionResult OnPostEdit(LivelihoodEdit command)
+        public IActionResult OnPostEdit(LivelihoodMonthEdit command)
         {
-            var result = _LivelihoodApplication?.Edit(command);
-            if (result.IsSuccedded == true)
-            {
-                var lm = _livelihoodMonthApplication.GetViewModel().Where(x => x.LivelihoodId == command.Id).ToList();
-                if (lm.Count() != 0)
-                {
-                    foreach (var item in lm)
-                    {
-                        _livelihoodMonthApplication.Delete(item.Id);
-                    }
-                    _personsModels.LivelihoodMonthModelss();
-                }
-            }
+            var result = _LivelihoodMonthApplication?.Edit(command);
             return new JsonResult(result);
         }
-        public JsonResult OnGetInActive(int id)
+        public JsonResult OnGetInActive(long id)
         {
-            var result = _LivelihoodApplication?.InActive(id);
-            if (result.IsSuccedded == true)
-            {
-                var lm = _livelihoodMonthApplication.GetViewModel().Where(x => x.LivelihoodId == id).ToList();
-                if (lm.Count() != 0)
-                {
-                    foreach (var item in lm)
-                    {
-                        _livelihoodMonthApplication.Delete(item.Id);
-                    }
-                    _personsModels.LivelihoodMonthModelss();
-                }
-            }
+            var result = _LivelihoodMonthApplication?.InActive(id);
             return new JsonResult(result);
         }
-        public JsonResult OnGetActive(int id)
+        public JsonResult OnGetActive(long id)
         {
-            var result = _LivelihoodApplication?.Active(id);
-            if (result.IsSuccedded == true)
-            {
-                var lm = _livelihoodMonthApplication.GetViewModel().Where(x => x.LivelihoodId == id).ToList();
-                if (lm.Count() != 0)
-                {
-                    foreach (var item in lm)
-                    {
-                        _livelihoodMonthApplication.Delete(item.Id);
-                    }
-                    _personsModels.LivelihoodMonthModelss();
-                }
-            }
+            var result = _LivelihoodMonthApplication?.Active(id);
             return new JsonResult(result);
         }
-        public JsonResult OnGetRemove(int id)
+        public JsonResult OnGetRemove(long id)
         {
-            var result = _LivelihoodApplication?.Remove(id);
-            if (result.IsSuccedded == true)
-            {
-                var lm = _livelihoodMonthApplication.GetViewModel().Where(x => x.LivelihoodId == id).ToList();
-                if (lm.Count() != 0)
-                {
-                    foreach (var item in lm)
-                    {
-                        _livelihoodMonthApplication.Delete(item.Id);
-                    }
-                    _personsModels.LivelihoodMonthModelss();
-                }
-            }
+            var result = _LivelihoodMonthApplication?.Remove(id);
             return new JsonResult(result);
         }
-        public JsonResult OnGetReset(int id)
+        public JsonResult OnGetReset(long id)
         {
-            var result = _LivelihoodApplication?.Reset(id);
-            if (result.IsSuccedded == true)
-            {
-                var lm = _livelihoodMonthApplication.GetViewModel().Where(x => x.LivelihoodId == id).ToList();
-                if (lm.Count() != 0)
-                {
-                    foreach (var item in lm)
-                    {
-                        _livelihoodMonthApplication.Delete(item.Id);
-                    }
-                    _personsModels.LivelihoodMonthModelss();
-                }
-            }
+            var result = _LivelihoodMonthApplication?.Reset(id);
             return new JsonResult(result);
         }
-        public JsonResult OnGetDelete(int id)
+        public JsonResult OnGetDelete(long id)
         {
-            var result = _LivelihoodApplication?.Delete(id);
-            if (result.IsSuccedded == true)
-            {
-                var lm = _livelihoodMonthApplication.GetViewModel().Where(x => x.LivelihoodId == id).ToList();
-                if (lm.Count() != 0)
-                {
-                    foreach (var item in lm)
-                    {
-                        _livelihoodMonthApplication.Delete(item.Id);
-                    }
-                    _personsModels.LivelihoodMonthModelss();
-                }
-            }
+            var result = _LivelihoodMonthApplication?.Delete(id);
             return new JsonResult(result);
         }
         public IActionResult OnGetSaved(long id)
@@ -292,14 +223,14 @@ namespace ServiceHost.Areas.Admin.Pages.ManagementPersons.Livelihood
             permissionQueryModels = _permissionQueryModel?.GetGeneral();
             if (permissionQueryModels?.SavedGeneral == GeneralPermissions.SavedGeneral || permissionQueryModels?.AdminGeneral == GeneralPermissions.AdminGeneral)
             {
-                var Livelihood = _LivelihoodApplication?.GetViewModel().Where(x => x.Id == id).FirstOrDefault();
-                var commnd = new LivelihoodViewModel()
+                var LivelihoodMonth = _LivelihoodMonthApplication?.GetViewModel().Where(x => x.Id == id).FirstOrDefault();
+                var commnd = new LivelihoodMonthViewModel()
                 {
-                    SDate = Livelihood.SDate,
-                    EDate = Livelihood.EDate,
-                    UserName = Livelihood?.UserName,
-                    SaveDate = Livelihood?.SaveDate,
-                    PersonsId = Livelihood.PersonsId,
+                    Year = LivelihoodMonth.Year,
+                    Month = LivelihoodMonth.Month,
+                    UserName = LivelihoodMonth?.UserName,
+                    SaveDate = LivelihoodMonth?.SaveDate,
+                    PersonsId = LivelihoodMonth.PersonsId,
                 };
                 return Partial("./Saved", commnd);
             }
@@ -308,9 +239,14 @@ namespace ServiceHost.Areas.Admin.Pages.ManagementPersons.Livelihood
                 return Redirect("/Index");
             }
         }
-        public JsonResult OnGetName(int id)
+        public JsonResult OnGetName(long id)
         {
-            var result = _LivelihoodApplication?.GetDetails(id);
+            var result = _LivelihoodMonthApplication?.GetDetails(id);
+            return new JsonResult(result);
+        }
+        public IActionResult OnGetLivelihood(int livelihoodId)
+        {
+            var result = _LivelihoodApplication?.GetDetails(livelihoodId);
             return new JsonResult(result);
         }
     }
