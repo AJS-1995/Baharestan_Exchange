@@ -1,6 +1,5 @@
 using _0_Framework.Application;
 using _0_Framework.Application.Auth;
-using _0_Framework.Application.PersonsAuth;
 using _01_QueryManagement.Contracts.AccountingsContracts.PersonsModels;
 using _01_QueryManagement.Contracts.Permissions.General;
 using Configuration.Permissions.General;

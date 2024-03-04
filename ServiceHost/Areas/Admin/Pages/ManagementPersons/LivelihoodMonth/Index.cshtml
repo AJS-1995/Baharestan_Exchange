@@ -74,7 +74,7 @@
                                                     <ul class="dropdown-menu dropdown-menu-dark">
                                                         @if (Model.permissionQueryModels.EditGeneral == GeneralPermissions.EditGeneral || Model.permissionQueryModels.AdminGeneral == GeneralPermissions.AdminGeneral)
                                                         {
-                                                            <li><a class="dropdown-item" title="ویرایش" href="#showmodal=@Url.Page("./Index", "Edit", new { id = item.Id })">ویرایش</a></li>
+                                                            <li><a class="dropdown-item" title="ویرایش" href="#showmodal=@Url.Page("./Index", "Edit", new { personsId = item.Id })">ویرایش</a></li>
                                                         }
                                                         @if (Model.permissionQueryModels.RemoveGeneral == GeneralPermissions.RemoveGeneral || Model.permissionQueryModels.AdminGeneral == GeneralPermissions.AdminGeneral)
                                                         {
@@ -86,7 +86,7 @@
                                                         }
                                                         @if (Model.permissionQueryModels.SavedGeneral == GeneralPermissions.SavedGeneral || Model.permissionQueryModels.AdminGeneral == GeneralPermissions.AdminGeneral)
                                                         {
-                                                            <li><a class="dropdown-item" title="ثبت کننده" href="#showmodal=@Url.Page("./Index", "Saved", new { id = item.Id })">ثبت کننده</a></li>
+                                                            <li><a class="dropdown-item" title="ثبت کننده" href="#showmodal=@Url.Page("./Index", "Saved", new { personsId = item.Id })">ثبت کننده</a></li>
                                                         }
                                                     </ul>
                                                 </div>
@@ -147,7 +147,7 @@
                     }).then((result) => {
                         if (result.isConfirmed) {
                             var postData = {
-                                'id': id,
+                                'personsId': id,
                             };
                             $.ajax({
                                 ccontentType: 'application/x-www-form-urlencoded',

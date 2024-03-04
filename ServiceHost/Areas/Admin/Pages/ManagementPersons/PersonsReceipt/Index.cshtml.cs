@@ -11,6 +11,7 @@ using Contracts.ManagementPresonsContracts.PersonsReceiptContracts;
 using Contracts.ManagementPresonsContracts.PersonsMoneyExchangeContracts;
 using _01_QueryManagement.Contracts.AccountingsContracts.PersonsModels;
 using Contracts.ManagementPresonsContracts.LivelihoodMonthContracts;
+using Contracts.ManagementPresonsContracts.LivelihoodContracts;
 
 namespace ServiceHost.Areas.Admin.Pages.PersonsReceipt
 {
@@ -34,7 +35,8 @@ namespace ServiceHost.Areas.Admin.Pages.PersonsReceipt
         private readonly IPersonsModels _personsModels;
         private readonly IPersonsMoneyExchangeApplication? _personsMoneyExchangeApplication;
         private readonly ILivelihoodMonthApplication? _livelihoodMonthApplication;
-        public IndexModel(IGeneralPermissionQueryModel? permissionQueryModel, IPersonsReceiptApplication? PersonsReceiptApplication, IMoneyApplication? moneyApplication, IAuthHelper? authHelper, IPersonsApplication? personsApplication, ISafeBoxApplication? safeBoxApplication, IPersonsModels personsModels, IPersonsMoneyExchangeApplication personsMoneyExchangeApplication, ILivelihoodMonthApplication? livelihoodMonthApplication)
+        private readonly ILivelihoodApplication? _LivelihoodApplication;
+        public IndexModel(IGeneralPermissionQueryModel? permissionQueryModel, IPersonsReceiptApplication? PersonsReceiptApplication, IMoneyApplication? moneyApplication, IAuthHelper? authHelper, IPersonsApplication? personsApplication, ISafeBoxApplication? safeBoxApplication, IPersonsModels personsModels, IPersonsMoneyExchangeApplication personsMoneyExchangeApplication, ILivelihoodMonthApplication? livelihoodMonthApplication, ILivelihoodApplication? livelihoodApplication)
         {
             _permissionQueryModel = permissionQueryModel;
             _personsReceiptApplication = PersonsReceiptApplication;
@@ -45,6 +47,7 @@ namespace ServiceHost.Areas.Admin.Pages.PersonsReceipt
             _personsModels = personsModels;
             _personsMoneyExchangeApplication = personsMoneyExchangeApplication;
             _livelihoodMonthApplication = livelihoodMonthApplication;
+            _LivelihoodApplication = livelihoodApplication;
         }
         public IActionResult OnGet(int personsId)
         {
@@ -309,6 +312,11 @@ namespace ServiceHost.Areas.Admin.Pages.PersonsReceipt
         public JsonResult OnGetNameLM(int id)
         {
             var result = _livelihoodMonthApplication?.GetDetails(id);
+            return new JsonResult(result);
+        }
+        public IActionResult OnGetLivelihood(int livelihoodId)
+        {
+            var result = _LivelihoodApplication?.GetDetails(livelihoodId);
             return new JsonResult(result);
         }
     }

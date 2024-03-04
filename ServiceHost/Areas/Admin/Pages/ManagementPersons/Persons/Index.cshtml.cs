@@ -1,8 +1,10 @@
 using _0_Framework.Application.Auth;
+using _01_QueryManagement.Contracts.AccountingsContracts.PersonsModels;
 using _01_QueryManagement.Contracts.Permissions.General;
 using Configuration.Permissions.General;
 using Contracts.AgenciesContracts;
 using Contracts.ManagementPresonsContracts.PersonsContracts;
+using Domin.ManagementPresonsDomin.PersonsDomin;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 
@@ -14,15 +16,18 @@ namespace ServiceHost.Areas.Admin.Pages.Persons
         public GeneralPermissionQueryModel? permissionQueryModels;
         private readonly IGeneralPermissionQueryModel? _permissionQueryModel;
         public List<PersonsViewModel>? Persons;
+        public List<PersonsModels>? PersonsAccounting;
         private readonly IPersonsApplication? _personsApplication;
         private readonly IAuthHelper? _authHelper;
         private readonly IAgenciesApplication? _agenciesApplication;
-        public IndexModel(IGeneralPermissionQueryModel? permissionQueryModel, IPersonsApplication? personsApplication, IAuthHelper? authHelper, IAgenciesApplication? agenciesApplication)
+        private readonly IPersonsModels _personsModels;
+        public IndexModel(IGeneralPermissionQueryModel? permissionQueryModel, IPersonsApplication? personsApplication, IAuthHelper? authHelper, IAgenciesApplication? agenciesApplication, IPersonsModels personsModels)
         {
             _permissionQueryModel = permissionQueryModel;
             _personsApplication = personsApplication;
             _authHelper = authHelper;
             _agenciesApplication = agenciesApplication;
+            _personsModels = personsModels;
         }
         public IActionResult OnGet()
         {
@@ -35,10 +40,12 @@ namespace ServiceHost.Areas.Admin.Pages.Persons
                 if (idAgencies != 0)
                 {
                     Persons = _personsApplication?.GetViewModel(idAgencies);
+                    PersonsAccounting = _personsModels?.PersonsAccountingModelss(idAgencies);
                 }
                 else
                 {
                     Persons = _personsApplication?.GetViewModel();
+                    PersonsAccounting = _personsModels?.PersonsAccountingModelss();
                 }
                 return Page();
             }

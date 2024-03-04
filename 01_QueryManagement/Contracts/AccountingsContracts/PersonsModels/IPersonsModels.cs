@@ -6,5 +6,7 @@ namespace _01_QueryManagement.Contracts.AccountingsContracts.PersonsModels
     {
         List<PersonsModels>? PersonsModelss();
         OperationResult LivelihoodMonthModelss();
+        List<PersonsModels>? PersonsAccountingModelss(int agenciesId);
+        List<PersonsModels>? PersonsAccountingModelss();
     }
 }

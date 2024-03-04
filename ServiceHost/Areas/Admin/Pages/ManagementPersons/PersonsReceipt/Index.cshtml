@@ -315,19 +315,11 @@
                                                         <ul class="dropdown-menu dropdown-menu-dark">
                                                             @if (Model.permissionQueryModels.EditGeneral == GeneralPermissions.EditGeneral || Model.permissionQueryModels.AdminGeneral == GeneralPermissions.AdminGeneral)
                                                             {
-                                                                <li><a class="dropdown-item" title="ویرایش" href="#showmodal=@Url.Page("/ManagementPersons/LivelihoodMonth/Index", "Edit", new { id = item.Id })">ویرایش</a></li>
-                                                            }
-                                                            @if (Model.permissionQueryModels.RemoveGeneral == GeneralPermissions.RemoveGeneral || Model.permissionQueryModels.AdminGeneral == GeneralPermissions.AdminGeneral)
-                                                            {
-                                                                <li><a class="dropdown-item" title="حذف" onclick="RemoveLM(@item.Id)">حذف</a></li>
-                                                            }
-                                                            @if (Model.permissionQueryModels.ActiveGeneral == GeneralPermissions.ActiveGeneral || Model.permissionQueryModels.AdminGeneral == GeneralPermissions.AdminGeneral)
-                                                            {
-                                                                <li><a class="dropdown-item" title="غیر فعال" onclick="InActiveLM(@item.Id)">غیرفعال</a></li>
+                                                                <li><a class="dropdown-item" title="ویرایش" href="#showmodal=@Url.Page("/ManagementPersons/LivelihoodMonth/Index", "Edit", new { personsId = item.Id })">ویرایش</a></li>
                                                             }
                                                             @if (Model.permissionQueryModels.SavedGeneral == GeneralPermissions.SavedGeneral || Model.permissionQueryModels.AdminGeneral == GeneralPermissions.AdminGeneral)
                                                             {
-                                                                <li><a class="dropdown-item" title="ثبت کننده" href="#showmodal=@Url.Page("/ManagementPersons/LivelihoodMonth/Index", "Saved", new { id = item.Id })">ثبت کننده</a></li>
+                                                                <li><a class="dropdown-item" title="ثبت کننده" href="#showmodal=@Url.Page("/ManagementPersons/LivelihoodMonth/Index", "Saved", new { personsId = item.Id })">ثبت کننده</a></li>
                                                             }
                                                         </ul>
                                                     </div>
@@ -1048,301 +1040,23 @@
         }
     </script>
     <script>
-        function InActiveLM(id) {
-            var postData = {
-                'id': id,
-            };
-            $.ajax({
-                ccontentType: 'application/x-www-form-urlencoded',
-                dataType: 'json',
-                type: "GET",
-                url: "@Url.Page("./Index", "NameLM")",
-                data: postData,
-                success: function (date) {
-                    Swal.fire({
-                        title: 'آیا میخواهید معاش کارمندان تاریخ  ' + date.year + ' - ' + date.month + ' غیرفعال شود؟',
-                        text: "پس میتوانید فعال کنید !",
-                        icon: 'warning',
-                        showCancelButton: true,
-                        confirmButtonColor: '#3085d6',
-                        cancelButtonColor: '#d33',
-                        cancelButtonText: 'خیر',
-                        confirmButtonText: 'بلی'
-                    }).then((result) => {
-                        if (result.isConfirmed) {
-                            var postData = {
-                                'id': id,
-                            };
-                            $.ajax({
-                                ccontentType: 'application/x-www-form-urlencoded',
-                                dataType: 'json',
-                                type: "GET",
-                                url: "@Url.Page("/ManagementPersons/LivelihoodMonth/Index", "InActive")",
-                                data: postData,
-                                success: function (date) {
-                                    if (date.isSuccedded == true) {
-                                        Swal.fire({
-                                            position: 'center',
-                                            icon: 'success',
-                                            title: date.message,
-                                            showConfirmButton: false,
-                                            timer: 2000
-                                        });
-                                        setTimeout(function () {
-                                            window.location.reload(1);
-                                        }, 2500);
-                                    } else {
-                                        Swal.fire({
-                                            position: 'center',
-                                            icon: 'warning',
-                                            title: date.message,
-                                            showConfirmButton: false,
-                                            timer: 2000
-                                        });
-                                    }
-                                },
-                            });
-                        }
-                    });
-                },
-            });
-        }
-        function ActiveLM(id) {
-            var postData = {
-                'id': id,
-            };
-            $.ajax({
-                ccontentType: 'application/x-www-form-urlencoded',
-                dataType: 'json',
-                type: "GET",
-                url: "@Url.Page("./Index", "NameLM")",
-                data: postData,
-                success: function (date) {
-                    Swal.fire({
-                        title: 'آیا میخواهید معاش تاریخ  ' + date.year + ' - ' + date.month + ' فعال شود؟',
-                        text: "پس میتوانید غیر فعال کنید !",
-                        icon: 'warning',
-                        showCancelButton: true,
-                        confirmButtonColor: '#3085d6',
-                        cancelButtonColor: '#d33',
-                        cancelButtonText: 'خیر',
-                        confirmButtonText: 'بلی'
-                    }).then((result) => {
-                        if (result.isConfirmed) {
-                            var postData = {
-                                'id': id,
-                            };
-                            $.ajax({
-                                ccontentType: 'application/x-www-form-urlencoded',
-                                dataType: 'json',
-                                type: "GET",
-                                url: "@Url.Page("/ManagementPersons/LivelihoodMonth/Index", "Active")",
-                                data: postData,
-                                success: function (date) {
-                                    if (date.isSuccedded == true) {
-                                        Swal.fire({
-                                            position: 'center',
-                                            icon: 'success',
-                                            title: date.message,
-                                            showConfirmButton: false,
-                                            timer: 2000
-                                        });
-                                        setTimeout(function () {
-                                            window.location.reload(1);
-                                        }, 2500);
-                                    } else {
-                                        Swal.fire({
-                                            position: 'center',
-                                            icon: 'warning',
-                                            title: date.message,
-                                            showConfirmButton: false,
-                                            timer: 2000
-                                        });
-                                    }
-                                },
-                            });
-                        }
-                    });
-                },
-            });
-        }
-
-        function RemoveLM(id) {
-            var postData = {
-                'id': id,
-            };
-            $.ajax({
-                ccontentType: 'application/x-www-form-urlencoded',
-                dataType: 'json',
-                type: "GET",
-                url: "@Url.Page("./Index", "NameLM")",
-                data: postData,
-                success: function (date) {
-                    Swal.fire({
-                        title: 'آیا میخواهید معاش کارمندان تاریخ  ' + date.year + ' - ' + date.month + ' حذف شود؟',
-                        text: "پس میتوانید بازیابی کنید !",
-                        icon: 'warning',
-                        showCancelButton: true,
-                        confirmButtonColor: '#3085d6',
-                        cancelButtonColor: '#d33',
-                        cancelButtonText: 'خیر',
-                        confirmButtonText: 'بلی'
-                    }).then((result) => {
-                        if (result.isConfirmed) {
-                            var postData = {
-                                'id': id,
-                            };
-                            $.ajax({
-                                ccontentType: 'application/x-www-form-urlencoded',
-                                dataType: 'json',
-                                type: "GET",
-                                url: "@Url.Page("/ManagementPersons/LivelihoodMonth/Index", "Remove")",
-                                data: postData,
-                                success: function (date) {
-                                    if (date.isSuccedded == true) {
-                                        Swal.fire({
-                                            position: 'center',
-                                            icon: 'success',
-                                            title: date.message,
-                                            showConfirmButton: false,
-                                            timer: 2000
-                                        });
-                                        setTimeout(function () {
-                                            window.location.reload(1);
-                                        }, 2500);
-                                    } else {
-                                        Swal.fire({
-                                            position: 'center',
-                                            icon: 'warning',
-                                            title: date.message,
-                                            showConfirmButton: false,
-                                            timer: 2000
-                                        });
-                                    }
-                                },
-                            });
-                        }
-                    });
-                },
-            });
-        }
-        function ResetLM(id) {
-            var postData = {
-                'id': id,
-            };
-            $.ajax({
-                ccontentType: 'application/x-www-form-urlencoded',
-                dataType: 'json',
-                type: "GET",
-                url: "@Url.Page("./Index", "NameLM")",
-                data: postData,
-                success: function (date) {
-                    Swal.fire({
-                        title: 'آیا میخواهید معاش کارمندان تاریخ  ' + date.year + ' - ' + date.month + ' بازیابی شود؟',
-                        text: "پس میتوانید حذف کنید !",
-                        icon: 'warning',
-                        showCancelButton: true,
-                        confirmButtonColor: '#3085d6',
-                        cancelButtonColor: '#d33',
-                        cancelButtonText: 'خیر',
-                        confirmButtonText: 'بلی'
-                    }).then((result) => {
-                        if (result.isConfirmed) {
-                            var postData = {
-                                'id': id,
-                            };
-                            $.ajax({
-                                ccontentType: 'application/x-www-form-urlencoded',
-                                dataType: 'json',
-                                type: "GET",
-                                url: "@Url.Page("/ManagementPersons/LivelihoodMonth/Index", "Reset")",
-                                data: postData,
-                                success: function (date) {
-                                    if (date.isSuccedded == true) {
-                                        Swal.fire({
-                                            position: 'center',
-                                            icon: 'success',
-                                            title: date.message,
-                                            showConfirmButton: false,
-                                            timer: 2000
-                                        });
-                                        setTimeout(function () {
-                                            window.location.reload(1);
-                                        }, 2500);
-                                    } else {
-                                        Swal.fire({
-                                            position: 'center',
-                                            icon: 'warning',
-                                            title: date.message,
-                                            showConfirmButton: false,
-                                            timer: 2000
-                                        });
-                                    }
-                                },
-                            });
-                        }
-                    });
-                },
-            });
-        }
-        function DeleteLM(id) {
-            var postData = {
-                'id': id,
-            };
-            $.ajax({
-                ccontentType: 'application/x-www-form-urlencoded',
-                dataType: 'json',
-                type: "GET",
-                url: "@Url.Page("./Index", "NameLM")",
-                data: postData,
-                success: function (date) {
-                    Swal.fire({
-                        title: 'آیا میخواهید معاش کارمندان تاریخ  ' + date.year + ' - ' + date.month + ' کامل حذف شود؟',
-                        text: "پس نمیتوانید بازیابی کنید !",
-                        icon: 'warning',
-                        showCancelButton: true,
-                        confirmButtonColor: '#3085d6',
-                        cancelButtonColor: '#d33',
-                        cancelButtonText: 'خیر',
-                        confirmButtonText: 'بلی'
-                    }).then((result) => {
-                        if (result.isConfirmed) {
-                            var postData = {
-                                'id': id,
-                            };
-                            $.ajax({
-                                ccontentType: 'application/x-www-form-urlencoded',
-                                dataType: 'json',
-                                type: "GET",
-                                url: "@Url.Page("/ManagementPersons/LivelihoodMonth/Index", "Delete")",
-                                data: postData,
-                                success: function (date) {
-                                    if (date.isSuccedded == true) {
-                                        Swal.fire({
-                                            position: 'center',
-                                            icon: 'success',
-                                            title: date.message,
-                                            showConfirmButton: false,
-                                            timer: 2000
-                                        });
-                                        setTimeout(function () {
-                                            window.location.reload(1);
-                                        }, 2500);
-                                    } else {
-                                        Swal.fire({
-                                            position: 'center',
-                                            icon: 'warning',
-                                            title: date.message,
-                                            showConfirmButton: false,
-                                            timer: 2000
-                                        });
-                                    }
-                                },
-                            });
-                        }
-                    });
-                },
-            });
+        function livelihood(livelihoodId) {
+            if (livelihoodId != "") {
+                var postData = {
+                    'livelihoodId': livelihoodId,
+                };
+                $.ajax({
+                    ccontentType: 'application/x-www-form-urlencoded',
+                    dataType: 'json',
+                    type: "GET",
+                    url: "@Url.Page("./Index", "Livelihood")",
+                    data: postData,
+                    success: function (date) {
+                        document.getElementById('Amount').value = date.amount;
+                        document.getElementById('MoneyId').value = date.moneyId;
+                    },
+                });
+            }
         }
     </script>
 }
