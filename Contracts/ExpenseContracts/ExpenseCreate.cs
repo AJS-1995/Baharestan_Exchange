@@ -1,5 +1,6 @@
 ﻿using _0_Framework.Application;
 using Contracts.AgenciesContracts;
+using Contracts.ManagementPresonsContracts.PersonsContracts;
 using Contracts.MoneyContracts;
 using Contracts.SafeBoxContracts;
 using Microsoft.AspNetCore.Http;
@@ -25,5 +26,6 @@ namespace Contracts.ExpenseContracts
         public List<CollectionViewModel>? Collections { get; set; }
         public List<SafeBoxViewModel>? SafeBoxs { get; set; }
         public List<MoneyViewModel>? Moneys { get; set; }
+        public List<PersonsViewModel>? Persons { get; set; }
     }
 }

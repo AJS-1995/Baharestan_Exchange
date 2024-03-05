@@ -191,7 +191,7 @@ namespace Infrastructure.Repository.ManagementPresonsRepository
                     Fingerprint = x.Fingerprint,
                     Picture = x.Picture,
                 });
-            var result = query.OrderByDescending(x => x.Id).ToList();
+            var result = query.OrderByDescending(x => x.Date).ToList();
             result.ForEach(item => item.UserName = (users.FirstOrDefault(x => x.Id == item.UserId)?.FullName) + " - " + users.FirstOrDefault(x => x.Id == item.UserId)?.UserName);
             return result;
         }
@@ -224,7 +224,7 @@ namespace Infrastructure.Repository.ManagementPresonsRepository
                     Fingerprint = x.Fingerprint,
                     Picture = x.Picture,
                 });
-            var result = query.OrderByDescending(x => x.Id).ToList();
+            var result = query.OrderByDescending(x => x.Date).ToList();
             result.ForEach(item => item.UserName = (users.FirstOrDefault(x => x.Id == item.UserId)?.FullName) + " - " + users.FirstOrDefault(x => x.Id == item.UserId)?.UserName);
             return result;
         }

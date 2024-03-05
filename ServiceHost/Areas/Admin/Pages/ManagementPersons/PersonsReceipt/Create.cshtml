@@ -39,19 +39,13 @@
             </div>
         </div>
         <div class="row">
-            <div class="col-sm-4">
+            <div class="col-sm-6">
                 <div class="form-group">
                     <label class="form-label" asp-for="By">توسط</label>
                     <input id="By" type="text" class="form-control" asp-for="By">
                 </div>
             </div>
-            <div class="col-sm-4">
-                <div class="form-group">
-                    <label class="form-label" asp-for="ReceiptNumber">شماره فاکتور</label>
-                    <input id="ReceiptNumber" type="text" class="form-control" asp-for="ReceiptNumber">
-                </div>
-            </div>
-            <div class="col-sm-4">
+            <div class="col-sm-6">
                 <div class="form-group">
                     <label class="form-label" asp-for="Amount">مقدار</label>
                     <input id="Amount" type="text" class="form-control input-mask text-start" oninput="moneys(this.value)" data-inputmask="'alias': 'numeric'"

@@ -2,7 +2,6 @@
 using _0_Framework.Application;
 using Domin.ManagementPresonsDomin.PersonsReceiptDomin;
 using Contracts.ManagementPresonsContracts.PersonsReceiptContracts;
-using _0_Framework.Application.PersonsAuth;
 
 namespace Application.ManagementPresonsApplication
 {
@@ -36,7 +35,7 @@ namespace Application.ManagementPresonsApplication
                 agenciesId = command.AgenciesId;
             }
 
-            if (_personsReceiptRepository.Exists(x => x.Date == command.Date && x.Description == command.Description && x.AgenciesId == command.AgenciesId))
+            if (_personsReceiptRepository.Exists(x => x.Date == command.Date && x.Description == command.Description && x.AgenciesId == command.AgenciesId && x.Amount == command.Amount))
                 return operation.Failed(ApplicationMessages.DuplicatedRecord);
 
             var logoPath = "PersonsReceipts";
@@ -49,6 +48,8 @@ namespace Application.ManagementPresonsApplication
             var PicturePath = _fileUploader.Upload(command.Picture, logoPath, Picturename);
             if (PicturePath == "no")
                 return operation.Failed(ApplicationMessages.PhotoFormat);
+
+            command.ReceiptNumber = DateTime.Now.ToSerialNumber();
 
             var result = new PersonsReceipt(command.Date, command.Description, command.By, command.ReceiptNumber,
                 command.Type, command.Amount, command.SafeBoxId, command.MoneyId, command.PersonsId, FingerprintPath, PicturePath, userid, agenciesId);
@@ -89,7 +90,7 @@ namespace Application.ManagementPresonsApplication
                 agenciesId = command.AgenciesId;
             }
 
-            if (_personsReceiptRepository.Exists(x => x.Date == command.Date && x.Description == command.Description && x.AgenciesId == command.AgenciesId && x.Id != command.Id))
+            if (_personsReceiptRepository.Exists(x => x.Date == command.Date && x.Description == command.Description && x.AgenciesId == command.AgenciesId && x.Amount == command.Amount && x.Id != command.Id))
                 return operation.Failed(ApplicationMessages.DuplicatedRecord);
 
             if (command.Fingerprint != null)
@@ -109,6 +110,7 @@ namespace Application.ManagementPresonsApplication
                 }
             }
             var logoPath = "PersonsReceipts";
+
             var FingerprintPath = command.Fingerprint?.ToString();
             var PicturePath = command.Picture?.ToString();
             if (command.Fingerprint != null)
@@ -126,6 +128,7 @@ namespace Application.ManagementPresonsApplication
                     return operation.Failed(ApplicationMessages.PhotoFormat);
             }
 
+            command.ReceiptNumber = result.ReceiptNumber;
             result.Edit(command.Date, command.Description, command.By, command.ReceiptNumber,
                 command.Type, command.Amount, command.SafeBoxId, command.MoneyId, command.PersonsId, FingerprintPath, PicturePath, userid, agenciesId);
             _personsReceiptRepository.SaveChanges();

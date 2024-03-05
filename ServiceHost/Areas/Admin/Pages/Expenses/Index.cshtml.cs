@@ -5,6 +5,7 @@ using _01_QueryManagement.Contracts.Permissions.General;
 using Configuration.Permissions.General;
 using Contracts.AgenciesContracts;
 using Contracts.ExpenseContracts;
+using Contracts.ManagementPresonsContracts.PersonsContracts;
 using Contracts.MoneyContracts;
 using Contracts.SafeBoxContracts;
 using Microsoft.AspNetCore.Mvc;
@@ -24,7 +25,8 @@ namespace ServiceHost.Areas.Admin.Pages.Expenses
         private readonly IMoneyApplication? _moneyApplication;
         private readonly IAuthHelper? _authHelper;
         private readonly IAgenciesApplication? _agenciesApplication;
-        public IndexModel(IGeneralPermissionQueryModel? permissionQueryModel, IExpenseApplication? ExpenseApplication, ICollectionApplication? CollectionApplication, ISafeBoxApplication? safeBoxApplication, IMoneyApplication? moneyApplication, IAuthHelper? authHelper, IAgenciesApplication? agenciesApplication)
+        private readonly IPersonsApplication? _personsApplication;
+        public IndexModel(IGeneralPermissionQueryModel? permissionQueryModel, IExpenseApplication? ExpenseApplication, ICollectionApplication? CollectionApplication, ISafeBoxApplication? safeBoxApplication, IMoneyApplication? moneyApplication, IAuthHelper? authHelper, IAgenciesApplication? agenciesApplication, IPersonsApplication? personsApplication)
         {
             _permissionQueryModel = permissionQueryModel;
             _ExpenseApplication = ExpenseApplication;
@@ -33,6 +35,7 @@ namespace ServiceHost.Areas.Admin.Pages.Expenses
             _moneyApplication = moneyApplication;
             _authHelper = authHelper;
             _agenciesApplication = agenciesApplication;
+            _personsApplication = personsApplication;
         }
         public IActionResult OnGet()
         {
@@ -64,9 +67,11 @@ namespace ServiceHost.Areas.Admin.Pages.Expenses
             {
                 var agenciesId = _authHelper.CurrentAgenciesId();
                 var SafeBox = _safeBoxApplication?.GetViewModel();
+                var persons = _personsApplication?.GetViewModel().Where(x => x.Personnel == true).ToList();
                 if (agenciesId != 0)
                 {
                     SafeBox = _safeBoxApplication?.GetViewModel(agenciesId);
+                    persons = _personsApplication?.GetViewModel(agenciesId).Where(x => x.Personnel == true).ToList();
                 }
                 var command = new ExpenseCreate()
                 {
@@ -75,6 +80,7 @@ namespace ServiceHost.Areas.Admin.Pages.Expenses
                     Collections = _CollectionApplication?.GetViewModel(),
                     Date = DateTime.Now.ToFarsi(),
                     SafeBoxs = SafeBox,
+                    Persons = persons,
                     Moneys = _moneyApplication?.GetViewModel()
                 };
                 return Partial("./Create", command);
@@ -166,10 +172,12 @@ namespace ServiceHost.Areas.Admin.Pages.Expenses
                 if (agenciesId != 0)
                 {
                     result.SafeBoxs = _safeBoxApplication?.GetViewModel(agenciesId);
+                    result.Persons = _personsApplication?.GetViewModel(agenciesId).Where(x => x.Personnel == true).ToList();
                 }
                 else
                 {
                     result.SafeBoxs = _safeBoxApplication?.GetViewModel();
+                    result.Persons = _personsApplication?.GetViewModel().Where(x => x.Personnel == true).ToList();
                 }
                 result.Moneys = _moneyApplication?.GetViewModel();
                 return Partial("Edit", result);

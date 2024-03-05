@@ -1,6 +1,7 @@
 using _01_QueryManagement.Contracts.Permissions.General;
 using Configuration.Permissions.General;
 using Contracts.AgenciesContracts;
+using Contracts.CompanyContracts;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 
@@ -12,10 +13,12 @@ namespace ServiceHost.Areas.Admin.Pages.Agencies
         private readonly IGeneralPermissionQueryModel? _permissionQueryModel;
         public List<AgenciesViewModel>? Agencies;
         private readonly IAgenciesApplication? _AgenciesApplication;
-        public IndexModel(IGeneralPermissionQueryModel? permissionQueryModel, IAgenciesApplication? AgenciesApplication)
+        private readonly ICompanyApplication? _CompanyApplication;
+        public IndexModel(IGeneralPermissionQueryModel? permissionQueryModel, IAgenciesApplication? AgenciesApplication, ICompanyApplication? companyApplication)
         {
             _permissionQueryModel = permissionQueryModel;
             _AgenciesApplication = AgenciesApplication;
+            _CompanyApplication = companyApplication;
         }
         public IActionResult OnGet()
         {
@@ -45,6 +48,7 @@ namespace ServiceHost.Areas.Admin.Pages.Agencies
         }
         public JsonResult OnPostCreate(AgenciesCreate command)
         {
+            command.CompanyId = _CompanyApplication.GetViewModel().FirstOrDefault().Id;
             var result = _AgenciesApplication?.Create(command);
             return new JsonResult(result);
         }
@@ -95,6 +99,7 @@ namespace ServiceHost.Areas.Admin.Pages.Agencies
         }
         public JsonResult OnPostEdit(AgenciesEdit command)
         {
+            command.CompanyId = _CompanyApplication.GetViewModel().FirstOrDefault().Id;
             var result = _AgenciesApplication?.Edit(command);
             return new JsonResult(result);
         }

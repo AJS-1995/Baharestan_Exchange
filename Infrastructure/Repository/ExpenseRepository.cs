@@ -35,6 +35,7 @@ namespace Infrastructure.Repository
             var moneys = _context.Moneies.Select(x => new { x.Id, x.Symbol }).ToList();
             var safeBox = _context.SafeBoxs.Select(x => new { x.Id, x.Name }).ToList();
             var agencies = _context.Agenciess.Select(x => new { x.Id, x.Name }).ToList();
+            var persons = _context.Personss.Select(x => new { x.Id, x.Name }).ToList();
             var query = _context.Expensess.Where(x => x.Status == false).Include(x => x.Collection).Select(x => new ExpenseViewModel
             {
                 Id = x.Id,
@@ -59,6 +60,7 @@ namespace Infrastructure.Repository
             result.ForEach(item => item.MoneyName = moneys.FirstOrDefault(x => x.Id == item.MoneyId)?.Symbol);
             result.ForEach(item => item.SafeBoxName = safeBox.FirstOrDefault(x => x.Id == item.SafeBoxId)?.Name);
             result.ForEach(item => item.AgenciesName = agencies.FirstOrDefault(x => x.Id == item.AgenciesId)?.Name);
+            result.ForEach(item => item.PersonnelName = persons.FirstOrDefault(x => x.Id == item.PersonnelId)?.Name);
             return result;
         }
         public List<ExpenseViewModel> GetInActive(int agenciesId)
@@ -67,6 +69,7 @@ namespace Infrastructure.Repository
             var moneys = _context.Moneies.Select(x => new { x.Id, x.Symbol }).ToList();
             var safeBox = _context.SafeBoxs.Select(x => new { x.Id, x.Name }).ToList();
             var agencies = _context.Agenciess.Select(x => new { x.Id, x.Name }).ToList();
+            var persons = _context.Personss.Select(x => new { x.Id, x.Name }).ToList();
             var query = _context.Expensess.Where(x => x.Status == false && x.AgenciesId == agenciesId).Include(x => x.Collection).Select(x => new ExpenseViewModel
             {
                 Id = x.Id,
@@ -91,6 +94,7 @@ namespace Infrastructure.Repository
             result.ForEach(item => item.MoneyName = moneys.FirstOrDefault(x => x.Id == item.MoneyId)?.Symbol);
             result.ForEach(item => item.SafeBoxName = safeBox.FirstOrDefault(x => x.Id == item.SafeBoxId)?.Name);
             result.ForEach(item => item.AgenciesName = agencies.FirstOrDefault(x => x.Id == item.AgenciesId)?.Name);
+            result.ForEach(item => item.PersonnelName = persons.FirstOrDefault(x => x.Id == item.PersonnelId)?.Name);
             return result;
         }
         public List<ExpenseViewModel> GetRemove()
@@ -99,6 +103,7 @@ namespace Infrastructure.Repository
             var moneys = _context.Moneies.Select(x => new { x.Id, x.Symbol }).ToList();
             var safeBox = _context.SafeBoxs.Select(x => new { x.Id, x.Name }).ToList();
             var agencies = _context.Agenciess.Select(x => new { x.Id, x.Name }).ToList();
+            var persons = _context.Personss.Select(x => new { x.Id, x.Name }).ToList();
             var query = _context.Expensess.Where(x => x.Deleted == true).Include(x => x.Collection).Select(x => new ExpenseViewModel
             {
                 Id = x.Id,
@@ -123,6 +128,7 @@ namespace Infrastructure.Repository
             result.ForEach(item => item.MoneyName = moneys.FirstOrDefault(x => x.Id == item.MoneyId)?.Symbol);
             result.ForEach(item => item.SafeBoxName = safeBox.FirstOrDefault(x => x.Id == item.SafeBoxId)?.Name);
             result.ForEach(item => item.AgenciesName = agencies.FirstOrDefault(x => x.Id == item.AgenciesId)?.Name);
+            result.ForEach(item => item.PersonnelName = persons.FirstOrDefault(x => x.Id == item.PersonnelId)?.Name);
             return result;
         }
         public List<ExpenseViewModel> GetRemove(int agenciesId)
@@ -131,6 +137,7 @@ namespace Infrastructure.Repository
             var moneys = _context.Moneies.Select(x => new { x.Id, x.Symbol }).ToList();
             var safeBox = _context.SafeBoxs.Select(x => new { x.Id, x.Name }).ToList();
             var agencies = _context.Agenciess.Select(x => new { x.Id, x.Name }).ToList();
+            var persons = _context.Personss.Select(x => new { x.Id, x.Name }).ToList();
             var query = _context.Expensess.Where(x => x.Deleted == true && x.AgenciesId == agenciesId).Include(x => x.Collection).Select(x => new ExpenseViewModel
             {
                 Id = x.Id,
@@ -155,6 +162,7 @@ namespace Infrastructure.Repository
             result.ForEach(item => item.MoneyName = moneys.FirstOrDefault(x => x.Id == item.MoneyId)?.Symbol);
             result.ForEach(item => item.SafeBoxName = safeBox.FirstOrDefault(x => x.Id == item.SafeBoxId)?.Name);
             result.ForEach(item => item.AgenciesName = agencies.FirstOrDefault(x => x.Id == item.AgenciesId)?.Name);
+            result.ForEach(item => item.PersonnelName = persons.FirstOrDefault(x => x.Id == item.PersonnelId)?.Name);
             return result;
         }
         public List<ExpenseViewModel> GetViewModel()
@@ -163,6 +171,7 @@ namespace Infrastructure.Repository
             var moneys = _context.Moneies.Select(x => new { x.Id, x.Symbol }).ToList();
             var safeBox = _context.SafeBoxs.Select(x => new { x.Id, x.Name }).ToList();
             var agencies = _context.Agenciess.Select(x => new { x.Id, x.Name }).ToList();
+            var persons = _context.Personss.Select(x => new { x.Id, x.Name }).ToList();
             var query = _context.Expensess.Where(x => x.Status == true && x.Deleted == false).Include(x => x.Collection).Select(x => new ExpenseViewModel
             {
                 Id = x.Id,
@@ -187,6 +196,7 @@ namespace Infrastructure.Repository
             result.ForEach(item => item.MoneyName = moneys.FirstOrDefault(x => x.Id == item.MoneyId)?.Symbol);
             result.ForEach(item => item.SafeBoxName = safeBox.FirstOrDefault(x => x.Id == item.SafeBoxId)?.Name);
             result.ForEach(item => item.AgenciesName = agencies.FirstOrDefault(x => x.Id == item.AgenciesId)?.Name);
+            result.ForEach(item => item.PersonnelName = persons.FirstOrDefault(x => x.Id == item.PersonnelId)?.Name);
             return result;
         }
         public List<ExpenseViewModel> GetViewModel(int agenciesId)
@@ -195,6 +205,7 @@ namespace Infrastructure.Repository
             var moneys = _context.Moneies.Select(x => new { x.Id, x.Symbol }).ToList();
             var safeBox = _context.SafeBoxs.Select(x => new { x.Id, x.Name }).ToList();
             var agencies = _context.Agenciess.Select(x => new { x.Id, x.Name }).ToList();
+            var persons = _context.Personss.Select(x => new { x.Id, x.Name }).ToList();
             var query = _context.Expensess.Where(x => x.Status == true && x.Deleted == false && x.AgenciesId == agenciesId).Include(x => x.Collection).Select(x => new ExpenseViewModel
             {
                 Id = x.Id,
@@ -219,6 +230,7 @@ namespace Infrastructure.Repository
             result.ForEach(item => item.MoneyName = moneys.FirstOrDefault(x => x.Id == item.MoneyId)?.Symbol);
             result.ForEach(item => item.SafeBoxName = safeBox.FirstOrDefault(x => x.Id == item.SafeBoxId)?.Name);
             result.ForEach(item => item.AgenciesName = agencies.FirstOrDefault(x => x.Id == item.AgenciesId)?.Name);
+            result.ForEach(item => item.PersonnelName = persons.FirstOrDefault(x => x.Id == item.PersonnelId)?.Name);
             return result;
         }
     }

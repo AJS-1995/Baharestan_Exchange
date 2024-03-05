@@ -1,6 +1,5 @@
 using _0_Framework.Application;
 using _0_Framework.Application.Auth;
-using _0_Framework.Application.PersonsAuth;
 using Contracts.AgenciesContracts;
 using Contracts.CompanyContracts;
 using Contracts.ManagementPresonsContracts.PersonsReceiptContracts;
@@ -36,18 +35,9 @@ namespace ServiceHost.Areas.Admin.Pages.ManagementPersons.PersonsReceipt
                 var company = _companyApplication?.GetViewModel().FirstOrDefault();
                 CompanyName = company?.Name;
                 CompanyLogo = company?.Logo;
-                var agenciesId = _authHelper.CurrentAgenciesId();
                 var user = _authHelper.CurrentUserInfo();
                 var agencies = new AgenciesEdit();
-                if (agenciesId != 0)
-                {
-                    agencies = _agenciesApplication?.GetDetails(agenciesId);
-                }
-                else
-                {
-                    var idag = _agenciesApplication?.GetViewModel().FirstOrDefault();
-                    agencies = _agenciesApplication?.GetDetails(idag.Id);
-                }
+                agencies = _agenciesApplication?.GetDetails(receiptEdit.AgenciesId);
                 AgenciesName = agencies?.Name;
                 AgenciesAddress = agencies?.Address;
                 UserName = user.UserName;

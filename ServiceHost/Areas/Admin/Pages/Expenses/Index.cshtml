@@ -9,32 +9,6 @@
     ViewData["title"] = "مدیریت مصارف";
     var currentAccout = AuthHelper.CurrentUserInfo();
 }
-<section class="px-15 pt-15">
-    <div class="row">
-        <div class="col-sm-12">
-            <div class="card">
-                <div class="card-header d-flex justify-content-between bb-1 border-info">
-                    <div class="header-title">
-                        @if (Model?.permissionQueryModels?.AddGeneral == GeneralPermissions.AddGeneral || Model?.permissionQueryModels?.AdminGeneral == GeneralPermissions.AdminGeneral)
-                        {
-                            <a class="btn btn-sm btn-icon btn-outline-success mx-2" title="ثبت جدید" href="#showmodal=@Url.Page("./Index", "Create")"><i class="fa-solid fa-plus fa-lg"></i></a>
-                        }
-                        @if (Model?.permissionQueryModels?.RemovedGeneral == GeneralPermissions.RemovedGeneral || Model?.permissionQueryModels?.AdminGeneral == GeneralPermissions.AdminGeneral)
-                        {
-                            <a class="btn btn-sm btn-icon btn-outline-danger mx-2" title="حذف شده ها" href="#showmodal=@Url.Page("./Index", "Removed")"><i class="fa-solid fa-trash-can fa-lg"></i></a>
-                        }
-                        @if (Model?.permissionQueryModels?.ActivedGeneral == GeneralPermissions.ActivedGeneral || Model?.permissionQueryModels?.AdminGeneral == GeneralPermissions.AdminGeneral)
-                        {
-                            <a class="btn btn-sm btn-icon btn-outline-warning mx-2" title="غیرفعال ها" href="#showmodal=@Url.Page("./Index", "Actived")"><i class="fa-solid fa-toggle-off fa-lg"></i></a>
-                        }
-                        <a class="btn btn-sm btn-icon btn-outline-primary mx-2" title="مجموعه ها" href="#showmodal=@Url.Page("./Index", "Collection")"><i class="fa-solid fa-circle-nodes fa-lg"></i></a>
-                        <a class="btn btn-sm btn-icon btn-outline-info mx-2" title="برگشت" asp-page="/Index"><i class="fa-solid fa-left-long fa-lg"></i></a>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
-</section>
 @if (Model?.permissionQueryModels?.ListGeneral == GeneralPermissions.ListGeneral || Model?.permissionQueryModels?.AdminGeneral == GeneralPermissions.AdminGeneral)
 {
     <section class="content">
@@ -43,6 +17,20 @@
                 <div class="card">
                     <div class="card-header d-flex justify-content-between bb-1 border-info">
                         <div class="header-title">
+                            @if (Model?.permissionQueryModels?.AddGeneral == GeneralPermissions.AddGeneral || Model?.permissionQueryModels?.AdminGeneral == GeneralPermissions.AdminGeneral)
+                            {
+                                <a class="btn btn-sm btn-icon btn-outline-success mx-2" title="ثبت جدید" href="#showmodal=@Url.Page("./Index", "Create")"><i class="fa-solid fa-plus fa-lg"></i></a>
+                            }
+                            @if (Model?.permissionQueryModels?.RemovedGeneral == GeneralPermissions.RemovedGeneral || Model?.permissionQueryModels?.AdminGeneral == GeneralPermissions.AdminGeneral)
+                            {
+                                <a class="btn btn-sm btn-icon btn-outline-danger mx-2" title="حذف شده ها" href="#showmodal=@Url.Page("./Index", "Removed")"><i class="fa-solid fa-trash-can fa-lg"></i></a>
+                            }
+                            @if (Model?.permissionQueryModels?.ActivedGeneral == GeneralPermissions.ActivedGeneral || Model?.permissionQueryModels?.AdminGeneral == GeneralPermissions.AdminGeneral)
+                            {
+                                <a class="btn btn-sm btn-icon btn-outline-warning mx-2" title="غیرفعال ها" href="#showmodal=@Url.Page("./Index", "Actived")"><i class="fa-solid fa-toggle-off fa-lg"></i></a>
+                            }
+                            <a class="btn btn-sm btn-icon btn-outline-primary mx-2" title="مجموعه ها" href="#showmodal=@Url.Page("./Index", "Collection")"><i class="fa-solid fa-circle-nodes fa-lg"></i></a>
+                            <a class="btn btn-sm btn-icon btn-outline-info mx-2" title="برگشت" asp-page="/Index"><i class="fa-solid fa-left-long fa-lg"></i></a>
                             <span class="card-title mx-2">لیست مصارف</span>
                         </div>
                     </div>
@@ -141,6 +129,8 @@
     <script src="~/Theme/assets/formatter/formatter.js"></script>
     <script src="~/Theme/assets/formatter/jquery.formatter.js"></script>
     <script src="~/Theme/material-rtl/js/formatter.js"></script>
+    <script src="~/Theme/assets/inputmask/min/jquery.inputmask.bundle.min.js"></script>
+    <script src="~/Theme/material-rtl/js/form-mask.init.js"></script>
     <script src="~/Theme/assets/datatable/datatables.js"></script>
     <script src="~/Theme/material-rtl/js/data-table.js"></script>
     <script>
