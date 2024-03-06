@@ -1,4 +1,5 @@
 ﻿using _01_QueryManagement.Contracts.AccountingsContracts;
+using _01_QueryManagement.Contracts.AccountingsContracts.ExpenseModels;
 using _01_QueryManagement.Contracts.AccountingsContracts.PersonsModels;
 using _01_QueryManagement.Contracts.AgenciesInfo;
 using _01_QueryManagement.Contracts.CompanyInfo;
@@ -22,6 +23,7 @@ namespace _01_QueryManagement
             services.AddTransient<IUserPermissionQueryModel, UserPermissionQuery>();
             services.AddTransient<IGeneralPermissionQueryModel, GeneralPermissionQuery>();
             services.AddTransient<IPersonsModels, PersonsQuery>();
+            services.AddTransient<IExpenseModels, ExpenseQuery>();
         }
     }
 }

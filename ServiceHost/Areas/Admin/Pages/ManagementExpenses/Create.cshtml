@@ -1,0 +1,116 @@
+﻿@model Contracts.ManagementExpenseContracts.ExpenseContracts.ExpenseCreate
+@{
+    ViewData["title"] = "ثبت مصرف جدید";
+}
+<div class="modal-header">
+    <a class="btn btn-sm btn-icon btn-outline-warning" asp-page="./Index"><i class="fa-solid fa-close fa-lg"></i></a>
+    <h4 class="modal-title">ثبت مصرف جدید</h4>
+</div>
+
+<form class="needs-validation" novalidate asp-page="./Index" asp-page-handler="Create" method="post"
+      data-ajax="true"
+      data-callback=""
+      data-action="Refresh">
+    <div class="modal-body">
+        @if (Model.IdAgencies == 0)
+        {
+            <div class="row">
+                <div class="col-sm-12">
+                    <div class="form-group">
+                        <label class="form-label" for="AgenciesId">نماینده گی</label>
+                        <select id="AgenciesId" class="form-control" required name="AgenciesId" onchange="agencies(this.value)"
+                                asp-items='new SelectList(Model.Agencies, "Id", "Name")'>
+                            <option disabled value="" selected="">نماینده گی ...</option>
+                        </select>
+                        <div class="invalid-feedback">اطلاعات باید وارد شود !</div>
+                    </div>
+                </div>
+            </div>
+        }
+        <div class="row">
+            <div class="col-sm-6">
+                <div class="form-group">
+                    <label class="form-label" asp-for="Description">توضیحات</label>
+                    <input type="text" class="form-control" required asp-for="Description" id="Description">
+                    <div class="invalid-feedback">اطلاعات باید وارد شود !</div>
+                </div>
+            </div>
+            <div class="col-sm-6">
+                <div class="form-group">
+                    <label class="form-label" asp-for="Date">تاریخ</label>
+                    <input id="Date" dir="ltr" type="text" required class="form-control" asp-for="Date" placeholder="yyyy/mm/dd" maxlength="10">
+                    <div class="invalid-feedback">اطلاعات باید وارد شود !</div>
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-sm-6">
+                <div class="form-group">
+                    <label class="form-label" asp-for="Collection_Id">مجموعه ها</label>
+                    <select class="form-control" required asp-for="Collection_Id" id="Collection_Id"
+                            asp-items='new SelectList(Model.Collections, "Id", "Name")'>
+                        <option disabled value="" selected="">مجموعه ...</option>
+                    </select>
+                    <div class="invalid-feedback">اطلاعات باید وارد شود !</div>
+                </div>
+            </div>
+            <div class="col-sm-6">
+                <div class="form-group">
+                    <label class="form-label" asp-for="N_Invoice">شماره فاکتور</label>
+                    <input type="text" class="form-control" asp-for="N_Invoice" id="N_Invoice">
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-sm-6">
+                <div class="form-group">
+                    <label class="form-label" asp-for="SafeBoxId">خزانه</label>
+                    <select class="form-control" required asp-for="SafeBoxId" id="SafeBoxId"
+                            asp-items='new SelectList(Model.SafeBoxs, "Id", "Name")'>
+                        <option disabled value="" selected="">خزانه ...</option>
+                    </select>
+                    <div class="invalid-feedback">اطلاعات باید وارد شود !</div>
+                </div>
+            </div>
+            <div class="col-sm-6">
+                <div class="form-group">
+                    <label class="form-label" asp-for="PersonnelId">کارمندان</label>
+                    <select class="form-control" required asp-for="PersonnelId" id="PersonnelId"
+                            asp-items='new SelectList(Model.Persons, "Id", "Name")'>
+                        <option disabled value="" selected="">کارمندان ...</option>
+                    </select>
+                    <div class="invalid-feedback">اطلاعات باید وارد شود !</div>
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-sm-6">
+                <div class="form-group">
+                    <label class="form-label" asp-for="Amount">مقدار</label>
+                    <input id="Amount" type="text" class="form-control input-mask text-start" data-inputmask="'alias': 'numeric'" asp-for="Amount">
+                </div>
+            </div>
+            <div class="col-sm-6">
+                <div class="form-group">
+                    <label class="form-label" asp-for="MoneyId">اسعار</label>
+                    <select class="form-control" required asp-for="MoneyId" id="MoneyId"
+                            asp-items='new SelectList(Model.Moneys, "Id", "NameSymblo")'>
+                        <option disabled value="" selected="">اسعار ...</option>
+                    </select>
+                    <div class="invalid-feedback">اطلاعات باید وارد شود !</div>
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-sm-12">
+                <div class="form-group">
+                    <label class="form-label" for="Ph_Invoice">اسکن</label>
+                    <input type="file" id="Ph_Invoice" class="form-control" asp-for="Ph_Invoice" accept="image/*">
+                </div>
+            </div>
+        </div>
+        <div class="modal-footer">
+            <button type="submit" class="btn btn-sm btn-icon btn-outline-success"><i class="fa-solid fa-save fa-lg"></i></button>
+        </div>
+    </div>
+</form>

@@ -2,7 +2,8 @@
 using Domin.CompanyDomin;
 using Domin.DailyRateDomin;
 using Domin.ExchangeRateDomin;
-using Domin.ExpenseDomin;
+using Domin.ManagementExpenseDomin.CollectionDomin;
+using Domin.ManagementExpenseDomin.ExpenseDomin;
 using Domin.ManagementPresonsDomin.LivelihoodDomin;
 using Domin.ManagementPresonsDomin.LivelihoodMonthDomin;
 using Domin.ManagementPresonsDomin.PersonsDomin;
